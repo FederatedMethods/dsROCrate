@@ -1,0 +1,25 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# dsROCrate: ‘DataSHIELD’ RO-Crate Wrapper Functions
+
+<!-- badges: start -->
+
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/dsROCrate)](https://CRAN.R-project.org/package=dsROCrate)
+<!-- badges: end -->
+
+The goal of dsROCrate is to provide functions to wrap elements from a
+‘DataSHIELD’ analysis inside an RO-Crate.
+
+## Installation
+
+You can install the development version of dsROCrate from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("DataSHIELD-5S/dsROCrate")
+```
