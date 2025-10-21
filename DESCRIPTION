@@ -18,3 +18,9 @@ Encoding: UTF-8
 Language: en-GB
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
+Imports: 
+    digest,
+    opalr,
+    rocrateR (>= 0.0.1)
+Remotes: 
+    ResearchObject/ro-crate-r
