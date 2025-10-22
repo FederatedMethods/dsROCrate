@@ -27,17 +27,20 @@ safe_project.character <- function(x, ..., rocrate = NULL) {
 
 #' @export
 safe_project.opal <- function(x, ..., rocrate = NULL, project = NULL, tables = NULL) {
+  # declare local bindings
+  created <- lastUpdate <- name <- new_dataset_entity <- NULL
+
   # x is a valid opal connection object
   # TODO validate connection
 
   # check if the given `project` exists
-  if (opalr::opal.project_exists(o, project)) {
+  if (opalr::opal.project_exists(x, project)) {
     stop("The given `project` was not found in the given Opal connection!",
          call. = FALSE)
   }
 
   # retrieve details associated to `project`
-  project_details_tbl <- opalr::opal.project(o, project)
+  project_details_tbl <- opalr::opal.project(x, project)
 
   # table names, update times etc.
   project_tables <- tryCatch({
@@ -57,7 +60,7 @@ safe_project.opal <- function(x, ..., rocrate = NULL, project = NULL, tables = N
     # TODO: include filter for some tables, similar to the following line
     # dplyr::filter(table %in% TABLES) |> # filter specific tables, set by TABLES
     purrr::pmap(function(datasource, table) {
-      table_details <- opalr::opal.table(o, datasource, table)
+      table_details <- opalr::opal.table(x, datasource, table)
       timestamps <- getElement(table_details, "timestamps")
       # create entity object
       new_dataset_entity <- rocrateR::entity(
@@ -106,6 +109,6 @@ safe_project.opal <- function(x, ..., rocrate = NULL, project = NULL, tables = N
 
 
 #' @export
-safe_projects.rocrate <- function(x, ...) {
+safe_project.rocrate <- function(x, ...) {
 
 }
