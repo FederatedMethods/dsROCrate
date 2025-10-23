@@ -30,13 +30,23 @@ safe_people.opal <- function(x, ..., rocrate = NULL) {
   # x is a valid opal connection object
   # TODO validate connection
 
+  # attempt to retrieve project entity
+  safe_project_entity <- rocrate |>
+    rocrateR::get_entity(type = "Project")
+
   # extract user information
   ## currently only username
   ## create entity for user
   user_entity <- rocrateR::entity(
     x = digest::digest(x$username),
     type = "Person",
-    name = x$username
+    name = x$username,
+    # add all projects listed in the current RO-Crate
+    memberOf = safe_project_entity |>
+      sapply("[[", "@id") |>
+      lapply(function(id) {
+        list(`@id` = id)
+      })
   )
 
   # add user to the RO-Crate
