@@ -20,6 +20,8 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Imports: 
     digest,
+    dplyr,
+    glue,
     opalr,
     purrr,
     rocrateR (>= 0.0.1),
