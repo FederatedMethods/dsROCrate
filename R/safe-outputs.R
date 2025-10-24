@@ -27,6 +27,9 @@ safe_output.character <- function(x, ..., rocrate = NULL) {
 
 #' @export
 safe_output.opal <- function(x, ..., rocrate = NULL, username = NULL) {
+  # local bindings
+  logger_name <- NULL
+
   # x is a valid opal connection object
   # TODO validate connection
 
@@ -54,7 +57,7 @@ safe_output.opal <- function(x, ..., rocrate = NULL, username = NULL) {
   }
 
   # parse logs
-  userlogs <- opalr::dsadmin.log(o) |>
+  userlogs <- opalr::dsadmin.log(x) |>
     tibble::as_tibble() |>
     dplyr::filter(logger_name == "datashield.user") |>
     dplyr::filter(username == !!username) |>
