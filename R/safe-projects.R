@@ -26,7 +26,7 @@ safe_project.character <- function(x, ..., rocrate = NULL) {
 }
 
 #' @export
-safe_project.opal <- function(x, ..., rocrate = NULL, project = NULL, tables = NULL) {
+safe_project.opal <- function(x, ..., rocrate = NULL, project = NULL, dataset_id_suffix = "#dataset:", project_id_suffix = "#project:") {
   # declare local bindings
   created <- lastUpdate <- name <- new_dataset_entity <- NULL
 
@@ -34,7 +34,8 @@ safe_project.opal <- function(x, ..., rocrate = NULL, project = NULL, tables = N
   # TODO validate connection
 
   # check if the given `project` exists
-  if (opalr::opal.project_exists(x, project)) {
+  project_exists <- opalr::opal.project_exists(x, project)
+  if (!project_exists) {
     stop("The given `project` was not found in the given Opal connection!",
          call. = FALSE)
   }
@@ -42,52 +43,28 @@ safe_project.opal <- function(x, ..., rocrate = NULL, project = NULL, tables = N
   # retrieve details associated to `project`
   project_details_tbl <- opalr::opal.project(x, project)
 
-  # table names, update times etc.
-  project_tables <- tryCatch({
-    project_details_tbl |>
-      purrr::pluck("datasource") |>
-      purrr::pluck("table") |>
-      purrr::list_c()
-  }, error = function(e) {
-    list()
-  })
-
-  # create entity objects for each dataset/table in the project
-  project_details_entities <- tibble::tibble(
-    datasource = project,
-    table = project_tables
-  ) |>
-    # TODO: include filter for some tables, similar to the following line
-    # dplyr::filter(table %in% TABLES) |> # filter specific tables, set by TABLES
-    purrr::pmap(function(datasource, table) {
-      table_details <- opalr::opal.table(x, datasource, table)
-      timestamps <- getElement(table_details, "timestamps")
-      # create entity object
-      new_dataset_entity <- rocrateR::entity(
-        x = digest::digest(paste0(datasource, "_", table)),
-        type = "Dataset",
-        dateCreated = getElement(timestamps, "created"),
-        dateModified = getElement(timestamps, "lastUpdate"),
-        path = getElement(table_details, "link")
-      )
-      # return new entity object
-      return(new_dataset_entity)
-    })
-
-  # add table entities to the `rocrate` object
-  for (i in seq_along(project_details_entities)) {
-    rocrate <- rocrate |>
-      rocrateR::add_entity(new_dataset_entity[[i]], overwrite = TRUE)
+  # attempt to retrieve the dataset entities to link up the IDs to the project
+  project_dataset_entities <- rocrate |>
+    rocrateR::get_entity(type = "Dataset")
+  # if any entity was found, then filter to keep those for which their @id
+  # starts with `dataset_id_suffix` as set by `safe_data()`
+  if (length(project_dataset_entities) > 0) {
+    idx <- project_dataset_entities |>
+      sapply("[[", "@id") |>
+      sapply(grepl, pattern = paste0("^", dataset_id_suffix))
+    # drop out entries with @id not starting with `dataset_id_suffix`
+    project_dataset_entities[!idx] <- NULL
   }
 
   # create project entity
+  timestamps <- getElement(project_details_tbl, "timestamps")
   project_entity <- rocrateR::entity(
-    x = digest::digest(name),
+    x = paste0(project_id_suffix, digest::digest(name)),
     type = "Project",
-    name = name,
-    dateCreated = created,
-    dateModified = lastUpdate,
-    hasPart = project_details_entities |>
+    name = getElement(project_details_tbl, "name"),
+    dateCreated = getElement(timestamps, "created"),
+    dateModified = getElement(timestamps, "lastUpdate"),
+    hasPart = project_dataset_entities |>
       sapply("[[", "@id") |>
       lapply(function(id) {
         list(`@id` = id)
@@ -95,7 +72,7 @@ safe_project.opal <- function(x, ..., rocrate = NULL, project = NULL, tables = N
   )
 
   # if no tables are associated to this project, then drop `hasPart`
-  if (length(project_details_entities) == 0) {
+  if (length(project_dataset_entities) == 0) {
     project_entity$hasPart <- NULL
   }
 
