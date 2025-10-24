@@ -38,7 +38,7 @@ safe_people.opal <- function(x, ..., rocrate = NULL) {
   ## currently only username
   ## create entity for user
   user_entity <- rocrateR::entity(
-    x = digest::digest(x$username),
+    x = paste0("#person:", digest::digest(x$username)),
     type = "Person",
     name = x$username,
     # add all projects listed in the current RO-Crate
@@ -51,9 +51,13 @@ safe_people.opal <- function(x, ..., rocrate = NULL) {
 
   # add user to the RO-Crate
   rocrate <- rocrate |>
-    rocrateR::add_entity(rocrate, overwrite = TRUE) |>
+    rocrateR::add_entity(user_entity, overwrite = TRUE) |>
     # link new user entity @id to the root (./) author property
-    rocrateR::add_entity_value("./", "author", getElement(rocrate, "@id"))
+    rocrateR::add_entity_value(
+      id = "./",
+      key = "author",
+      value = list(`@id` = getElement(user_entity, "@id"))
+    )
 
   # return RO-Crate with the new entity
   return(rocrate)
