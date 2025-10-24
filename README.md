@@ -158,6 +158,46 @@ basic_rocrate <- o |>
                        tables = TABLES)
 
 print(basic_rocrate)
+#> {
+#>   "@context": "https://w3id.org/ro/crate/1.2/context",
+#>   "@graph": [
+#>     {
+#>       "@id": "ro-crate-metadata.json",
+#>       "@type": "CreativeWork",
+#>       "about": {
+#>         "@id": "./"
+#>       },
+#>       "conformsTo": {
+#>         "@id": "https://w3id.org/ro/crate/1.2"
+#>       }
+#>     },
+#>     {
+#>       "@id": "./",
+#>       "@type": "Dataset",
+#>       "name": "",
+#>       "description": "",
+#>       "datePublished": "2025-10-24",
+#>       "license": {
+#>         "@id": "http://spdx.org/licenses/CC-BY-4.0"
+#>       },
+#>       "conformsTo": {
+#>         "@id": "https://w3id.org/5s-crate/0.4"
+#>       }
+#>     },
+#>     {
+#>       "@id": "https://w3id.org/5s-crate/0.4",
+#>       "@type": ["CreativeWork", "Profile"],
+#>       "name": "Five Safes RO-Crate profile"
+#>     },
+#>     {
+#>       "@id": "#dataset:53faf531f99167c645ff5555921608af",
+#>       "@type": "Dataset",
+#>       "dateCreated": "2025-10-21T14:53:43.914Z",
+#>       "dateModified": "2025-10-21T14:53:45.372Z",
+#>       "path": "/datasource/DEMO/table/CNSIM1"
+#>     }
+#>   ]
+#> }
 ```
 
 #### 1.1.5. Safe Projects
@@ -168,8 +208,7 @@ Here will add details for the safe projects, using the function
 ``` r
 basic_rocrate <- o |>
   dsROCrate::safe_project(rocrate = basic_rocrate,
-                          project = PROJECT,
-                          tables = TABLES)
+                          project = PROJECT)
 
 print(basic_rocrate)
 #> {
@@ -217,6 +256,9 @@ print(basic_rocrate)
 #>       "dateCreated": "2025-10-21T14:53:26.326Z",
 #>       "dateModified": "2025-10-21T14:53:45.372Z",
 #>       "hasPart": [
+#>         {
+#>           "@id": {}
+#>         },
 #>         {
 #>           "@id": "#dataset:53faf531f99167c645ff5555921608af"
 #>         }
@@ -284,6 +326,9 @@ print(basic_rocrate)
 #>       "dateCreated": "2025-10-21T14:53:26.326Z",
 #>       "dateModified": "2025-10-21T14:53:45.372Z",
 #>       "hasPart": [
+#>         {
+#>           "@id": {}
+#>         },
 #>         {
 #>           "@id": "#dataset:53faf531f99167c645ff5555921608af"
 #>         }
@@ -379,6 +424,9 @@ print(basic_rocrate)
 #>       "dateCreated": "2025-10-21T14:53:26.326Z",
 #>       "dateModified": "2025-10-21T14:53:45.372Z",
 #>       "hasPart": [
+#>         {
+#>           "@id": {}
+#>         },
 #>         {
 #>           "@id": "#dataset:53faf531f99167c645ff5555921608af"
 #>         }
@@ -507,7 +555,7 @@ dir.create("./rocrates", showWarnings = FALSE)
 path_to_rocrate_bag <- basic_rocrate |>
   rocrateR::bag_rocrate(path = "./rocrates")
 #> RO-Crate successfully 'bagged'!
-#> For details, see: ./rocrates/rocrate-dd5145219187238a5247dff075ea0012.zip
+#> For details, see: ./rocrates/rocrate-97fc82d4f6b415c24571c313e1a694c9.zip
 ```
 
 We can explore the contents with the following commands:
@@ -519,7 +567,7 @@ path_to_rocrate_bag |>
   rocrateR::unbag_rocrate(quiet = TRUE) |>
   # create tree with the files
   fs::dir_tree()
-#> ./rocrates/rocrate-dd5145219187238a5247dff075ea0012
+#> ./rocrates/rocrate-97fc82d4f6b415c24571c313e1a694c9
 #> ├── bagit.txt
 #> ├── data
 #> │   └── ro-crate-metadata.json

@@ -121,7 +121,7 @@ print(basic_rocrate)
 Here will add details for the safe data, using the function 
 `dsROCrate::safe_data`:
 
-```{r, eval = FALSE}
+```{r}
 basic_rocrate <- o |>
   dsROCrate::safe_data(rocrate = basic_rocrate,
                        project = PROJECT,
@@ -137,8 +137,7 @@ Here will add details for the safe projects, using the function
 ```{r}
 basic_rocrate <- o |>
   dsROCrate::safe_project(rocrate = basic_rocrate,
-                          project = PROJECT,
-                          tables = TABLES)
+                          project = PROJECT)
 
 print(basic_rocrate)
 ```
