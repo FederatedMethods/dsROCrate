@@ -8,7 +8,7 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/README-",
+  fig.path = "inst/images/README-",
   out.width = "100%"
 )
 ```
@@ -23,11 +23,202 @@ knitr::opts_chunk$set(
 The goal of dsROCrate is to provide functions to wrap elements from a 
 'DataSHIELD' analysis inside an RO-Crate.
 
-## Installation
+## 0. Installation
 
 You can install the development version of dsROCrate from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("pak")
 pak::pak("DataSHIELD-5S/dsROCrate")
+```
+
+## 1. First RO-Crate
+### 1.1. Using OBiBa's [Opal](https://opaldoc.obiba.org/en/latest/index.html) connection
+
+Here we will spawn a local instance of [DataSHIELD](https://datashield.org) with 
+[Docker](https://www.docker.com). We will assume you have installed and
+configured Docker on your computer; however, if that's not the case, visit their
+[get started with Docker](https://www.docker.com/get-started/) page.
+
+#### 1.1.1. Set up
+The easiest way to deploy DataSHIELD with docker is by cloning the following
+repo: [OllyButters/datashield_pcr](https://github.com/OllyButters/datashield_pcr).
+Here, you will find a step by step guide, including a very useful
+[`docker-compose.yml`](https://github.com/OllyButters/datashield_pcr/blob/main/docker/docker-compose.yml) 
+file, which you can use out of the box.
+
+If you are running Linux or macOS, you can run the following commands:
+
+```sh
+git clone https://github.com/OllyButters/datashield_pcr
+cd datashield_pcr/docker
+docker compose up -d
+```
+
+Then you can inspect the Docker GUI, where you should see something like the
+following:
+
+<img src="inst/images/ds_docker_compose.png" alt="Docker conf" height=200px/>
+
+#### 1.1.2. Open connection
+
+By default, the [`docker-compose.yml`](https://github.com/OllyButters/datashield_pcr/blob/main/docker/docker-compose.yml) 
+file in the repo above defines a demo user, `demo_user`, with the following 
+password: `Demo_password1!` (edit the variables `OPAL_DEMO_USER_NAME` and
+`OPAL_DEMO_USER_PASSWORD` accordingly). Here, we will open a connection to our
+local server using these credentials:
+
+```{r}
+# define global variables
+USERNAME <- "demo_user"
+USERPASS <- "Demo_password1!"
+PROJECT <- "DEMO"
+TABLES <- c("CNSIM1")
+SERVER <- "https://localhost:8843"
+PROFILE <- "demo"
+
+# login to local server with `USERNAME` and `USERPASS`.
+o <- opalr::opal.login(
+  username = USERNAME,
+  password = USERPASS,
+  url = SERVER
+)
+
+print(o)
+```
+
+#### 1.1.3. Create new RO-Crate
+
+To create a basic RO-Crate, we will use the 
+[`{rocrateR}`](https://github.com/ResearchObject/ro-crate-r) package. This 
+package can be installed with the following command:
+
+```{r, eval = FALSE, echo = TRUE}
+# install.packages("pak")
+pak::pak("ResearchObject/ro-crate-r@dev")
+```
+
+```{r, eval = FALSE, echo = FALSE}
+# NOTE: this will only be able when the package is on the CRAN!!
+# install.packages("pak")
+pak::pak("rocrateR")
+```
+
+Then, a basic RO-Crate can be create with the following command:
+
+```{r}
+basic_rocrate <- rocrateR::rocrate_5s()
+```
+
+Note that this RO-Crate uses the [5s-crate](https://trefx.uk/5s-crate/0.4)
+profile.
+
+```{r}
+print(basic_rocrate)
+```
+
+#### 1.1.4. Safe Data
+Here will add details for the safe data, using the function 
+`dsROCrate::safe_data`:
+
+```{r, eval = FALSE}
+basic_rocrate <- o |>
+  dsROCrate::safe_data(rocrate = basic_rocrate,
+                       project = PROJECT,
+                       tables = TABLES)
+
+print(basic_rocrate)
+```
+
+#### 1.1.5. Safe Projects
+Here will add details for the safe projects, using the function 
+`dsROCrate::safe_project`:
+
+```{r}
+basic_rocrate <- o |>
+  dsROCrate::safe_project(rocrate = basic_rocrate,
+                          project = PROJECT,
+                          tables = TABLES)
+
+print(basic_rocrate)
+```
+
+#### 1.1.6. Safe People
+
+Here we will add details for the safe people/user, using the function 
+`dsROCrate::safe_people`:
+
+```{r}
+basic_rocrate <- o |>
+  dsROCrate::safe_people(rocrate = basic_rocrate)
+
+print(basic_rocrate)
+```
+
+#### 1.1.7. Safe Setting
+
+Here we will add details for the safe setting, using the function 
+`dsROCrate::safe_setting`.
+
+**⚠️NOTE:** The `dsROCrate::safe_setting` function requires of administrator
+rights, so here, we will have to login with administrator credentials:
+
+```{r}
+# close previous connection
+opalr::opal.logout(o)
+
+# open new connection as administrator
+o <- opalr::opal.login(
+  username = "administrator",
+  password = "password",
+  url = SERVER
+)
+```
+
+Then, we can proceed as per usual:
+```{r}
+basic_rocrate <- o |>
+  dsROCrate::safe_setting(rocrate = basic_rocrate)
+
+print(basic_rocrate)
+```
+
+#### 1.1.8. Safe Outputs
+
+IN DEVELOPMENT!
+
+#### 1.1.(n-1). Close connection
+
+```{r}
+opalr::opal.logout(o)
+```
+
+#### 1.1.n. Bag RO-Crate
+
+The resulting RO-Crate can be stored into an RO-Crate bag/archive with the
+function `rocrateR::bag_rocrate`:
+
+```{r}
+# create temp directory
+dir.create("./rocrates", showWarnings = FALSE)
+# create RO-Crate bag
+path_to_rocrate_bag <- basic_rocrate |>
+  rocrateR::bag_rocrate(path = "./rocrates")
+```
+
+We can explore the contents with the following commands:
+
+```{r}
+# extract files in temporary directory
+path_to_rocrate_bag |>
+  # extract contents in the same directory where the bag was stored
+  rocrateR::unbag_rocrate(quiet = TRUE) |>
+  # create tree with the files
+  fs::dir_tree()
+```
+
+#### 1.1.(n+1). Clean working directory
+
+```{r}
+unlink("./rocrates", recursive = TRUE, force = TRUE)
 ```
