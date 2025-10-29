@@ -4,3 +4,7 @@
 ^README\.Rmd$
 ^cran-comments\.md$
 ^inst$
+^vignettes/\.quarto$
+^vignettes/*_files$
+^doc$
+^Meta$
