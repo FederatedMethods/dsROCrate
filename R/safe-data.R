@@ -54,9 +54,9 @@ safe_data.opal <- function(x, ..., rocrate = NULL, project = NULL, tables = NULL
     list()
   })
 
-  # verify if `tables` is not NULL, if so, then add all data tables associated
+  # verify if `tables` is NULL, if so, then add all data tables associated
   # to the given `project`
-  if (!is.null(tables)) {
+  if (is.null(tables)) {
     tables <- unlist(project_tables)
   }
 
