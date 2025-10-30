@@ -298,13 +298,18 @@ dsBaseClient::ds.summary("dsROCrate_test")
 
 Then, we can proceed as per usual:
 
-```{r}
+```{r safe_outputs_internal, echo=FALSE}
+lines_before_safe_outputs <- rocrate_lines(basic_rocrate)
+```
+
+```{r safe_outputs}
 basic_rocrate <- o |>
   dsROCrate::safe_output(rocrate = basic_rocrate,
+                         logs_from = Sys.time() - 60, # capture the last minute
                          logs_to = Sys.time())
 ```
 
-```{r, out.lines=-(rocrate_lines(basic_rocrate) + 1)}
+```{r, out.lines=-(lines_before_safe_outputs + 1)}
 print(basic_rocrate) # note that the output will be truncated
 ```
 
