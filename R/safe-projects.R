@@ -5,12 +5,17 @@
 #' @param x PENDING
 #' @param ... Other optional arguments.
 #' @param rocrate RO-Crate object (see \link[rocrateR]{rocrate}).
+#' @param project description
+#' @param dataset_id_suffix description
+#' @param project_id_suffix description
+#' @param connection Connection object for the DataSHIELD server where the
+#'     values will be extracted from (e.g., OBiBa's Opal).
 #'
 #' @returns Updated RO-Crate object with Safe Projects information.
 #' @export
 #'
 # @examples
-safe_project <- function(x, ..., rocrate = NULL) {
+safe_project <- function(x, ...) {
   UseMethod("safe_project", x)
 }
 
@@ -21,10 +26,11 @@ safe_project.default <- function(x, ...) {
 }
 
 #' @export
-safe_project.character <- function(x, ..., rocrate = NULL) {
+safe_project.character <- function(x, ...) {
 
 }
 
+#' @rdname safe_project
 #' @export
 safe_project.opal <- function(x, ..., rocrate = NULL, project = NULL, dataset_id_suffix = "#dataset:", project_id_suffix = "#project:") {
   # declare local bindings
@@ -84,8 +90,16 @@ safe_project.opal <- function(x, ..., rocrate = NULL, project = NULL, dataset_id
   return(rocrate)
 }
 
-
+#' @rdname safe_project
 #' @export
-safe_project.rocrate <- function(x, ...) {
+safe_project.rocrate <- function(x, ..., project = NULL, dataset_id_suffix = "#dataset:", project_id_suffix = "#project:", connection = NULL) {
+  # check if the connection was given
+  if (is.null(connection)) {
+    stop("A `connection` object is required!", call. = FALSE)
+  }
 
+  # TODO: Validate `connection` object
+
+  # call method with given `connection` object:
+  safe_project(connection, rocrate = x, project = project, dataset_id_suffix = dataset_id_suffix, project_id_suffix = project_id_suffix)
 }

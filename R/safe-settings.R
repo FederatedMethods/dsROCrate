@@ -5,12 +5,14 @@
 #' @param x PENDING
 #' @param ... Other optional arguments.
 #' @param rocrate RO-Crate object (see \link[rocrateR]{rocrate}).
+#' @param connection Connection object for the DataSHIELD server where the
+#'     values will be extracted from (e.g., OBiBa's Opal).
 #'
 #' @returns Updated RO-Crate object with Safe Settings information.
 #' @export
 #'
 # @examples
-safe_setting <- function(x, ..., rocrate = NULL) {
+safe_setting <- function(x, ...) {
   UseMethod("safe_setting", x)
 }
 
@@ -25,6 +27,7 @@ safe_setting.character <- function(x, ..., rocrate = NULL) {
 
 }
 
+#' @rdname safe_setting
 #' @export
 safe_setting.opal <- function(x, ..., rocrate = NULL) {
   # x is a valid opal connection object
@@ -77,7 +80,16 @@ safe_setting.opal <- function(x, ..., rocrate = NULL) {
   return(rocrate)
 }
 
+#' @rdname safe_setting
 #' @export
-safe_setting.rocrate <- function(x, ...) {
+safe_setting.rocrate <- function(x, ..., connection = NULL) {
+  # check if the connection was given
+  if (is.null(connection)) {
+    stop("A `connection` object is required!", call. = FALSE)
+  }
 
+  # TODO: Validate `connection` object
+
+  # call method with given `connection` object:
+  safe_setting(connection, rocrate = x)
 }

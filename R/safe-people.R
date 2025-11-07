@@ -5,12 +5,16 @@
 #' @param x PENDING
 #' @param ... Other optional arguments.
 #' @param rocrate RO-Crate object (see \link[rocrateR]{rocrate}).
+#' @param user description
+#' @param user_id_suffix description
+#' @param connection Connection object for the DataSHIELD server where the
+#'     values will be extracted from (e.g., OBiBa's Opal).
 #'
 #' @returns Updated RO-Crate object with Safe People information.
 #' @export
 #'
 # @examples
-safe_people <- function(x, ..., rocrate = NULL) {
+safe_people <- function(x, ...) {
   UseMethod("safe_people", x)
 }
 
@@ -25,8 +29,9 @@ safe_people.character <- function(x, ..., rocrate = NULL) {
 
 }
 
+#' @rdname safe_people
 #' @export
-safe_people.opal <- function(x, ..., user = NULL, rocrate = NULL, user_id_suffix = "#person:") {
+safe_people.opal <- function(x, ..., rocrate = NULL, user = NULL, user_id_suffix = "#person:") {
   # x is a valid opal connection object
   # TODO validate connection
 
@@ -86,7 +91,16 @@ safe_people.opal <- function(x, ..., user = NULL, rocrate = NULL, user_id_suffix
   return(rocrate)
 }
 
+#' @rdname safe_people
 #' @export
-safe_people.rocrate <- function(x, ...) {
+safe_people.rocrate <- function(x, ..., user = NULL, user_id_suffix = "#person:", connection = NULL) {
+  # check if the connection was given
+  if (is.null(connection)) {
+    stop("A `connection` object is required!", call. = FALSE)
+  }
 
+  # TODO: Validate `connection` object
+
+  # call method with given `connection` object:
+  safe_people(connection, rocrate = x, user = user, user_id_suffix = user_id_suffix)
 }

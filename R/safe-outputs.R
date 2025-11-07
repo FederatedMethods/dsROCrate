@@ -5,12 +5,18 @@
 #' @param x PENDING
 #' @param ... Other optional arguments.
 #' @param rocrate RO-Crate object (see \link[rocrateR]{rocrate}).
+#' @param path description
+#' @param username description
+#' @param logs_to description
+#' @param logs_from description
+#' @param connection Connection object for the DataSHIELD server where the
+#'     values will be extracted from (e.g., OBiBa's Opal).
 #'
 #' @returns Updated RO-Crate object with Safe Outputs information.
 #' @export
 #'
 # @examples
-safe_output <- function(x, ..., rocrate = NULL) {
+safe_output <- function(x, ...) {
   UseMethod("safe_output", x)
 }
 
@@ -25,6 +31,7 @@ safe_output.character <- function(x, ..., rocrate = NULL) {
 
 }
 
+#' @rdname safe_output
 #' @export
 safe_output.opal <- function(x, ..., rocrate = NULL, path = NULL, username = NULL, logs_to = Sys.time(), logs_from = logs_to - 24 * 60 ^ 2) {
   # local bindings
@@ -139,7 +146,16 @@ safe_output.opal <- function(x, ..., rocrate = NULL, path = NULL, username = NUL
   return(rocrate)
 }
 
+#' @rdname safe_output
 #' @export
-safe_output.rocrate <- function(x, ...) {
+safe_output.rocrate <- function(x, ..., path = NULL, username = NULL, logs_to = Sys.time(), logs_from = logs_to - 24 * 60 ^ 2, connection = NULL) {
+  # check if the connection was given
+  if (is.null(connection)) {
+    stop("A `connection` object is required!", call. = FALSE)
+  }
 
+  # TODO: Validate `connection` object
+
+  # call method with given `connection` object:
+  safe_output(connection, rocrate = x, path = path, username = username, logs_to = logs_to, logs_from = logs_from)
 }
