@@ -109,6 +109,7 @@ USERNAME <- "administrator"
 USERPASS <- "password"
 SERVER <- "https://opal-demo.obiba.org"
 ## Credentials for `dsuser`
+### NOTE: this is only used to simulate an analysis and generate logs
 DSUSERPASS <- "P@ssw0rd"
 ```
 
@@ -161,7 +162,7 @@ Then, a basic RO-Crate can be created with the following command:
 basic_rocrate <- rocrateR::rocrate_5s()
 ```
 
-Note that this RO-Crate uses the [5s-crate](https://trefx.uk/5s-crate/0.4)
+Note that this RO-Crate uses the [5s-crate](https://trefx.uk/5s-crate/0.4/)
 profile.
 
 ```{r}
@@ -313,13 +314,13 @@ basic_rocrate <- o |>
 print(basic_rocrate) # note that the output will be truncated
 ```
 
-#### 2.(n-1). Close connection
+### 2.(n-1). Close connection
 
 ```{r}
 opalr::opal.logout(o)
 ```
 
-#### 2.n. Bag/Save RO-Crate
+### 2.n. Bag/Save RO-Crate
 
 The resulting RO-Crate can be stored into an RO-Crate bag/archive with the
 function `rocrateR::bag_rocrate`:
@@ -351,7 +352,7 @@ basic_rocrate <- basic_rocrate |>
 ```{r}
 # create RO-Crate bag
 path_to_rocrate_bag <- basic_rocrate |>
-  rocrateR::bag_rocrate(path = "./rocrates")
+  rocrateR::bag_rocrate(path = "./rocrates/", overwrite = TRUE)
 ```
 
 We can explore the contents with the following commands:
@@ -359,13 +360,13 @@ We can explore the contents with the following commands:
 ```{r}
 # extract files in temporary directory
 path_to_rocrate_bag |>
-  # extract contents in the same directory where the bag was stored
-  rocrateR::unbag_rocrate(quiet = TRUE) |>
+  # extract contents inside ./rocrates/ROC
+  rocrateR::unbag_rocrate(output = "./rocrates/ROC", quiet = TRUE) |>
   # create tree with the files
   fs::dir_tree()
 ```
 
-#### 2.(n+1). Clean working directory
+### 2.(n+1). Clean working directory
 
 ```{r}
 unlink("./rocrates", recursive = TRUE, force = TRUE)
