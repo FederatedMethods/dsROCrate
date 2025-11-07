@@ -6,7 +6,7 @@
 \alias{dsROCrate-package}
 \title{dsROCrate: 'DataSHIELD' RO-Crate Wrapper Functions}
 \description{
-R package to wrap elements from 'DataSHIELD' analysis inside an RO-Crate.
+R package to wrap elements from 'DataSHIELD' analysis into an RO-Crate.
 }
 \author{
 \strong{Maintainer}: Roberto Villegas-Diaz \email{r.villegas-diaz@outlook.com} (\href{https://orcid.org/0000-0001-5036-8661}{ORCID})

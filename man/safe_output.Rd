@@ -2,9 +2,31 @@
 % Please edit documentation in R/safe-outputs.R
 \name{safe_output}
 \alias{safe_output}
+\alias{safe_output.opal}
+\alias{safe_output.rocrate}
 \title{Safe outputs details}
 \usage{
-safe_output(x, ..., rocrate = NULL)
+safe_output(x, ...)
+
+\method{safe_output}{opal}(
+  x,
+  ...,
+  rocrate = NULL,
+  path = NULL,
+  username = NULL,
+  logs_to = Sys.time(),
+  logs_from = logs_to - 24 * 60^2
+)
+
+\method{safe_output}{rocrate}(
+  x,
+  ...,
+  path = NULL,
+  username = NULL,
+  logs_to = Sys.time(),
+  logs_from = logs_to - 24 * 60^2,
+  connection = NULL
+)
 }
 \arguments{
 \item{x}{PENDING}
@@ -12,6 +34,17 @@ safe_output(x, ..., rocrate = NULL)
 \item{...}{Other optional arguments.}
 
 \item{rocrate}{RO-Crate object (see \link[rocrateR]{rocrate}).}
+
+\item{path}{description}
+
+\item{username}{description}
+
+\item{logs_to}{description}
+
+\item{logs_from}{description}
+
+\item{connection}{Connection object for the DataSHIELD server where the
+values will be extracted from (e.g., OBiBa's Opal).}
 }
 \value{
 Updated RO-Crate object with Safe Outputs information.

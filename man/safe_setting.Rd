@@ -2,9 +2,15 @@
 % Please edit documentation in R/safe-settings.R
 \name{safe_setting}
 \alias{safe_setting}
+\alias{safe_setting.opal}
+\alias{safe_setting.rocrate}
 \title{Safe settings details}
 \usage{
-safe_setting(x, ..., rocrate = NULL)
+safe_setting(x, ...)
+
+\method{safe_setting}{opal}(x, ..., rocrate = NULL)
+
+\method{safe_setting}{rocrate}(x, ..., connection = NULL)
 }
 \arguments{
 \item{x}{PENDING}
@@ -12,6 +18,9 @@ safe_setting(x, ..., rocrate = NULL)
 \item{...}{Other optional arguments.}
 
 \item{rocrate}{RO-Crate object (see \link[rocrateR]{rocrate}).}
+
+\item{connection}{Connection object for the DataSHIELD server where the
+values will be extracted from (e.g., OBiBa's Opal).}
 }
 \value{
 Updated RO-Crate object with Safe Settings information.

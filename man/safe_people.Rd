@@ -2,9 +2,21 @@
 % Please edit documentation in R/safe-people.R
 \name{safe_people}
 \alias{safe_people}
+\alias{safe_people.opal}
+\alias{safe_people.rocrate}
 \title{Safe people details}
 \usage{
-safe_people(x, ..., rocrate = NULL)
+safe_people(x, ...)
+
+\method{safe_people}{opal}(x, ..., rocrate = NULL, user = NULL, user_id_suffix = "#person:")
+
+\method{safe_people}{rocrate}(
+  x,
+  ...,
+  user = NULL,
+  user_id_suffix = "#person:",
+  connection = NULL
+)
 }
 \arguments{
 \item{x}{PENDING}
@@ -12,6 +24,13 @@ safe_people(x, ..., rocrate = NULL)
 \item{...}{Other optional arguments.}
 
 \item{rocrate}{RO-Crate object (see \link[rocrateR]{rocrate}).}
+
+\item{user}{description}
+
+\item{user_id_suffix}{description}
+
+\item{connection}{Connection object for the DataSHIELD server where the
+values will be extracted from (e.g., OBiBa's Opal).}
 }
 \value{
 Updated RO-Crate object with Safe People information.

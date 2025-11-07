@@ -2,9 +2,29 @@
 % Please edit documentation in R/safe-projects.R
 \name{safe_project}
 \alias{safe_project}
+\alias{safe_project.opal}
+\alias{safe_project.rocrate}
 \title{Safe projects details}
 \usage{
-safe_project(x, ..., rocrate = NULL)
+safe_project(x, ...)
+
+\method{safe_project}{opal}(
+  x,
+  ...,
+  rocrate = NULL,
+  project = NULL,
+  dataset_id_suffix = "#dataset:",
+  project_id_suffix = "#project:"
+)
+
+\method{safe_project}{rocrate}(
+  x,
+  ...,
+  project = NULL,
+  dataset_id_suffix = "#dataset:",
+  project_id_suffix = "#project:",
+  connection = NULL
+)
 }
 \arguments{
 \item{x}{PENDING}
@@ -12,6 +32,15 @@ safe_project(x, ..., rocrate = NULL)
 \item{...}{Other optional arguments.}
 
 \item{rocrate}{RO-Crate object (see \link[rocrateR]{rocrate}).}
+
+\item{project}{description}
+
+\item{dataset_id_suffix}{description}
+
+\item{project_id_suffix}{description}
+
+\item{connection}{Connection object for the DataSHIELD server where the
+values will be extracted from (e.g., OBiBa's Opal).}
 }
 \value{
 Updated RO-Crate object with Safe Projects information.
