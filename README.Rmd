@@ -95,7 +95,7 @@ DataSHIELD.
 For instructions on how to set up a local server for DataSHIELD, see the 
 following vignette:
 
-```{r}
+```{r, eval = FALSE}
 vignette("deploy-local-datashield-server-with-opal")
 ```
 
