@@ -36,30 +36,16 @@ test_that("safe_output works", {
     dsROCrate::safe_people(
       connection = opal_con,
       user = list(id = "extra_username", name = "Extra username")
+    ) |>
+    # set multiple users as the author
+    rocrateR::add_entity_value(id = "./", key = "author",
+      value = list(
+        list(`@id` = "extra_username"),
+        list(`@id` = paste0("#person:", digest::digest("dsuser")))
+      )
     )
-  ## set multiple users as the author
-  basic_rocrate_4$`@graph`[2][[1]]$author <- list(
-    list(`@id` = "extra_username"),
-    list(`@id` = paste0("#person:", digest::digest("dsuser")))
-  )
 
-  safe_people_id <- basic_rocrate_4 |>
-    rocrateR::get_entity(id = "./") |>
-    sapply(getElement, name = "author") |>
-    sapply(getElement, name = "@id") |>
-    sapply(unlist)
-
-    # rocrateR::add_entity_value(
-    #   id = "./",
-    #   key = "author",
-    #   value = list(
-    #     `@id` = c(
-    #       "extra_username",
-    #       unname(rocrateR::get_entity(basic_rocrate_3, type = "Person")[[1]]["@id"][1])
-    #     )
-    #   )
-    # )
-  # print(basic_rocrate_4)
+  # test for warning about multiple authors in the root entity
   expect_warning(
     basic_rocrate_4 |>
       dsROCrate::safe_output(connection = opal_con)
@@ -115,9 +101,9 @@ test_that("safe_output works", {
     basic_rocrate_7 <- basic_rocrate_3 |>
       dsROCrate::safe_output(connection = opal_con,
                              logs_from = Sys.time() - 60^2 * 24, # 1 day ago
-                             logs_to = Sys.time() - 60^2 * 23,
+                             logs_to = Sys.time(),
                              user = "dsuser",
-                             path = "C:/invalid/path/rocrateR")
+                             path = "/invalid/path/rocrateR")
   )
 
   # write logs in temporary file
