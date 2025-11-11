@@ -65,11 +65,20 @@ safe_output.opal <- function(x, ..., rocrate = NULL, path = NULL, user = NULL, l
 
   # verify if `user` is NULL, if so, retrieve information from the RO-crate
   if (is.null(user)) {
-    safe_people_id <- rocrate |>
+    # get `author` section from the root (./) entity
+    rocrate_author <- rocrate |>
       rocrateR::get_entity(id = "./") |>
-      sapply(getElement, name = "author") |>
-      sapply(getElement, name = "@id") |>
-      sapply(unlist)
+      lapply(getElement, name = "author")
+    safe_people_id <- NULL
+    # extract @id attribute(s)
+    if (length(rocrate_author) > 1) {
+      safe_people_id <- rocrate_author |>
+        sapply(\(x) x[[1]]) |>
+        sapply(getElement, name = "@id") |>
+        sapply(unlist)
+    } else {
+      safe_people_id <- rocrate_author[[1]]["@id"][[1]]
+    }
 
     # check if safe people section wasn't found
     if (is.null(safe_people_id)) {
