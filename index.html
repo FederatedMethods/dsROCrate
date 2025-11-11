@@ -398,18 +398,18 @@
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># run some test commands with dsBaseClient</span></span>
 <span><span class="co">## needed to defined the OpalDriver class in the current environment</span></span>
-<span><span class="fu">DSOpal</span><span class="fu">::</span><span class="fu">Opal</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu">DSOpal</span><span class="fu">::</span><span class="fu"><a href="https://datashield.github.io/DSOpal/reference/Opal.html" class="external-link">Opal</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; An object of class "OpalDriver"</span></span>
 <span><span class="co">#&gt; &lt;S4 Type Object&gt;</span></span>
 <span><span class="co">## create new login object, note that here we use the `dsuser`</span></span>
-<span><span class="va">builder</span> <span class="op">&lt;-</span> <span class="fu">DSI</span><span class="fu">::</span><span class="fu">newDSLoginBuilder</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">builder</span> <span class="op">&lt;-</span> <span class="fu">DSI</span><span class="fu">::</span><span class="fu"><a href="https://datashield.github.io/DSI/reference/newDSLoginBuilder.html" class="external-link">newDSLoginBuilder</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">builder</span><span class="op">$</span><span class="fu">append</span><span class="op">(</span>server <span class="op">=</span> <span class="st">"study1"</span>,</span>
 <span>               url <span class="op">=</span> <span class="va">SERVER</span>,</span>
 <span>               user <span class="op">=</span> <span class="st">"dsuser"</span>,</span>
 <span>               password <span class="op">=</span> <span class="va">DSUSERPASS</span>,</span>
 <span>               driver <span class="op">=</span> <span class="st">"OpalDriver"</span><span class="op">)</span></span>
 <span><span class="va">logindata</span> <span class="op">&lt;-</span> <span class="va">builder</span><span class="op">$</span><span class="fu">build</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">conns</span> <span class="op">&lt;-</span> <span class="fu">DSI</span><span class="fu">::</span><span class="fu">datashield.login</span><span class="op">(</span>logins <span class="op">=</span> <span class="va">logindata</span><span class="op">)</span></span>
+<span><span class="va">conns</span> <span class="op">&lt;-</span> <span class="fu">DSI</span><span class="fu">::</span><span class="fu"><a href="https://datashield.github.io/DSI/reference/datashield.login.html" class="external-link">datashield.login</a></span><span class="op">(</span>logins <span class="op">=</span> <span class="va">logindata</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Logging into the collaborating servers</span></span></code></pre></div>
 </div>
@@ -418,7 +418,7 @@
 </h6>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## assign data</span></span>
-<span><span class="fu">DSI</span><span class="fu">::</span><span class="fu">datashield.assign.table</span><span class="op">(</span><span class="va">conns</span><span class="op">[</span><span class="st">"study1"</span><span class="op">]</span>, </span>
+<span><span class="fu">DSI</span><span class="fu">::</span><span class="fu"><a href="https://datashield.github.io/DSI/reference/datashield.assign.table.html" class="external-link">datashield.assign.table</a></span><span class="op">(</span><span class="va">conns</span><span class="op">[</span><span class="st">"study1"</span><span class="op">]</span>, </span>
 <span>                             symbol <span class="op">=</span> <span class="st">"dsROCrate_test"</span>,</span>
 <span>                             table <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">PROJECT</span>, <span class="st">"."</span>, <span class="va">TABLES</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>,</span>
 <span>                             errors.print <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
