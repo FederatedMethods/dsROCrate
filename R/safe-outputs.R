@@ -6,7 +6,7 @@
 #' @param ... Other optional arguments.
 #' @param rocrate RO-Crate object (see \link[rocrateR]{rocrate}).
 #' @param path description
-#' @param username description
+#' @param user description
 #' @param logs_to description
 #' @param logs_from description
 #' @param connection Connection object for the DataSHIELD server where the
@@ -33,7 +33,7 @@ safe_output.character <- function(x, ..., rocrate = NULL) {
 
 #' @rdname safe_output
 #' @export
-safe_output.opal <- function(x, ..., rocrate = NULL, path = NULL, username = NULL, logs_to = Sys.time(), logs_from = logs_to - 24 * 60 ^ 2) {
+safe_output.opal <- function(x, ..., rocrate = NULL, path = NULL, user = NULL, logs_to = Sys.time(), logs_from = logs_to - 24 * 60 ^ 2) {
   # local bindings
   `@timestamp` <- logger_name <- NULL
 
@@ -44,18 +44,19 @@ safe_output.opal <- function(x, ..., rocrate = NULL, path = NULL, username = NUL
 
   # TODO: validate that `logs_to` and `logs_from` have the class 'POSIXct'
 
-  # verify if `username` is NULL, if so, retrieve information from the RO-crate
-  if (is.null(username)) {
+  # verify if `user` is NULL, if so, retrieve information from the RO-crate
+  if (is.null(user)) {
     safe_people_id <- rocrate |>
       rocrateR::get_entity(id = "./") |>
       sapply(getElement, name = "author") |>
-      getElement("@id")
+      sapply(getElement, name = "@id") |>
+      sapply(unlist)
 
     # check if safe people section wasn't found
     if (is.null(safe_people_id)) {
       warning("Safe people section not found (i.e., no author for root entity) ",
               "in the given RO-Crate. \nEither run `dsROCrate::safe_people()` ",
-              "or set `username` when calling `dsROCrate::safe_output()`!",
+              "or set `user` when calling `dsROCrate::safe_output()`!",
               call. = FALSE)
 
       # return the input RO-Crate
@@ -63,16 +64,18 @@ safe_output.opal <- function(x, ..., rocrate = NULL, path = NULL, username = NUL
     }
 
     # retrieve safe people entity for the current user
-    safe_people_information <- rocrate |>
-      rocrateR::get_entity(id = safe_people_id)
-    # update username
-    username <- sapply(safe_people_information, getElement, name = "name") |>
+    safe_people_information <- safe_people_id |>
+      sapply(\(x) rocrateR::get_entity(rocrate, id = x))
+
+    # update user
+    user <- safe_people_information |>
+      sapply(getElement, name = "name") |>
       unique()
 
-    # check if for any reason multiple usernames were found
-    if (length(username) != 1) {
+    # check if for any reason multiple users were found
+    if (length(user) != 1) {
       warning("Error when retrieving the safe people section in the given ",
-              "RO-Crate. ", length(username), " entries in the 'author' ",
+              "RO-Crate. ", length(user), " entries in the 'author' ",
               "section of root (./) entity were found!",
               call. = FALSE)
 
@@ -89,7 +92,7 @@ safe_output.opal <- function(x, ..., rocrate = NULL, path = NULL, username = NUL
     # filter logs
     dplyr::filter(dplyr::between(`@timestamp`, logs_from, logs_to)) |>
     dplyr::filter(logger_name == "datashield.user") |>
-    dplyr::filter(username == !!username) |>
+    dplyr::filter(user == !!user) |>
     glue::glue_data(
       "[{level}][{format(`@timestamp`, '%Y-%m-%dT%H:%M:%S')}]{stringr::str_pad(paste0('[', ds_action, ']'), 12, 'right', ' ')}{message}"
     )
@@ -97,7 +100,7 @@ safe_output.opal <- function(x, ..., rocrate = NULL, path = NULL, username = NUL
   # check if any logs were found in the given time frame
   if (length(userlogs) == 0) {
     warning("No logs were found for the following configuration:",
-            "\n Username: ", username,
+            "\n User: ", user,
             "\n Period: ", logs_from, " -- ", logs_to,
             call. = FALSE)
 
@@ -105,7 +108,7 @@ safe_output.opal <- function(x, ..., rocrate = NULL, path = NULL, username = NUL
     return(rocrate)
   }
 
-  log_filename <- paste0(Sys.Date(), "-dslogs-", username, ".log")
+  log_filename <- paste0(Sys.Date(), "-dslogs-", user, ".log")
 
   # create new data entity for log file
   log_entity <- rocrateR::entity(
@@ -148,7 +151,7 @@ safe_output.opal <- function(x, ..., rocrate = NULL, path = NULL, username = NUL
 
 #' @rdname safe_output
 #' @export
-safe_output.rocrate <- function(x, ..., path = NULL, username = NULL, logs_to = Sys.time(), logs_from = logs_to - 24 * 60 ^ 2, connection = NULL) {
+safe_output.rocrate <- function(x, ..., path = NULL, user = NULL, logs_to = Sys.time(), logs_from = logs_to - 24 * 60 ^ 2, connection = NULL) {
   # check if the connection was given
   if (is.null(connection)) {
     stop("A `connection` object is required!", call. = FALSE)
@@ -157,5 +160,5 @@ safe_output.rocrate <- function(x, ..., path = NULL, username = NULL, logs_to = 
   # TODO: Validate `connection` object
 
   # call method with given `connection` object:
-  safe_output(connection, rocrate = x, path = path, username = username, logs_to = logs_to, logs_from = logs_from)
+  safe_output(connection, rocrate = x, path = path, user = user, logs_to = logs_to, logs_from = logs_from)
 }
