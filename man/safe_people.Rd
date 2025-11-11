@@ -5,6 +5,12 @@
 \alias{safe_people.opal}
 \alias{safe_people.rocrate}
 \title{Safe people details}
+\source{
+\itemize{
+\item Research Data Scotland, 2025. "What is the Five Safes framework?".
+\url{https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/}
+}
+}
 \usage{
 safe_people(x, ...)
 
@@ -19,22 +25,39 @@ safe_people(x, ...)
 )
 }
 \arguments{
-\item{x}{PENDING}
+\item{x}{This can be a connection to a 'DataSHIELD' server (e.g., object with
+the \code{opal} class, see \code{\link[opalr:opal.login]{opalr::opal.login()}}), an RO-Crate
+(\link[rocrateR:rocrate]{rocrate} class) or a string with the path to an
+RO-Crate.}
 
-\item{...}{Other optional arguments.}
+\item{...}{Other optional arguments. See the full documentation,
+\code{\link[=safe_people]{?dsROCrate::safe_people}}.}
 
-\item{rocrate}{RO-Crate object (see \link[rocrateR]{rocrate}).}
+\item{rocrate}{RO-Crate object. Optional, if \code{x} is either an RO-Crate
+object or a path to a valid RO-Crate. If so, then \code{connection} is
+required.}
 
-\item{user}{description}
+\item{user}{List (or \link[rocrateR:entity]{entity} object) with details for
+the safe people, it must include \verb{@id} and \code{name} entries. Alternatively,
+this can be a string with the \code{name} of the current user.}
 
-\item{user_id_suffix}{description}
+\item{user_id_suffix}{String with ID suffix for the tables/datasets
+entities in the RO-Crate (default: \code{"#dataset:"}).}
 
-\item{connection}{Connection object for the DataSHIELD server where the
-values will be extracted from (e.g., OBiBa's Opal).}
+\item{connection}{Connection object for the 'DataSHIELD' server where the
+values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is
+set to a connection object. If so, then \code{rocrate} is required.}
 }
 \value{
 Updated RO-Crate object with Safe People information.
 }
 \description{
 Safe people details for the RO-Crate.
+}
+\details{
+Researchers must be accredited and trained before accessing the data that
+has been prepared for them.
+
+The access service provider may require the researcher to sign a statement
+that they know and understand the regulations of the TRE.
 }

@@ -5,6 +5,12 @@
 \alias{safe_output.opal}
 \alias{safe_output.rocrate}
 \title{Safe outputs details}
+\source{
+\itemize{
+\item Research Data Scotland, 2025. "What is the Five Safes framework?".
+\url{https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/}
+}
+}
 \usage{
 safe_output(x, ...)
 
@@ -13,7 +19,7 @@ safe_output(x, ...)
   ...,
   rocrate = NULL,
   path = NULL,
-  username = NULL,
+  user = NULL,
   logs_to = Sys.time(),
   logs_from = logs_to - 24 * 60^2
 )
@@ -22,33 +28,58 @@ safe_output(x, ...)
   x,
   ...,
   path = NULL,
-  username = NULL,
+  user = NULL,
   logs_to = Sys.time(),
   logs_from = logs_to - 24 * 60^2,
   connection = NULL
 )
 }
 \arguments{
-\item{x}{PENDING}
+\item{x}{This can be a connection to a 'DataSHIELD' server (e.g., object with
+the \code{opal} class, see \code{\link[opalr:opal.login]{opalr::opal.login()}}), an RO-Crate
+(\link[rocrateR:rocrate]{rocrate} class) or a string with the path to an
+RO-Crate.}
 
-\item{...}{Other optional arguments.}
+\item{...}{Other optional arguments. See the full documentation,
+\code{\link[=safe_output]{?dsROCrate::safe_output}}.}
 
-\item{rocrate}{RO-Crate object (see \link[rocrateR]{rocrate}).}
+\item{rocrate}{RO-Crate object. Optional, if \code{x} is either an RO-Crate
+object or a path to a valid RO-Crate. If so, then \code{connection} is
+required.}
 
-\item{path}{description}
+\item{path}{String to path pointing to the root of the RO-Crate. This will
+be used to store log files. If not provided, logs will be stored within
+the updated RO-Crate returned by this function.}
 
-\item{username}{description}
+\item{user}{String with the name of the user for which outputs will be
+extracted. Optional, if no user is provided, then this will be extracted
+from the \code{author} in the root (\verb{./}) entity of the RO-Crate.}
 
-\item{logs_to}{description}
+\item{logs_to}{Upper limit timestamp to filter outputs to be extracted
+(default: \code{Sys.time()}, current system time).}
 
-\item{logs_from}{description}
+\item{logs_from}{Lower limit timestamp to filter outputs to be extracted
+(default: \code{Sys.time() - 24 * 60 ^ 2}, last 24 hours)}
 
-\item{connection}{Connection object for the DataSHIELD server where the
-values will be extracted from (e.g., OBiBa's Opal).}
+\item{connection}{Connection object for the 'DataSHIELD' server where the
+values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is
+set to a connection object. If so, then \code{rocrate} is required.}
 }
 \value{
 Updated RO-Crate object with Safe Outputs information.
 }
 \description{
 Safe outputs details for the RO-Crate.
+}
+\details{
+All research outputs are checked to ensure individuals cannot be identified
+even in the public domain.
+
+This means the other four Safes no longer apply.
+
+Before outputs are released from the TRE, they are checked to make sure it
+is reasonably unlikely that any individuals can be identified on publication.
+Compliance with the Digital Economy Act also requires that the TRE applies
+methods and standards for output checking that are accredited by the UK
+Statistics Authority.
 }

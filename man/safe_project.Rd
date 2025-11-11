@@ -5,6 +5,12 @@
 \alias{safe_project.opal}
 \alias{safe_project.rocrate}
 \title{Safe projects details}
+\source{
+\itemize{
+\item Research Data Scotland, 2025. "What is the Five Safes framework?".
+\url{https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/}
+}
+}
 \usage{
 safe_project(x, ...)
 
@@ -27,24 +33,42 @@ safe_project(x, ...)
 )
 }
 \arguments{
-\item{x}{PENDING}
+\item{x}{This can be a connection to a 'DataSHIELD' server (e.g., object with
+the \code{opal} class, see \code{\link[opalr:opal.login]{opalr::opal.login()}}), an RO-Crate
+(\link[rocrateR:rocrate]{rocrate} class) or a string with the path to an
+RO-Crate.}
 
-\item{...}{Other optional arguments.}
+\item{...}{Other optional arguments. See the full documentation,
+\code{\link[=safe_project]{?dsROCrate::safe_project}}.}
 
-\item{rocrate}{RO-Crate object (see \link[rocrateR]{rocrate}).}
+\item{rocrate}{RO-Crate object. Optional, if \code{x} is either an RO-Crate
+object or a path to a valid RO-Crate. If so, then \code{connection} is
+required.}
 
-\item{project}{description}
+\item{project}{String with the name of the \link[=safe_project]{Safe Project}.}
 
-\item{dataset_id_suffix}{description}
+\item{dataset_id_suffix}{String with ID suffix for the tables/datasets
+entities in the RO-Crate (default: \code{"#dataset:"}).}
 
-\item{project_id_suffix}{description}
+\item{project_id_suffix}{String with ID suffix for the project entities
+in the RO-Crate (default: \code{"#project:"}).}
 
-\item{connection}{Connection object for the DataSHIELD server where the
-values will be extracted from (e.g., OBiBa's Opal).}
+\item{connection}{Connection object for the 'DataSHIELD' server where the
+values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is
+set to a connection object. If so, then \code{rocrate} is required.}
 }
 \value{
 Updated RO-Crate object with Safe Projects information.
 }
 \description{
 Safe projects details for the RO-Crate.
+}
+\details{
+Data must be used ethically, for research that delivers clear public benefit.
+
+As part of their application, researchers are asked to provide an overview
+of their project, including how the data will be used and what outputs will
+be achieved. This allows data providers to make an informed decision about
+whether they are comfortable preparing data for the researcher to use for
+ethical purposes serving a public good.
 }

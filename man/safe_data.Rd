@@ -5,6 +5,12 @@
 \alias{safe_data.opal}
 \alias{safe_data.rocrate}
 \title{Safe data details}
+\source{
+\itemize{
+\item Research Data Scotland, 2025. "What is the Five Safes framework?".
+\url{https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/}
+}
+}
 \usage{
 safe_data(x, ...)
 
@@ -27,24 +33,47 @@ safe_data(x, ...)
 )
 }
 \arguments{
-\item{x}{PENDING}
+\item{x}{This can be a connection to a 'DataSHIELD' server (e.g., object with
+the \code{opal} class, see \code{\link[opalr:opal.login]{opalr::opal.login()}}), an RO-Crate
+(\link[rocrateR:rocrate]{rocrate} class) or a string with the path to an
+RO-Crate.}
 
-\item{...}{Other optional arguments.}
+\item{...}{Other optional arguments. See the full documentation,
+\code{\link[=safe_data]{?dsROCrate::safe_data}}.}
 
-\item{rocrate}{RO-Crate object (see \link[rocrateR]{rocrate}).}
+\item{rocrate}{RO-Crate object. Optional, if \code{x} is either an RO-Crate
+object or a path to a valid RO-Crate. If so, then \code{connection} is
+required.}
 
-\item{project}{PENDING}
+\item{project}{String with the name of the \link[=safe_project]{Safe Project}.}
 
-\item{tables}{PENDING}
+\item{tables}{Vector of strings with the names of the tables/datasets, part
+of \code{project}. Optional, if not provided, all the tables/datasets
+associated to \code{project} will be included in the RO-Crate.}
 
-\item{dataset_id_suffix}{PENDING}
+\item{dataset_id_suffix}{String with ID suffix for the tables/datasets
+entities in the RO-Crate (default: \code{"#dataset:"}).}
 
-\item{connection}{Connection object for the DataSHIELD server where the
-values will be extracted from (e.g., OBiBa's Opal).}
+\item{connection}{Connection object for the 'DataSHIELD' server where the
+values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is
+set to a connection object. If so, then \code{rocrate} is required.}
 }
 \value{
 Updated RO-Crate object with Safe Data information.
 }
 \description{
 Safe data details for the RO-Crate.
+}
+\details{
+Researchers only use de-identified data that is relevant to their study.
+
+In compliance with the Digital Economy Act, data is effectively anonymised
+within TREs (Trusted Research Environments).
+
+This means any sensitive information that might lead to an individual being
+identified, such as names and addresses, is either removed or replaced with
+a random code. Researchers are not processing personal data when using data
+prepared in this way and when the other Safes are in place. Find out more
+about de-identification:
+\url{https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-data-de-identification/}
 }

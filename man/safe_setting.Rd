@@ -5,6 +5,12 @@
 \alias{safe_setting.opal}
 \alias{safe_setting.rocrate}
 \title{Safe settings details}
+\source{
+\itemize{
+\item Research Data Scotland, 2025. "What is the Five Safes framework?".
+\url{https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/}
+}
+}
 \usage{
 safe_setting(x, ...)
 
@@ -13,18 +19,43 @@ safe_setting(x, ...)
 \method{safe_setting}{rocrate}(x, ..., connection = NULL)
 }
 \arguments{
-\item{x}{PENDING}
+\item{x}{This can be a connection to a 'DataSHIELD' server (e.g., object with
+the \code{opal} class, see \code{\link[opalr:opal.login]{opalr::opal.login()}}), an RO-Crate
+(\link[rocrateR:rocrate]{rocrate} class) or a string with the path to an
+RO-Crate.}
 
-\item{...}{Other optional arguments.}
+\item{...}{Other optional arguments. See the full documentation,
+\code{\link[=safe_setting]{?dsROCrate::safe_setting}}.}
 
-\item{rocrate}{RO-Crate object (see \link[rocrateR]{rocrate}).}
+\item{rocrate}{RO-Crate object. Optional, if \code{x} is either an RO-Crate
+object or a path to a valid RO-Crate. If so, then \code{connection} is
+required.}
 
-\item{connection}{Connection object for the DataSHIELD server where the
-values will be extracted from (e.g., OBiBa's Opal).}
+\item{connection}{Connection object for the 'DataSHIELD' server where the
+values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is
+set to a connection object. If so, then \code{rocrate} is required.}
 }
 \value{
 Updated RO-Crate object with Safe Settings information.
 }
 \description{
 Safe settings details for the RO-Crate.
+}
+\details{
+The organisational and technical settings used to access data are designed
+to minimise the risk of accidental disclosure of data.
+
+These settings also prevent the deliberate disclosure of data to others.
+
+Physical settings for data access can include locations like
+\href{https://safepodnetwork.ac.uk/}{SafePods} – secured rooms that use controlled
+door access, CCTV and secure technology to ensure that sensitive data cannot
+be mishandled or removed from the safe setting. Researchers can analyse the
+data in these secure rooms, but do not have access to the internet, external
+devices (such as printers), or any other way of removing protected data from
+the space.
+
+Digital safe settings provide secure access to data from a remote location.
+To be approved for remote data access, researchers will need to prove that
+their organisation meets physical and IT security standards.
 }
