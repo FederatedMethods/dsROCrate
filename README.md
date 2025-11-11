@@ -9,6 +9,8 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/dsROCrate)](https://CRAN.R-project.org/package=dsROCrate)
+[![Codecov test
+coverage](https://codecov.io/gh/DataSHIELD-5S/dsROCrate/graph/badge.svg)](https://app.codecov.io/gh/DataSHIELD-5S/dsROCrate)
 <!-- badges: end -->
 
 The goal of dsROCrate is to provide functions to wrap elements from a
@@ -127,7 +129,7 @@ print(basic_rocrate)
 #>       "@type": "Dataset",
 #>       "name": "",
 #>       "description": "",
-#>       "datePublished": "2025-11-10",
+#>       "datePublished": "2025-11-11",
 #>       "license": {
 #>         "@id": "http://spdx.org/licenses/CC-BY-4.0"
 #>       },
@@ -161,8 +163,8 @@ print(basic_rocrate) # note that the output will be truncated
 #>     {
 #>       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",
 #>       "@type": "Dataset",
-#>       "dateCreated": "2025-11-10T06:29:44.746Z",
-#>       "dateModified": "2025-11-10T06:29:45.848Z",
+#>       "dateCreated": "2025-11-11T06:34:31.302Z",
+#>       "dateModified": "2025-11-11T06:34:32.423Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM1"
 #>     }
 #>   ]
@@ -185,8 +187,8 @@ print(basic_rocrate) # note that the output will be truncated
 #>       "@id": "#project:f9e884084b84794d762a535f3facec85",
 #>       "@type": "Project",
 #>       "name": "CNSIM",
-#>       "dateCreated": "2025-11-10T06:29:43.431Z",
-#>       "dateModified": "2025-11-10T06:29:48.134Z",
+#>       "dateCreated": "2025-11-11T06:34:29.998Z",
+#>       "dateModified": "2025-11-11T06:34:34.716Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -449,7 +451,7 @@ basic_rocrate <- o |>
                          logs_from = Sys.time() - 60, # capture the last minute
                          logs_to = Sys.time())
 #> opening file input connection.
-#>  Found 44 records... Imported 44 records. Simplifying...
+#>  Found 134 records... Imported 134 records. Simplifying...
 #> closing file input connection.
 #> Warning: A `path` wasn't provided! The logs will be included in the RO-Crate
 #> object, under the `content` tag!
@@ -459,13 +461,13 @@ basic_rocrate <- o |>
 print(basic_rocrate) # note that the output will be truncated
 ...
 #>     {
-#>       "@id": "2025-11-10-dslogs-dsuser.log",
+#>       "@id": "2025-11-11-dslogs-dsuser.log",
 #>       "@type": "File",
-#>       "dateModified": "2025-11-10 09:39:26",
-#>       "name": "2025-11-10-dslogs-dsuser.log",
+#>       "dateModified": "2025-11-11 11:03:28",
+#>       "name": "2025-11-11-dslogs-dsuser.log",
 #>       "encodingFormat": "text/plain",
 #>       "content": [
-#>         ["[INFO][2025-11-10T09:39:21][OPEN]      created a datashield session 2950a1c7-5d57-424e-a2e4-114dc9578abc", "[INFO][2025-11-10T09:39:23][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2025-11-10T09:39:24][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2025-11-10T09:39:25][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2025-11-10T09:39:25][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2025-11-10T09:39:25][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2025-11-10T09:39:25][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2025-11-10T09:39:25][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2025-11-10T09:39:25][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2025-11-10T09:39:25][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2025-11-10T09:39:25][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2025-11-10T09:39:25][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2025-11-10T09:39:25][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2025-11-10T09:39:25][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
+#>         ["[INFO][2025-11-11T11:03:26][OPEN]      created a datashield session 7e3cbdd3-d3ee-4d2a-ab4d-a41cb3f9984b", "[INFO][2025-11-11T11:03:26][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2025-11-11T11:03:26][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2025-11-11T11:03:27][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2025-11-11T11:03:28][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2025-11-11T11:03:28][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2025-11-11T11:03:28][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2025-11-11T11:03:28][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2025-11-11T11:03:28][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2025-11-11T11:03:28][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2025-11-11T11:03:28][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2025-11-11T11:03:28][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2025-11-11T11:03:28][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2025-11-11T11:03:28][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
 #>       ]
 #>     }
 #>   ]
@@ -506,7 +508,7 @@ logs_entity[[1]]$content <- NULL
 basic_rocrate <- basic_rocrate |>
   rocrateR::add_entity(logs_entity[[1]], overwrite = TRUE)
 #> Warning in rocrateR::add_entity(basic_rocrate, logs_entity[[1]], overwrite =
-#> TRUE): Overwritting the entity with @id = '2025-11-10-dslogs-dsuser.log'
+#> TRUE): Overwritting the entity with @id = '2025-11-11-dslogs-dsuser.log'
 ```
 
 ``` r
@@ -514,7 +516,7 @@ basic_rocrate <- basic_rocrate |>
 path_to_rocrate_bag <- basic_rocrate |>
   rocrateR::bag_rocrate(path = "./rocrates/", overwrite = TRUE)
 #> RO-Crate successfully 'bagged'!
-#> For details, see: ./rocrates//rocrate-db3b1791f68bd2559569ca6f9a5432dc.zip
+#> For details, see: ./rocrates//rocrate-956ae4ffacc7fb995495933022f00bd4.zip
 ```
 
 We can explore the contents with the following commands:
@@ -529,7 +531,7 @@ path_to_rocrate_bag |>
 #> ./rocrates/ROC/
 #> ├── bagit.txt
 #> ├── data
-#> │   ├── 2025-11-10-dslogs-dsuser.log
+#> │   ├── 2025-11-11-dslogs-dsuser.log
 #> │   └── ro-crate-metadata.json
 #> ├── manifest-sha512.txt
 #> └── tagmanifest-sha512.txt
