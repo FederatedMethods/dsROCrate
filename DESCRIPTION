@@ -12,6 +12,8 @@ Description: R package to wrap elements from 'DataSHIELD' analysis into an
     RO-Crate.
 License: MIT + file LICENSE
 Suggests: 
+    DSI,
+    DSOpal,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
