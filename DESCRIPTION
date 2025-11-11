@@ -28,8 +28,6 @@ Imports:
     purrr,
     rocrateR (>= 0.0.1),
     tibble
-Remotes: 
-    ResearchObject/ro-crate-r
 Depends: 
     R (>= 4.1.0)
 VignetteBuilder: knitr
