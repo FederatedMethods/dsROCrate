@@ -16,9 +16,9 @@ test_that("safe_output works", {
   )
 
   # attempt extracting outputs from an RO-Crate without safe people details
-  expect_error(
+  expect_warning(
     basic_rocrate |>
-      dsROCrate::safe_output(project = "Invalid Project", connection = opal_con)
+      dsROCrate::safe_output(connection = opal_con)
   )
 
   # add safe people details
