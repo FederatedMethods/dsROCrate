@@ -2,19 +2,44 @@
 #'
 #' Safe data details for the RO-Crate.
 #'
-#' @param x PENDING
-#' @param ... Other optional arguments.
-#' @param rocrate RO-Crate object (see \link[rocrateR]{rocrate}).
-#' @param project PENDING
-#' @param tables PENDING
-#' @param dataset_id_suffix PENDING
-#' @param connection Connection object for the DataSHIELD server where the
-#'     values will be extracted from (e.g., OBiBa's Opal).
+#' Researchers only use de-identified data that is relevant to their study.
+#'
+#' In compliance with the Digital Economy Act, data is effectively anonymised
+#' within TREs (Trusted Research Environments).
+#'
+#' This means any sensitive information that might lead to an individual being
+#' identified, such as names and addresses, is either removed or replaced with
+#' a random code. Researchers are not processing personal data when using data
+#' prepared in this way and when the other Safes are in place. Find out more
+#' about de-identification:
+#' <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-data-de-identification/>
+#'
+#' @param x This can be a connection to a 'DataSHIELD' server (e.g., object with
+#'     the `opal` class), an RO-Crate ([rocrate][rocrateR::rocrate()] class) or
+#'     a string with the path to an RO-Crate.
+#' @param ... Other optional arguments. See the full documentation,
+#'     [`?dsROCrate::safe_data`][safe_data()].
+#' @param rocrate RO-Crate object. Optional, if `x` is either an RO-Crate
+#'     object or a path to a valid RO-Crate. If so, then `connection` is
+#'     required.
+#' @param project String with the name of the [Safe Project][safe_project()].
+#' @param tables Vector of strings with the names of the tables/datasets, part
+#'     of `project`. Optional, if not provided, all the tables/datasets
+#'     associated to `project` will be included in the RO-Crate.
+#' @param dataset_id_suffix String with ID suffix for the tables/datasets
+#'     entities in the RO-Crate (default: `"#dataset:"`).
+#' @param connection Connection object for the 'DataSHIELD' server where the
+#'     values will be extracted from (e.g., OBiBa's Opal). Optional, if `x` is
+#'     set to this connection object. If so, then `rocrate` is required.
 #'
 #' @returns Updated RO-Crate object with Safe Data information.
 #' @export
 #'
-# @examples
+#' @source
+#' \itemize{
+#'  \item Research Data Scotland, 2025. "What is the Five Safes framework?".
+#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/>
+#' }
 safe_data <- function(x, ...) {
   UseMethod("safe_data", x)
 }
