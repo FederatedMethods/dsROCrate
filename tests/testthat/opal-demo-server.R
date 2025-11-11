@@ -2,6 +2,9 @@
 USERNAME <- "administrator"
 USERPASS <- "password"
 SERVER <- "https://opal-demo.obiba.org"
+## Credentials for `dsuser`
+### NOTE: this is only used to simulate an analysis and generate logs
+DSUSERPASS <- "P@ssw0rd"
 
 ## Five safes variables
 PEOPLE <- "dsuser"
