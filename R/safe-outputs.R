@@ -29,6 +29,12 @@
 #'
 #' @returns Updated RO-Crate object with Safe Outputs information.
 #' @export
+#'
+#' @source
+#' \itemize{
+#'  \item Research Data Scotland, 2025. "What is the Five Safes framework?".
+#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/>
+#' }
 safe_output <- function(x, ...) {
   UseMethod("safe_output", x)
 }

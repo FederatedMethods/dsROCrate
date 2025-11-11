@@ -2,16 +2,35 @@
 #'
 #' Safe settings details for the RO-Crate.
 #'
-#' @param x PENDING
-#' @param ... Other optional arguments.
-#' @param rocrate RO-Crate object (see \link[rocrateR]{rocrate}).
-#' @param connection Connection object for the DataSHIELD server where the
-#'     values will be extracted from (e.g., OBiBa's Opal).
+#' The organisational and technical settings used to access data are designed
+#' to minimise the risk of accidental disclosure of data.
+#'
+#' These settings also prevent the deliberate disclosure of data to others.
+#'
+#' Physical settings for data access can include locations like
+#' [SafePods](https://safepodnetwork.ac.uk/) – secured rooms that use controlled
+#' door access, CCTV and secure technology to ensure that sensitive data cannot
+#' be mishandled or removed from the safe setting. Researchers can analyse the
+#' data in these secure rooms, but do not have access to the internet, external
+#' devices (such as printers), or any other way of removing protected data from
+#' the space.
+#'
+#' Digital safe settings provide secure access to data from a remote location.
+#' To be approved for remote data access, researchers will need to prove that
+#' their organisation meets physical and IT security standards.
+#'
+#'@inheritParams safe_data
+#' @param ... Other optional arguments. See the full documentation,
+#'     [`?dsROCrate::safe_setting`][safe_setting()].
 #'
 #' @returns Updated RO-Crate object with Safe Settings information.
 #' @export
 #'
-# @examples
+#' @source
+#' \itemize{
+#'  \item Research Data Scotland, 2025. "What is the Five Safes framework?".
+#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/>
+#' }
 safe_setting <- function(x, ...) {
   UseMethod("safe_setting", x)
 }

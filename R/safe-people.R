@@ -2,18 +2,29 @@
 #'
 #' Safe people details for the RO-Crate.
 #'
-#' @param x PENDING
-#' @param ... Other optional arguments.
-#' @param rocrate RO-Crate object (see \link[rocrateR]{rocrate}).
-#' @param user description
-#' @param user_id_suffix description
-#' @param connection Connection object for the DataSHIELD server where the
-#'     values will be extracted from (e.g., OBiBa's Opal).
+#' Researchers must be accredited and trained before accessing the data that
+#' has been prepared for them.
+#'
+#' The access service provider may require the researcher to sign a statement
+#' that they know and understand the regulations of the TRE.
+#'
+#' @inheritParams safe_data
+#' @param ... Other optional arguments. See the full documentation,
+#'     [`?dsROCrate::safe_people`][safe_people()].
+#' @param user List (or [entity][rocrateR::entity()] object) with details for
+#'     the safe people, it must include `@id` and `name` entries. Alternatively,
+#'     this can be a string with the `name` of the current user.
+#' @param user_id_suffix String with ID suffix for the tables/datasets
+#'     entities in the RO-Crate (default: `"#dataset:"`).
 #'
 #' @returns Updated RO-Crate object with Safe People information.
 #' @export
 #'
-# @examples
+#' @source
+#' \itemize{
+#'  \item Research Data Scotland, 2025. "What is the Five Safes framework?".
+#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/>
+#' }
 safe_people <- function(x, ...) {
   UseMethod("safe_people", x)
 }

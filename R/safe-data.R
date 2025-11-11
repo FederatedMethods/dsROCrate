@@ -15,8 +15,9 @@
 #' <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-data-de-identification/>
 #'
 #' @param x This can be a connection to a 'DataSHIELD' server (e.g., object with
-#'     the `opal` class), an RO-Crate ([rocrate][rocrateR::rocrate()] class) or
-#'     a string with the path to an RO-Crate.
+#'     the `opal` class, see [opalr::opal.login()]), an RO-Crate
+#'     ([rocrate][rocrateR::rocrate()] class) or a string with the path to an
+#'     RO-Crate.
 #' @param ... Other optional arguments. See the full documentation,
 #'     [`?dsROCrate::safe_data`][safe_data()].
 #' @param rocrate RO-Crate object. Optional, if `x` is either an RO-Crate
@@ -30,7 +31,7 @@
 #'     entities in the RO-Crate (default: `"#dataset:"`).
 #' @param connection Connection object for the 'DataSHIELD' server where the
 #'     values will be extracted from (e.g., OBiBa's Opal). Optional, if `x` is
-#'     set to this connection object. If so, then `rocrate` is required.
+#'     set to a connection object. If so, then `rocrate` is required.
 #'
 #' @returns Updated RO-Crate object with Safe Data information.
 #' @export

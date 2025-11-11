@@ -2,19 +2,28 @@
 #'
 #' Safe projects details for the RO-Crate.
 #'
-#' @param x PENDING
-#' @param ... Other optional arguments.
-#' @param rocrate RO-Crate object (see \link[rocrateR]{rocrate}).
-#' @param project description
-#' @param dataset_id_suffix description
-#' @param project_id_suffix description
-#' @param connection Connection object for the DataSHIELD server where the
-#'     values will be extracted from (e.g., OBiBa's Opal).
+#' Data must be used ethically, for research that delivers clear public benefit.
+#'
+#' As part of their application, researchers are asked to provide an overview
+#' of their project, including how the data will be used and what outputs will
+#' be achieved. This allows data providers to make an informed decision about
+#' whether they are comfortable preparing data for the researcher to use for
+#' ethical purposes serving a public good.
+#'
+#' @inheritParams safe_data
+#' @param ... Other optional arguments. See the full documentation,
+#'     [`?dsROCrate::safe_project`][safe_project()].
+#' @param project_id_suffix String with ID suffix for the project entities
+#'     in the RO-Crate (default: `"#project:"`).
 #'
 #' @returns Updated RO-Crate object with Safe Projects information.
 #' @export
 #'
-# @examples
+#' @source
+#' \itemize{
+#'  \item Research Data Scotland, 2025. "What is the Five Safes framework?".
+#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/>
+#' }
 safe_project <- function(x, ...) {
   UseMethod("safe_project", x)
 }
