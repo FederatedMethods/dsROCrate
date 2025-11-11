@@ -117,7 +117,7 @@ test_that("safe_output works", {
                              logs_from = Sys.time() - 60^2 * 24, # 1 day ago
                              logs_to = Sys.time() - 60^2 * 23,
                              user = "dsuser",
-                             path = "/invalid/path/rocrateR")
+                             path = "C:/invalid/path/rocrateR")
   )
 
   # write logs in temporary file
