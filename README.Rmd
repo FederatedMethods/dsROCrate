@@ -353,7 +353,7 @@ basic_rocrate <- basic_rocrate |>
 ```{r}
 # create RO-Crate bag
 path_to_rocrate_bag <- basic_rocrate |>
-  rocrateR::bag_rocrate(path = "./rocrates/", overwrite = TRUE)
+  rocrateR::bag_rocrate(path = "./rocrates", overwrite = TRUE)
 ```
 
 We can explore the contents with the following commands:
