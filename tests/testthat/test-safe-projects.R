@@ -18,7 +18,10 @@ test_that("safe_project works", {
   # attempt adding invalid project
   expect_error(
     basic_rocrate |>
-      dsROCrate::safe_project(project = "Invalid Project", connection = opal_con)
+      dsROCrate::safe_project(
+        project = "Invalid Project",
+        connection = opal_con
+      )
   )
 
   # add details for Project without Dataset entities

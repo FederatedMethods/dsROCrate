@@ -37,14 +37,14 @@ safe_setting <- function(x, ...) {
 
 #' @export
 safe_setting.default <- function(x, ...) {
-  stop("Unknown class, please try either a file path or",
-       " an object with `rocrate` class!")
+  stop(
+    "Unknown class, please try either a file path or",
+    " an object with `rocrate` class!"
+  )
 }
 
 #' @export
-safe_setting.character <- function(x, ..., rocrate = NULL) {
-
-}
+safe_setting.character <- function(x, ..., rocrate = NULL) {}
 
 #' @rdname safe_setting
 #' @export

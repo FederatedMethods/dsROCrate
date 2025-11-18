@@ -38,7 +38,9 @@ test_that("safe_output works", {
       user = list(id = "extra_username", name = "Extra username")
     ) |>
     # set multiple users as the author
-    rocrateR::add_entity_value(id = "./", key = "author",
+    rocrateR::add_entity_value(
+      id = "./",
+      key = "author",
       value = list(
         list(`@id` = "extra_username"),
         list(`@id` = paste0("#person:", digest::digest("dsuser")))
@@ -60,19 +62,23 @@ test_that("safe_output works", {
   DSOpal::Opal()
   ### create new login object, note that here we use the `dsuser`
   builder <- DSI::newDSLoginBuilder()
-  builder$append(server = "study1",
-                 url = SERVER,
-                 user = "dsuser",
-                 password = DSUSERPASS,
-                 driver = "OpalDriver")
+  builder$append(
+    server = "study1",
+    url = SERVER,
+    user = "dsuser",
+    password = DSUSERPASS,
+    driver = "OpalDriver"
+  )
   logindata <- builder$build()
   conns <- DSI::datashield.login(logins = logindata)
 
   ### assign data
-  DSI::datashield.assign.table(conns["study1"],
-                               symbol = "dsROCrate_test",
-                               table = paste0(PROJECT, ".", TABLES[1]),
-                               errors.print = TRUE)
+  DSI::datashield.assign.table(
+    conns["study1"],
+    symbol = "dsROCrate_test",
+    table = paste0(PROJECT, ".", TABLES[1]),
+    errors.print = TRUE
+  )
 
   dsBaseClient::ds.ls(datasources = conns["study1"])
 
@@ -81,29 +87,35 @@ test_that("safe_output works", {
 
   expect_warning(
     basic_rocrate_5 <- basic_rocrate_3 |>
-      dsROCrate::safe_output(connection = opal_con,
-                             logs_from = Sys.time() - 60, # capture the last min
-                             logs_to = Sys.time(),
-                             user = "dsuser")
+      dsROCrate::safe_output(
+        connection = opal_con,
+        logs_from = Sys.time() - 60, # capture the last min
+        logs_to = Sys.time(),
+        user = "dsuser"
+      )
   )
 
   # run function with logs for an invalid period (no logs)
   expect_warning(
     basic_rocrate_6 <- basic_rocrate_3 |>
-      dsROCrate::safe_output(connection = opal_con,
-                             logs_from = Sys.time() - 60^2 * 24, # 1 day ago
-                             logs_to = Sys.time() - 60^2 * 23,
-                             user = "dsuser")
+      dsROCrate::safe_output(
+        connection = opal_con,
+        logs_from = Sys.time() - 60^2 * 24, # 1 day ago
+        logs_to = Sys.time() - 60^2 * 23,
+        user = "dsuser"
+      )
   )
 
   # provide invalid path to write the logs
   expect_warning(
     basic_rocrate_7 <- basic_rocrate_3 |>
-      dsROCrate::safe_output(connection = opal_con,
-                             logs_from = Sys.time() - 60^2 * 24, # 1 day ago
-                             logs_to = Sys.time(),
-                             user = "dsuser",
-                             path = "/invalid/path/rocrateR")
+      dsROCrate::safe_output(
+        connection = opal_con,
+        logs_from = Sys.time() - 60^2 * 24, # 1 day ago
+        logs_to = Sys.time(),
+        user = "dsuser",
+        path = "/invalid/path/rocrateR"
+      )
   )
 
   # write logs in temporary file
@@ -111,12 +123,13 @@ test_that("safe_output works", {
   on.exit(unlink(tempdir_name, force = TRUE, recursive = TRUE))
   expect_true(dir.exists(tempdir_name))
   basic_rocrate_8 <- basic_rocrate_3 |>
-    dsROCrate::safe_output(connection = opal_con,
-                           logs_from = Sys.time() - 60, # capture the last min
-                           logs_to = Sys.time(),
-                           user = "dsuser",
-                           path = tempdir_name
-                           )
+    dsROCrate::safe_output(
+      connection = opal_con,
+      logs_from = Sys.time() - 60, # capture the last min
+      logs_to = Sys.time(),
+      user = "dsuser",
+      path = tempdir_name
+    )
   unlink(tempdir_name, force = TRUE, recursive = TRUE)
   expect_false(dir.exists(tempdir_name))
 

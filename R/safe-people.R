@@ -31,18 +31,24 @@ safe_people <- function(x, ...) {
 
 #' @export
 safe_people.default <- function(x, ...) {
-  stop("Unknown class, please try either a file path or",
-       " an object with `rocrate` class!")
+  stop(
+    "Unknown class, please try either a file path or",
+    " an object with `rocrate` class!"
+  )
 }
 
 #' @export
-safe_people.character <- function(x, ..., rocrate = NULL) {
-
-}
+safe_people.character <- function(x, ..., rocrate = NULL) {}
 
 #' @rdname safe_people
 #' @export
-safe_people.opal <- function(x, ..., rocrate = NULL, user = NULL, user_id_suffix = "#person:") {
+safe_people.opal <- function(
+  x,
+  ...,
+  rocrate = NULL,
+  user = NULL,
+  user_id_suffix = "#person:"
+) {
   # x is a valid opal connection object
   # TODO validate connection
 
@@ -64,7 +70,6 @@ safe_people.opal <- function(x, ..., rocrate = NULL, user = NULL, user_id_suffix
         name = c(getElement(user, "name"), getElement(user, "username")),
         affiliation = list(`@id` = c(getElement(user, "affiliation")))
       )
-
     } else {
       user_entity <- rocrateR::entity(
         x = paste0(user_id_suffix, digest::digest(user)),
@@ -87,7 +92,6 @@ safe_people.opal <- function(x, ..., rocrate = NULL, user = NULL, user_id_suffix
       lapply(\(x) list(`@id` = x[["@id"]]))
   }
 
-
   # add user to the RO-Crate
   rocrate <- rocrate |>
     rocrateR::add_entity(user_entity, overwrite = TRUE) |>
@@ -104,7 +108,13 @@ safe_people.opal <- function(x, ..., rocrate = NULL, user = NULL, user_id_suffix
 
 #' @rdname safe_people
 #' @export
-safe_people.rocrate <- function(x, ..., user = NULL, user_id_suffix = "#person:", connection = NULL) {
+safe_people.rocrate <- function(
+  x,
+  ...,
+  user = NULL,
+  user_id_suffix = "#person:",
+  connection = NULL
+) {
   # check if the connection was given
   if (is.null(connection)) {
     stop("A `connection` object is required!", call. = FALSE)
@@ -113,5 +123,10 @@ safe_people.rocrate <- function(x, ..., user = NULL, user_id_suffix = "#person:"
   # TODO: Validate `connection` object
 
   # call method with given `connection` object:
-  safe_people(connection, rocrate = x, user = user, user_id_suffix = user_id_suffix)
+  safe_people(
+    connection,
+    rocrate = x,
+    user = user,
+    user_id_suffix = user_id_suffix
+  )
 }

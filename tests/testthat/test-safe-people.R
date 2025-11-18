@@ -35,8 +35,10 @@ test_that("safe_people works", {
 
   # add custom safe people
   basic_rocrate_4 <- basic_rocrate_2 |>
-    dsROCrate::safe_people(connection = opal_con,
-                           user = list(id = "test_user", name = "Test User"))
+    dsROCrate::safe_people(
+      connection = opal_con,
+      user = list(id = "test_user", name = "Test User")
+    )
   ## retrieve safe_people entity
   basic_rocrate_4_sp <- basic_rocrate_4 |>
     rocrateR::get_entity(type = "Person")

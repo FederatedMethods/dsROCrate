@@ -41,18 +41,26 @@ safe_output <- function(x, ...) {
 
 #' @export
 safe_output.default <- function(x, ...) {
-  stop("Unknown class, please try either a file path or",
-       " an object with `rocrate` class!")
+  stop(
+    "Unknown class, please try either a file path or",
+    " an object with `rocrate` class!"
+  )
 }
 
 #' @export
-safe_output.character <- function(x, ..., rocrate = NULL) {
-
-}
+safe_output.character <- function(x, ..., rocrate = NULL) {}
 
 #' @rdname safe_output
 #' @export
-safe_output.opal <- function(x, ..., rocrate = NULL, path = NULL, user = NULL, logs_to = Sys.time(), logs_from = logs_to - 24 * 60 ^ 2) {
+safe_output.opal <- function(
+  x,
+  ...,
+  rocrate = NULL,
+  path = NULL,
+  user = NULL,
+  logs_to = Sys.time(),
+  logs_from = logs_to - 24 * 60^2
+) {
   # local bindings
   `@timestamp` <- logger_name <- safe_people_id <- NULL
 
@@ -82,10 +90,12 @@ safe_output.opal <- function(x, ..., rocrate = NULL, path = NULL, user = NULL, l
 
     # check if safe people section wasn't found
     if (is.null(safe_people_id)) {
-      warning("Safe people section not found (i.e., no author for root entity) ",
-              "in the given RO-Crate. \nEither run `dsROCrate::safe_people()` ",
-              "or set `user` when calling `dsROCrate::safe_output()`!",
-              call. = FALSE)
+      warning(
+        "Safe people section not found (i.e., no author for root entity) ",
+        "in the given RO-Crate. \nEither run `dsROCrate::safe_people()` ",
+        "or set `user` when calling `dsROCrate::safe_output()`!",
+        call. = FALSE
+      )
 
       # return the input RO-Crate
       return(rocrate)
@@ -102,10 +112,14 @@ safe_output.opal <- function(x, ..., rocrate = NULL, path = NULL, user = NULL, l
 
     # check if for any reason multiple users were found
     if (length(user) != 1) {
-      warning("Error when retrieving the safe people section in the given ",
-              "RO-Crate. ", length(user), " entries in the 'author' ",
-              "section of root (./) entity were found!",
-              call. = FALSE)
+      warning(
+        "Error when retrieving the safe people section in the given ",
+        "RO-Crate. ",
+        length(user),
+        " entries in the 'author' ",
+        "section of root (./) entity were found!",
+        call. = FALSE
+      )
 
       # return the input RO-Crate
       return(rocrate)
@@ -115,8 +129,9 @@ safe_output.opal <- function(x, ..., rocrate = NULL, path = NULL, user = NULL, l
   # parse logs
   userlogs <- opalr::dsadmin.log(x) |>
     tibble::as_tibble() |>
-    dplyr::mutate(`@timestamp` = as.POSIXct(`@timestamp`,
-                                            format = "%Y-%m-%dT%H:%M:%S")) |>
+    dplyr::mutate(
+      `@timestamp` = as.POSIXct(`@timestamp`, format = "%Y-%m-%dT%H:%M:%S")
+    ) |>
     # filter logs
     dplyr::filter(dplyr::between(`@timestamp`, logs_from, logs_to)) |>
     dplyr::filter(logger_name == "datashield.user") |>
@@ -127,10 +142,16 @@ safe_output.opal <- function(x, ..., rocrate = NULL, path = NULL, user = NULL, l
 
   # check if any logs were found in the given time frame
   if (length(userlogs) == 0) {
-    warning("No logs were found for the following configuration:",
-            "\n User: ", user,
-            "\n Period: ", logs_from, " -- ", logs_to,
-            call. = FALSE)
+    warning(
+      "No logs were found for the following configuration:",
+      "\n User: ",
+      user,
+      "\n Period: ",
+      logs_from,
+      " -- ",
+      logs_to,
+      call. = FALSE
+    )
 
     # return the input RO-Crate
     return(rocrate)
@@ -150,28 +171,34 @@ safe_output.opal <- function(x, ..., rocrate = NULL, path = NULL, user = NULL, l
   # check if a `path` was not provided, then display warning and store contents
   # inside the RO-Crate entity
   if (is.null(path)) {
-    warning("A `path` wasn't provided! The logs will be included in the ",
-            "RO-Crate object, under the `content` tag!",
-            call. = FALSE)
+    warning(
+      "A `path` wasn't provided! The logs will be included in the ",
+      "RO-Crate object, under the `content` tag!",
+      call. = FALSE
+    )
     log_entity$content <- list(userlogs)
   } else {
     # validate if the given path is valid
     if (!dir.exists(path)) {
-      warning("The given `path` is not valid! The logs will be included in the ",
-              "RO-Crate object, under the `content` tag!",
-              call. = FALSE)
+      warning(
+        "The given `path` is not valid! The logs will be included in the ",
+        "RO-Crate object, under the `content` tag!",
+        call. = FALSE
+      )
       log_entity$content <- list(userlogs)
     } else {
-       writeLines(userlogs, file.path(path, log_filename))
+      writeLines(userlogs, file.path(path, log_filename))
     }
   }
 
   # add entity to the RO-Crate
   rocrate <- rocrate |>
     rocrateR::add_entity(log_entity) |>
-    rocrateR::add_entity_value(id = "./",
-                               key = "hasPart",
-                               value = list(`@id` = log_entity$`@id`))
+    rocrateR::add_entity_value(
+      id = "./",
+      key = "hasPart",
+      value = list(`@id` = log_entity$`@id`)
+    )
 
   # return RO-Crate with the new entity
   return(rocrate)
@@ -179,7 +206,15 @@ safe_output.opal <- function(x, ..., rocrate = NULL, path = NULL, user = NULL, l
 
 #' @rdname safe_output
 #' @export
-safe_output.rocrate <- function(x, ..., path = NULL, user = NULL, logs_to = Sys.time(), logs_from = logs_to - 24 * 60 ^ 2, connection = NULL) {
+safe_output.rocrate <- function(
+  x,
+  ...,
+  path = NULL,
+  user = NULL,
+  logs_to = Sys.time(),
+  logs_from = logs_to - 24 * 60^2,
+  connection = NULL
+) {
   # check if the connection was given
   if (is.null(connection)) {
     stop("A `connection` object is required!", call. = FALSE)
@@ -188,5 +223,12 @@ safe_output.rocrate <- function(x, ..., path = NULL, user = NULL, logs_to = Sys.
   # TODO: Validate `connection` object
 
   # call method with given `connection` object:
-  safe_output(connection, rocrate = x, path = path, user = user, logs_to = logs_to, logs_from = logs_from)
+  safe_output(
+    connection,
+    rocrate = x,
+    path = path,
+    user = user,
+    logs_to = logs_to,
+    logs_from = logs_from
+  )
 }

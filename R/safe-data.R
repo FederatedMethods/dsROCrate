@@ -47,18 +47,25 @@ safe_data <- function(x, ...) {
 
 #' @export
 safe_data.default <- function(x, ...) {
-  stop("Unknown class, please try either a file path or",
-       " an object with `rocrate` class!")
+  stop(
+    "Unknown class, please try either a file path or",
+    " an object with `rocrate` class!"
+  )
 }
 
 #' @export
-safe_data.character <- function(x, ..., rocrate = NULL) {
-
-}
+safe_data.character <- function(x, ..., rocrate = NULL) {}
 
 #' @rdname safe_data
 #' @export
-safe_data.opal <- function(x, ..., rocrate = NULL, project = NULL, tables = NULL, dataset_id_suffix = "#dataset:") {
+safe_data.opal <- function(
+  x,
+  ...,
+  rocrate = NULL,
+  project = NULL,
+  tables = NULL,
+  dataset_id_suffix = "#dataset:"
+) {
   # declare local bindings
   created <- lastUpdate <- name <- new_dataset_entity <- NULL
 
@@ -69,22 +76,27 @@ safe_data.opal <- function(x, ..., rocrate = NULL, project = NULL, tables = NULL
   # with a project.
   project_exists <- opalr::opal.project_exists(x, project)
   if (!project_exists) {
-    stop("The given `project` was not found in the given Opal connection!",
-         call. = FALSE)
+    stop(
+      "The given `project` was not found in the given Opal connection!",
+      call. = FALSE
+    )
   }
 
   # retrieve details associated to `project`
   project_details_tbl <- opalr::opal.project(x, project)
 
   # table names, update times etc.
-  project_tables <- tryCatch({
-    project_details_tbl |>
-      purrr::pluck("datasource") |>
-      purrr::pluck("table") |>
-      purrr::list_c()
-  }, error = function(e) {
-    list()
-  })
+  project_tables <- tryCatch(
+    {
+      project_details_tbl |>
+        purrr::pluck("datasource") |>
+        purrr::pluck("table") |>
+        purrr::list_c()
+    },
+    error = function(e) {
+      list()
+    }
+  )
 
   # verify if `tables` is NULL, if so, then add all data tables associated
   # to the given `project`
@@ -103,8 +115,10 @@ safe_data.opal <- function(x, ..., rocrate = NULL, project = NULL, tables = NULL
       timestamps <- getElement(table_details, "timestamps")
       # create entity object
       new_dataset_entity <- rocrateR::entity(
-        x = paste0(dataset_id_suffix,
-                   digest::digest(paste0(datasource, "_", table))),
+        x = paste0(
+          dataset_id_suffix,
+          digest::digest(paste0(datasource, "_", table))
+        ),
         type = "Dataset",
         dateCreated = getElement(timestamps, "created"),
         dateModified = getElement(timestamps, "lastUpdate"),
@@ -126,7 +140,14 @@ safe_data.opal <- function(x, ..., rocrate = NULL, project = NULL, tables = NULL
 
 #' @rdname safe_data
 #' @export
-safe_data.rocrate <- function(x, ..., project = NULL, tables = NULL, dataset_id_suffix = "#dataset:", connection = NULL) {
+safe_data.rocrate <- function(
+  x,
+  ...,
+  project = NULL,
+  tables = NULL,
+  dataset_id_suffix = "#dataset:",
+  connection = NULL
+) {
   # check if the connection was given
   if (is.null(connection)) {
     stop("A `connection` object is required!", call. = FALSE)
@@ -135,5 +156,11 @@ safe_data.rocrate <- function(x, ..., project = NULL, tables = NULL, dataset_id_
   # TODO: Validate `connection` object
 
   # call method with given `connection` object:
-  safe_data(connection, rocrate = x, project = project, tables = tables, dataset_id_suffix = dataset_id_suffix)
+  safe_data(
+    connection,
+    rocrate = x,
+    project = project,
+    tables = tables,
+    dataset_id_suffix = dataset_id_suffix
+  )
 }

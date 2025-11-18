@@ -30,18 +30,25 @@ safe_project <- function(x, ...) {
 
 #' @export
 safe_project.default <- function(x, ...) {
-  stop("Unknown class, please try either a file path or",
-       " an object with `rocrate` class!")
+  stop(
+    "Unknown class, please try either a file path or",
+    " an object with `rocrate` class!"
+  )
 }
 
 #' @export
-safe_project.character <- function(x, ...) {
-
-}
+safe_project.character <- function(x, ...) {}
 
 #' @rdname safe_project
 #' @export
-safe_project.opal <- function(x, ..., rocrate = NULL, project = NULL, dataset_id_suffix = "#dataset:", project_id_suffix = "#project:") {
+safe_project.opal <- function(
+  x,
+  ...,
+  rocrate = NULL,
+  project = NULL,
+  dataset_id_suffix = "#dataset:",
+  project_id_suffix = "#project:"
+) {
   # declare local bindings
   created <- lastUpdate <- name <- new_dataset_entity <- NULL
 
@@ -51,8 +58,10 @@ safe_project.opal <- function(x, ..., rocrate = NULL, project = NULL, dataset_id
   # check if the given `project` exists
   project_exists <- opalr::opal.project_exists(x, project)
   if (!project_exists) {
-    stop("The given `project` was not found in the given Opal connection!",
-         call. = FALSE)
+    stop(
+      "The given `project` was not found in the given Opal connection!",
+      call. = FALSE
+    )
   }
 
   # retrieve details associated to `project`
@@ -101,7 +110,14 @@ safe_project.opal <- function(x, ..., rocrate = NULL, project = NULL, dataset_id
 
 #' @rdname safe_project
 #' @export
-safe_project.rocrate <- function(x, ..., project = NULL, dataset_id_suffix = "#dataset:", project_id_suffix = "#project:", connection = NULL) {
+safe_project.rocrate <- function(
+  x,
+  ...,
+  project = NULL,
+  dataset_id_suffix = "#dataset:",
+  project_id_suffix = "#project:",
+  connection = NULL
+) {
   # check if the connection was given
   if (is.null(connection)) {
     stop("A `connection` object is required!", call. = FALSE)
@@ -110,5 +126,11 @@ safe_project.rocrate <- function(x, ..., project = NULL, dataset_id_suffix = "#d
   # TODO: Validate `connection` object
 
   # call method with given `connection` object:
-  safe_project(connection, rocrate = x, project = project, dataset_id_suffix = dataset_id_suffix, project_id_suffix = project_id_suffix)
+  safe_project(
+    connection,
+    rocrate = x,
+    project = project,
+    dataset_id_suffix = dataset_id_suffix,
+    project_id_suffix = project_id_suffix
+  )
 }
