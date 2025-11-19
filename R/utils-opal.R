@@ -46,11 +46,38 @@ get_project_tables <- function(x, project) {
 get_table_permissions <- function(x, project, tables) {
   seq_along(tables) |>
     lapply(function(j) {
-      tibble::tibble(
-        project = project,
-        table = tables[j],
-        # get permissions for each dataset inside each project
-        opalr::opal.table_perm(x, project, tables[j])
+      tryCatch(
+        {
+          tibble::tibble(
+            project = project,
+            table = tables[j],
+            # get permissions for each dataset inside each project
+            opalr::opal.table_perm(x, project, tables[j])
+          )
+        },
+        error = function(e) {
+          if (grepl("HTTP 403", e$message)) {
+            stop(
+              "The provided connection does not have access to retrieve ",
+              "table permissions!",
+              call. = FALSE
+            )
+          } else if (grepl("HTTP 404", e$message)) {
+            warning(
+              "Error when retrieving permissions for ",
+              paste0(project, ".", tables[j], "!"),
+              call. = FALSE
+            )
+          } else {
+            warning(e$message, call. = FALSE)
+          }
+
+          # return empty tibble, only with `project` and `table` details
+          return(tibble::tibble(
+            project = project,
+            table = tables[j]
+          ))
+        }
       )
     }) |>
     # combine results from the permissions for each table
