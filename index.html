@@ -161,7 +161,7 @@
 <span><span class="co">#&gt;       "@type": "Dataset",</span></span>
 <span><span class="co">#&gt;       "name": "",</span></span>
 <span><span class="co">#&gt;       "description": "",</span></span>
-<span><span class="co">#&gt;       "datePublished": "2025-11-11",</span></span>
+<span><span class="co">#&gt;       "datePublished": "2025-11-17",</span></span>
 <span><span class="co">#&gt;       "license": {</span></span>
 <span><span class="co">#&gt;         "@id": "http://spdx.org/licenses/CC-BY-4.0"</span></span>
 <span><span class="co">#&gt;       },</span></span>
@@ -195,8 +195,8 @@
 <span><span class="co">#&gt;     {</span></span>
 <span><span class="co">#&gt;       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",</span></span>
 <span><span class="co">#&gt;       "@type": "Dataset",</span></span>
-<span><span class="co">#&gt;       "dateCreated": "2025-11-11T06:34:31.302Z",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2025-11-11T06:34:32.423Z",</span></span>
+<span><span class="co">#&gt;       "dateCreated": "2025-11-17T06:29:44.141Z",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2025-11-17T06:29:45.263Z",</span></span>
 <span><span class="co">#&gt;       "path": "/datasource/CNSIM/table/CNSIM1"</span></span>
 <span><span class="co">#&gt;     }</span></span>
 <span><span class="co">#&gt;   ]</span></span>
@@ -217,8 +217,8 @@
 <span><span class="co">#&gt;       "@id": "#project:f9e884084b84794d762a535f3facec85",</span></span>
 <span><span class="co">#&gt;       "@type": "Project",</span></span>
 <span><span class="co">#&gt;       "name": "CNSIM",</span></span>
-<span><span class="co">#&gt;       "dateCreated": "2025-11-11T06:34:29.998Z",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2025-11-11T06:34:34.716Z",</span></span>
+<span><span class="co">#&gt;       "dateCreated": "2025-11-17T06:29:42.848Z",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2025-11-17T06:29:47.597Z",</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
 <span><span class="co">#&gt;           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"</span></span>
@@ -454,7 +454,7 @@
 <span>                         logs_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">60</span>, <span class="co"># capture the last minute</span></span>
 <span>                         logs_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 134 records... Imported 134 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 68 records... Imported 68 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; Warning: A `path` wasn't provided! The logs will be included in the RO-Crate</span></span>
 <span><span class="co">#&gt; object, under the `content` tag!</span></span></code></pre></div>
@@ -462,13 +462,13 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">basic_rocrate</span><span class="op">)</span> <span class="co"># note that the output will be truncated</span></span>
 <span><span class="va">...</span></span>
 <span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "2025-11-11-dslogs-dsuser.log",</span></span>
+<span><span class="co">#&gt;       "@id": "2025-11-17-dslogs-dsuser.log",</span></span>
 <span><span class="co">#&gt;       "@type": "File",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2025-11-11 11:03:28",</span></span>
-<span><span class="co">#&gt;       "name": "2025-11-11-dslogs-dsuser.log",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2025-11-17 09:40:26",</span></span>
+<span><span class="co">#&gt;       "name": "2025-11-17-dslogs-dsuser.log",</span></span>
 <span><span class="co">#&gt;       "encodingFormat": "text/plain",</span></span>
 <span><span class="co">#&gt;       "content": [</span></span>
-<span><span class="co">#&gt;         ["[INFO][2025-11-11T11:03:26][OPEN]      created a datashield session 7e3cbdd3-d3ee-4d2a-ab4d-a41cb3f9984b", "[INFO][2025-11-11T11:03:26][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2025-11-11T11:03:26][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2025-11-11T11:03:27][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2025-11-11T11:03:28][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2025-11-11T11:03:28][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2025-11-11T11:03:28][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2025-11-11T11:03:28][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2025-11-11T11:03:28][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2025-11-11T11:03:28][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2025-11-11T11:03:28][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2025-11-11T11:03:28][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2025-11-11T11:03:28][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2025-11-11T11:03:28][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]</span></span>
+<span><span class="co">#&gt;         ["[INFO][2025-11-17T09:40:22][OPEN]      created a datashield session 2f33840c-778e-4f05-b168-0be8b79cc321", "[INFO][2025-11-17T09:40:23][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2025-11-17T09:40:24][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2025-11-17T09:40:25][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2025-11-17T09:40:25][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2025-11-17T09:40:25][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2025-11-17T09:40:25][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2025-11-17T09:40:25][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2025-11-17T09:40:25][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2025-11-17T09:40:25][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2025-11-17T09:40:25][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2025-11-17T09:40:25][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2025-11-17T09:40:25][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2025-11-17T09:40:25][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     }</span></span>
 <span><span class="co">#&gt;   ]</span></span>
@@ -505,13 +505,13 @@
 <span><span class="va">basic_rocrate</span> <span class="op">&lt;-</span> <span class="va">basic_rocrate</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">rocrateR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rocrateR/man/add_entity.html" class="external-link">add_entity</a></span><span class="op">(</span><span class="va">logs_entity</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in rocrateR::add_entity(basic_rocrate, logs_entity[[1]], overwrite =</span></span>
-<span><span class="co">#&gt; TRUE): Overwritting the entity with @id = '2025-11-11-dslogs-dsuser.log'</span></span></code></pre></div>
+<span><span class="co">#&gt; TRUE): Overwritting the entity with @id = '2025-11-17-dslogs-dsuser.log'</span></span></code></pre></div>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create RO-Crate bag</span></span>
 <span><span class="va">path_to_rocrate_bag</span> <span class="op">&lt;-</span> <span class="va">basic_rocrate</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">rocrateR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.html" class="external-link">bag_rocrate</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"./rocrates/"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="fu">rocrateR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.html" class="external-link">bag_rocrate</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"./rocrates"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; RO-Crate successfully 'bagged'!</span></span>
-<span><span class="co">#&gt; For details, see: ./rocrates//rocrate-956ae4ffacc7fb995495933022f00bd4.zip</span></span></code></pre></div>
+<span><span class="co">#&gt; For details, see: ./rocrates/rocrate-1639767c99e955fc73b4bdf96a75e03c.zip</span></span></code></pre></div>
 <p>We can explore the contents with the following commands:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract files in temporary directory</span></span>
@@ -523,7 +523,7 @@
 <span><span class="co">#&gt; ./rocrates/ROC/</span></span>
 <span><span class="co">#&gt; ├── bagit.txt</span></span>
 <span><span class="co">#&gt; ├── data</span></span>
-<span><span class="co">#&gt; │   ├── 2025-11-11-dslogs-dsuser.log</span></span>
+<span><span class="co">#&gt; │   ├── 2025-11-17-dslogs-dsuser.log</span></span>
 <span><span class="co">#&gt; │   └── ro-crate-metadata.json</span></span>
 <span><span class="co">#&gt; ├── manifest-sha512.txt</span></span>
 <span><span class="co">#&gt; └── tagmanifest-sha512.txt</span></span></code></pre></div>
