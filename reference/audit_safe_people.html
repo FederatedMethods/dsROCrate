@@ -54,7 +54,16 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">audit_safe_people</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">audit_safe_people</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Default S3 method</span></span>
+<span><span class="fu">audit_safe_people</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'opal'</span></span>
+<span><span class="fu">audit_safe_people</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, <span class="va">user</span>, project <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'rocrate'</span></span>
+<span><span class="fu">audit_safe_people</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -62,11 +71,24 @@
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>PENDING</p></dd>
+<dd><p>This can be a connection to a 'DataSHIELD' server (e.g., object with
+the <code>opal</code> class, see <code><a href="https://www.obiba.org/opalr/reference/opal.login.html" class="external-link">opalr::opal.login()</a></code>), an RO-Crate
+(<a href="https://rdrr.io/pkg/rocrateR/man/rocrate.html" class="external-link">rocrate</a> class) or a string with the path to an
+RO-Crate.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Other optional arguments.</p></dd>
+
+
+<dt id="arg-user">user<a class="anchor" aria-label="anchor" href="#arg-user"></a></dt>
+<dd><p>String with the user name for which to extract Safe People
+details.</p></dd>
+
+
+<dt id="arg-project">project<a class="anchor" aria-label="anchor" href="#arg-project"></a></dt>
+<dd><p>String with project name from which to extra Safe People
+details.</p></dd>
 
 </dl></div>
     <div id="value">
