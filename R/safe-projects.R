@@ -50,7 +50,7 @@ safe_project.opal <- function(
   project_id_suffix = "#project:"
 ) {
   # declare local bindings
-  created <- lastUpdate <- name <- new_dataset_entity <- NULL
+  created <- lastUpdate <- new_dataset_entity <- NULL
 
   # x is a valid opal connection object
   # TODO validate connection
@@ -77,7 +77,7 @@ safe_project.opal <- function(
   # create project entity
   timestamps <- getElement(project_details_tbl, "timestamps")
   project_entity <- rocrateR::entity(
-    x = paste0(project_id_suffix, digest::digest(name)),
+    x = paste0(project_id_suffix, digest::digest(project)),
     type = "Project",
     name = getElement(project_details_tbl, "name"),
     dateCreated = getElement(timestamps, "created"),
