@@ -12,6 +12,7 @@ Description: R package to wrap elements from 'DataSHIELD' analysis into an
     RO-Crate.
 License: MIT + file LICENSE
 Suggests: 
+    dsBaseClient,
     DSI,
     DSOpal,
     knitr,
@@ -30,6 +31,8 @@ Imports:
     purrr,
     rocrateR (>= 0.0.1),
     tibble
+Remotes:
+    datashield/dsBaseClient
 Depends: 
     R (>= 4.1.0)
 VignetteBuilder: knitr
