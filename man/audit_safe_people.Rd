@@ -2,14 +2,32 @@
 % Please edit documentation in R/utils-audit.R
 \name{audit_safe_people}
 \alias{audit_safe_people}
+\alias{audit_safe_people.default}
+\alias{audit_safe_people.opal}
+\alias{audit_safe_people.rocrate}
 \title{Safe people details}
 \usage{
 audit_safe_people(x, ...)
+
+\method{audit_safe_people}{default}(x, ...)
+
+\method{audit_safe_people}{opal}(x, ..., user, project = NULL)
+
+\method{audit_safe_people}{rocrate}(x, ...)
 }
 \arguments{
-\item{x}{PENDING}
+\item{x}{This can be a connection to a 'DataSHIELD' server (e.g., object with
+the \code{opal} class, see \code{\link[opalr:opal.login]{opalr::opal.login()}}), an RO-Crate
+(\link[rocrateR:rocrate]{rocrate} class) or a string with the path to an
+RO-Crate.}
 
 \item{...}{Other optional arguments.}
+
+\item{user}{String with the user name for which to extract Safe People
+details.}
+
+\item{project}{String with project name from which to extra Safe People
+details.}
 }
 \value{
 Updated RO-Crate object with Safe People information.
