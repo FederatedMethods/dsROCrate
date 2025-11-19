@@ -1,3 +1,35 @@
+#' Get project tables
+#'
+#' Wrapper for [opalr::opal.project()].
+#'
+#' @inheritParams get_table_permissions
+#'
+#' @returns List of project tables
+#' @keywords internal
+#'
+#' @family Opal
+get_project_tables <- function(x, project) {
+  # verify if project exists
+  project_exists(x, project)
+
+  # extract table names associated to `project`
+  project_tables <- opalr::opal.project(x, project) |>
+    getElement("datasource") |>
+    getElement("table") |>
+    unlist()
+
+  # verify if `project_tables` is missing or NULL, if so, print warning message
+  if (all(is.na(project_tables)) || all(is.null(project_tables))) {
+    warning(
+      "The given `project`, does not have any tables associated!",
+      call. = FALSE
+    )
+  }
+
+  # return project tables
+  return(project_tables)
+}
+
 #' Get table permissions
 #'
 #' Wrapper for the [opalr::opal.table_perm()] function.
@@ -14,9 +46,12 @@
 get_table_permissions <- function(x, project, tables) {
   seq_along(tables) |>
     lapply(function(j) {
-      # get permissions for each dataset inside each project
-      opalr::opal.table_perm(x, project, tables[j]) |>
-        dplyr::mutate(table = tables[j], .before = 1)
+      tibble::tibble(
+        project = project,
+        table = tables[j],
+        # get permissions for each dataset inside each project
+        opalr::opal.table_perm(x, project, tables[j])
+      )
     }) |>
     # combine results from the permissions for each table
     dplyr::bind_rows()
