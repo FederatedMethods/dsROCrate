@@ -34,7 +34,7 @@ get_project_tables <- function(x, project) {
 #'
 #' Wrapper for the [opalr::opal.table_perm()] function.
 #'
-#' @param x Connection to OBiBa's Opal server (see [opalr::opal.login()]).
+#' @inheritParams validate_opal_con
 #' @param project String with project name.
 #' @param tables String (or vector of strings) with table names for the given
 #'     project.
@@ -84,6 +84,32 @@ get_table_permissions <- function(x, project, tables) {
     dplyr::bind_rows()
 }
 
+#' Verify if connection was created by an administrative user
+#'
+#' @inheritParams validate_opal_con
+#'
+#' @returns Boolean flag to indicate whether the given connection was created
+#'     by an administrative user.
+#' @keywords internal
+is_opal_admin_con <- function(x) {
+  # validate connection
+  validate_opal_con(x)
+
+  # extract the user profile, `uprofile` from the connection object
+  uprofile <- getElement(x, "uprofile")
+
+  # extract logged in user's groups
+  groups <- getElement(uprofile, "groups") |>
+    sapply(unlist)
+
+  # check if the user has admin in their groups
+  if ("admin" %in% groups) {
+    return(TRUE)
+  } else {
+    return(FALSE)
+  }
+}
+
 #' Verify if project exists
 #'
 #' Wrapper for the [opalr::opal.project_exists()] function.
@@ -103,4 +129,24 @@ project_exists <- function(x, project) {
       call. = FALSE
     )
   }
+}
+
+#' Validate OBiBa's Opal connection
+#'
+#' @param x Connection to OBiBa's Opal server (see [opalr::opal.login()]).
+#'
+#' @returns Nothing, call for its side effect.
+#' @keywords internal
+validate_opal_con <- function(x) {
+  tryCatch(
+    {
+      status <- xptr::is_null_xptr(x$handle$handle)
+      if (status) {
+        stop("The given connection is not valid!", call. = FALSE)
+      }
+    },
+    error = function(e) {
+      stop("The given connection is not valid!", call. = FALSE)
+    }
+  )
 }
