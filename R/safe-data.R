@@ -114,6 +114,7 @@ safe_data.opal <- function(
           digest::digest(paste0(datasource, "_", table))
         ),
         type = "Dataset",
+        name = table,
         dateCreated = getElement(timestamps, "created"),
         dateModified = getElement(timestamps, "lastUpdate"),
         path = getElement(table_details, "link")
