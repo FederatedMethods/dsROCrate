@@ -11,11 +11,13 @@
 <url><loc>/reference/get_project_tables.html</loc></url>
 <url><loc>/reference/get_table_permissions.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/is_opal_admin_con.html</loc></url>
 <url><loc>/reference/project_exists.html</loc></url>
 <url><loc>/reference/safe_data.html</loc></url>
 <url><loc>/reference/safe_output.html</loc></url>
 <url><loc>/reference/safe_people.html</loc></url>
 <url><loc>/reference/safe_project.html</loc></url>
 <url><loc>/reference/safe_setting.html</loc></url>
+<url><loc>/reference/validate_opal_con.html</loc></url>
 </urlset>
 
