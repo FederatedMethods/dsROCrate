@@ -84,26 +84,14 @@ audit_safe_project.opal <- function(x, ..., project = NULL) {
     }) |>
     dplyr::bind_rows()
 
-  # # filter out project permissions for the given user
-  # project_table_permissions_tbl_v2 <- project_table_permissions_tbl |>
-  #   dplyr::filter(subject == user, type == "user")
-  #
-  # # check if any permission records were found for the current project
-  # if (nrow(project_table_permissions_tbl_v2) == 0) {
-  #   stop(
-  #     "The given `project`, does not have any permissions set for the given `user`!",
-  #     call. = FALSE
-  #   )
-  # }
-
   # create RO-Create with projects and datasets, plus information of users that
   # have access to them
   safe_project_crate <- rocrateR::rocrate_5s()
 
   ## add safe data and safe project details
-  for (p in unique(project_table_permissions_tbl_v2$project)) {
+  for (p in unique(project_table_permissions_tbl$project)) {
     # filter out tables for the current project
-    project_tables <- project_table_permissions_tbl_v2 |>
+    project_tables <- project_table_permissions_tbl |>
       dplyr::filter(project == p)
     # add tables for the current project
     safe_project_crate <- safe_project_crate |>
