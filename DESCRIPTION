@@ -30,7 +30,8 @@ Imports:
     opalr,
     purrr,
     rocrateR (>= 0.0.1),
-    tibble
+    tibble,
+    xptr
 Remotes:
     datashield/dsBaseClient
 Depends: 
