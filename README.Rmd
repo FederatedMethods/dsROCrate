@@ -66,7 +66,7 @@ rocrate_txt <- function(rocrate) {
 }
 ```
 
-# dsROCrate: 'DataSHIELD' RO-Crate Wrapper Functions <img src="man/figures/logo.png" alt="logo" align="right" height=200px/>
+# dsROCrate: 'DataSHIELD' RO-Crate Wrapper Functions <img src="man/figures/logo.png" alt="logo" align="right" height="200"/>
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
@@ -372,3 +372,51 @@ path_to_rocrate_bag |>
 ```{r}
 unlink("./rocrates", recursive = TRUE, force = TRUE)
 ```
+
+
+<br />
+
+## 3. Auditing RO-Crates and servers
+
+### Safe People
+
+##### List accessible tables within a project for an user
+```{r, warning=FALSE}
+safe_people_crate_v1 <- opalr::opal.login(
+  username = USERNAME,
+  password = USERPASS,
+  url = SERVER
+) |>
+  dsROCrate::audit_safe_people(user = "dsuser", project = "CNSIM")
+
+print(safe_people_crate_v1)
+```
+
+
+##### List all accessible projects & tables for an user
+```{r, warning=FALSE}
+safe_people_crate_v2 <- opalr::opal.login(
+  username = USERNAME,
+  password = USERPASS,
+  url = SERVER
+) |>
+  dsROCrate::audit_safe_people(user = "dsuser")
+
+print(safe_people_crate_v2)
+```
+
+
+
+### Safe Project
+
+<br />
+
+## n. Identity
+
+You are welcome to use any of the following hex codes when referencing `{dsROCrate}`:
+
+<br />
+
+[<img src="man/figures/logo.png" alt="logo" align="left" height="150"/>](man/figures/logo.png)
+[<img src="man/figures/logo_white.png" alt="logo-white" align="left" height="150"/>](man/figures/logo_white.png)
+[<img src="man/figures/logo_black.png" alt="logo-black" align="left" height="150"/>](man/figures/logo_black.png)
