@@ -1,12 +1,13 @@
-#' Safe project details
+#' Audit safe project details
 #'
-#' Safe project details for the RO-Crate.
+#' Audit safe project details from a 'DataSHIELD' server, an RO-Crate object or
+#' a file path pointing to an RO-Crate.
 #'
 #' @param x This can be a connection to a 'DataSHIELD' server (e.g., object with
 #'     the `opal` class, see [opalr::opal.login()]), an RO-Crate
 #'     ([rocrate][rocrateR::rocrate()] class) or a string with the path to an
 #'     RO-Crate.
-#' @param ... Other optional arguments.
+#' @param ... Other optional arguments, see full documentation for details.
 #' @param project String with project name from which to extra Safe Project
 #'     details.
 #'
@@ -16,6 +17,12 @@
 # @examples
 audit_safe_project <- function(x, ...) {
   UseMethod("audit_safe_project", x)
+}
+
+#' @rdname audit_safe_project
+#' @export
+audit_safe_project.character <- function(x, ...) {
+  message("TODO: This generic method hasn't been implemented yet!")
 }
 
 #' @rdname audit_safe_project
@@ -33,8 +40,9 @@ audit_safe_project.opal <- function(x, ..., project = NULL) {
   # local bindings
   project_tables_all <- subject <- type <- NULL
 
-  # TODO: validate Opal connection
-  validate_opal_con(x)
+  # validate Opal connection
+  is_opal_admin_con(x)
+  # validate_opal_con(x)
 
   # if `project` is given, then extract tables associated to that project
   if (!is.null(project)) {
@@ -47,30 +55,7 @@ audit_safe_project.opal <- function(x, ..., project = NULL) {
       project = project,
       table = project_tables
     )
-  } else {
-    # extract all data sources
-    ds <- opalr::opal.datasources(x)
-
-    # cycle through the data sourcew and extract project and table names
-    project_tables_all <- seq_len(nrow(ds)) |>
-      lapply(function(i) {
-        tryCatch(
-          {
-            project_name <- ds[i, "name"]
-            project_tables <- get_project_tables(x, project_name)
-            tibble::tibble(
-              project = project_name,
-              table = unlist(project_tables)
-            )
-          },
-          error = function(e) {
-            return(tibble::tibble(project = project_name))
-          }
-        )
-      }) |>
-      dplyr::bind_rows() |>
-      dplyr::filter(!is.na(table))
-  }
+  } else {}
 
   # get permissions for each table in the project
   # get table permissions
@@ -115,4 +100,7 @@ audit_safe_project.opal <- function(x, ..., project = NULL) {
 
 #' @rdname audit_safe_project
 #' @export
-audit_safe_project.rocrate <- function(x, ...) {}
+audit_safe_project.rocrate <- function(x, ...) {
+  # validate RO-Crate object
+  rocrateR::is_rocrate(x)
+}
