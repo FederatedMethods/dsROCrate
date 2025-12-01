@@ -1,12 +1,13 @@
-#' Safe people details
+#' Audit safe people details
 #'
-#' Safe people details for the RO-Crate.
+#' Audit safe people details from a 'DataSHIELD' server, an RO-Crate object or
+#' a file path pointing to an RO-Crate.
 #'
 #' @param x This can be a connection to a 'DataSHIELD' server (e.g., object with
 #'     the `opal` class, see [opalr::opal.login()]), an RO-Crate
 #'     ([rocrate][rocrateR::rocrate()] class) or a string with the path to an
 #'     RO-Crate.
-#' @param ... Other optional arguments.
+#' @param ... Other optional arguments, see full documentation for details.
 #' @param user String with the user name for which to extract Safe People
 #'     details.
 #' @param project String with project name from which to extra Safe People
@@ -18,6 +19,12 @@
 # @examples
 audit_safe_people <- function(x, ...) {
   UseMethod("audit_safe_people", x)
+}
+
+#' @rdname audit_safe_people
+#' @export
+audit_safe_people.character <- function(x, ...) {
+  message("TODO: This generic method hasn't been implemented yet!")
 }
 
 #' @rdname audit_safe_people
@@ -35,7 +42,8 @@ audit_safe_people.opal <- function(x, ..., user, project = NULL) {
   # local bindings
   project_tables_all <- subject <- type <- NULL
 
-  # TODO: validate Opal connection
+  # validate Opal connection
+  is_opal_admin_con(x)
 
   # if `project` is given, then extract tables associated to that project
   if (!is.null(project)) {
@@ -121,13 +129,6 @@ audit_safe_people.opal <- function(x, ..., user, project = NULL) {
   safe_people_crate <- safe_people_crate |>
     dsROCrate::safe_people(user = user, connection = x)
 
-  # opalr::oadmin.users(o)
-  # opalr::oadmin.user_profiles(o)
-  # p <- opalr::opal.projects(o)
-  # opalr::opal.table_perm(o, "CNSIM", "CNSIM1")
-  # opalr::opal.table_perm(o, "CADSET-coh1", NA)
-  # opalr::opal.perms(o, subject = "dsuser")
-
   # return new RO-Crate
   return(invisible(safe_people_crate))
 }
@@ -135,38 +136,12 @@ audit_safe_people.opal <- function(x, ..., user, project = NULL) {
 #' @rdname audit_safe_people
 #' @export
 audit_safe_people.rocrate <- function(x, ...) {
-  # TODO: validate RO-Crate object
+  # validate RO-Crate object
+  rocrateR::is_rocrate(x)
 
-  # extract author `@id`s from the root directory
-  author_ids <- rocrateR::get_entity(x, id = "./", type = "Dataset") |>
-    lapply(\(x) getElement(x, "author")) |>
-    sapply(\(x) getElement(x, "@id"))
-
-  # extract entities with type = 'Person'
-  person_entities <- rocrateR::get_entity(x, type = "Person")
-
-  # filter out person-entities in the `author_ids`
-  idx <- person_entities |>
-    sapply(\(x) getElement(x, "@id") %in% author_ids)
-  person_entities_v2 <- person_entities[idx]
-
-  # check if any entities were found
-  if (length(person_entities_v2) == 0) {
-    stop(
-      "No matching entities were found for the Author(s) in the root ",
-      "entity (./):\n",
-      paste0("  - ", author_ids, collapse = "\n"),
-      call. = FALSE
-    )
-  } else {
-    message(
-      length(person_entities_v2),
-      " 'Author' entit",
-      ifelse(length(person_entities_v2) == 1, "y was", "ies were"),
-      " found!"
-    )
-  }
+  # extract safe people entities
+  safe_people_ents <- extract_safe_people(x)
 
   # return invisibly
-  return(invisible(person_entities_v2))
+  return(invisible(safe_people_ents))
 }
