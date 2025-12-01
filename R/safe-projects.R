@@ -53,7 +53,10 @@ safe_project.opal <- function(
   created <- lastUpdate <- new_dataset_entity <- NULL
 
   # x is a valid opal connection object
-  # TODO validate connection
+  validate_opal_con(x)
+
+  # validate that connection user has administrative rights
+  is_opal_admin_con(x)
 
   # check if the given `project` exists
   project_exists(x, project)
@@ -128,8 +131,6 @@ safe_project.rocrate <- function(
   if (is.null(connection)) {
     stop("A `connection` object is required!", call. = FALSE)
   }
-
-  # TODO: Validate `connection` object
 
   # call method with given `connection` object:
   safe_project(

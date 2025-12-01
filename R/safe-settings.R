@@ -50,9 +50,10 @@ safe_setting.character <- function(x, ..., rocrate = NULL) {}
 #' @export
 safe_setting.opal <- function(x, ..., rocrate = NULL) {
   # x is a valid opal connection object
-  # TODO validate connection
+  validate_opal_con(x)
 
-  # TODO: validate that connection user has administrative rights
+  # validate that connection user has administrative rights
+  is_opal_admin_con(x)
 
   # extract disclosure settings and create `PropertyValue` entities
   disc_setting_entities <- opalr::dsadmin.get_options(x) |>
@@ -106,8 +107,6 @@ safe_setting.rocrate <- function(x, ..., connection = NULL) {
   if (is.null(connection)) {
     stop("A `connection` object is required!", call. = FALSE)
   }
-
-  # TODO: Validate `connection` object
 
   # call method with given `connection` object:
   safe_setting(connection, rocrate = x)

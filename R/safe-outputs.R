@@ -65,9 +65,10 @@ safe_output.opal <- function(
   `@timestamp` <- logger_name <- safe_people_id <- NULL
 
   # x is a valid opal connection object
-  # TODO validate connection
+  validate_opal_con(x)
 
-  # TODO: validate that connection user has administrative rights
+  # validate that connection user has administrative rights
+  is_opal_admin_con(x)
 
   # TODO: validate that `logs_to` and `logs_from` have the class 'POSIXct'
 
@@ -219,8 +220,6 @@ safe_output.rocrate <- function(
   if (is.null(connection)) {
     stop("A `connection` object is required!", call. = FALSE)
   }
-
-  # TODO: Validate `connection` object
 
   # call method with given `connection` object:
   safe_output(

@@ -52,8 +52,9 @@ safe_people.opal <- function(
   user_id_suffix = "#person:",
   set_author = TRUE
 ) {
+  # NOTE: connection not currently in use, this is a PLACEHOLDER!
   # x is a valid opal connection object
-  # TODO validate connection
+  validate_opal_con(x)
 
   # attempt to retrieve project entity
   safe_project_entity <- rocrate |>
@@ -126,8 +127,6 @@ safe_people.rocrate <- function(
   if (is.null(connection)) {
     stop("A `connection` object is required!", call. = FALSE)
   }
-
-  # TODO: Validate `connection` object
 
   # call method with given `connection` object:
   safe_people(
