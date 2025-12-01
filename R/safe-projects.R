@@ -79,9 +79,9 @@ safe_project.opal <- function(
     # filter by name (if any are found)
     ## pull table names for the current project
     project_tables <- get_project_tables(x, project)
-    idx_name <- TRUE
+    idx_name <- FALSE
     if (length(project_tables) > 0) {
-      idx_id <- project_dataset_entities |>
+      idx_name <- project_dataset_entities |>
         sapply("[[", "name") |>
         sapply(\(x) x[[1]] %in% project_tables)
     }
