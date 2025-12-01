@@ -54,7 +54,7 @@ safe_people.opal <- function(
 ) {
   # NOTE: connection not currently in use, this is a PLACEHOLDER!
   # x is a valid opal connection object
-  validate_opal_con(x)
+  # validate_opal_con(x)
 
   # attempt to retrieve project entity
   safe_project_entity <- rocrate |>
@@ -121,6 +121,7 @@ safe_people.rocrate <- function(
   ...,
   user = NULL,
   user_id_suffix = "#person:",
+  set_author = TRUE,
   connection = NULL
 ) {
   # check if the connection was given
@@ -133,6 +134,7 @@ safe_people.rocrate <- function(
     connection,
     rocrate = x,
     user = user,
-    user_id_suffix = user_id_suffix
+    user_id_suffix = user_id_suffix,
+    set_author = set_author
   )
 }
