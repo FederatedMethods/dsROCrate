@@ -24,6 +24,9 @@ get_project_tables <- function(x, project) {
       "The given `project`, does not have any tables associated!",
       call. = FALSE
     )
+
+    # return empty list, invisibly
+    return(invisible(list()))
   }
 
   # return project tables
