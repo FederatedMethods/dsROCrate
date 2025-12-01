@@ -16,6 +16,8 @@
 #'     this can be a string with the `name` of the current user.
 #' @param user_id_suffix String with ID suffix for the tables/datasets
 #'     entities in the RO-Crate (default: `"#dataset:"`).
+#' @param set_author Boolean flag to indicate if the current user should be
+#'     set as the author of the RO-Crate.
 #'
 #' @returns Updated RO-Crate object with Safe People information.
 #' @export
@@ -47,7 +49,8 @@ safe_people.opal <- function(
   ...,
   rocrate = NULL,
   user = NULL,
-  user_id_suffix = "#person:"
+  user_id_suffix = "#person:",
+  set_author = TRUE
 ) {
   # x is a valid opal connection object
   # TODO validate connection
@@ -94,13 +97,17 @@ safe_people.opal <- function(
 
   # add user to the RO-Crate
   rocrate <- rocrate |>
-    rocrateR::add_entity(user_entity, overwrite = TRUE) |>
-    # link new user entity @id to the root (./) author property
-    rocrateR::add_entity_value(
-      id = "./",
-      key = "author",
-      value = list(`@id` = getElement(user_entity, "@id"))
-    )
+    rocrateR::add_entity(user_entity, overwrite = TRUE)
+
+  # link new user entity @id to the root (./) author property
+  if (set_author) {
+    rocrate <- rocrate |>
+      rocrateR::add_entity_value(
+        id = "./",
+        key = "author",
+        value = list(`@id` = getElement(user_entity, "@id"))
+      )
+  }
 
   # return RO-Crate with the new entity
   return(rocrate)
