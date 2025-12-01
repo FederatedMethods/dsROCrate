@@ -14,13 +14,21 @@
 \usage{
 safe_people(x, ...)
 
-\method{safe_people}{opal}(x, ..., rocrate = NULL, user = NULL, user_id_suffix = "#person:")
+\method{safe_people}{opal}(
+  x,
+  ...,
+  rocrate = NULL,
+  user = NULL,
+  user_id_suffix = "#person:",
+  set_author = TRUE
+)
 
 \method{safe_people}{rocrate}(
   x,
   ...,
   user = NULL,
   user_id_suffix = "#person:",
+  set_author = TRUE,
   connection = NULL
 )
 }
@@ -43,6 +51,9 @@ this can be a string with the \code{name} of the current user.}
 
 \item{user_id_suffix}{String with ID suffix for the tables/datasets
 entities in the RO-Crate (default: \code{"#dataset:"}).}
+
+\item{set_author}{Boolean flag to indicate if the current user should be
+set as the author of the RO-Crate.}
 
 \item{connection}{Connection object for the 'DataSHIELD' server where the
 values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is

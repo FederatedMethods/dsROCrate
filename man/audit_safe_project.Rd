@@ -2,12 +2,15 @@
 % Please edit documentation in R/audit-safe-projects.R
 \name{audit_safe_project}
 \alias{audit_safe_project}
+\alias{audit_safe_project.character}
 \alias{audit_safe_project.default}
 \alias{audit_safe_project.opal}
 \alias{audit_safe_project.rocrate}
-\title{Safe project details}
+\title{Audit safe project details}
 \usage{
 audit_safe_project(x, ...)
+
+\method{audit_safe_project}{character}(x, ...)
 
 \method{audit_safe_project}{default}(x, ...)
 
@@ -21,7 +24,7 @@ the \code{opal} class, see \code{\link[opalr:opal.login]{opalr::opal.login()}}),
 (\link[rocrateR:rocrate]{rocrate} class) or a string with the path to an
 RO-Crate.}
 
-\item{...}{Other optional arguments.}
+\item{...}{Other optional arguments, see full documentation for details.}
 
 \item{project}{String with project name from which to extra Safe Project
 details.}
@@ -30,5 +33,6 @@ details.}
 Updated RO-Crate object with Safe Project information.
 }
 \description{
-Safe project details for the RO-Crate.
+Audit safe project details from a 'DataSHIELD' server, an RO-Crate object or
+a file path pointing to an RO-Crate.
 }

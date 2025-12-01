@@ -6,6 +6,8 @@
 \alias{dsROCrate-package}
 \title{dsROCrate: 'DataSHIELD' RO-Crate Wrapper Functions}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 R package to wrap elements from 'DataSHIELD' analysis into an RO-Crate.
 }
 \author{

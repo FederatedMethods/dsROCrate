@@ -2,12 +2,15 @@
 % Please edit documentation in R/audit-safe-people.R
 \name{audit_safe_people}
 \alias{audit_safe_people}
+\alias{audit_safe_people.character}
 \alias{audit_safe_people.default}
 \alias{audit_safe_people.opal}
 \alias{audit_safe_people.rocrate}
-\title{Safe people details}
+\title{Audit safe people details}
 \usage{
 audit_safe_people(x, ...)
+
+\method{audit_safe_people}{character}(x, ...)
 
 \method{audit_safe_people}{default}(x, ...)
 
@@ -21,7 +24,7 @@ the \code{opal} class, see \code{\link[opalr:opal.login]{opalr::opal.login()}}),
 (\link[rocrateR:rocrate]{rocrate} class) or a string with the path to an
 RO-Crate.}
 
-\item{...}{Other optional arguments.}
+\item{...}{Other optional arguments, see full documentation for details.}
 
 \item{user}{String with the user name for which to extract Safe People
 details.}
@@ -33,5 +36,6 @@ details.}
 Updated RO-Crate object with Safe People information.
 }
 \description{
-Safe people details for the RO-Crate.
+Audit safe people details from a 'DataSHIELD' server, an RO-Crate object or
+a file path pointing to an RO-Crate.
 }
