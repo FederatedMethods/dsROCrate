@@ -3,18 +3,13 @@
 #' Audit safe project details from a 'DataSHIELD' server, an RO-Crate object or
 #' a file path pointing to an RO-Crate.
 #'
-#' @param x This can be a connection to a 'DataSHIELD' server (e.g., object with
-#'     the `opal` class, see [opalr::opal.login()]), an RO-Crate
-#'     ([rocrate][rocrateR::rocrate()] class) or a string with the path to an
-#'     RO-Crate.
+#' @inheritParams safe_people
 #' @param ... Other optional arguments, see full documentation for details.
 #' @param project String with project name from which to extra Safe Project
 #'     details.
 #'
 #' @returns Updated RO-Crate object with Safe Project information.
 #' @export
-#'
-# @examples
 audit_safe_project <- function(x, ...) {
   UseMethod("audit_safe_project", x)
 }
@@ -55,7 +50,23 @@ audit_safe_project.opal <- function(x, ..., project = NULL) {
       project = project,
       table = project_tables
     )
-  } else {}
+  } else {
+    safe_project_ents <- extract_safe_project(x)
+    safe_project_ents |>
+      getElement("@graph") |>
+      sapply(function(ent) {
+        if (getElement(ent, "@type")[[1]] == "Project") {
+          tibble::tibble(
+            project = getElement(ent, "name")[[1]],
+            table = NA
+          )
+        } else {
+          return(NULL)
+        }
+      }) |>
+      # combine results
+      dplyr::bind_rows()
+  }
 
   # get permissions for each table in the project
   # get table permissions
