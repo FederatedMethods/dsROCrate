@@ -64,14 +64,26 @@ safe_project.opal <- function(
   # attempt to retrieve the dataset entities to link up the IDs to the project
   project_dataset_entities <- rocrate |>
     rocrateR::get_entity(type = "Dataset")
+
   # if any entity was found, then filter to keep those for which their @id
-  # starts with `dataset_id_suffix` as set by `safe_data()`
+  # starts with `dataset_id_suffix` as set by `safe_data()` and that are
+  # associated to the current project:
   if (length(project_dataset_entities) > 0) {
-    idx <- project_dataset_entities |>
+    # filter by @id suffix
+    idx_id <- project_dataset_entities |>
       sapply("[[", "@id") |>
       sapply(grepl, pattern = paste0("^", dataset_id_suffix))
+    # filter by name (if any are found)
+    ## pull table names for the current project
+    project_tables <- get_project_tables(x, project)
+    idx_name <- TRUE
+    if (length(project_tables) > 0) {
+      idx_id <- project_dataset_entities |>
+        sapply("[[", "name") |>
+        sapply(\(x) x[[1]] %in% project_tables)
+    }
     # drop out entries with @id not starting with `dataset_id_suffix`
-    project_dataset_entities[!idx] <- NULL
+    project_dataset_entities[!(idx_id & idx_name)] <- NULL
   }
 
   # create project entity
