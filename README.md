@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# dsROCrate: ‘DataSHIELD’ RO-Crate Wrapper Functions <img src="man/figures/logo.png" alt="logo" align="right" height="200"/>
+# dsROCrate: ‘DataSHIELD’ RO-Crate Wrapper Functions <img src="man/figures/logo.png" alt="logo" align="right" height="200" style="float:right; height:200px;"/>
 
 <!-- badges: start -->
 
@@ -129,7 +129,7 @@ print(basic_rocrate)
 #>       "@type": "Dataset",
 #>       "name": "",
 #>       "description": "",
-#>       "datePublished": "2025-11-21",
+#>       "datePublished": "2025-12-01",
 #>       "license": {
 #>         "@id": "http://spdx.org/licenses/CC-BY-4.0"
 #>       },
@@ -164,8 +164,8 @@ print(basic_rocrate) # note that the output will be truncated
 #>       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM1",
-#>       "dateCreated": "2025-11-21T06:29:45.188Z",
-#>       "dateModified": "2025-11-21T06:29:46.305Z",
+#>       "dateCreated": "2025-12-01T06:29:44.178Z",
+#>       "dateModified": "2025-12-01T06:29:45.286Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM1"
 #>     }
 #>   ]
@@ -188,8 +188,8 @@ print(basic_rocrate) # note that the output will be truncated
 #>       "@id": "#project:7ba189863f9f641196596cb28e04aa14",
 #>       "@type": "Project",
 #>       "name": "CNSIM",
-#>       "dateCreated": "2025-11-21T06:29:43.825Z",
-#>       "dateModified": "2025-11-21T06:29:48.607Z",
+#>       "dateCreated": "2025-12-01T06:29:42.906Z",
+#>       "dateModified": "2025-12-01T06:29:47.610Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -452,7 +452,7 @@ basic_rocrate <- o |>
                          logs_from = Sys.time() - 60, # capture the last minute
                          logs_to = Sys.time())
 #> opening file input connection.
-#>  Found 44 records... Imported 44 records. Simplifying...
+#>  Found 170 records... Imported 170 records. Simplifying...
 #> closing file input connection.
 #> Warning: A `path` wasn't provided! The logs will be included in the RO-Crate
 #> object, under the `content` tag!
@@ -462,13 +462,13 @@ basic_rocrate <- o |>
 print(basic_rocrate) # note that the output will be truncated
 ...
 #>     {
-#>       "@id": "2025-11-21-dslogs-dsuser.log",
+#>       "@id": "2025-12-01-dslogs-dsuser.log",
 #>       "@type": "File",
-#>       "dateModified": "2025-11-21 09:39:35",
-#>       "name": "2025-11-21-dslogs-dsuser.log",
+#>       "dateModified": "2025-12-01 09:27:59",
+#>       "name": "2025-12-01-dslogs-dsuser.log",
 #>       "encodingFormat": "text/plain",
 #>       "content": [
-#>         ["[INFO][2025-11-21T09:39:30][OPEN]      created a datashield session 82e99042-7b14-442d-beba-afbb03d0de21", "[INFO][2025-11-21T09:39:32][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2025-11-21T09:39:33][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2025-11-21T09:39:34][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2025-11-21T09:39:34][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2025-11-21T09:39:34][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2025-11-21T09:39:34][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2025-11-21T09:39:34][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2025-11-21T09:39:34][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2025-11-21T09:39:34][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2025-11-21T09:39:34][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2025-11-21T09:39:34][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2025-11-21T09:39:35][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2025-11-21T09:39:35][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
+#>         ["[INFO][2025-12-01T09:27:22][OPEN]      created a datashield session 649bd0be-a202-478d-8f5c-9f0e3ec928e1", "[INFO][2025-12-01T09:27:22][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2025-12-01T09:27:23][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2025-12-01T09:27:24][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2025-12-01T09:27:57][OPEN]      created a datashield session 15f9e990-6233-4c79-b8d1-07cf7d8b7dc4", "[INFO][2025-12-01T09:27:58][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2025-12-01T09:27:58][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2025-12-01T09:27:59][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2025-12-01T09:27:59][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2025-12-01T09:27:59][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2025-12-01T09:27:59][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2025-12-01T09:27:59][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2025-12-01T09:27:59][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2025-12-01T09:27:59][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2025-12-01T09:27:59][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2025-12-01T09:27:59][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2025-12-01T09:27:59][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2025-12-01T09:27:59][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
 #>       ]
 #>     }
 #>   ]
@@ -509,7 +509,7 @@ logs_entity[[1]]$content <- NULL
 basic_rocrate <- basic_rocrate |>
   rocrateR::add_entity(logs_entity[[1]], overwrite = TRUE)
 #> Warning in rocrateR::add_entity(basic_rocrate, logs_entity[[1]], overwrite =
-#> TRUE): Overwritting the entity with @id = '2025-11-21-dslogs-dsuser.log'
+#> TRUE): Overwritting the entity with @id = '2025-12-01-dslogs-dsuser.log'
 ```
 
 ``` r
@@ -517,7 +517,7 @@ basic_rocrate <- basic_rocrate |>
 path_to_rocrate_bag <- basic_rocrate |>
   rocrateR::bag_rocrate(path = "./rocrates", overwrite = TRUE)
 #> RO-Crate successfully 'bagged'!
-#> For details, see: ./rocrates/rocrate-56f31f21f98670570d1ede13eb541ec4.zip
+#> For details, see: ./rocrates/rocrate-b5edca201f688980f3f5f6c36c01d4f7.zip
 ```
 
 We can explore the contents with the following commands:
@@ -532,7 +532,7 @@ path_to_rocrate_bag |>
 #> ./rocrates/ROC/
 #> ├── bagit.txt
 #> ├── data
-#> │   ├── 2025-11-21-dslogs-dsuser.log
+#> │   ├── 2025-12-01-dslogs-dsuser.log
 #> │   └── ro-crate-metadata.json
 #> ├── manifest-sha512.txt
 #> └── tagmanifest-sha512.txt
@@ -579,7 +579,7 @@ print(safe_people_crate_v1)
 #>       "@type": "Dataset",
 #>       "name": "",
 #>       "description": "",
-#>       "datePublished": "2025-11-21",
+#>       "datePublished": "2025-12-01",
 #>       "license": {
 #>         "@id": "http://spdx.org/licenses/CC-BY-4.0"
 #>       },
@@ -599,32 +599,32 @@ print(safe_people_crate_v1)
 #>       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM1",
-#>       "dateCreated": "2025-11-21T06:29:45.188Z",
-#>       "dateModified": "2025-11-21T06:29:46.305Z",
+#>       "dateCreated": "2025-12-01T06:29:44.178Z",
+#>       "dateModified": "2025-12-01T06:29:45.286Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM1"
 #>     },
 #>     {
 #>       "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM2",
-#>       "dateCreated": "2025-11-21T06:29:46.312Z",
-#>       "dateModified": "2025-11-21T06:29:47.447Z",
+#>       "dateCreated": "2025-12-01T06:29:45.289Z",
+#>       "dateModified": "2025-12-01T06:29:46.432Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM2"
 #>     },
 #>     {
 #>       "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM3",
-#>       "dateCreated": "2025-11-21T06:29:47.458Z",
-#>       "dateModified": "2025-11-21T06:29:48.607Z",
+#>       "dateCreated": "2025-12-01T06:29:46.442Z",
+#>       "dateModified": "2025-12-01T06:29:47.610Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM3"
 #>     },
 #>     {
 #>       "@id": "#project:7ba189863f9f641196596cb28e04aa14",
 #>       "@type": "Project",
 #>       "name": "CNSIM",
-#>       "dateCreated": "2025-11-21T06:29:43.825Z",
-#>       "dateModified": "2025-11-21T06:29:48.607Z",
+#>       "dateCreated": "2025-12-01T06:29:42.906Z",
+#>       "dateModified": "2025-12-01T06:29:47.610Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -680,7 +680,7 @@ print(safe_people_crate_v2)
 #>       "@type": "Dataset",
 #>       "name": "",
 #>       "description": "",
-#>       "datePublished": "2025-11-21",
+#>       "datePublished": "2025-12-01",
 #>       "license": {
 #>         "@id": "http://spdx.org/licenses/CC-BY-4.0"
 #>       },
@@ -700,32 +700,32 @@ print(safe_people_crate_v2)
 #>       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM1",
-#>       "dateCreated": "2025-11-21T06:29:45.188Z",
-#>       "dateModified": "2025-11-21T06:29:46.305Z",
+#>       "dateCreated": "2025-12-01T06:29:44.178Z",
+#>       "dateModified": "2025-12-01T06:29:45.286Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM1"
 #>     },
 #>     {
 #>       "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM2",
-#>       "dateCreated": "2025-11-21T06:29:46.312Z",
-#>       "dateModified": "2025-11-21T06:29:47.447Z",
+#>       "dateCreated": "2025-12-01T06:29:45.289Z",
+#>       "dateModified": "2025-12-01T06:29:46.432Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM2"
 #>     },
 #>     {
 #>       "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM3",
-#>       "dateCreated": "2025-11-21T06:29:47.458Z",
-#>       "dateModified": "2025-11-21T06:29:48.607Z",
+#>       "dateCreated": "2025-12-01T06:29:46.442Z",
+#>       "dateModified": "2025-12-01T06:29:47.610Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM3"
 #>     },
 #>     {
 #>       "@id": "#project:7ba189863f9f641196596cb28e04aa14",
 #>       "@type": "Project",
 #>       "name": "CNSIM",
-#>       "dateCreated": "2025-11-21T06:29:43.825Z",
-#>       "dateModified": "2025-11-21T06:29:48.607Z",
+#>       "dateCreated": "2025-12-01T06:29:42.906Z",
+#>       "dateModified": "2025-12-01T06:29:47.610Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -742,32 +742,32 @@ print(safe_people_crate_v2)
 #>       "@id": "#dataset:f4d064411abd484ace828bf96f134d2a",
 #>       "@type": "Dataset",
 #>       "name": "DASIM1",
-#>       "dateCreated": "2025-11-21T06:29:52.865Z",
-#>       "dateModified": "2025-11-21T06:29:54.119Z",
+#>       "dateCreated": "2025-12-01T06:29:51.856Z",
+#>       "dateModified": "2025-12-01T06:29:53.138Z",
 #>       "path": "/datasource/DASIM/table/DASIM1"
 #>     },
 #>     {
 #>       "@id": "#dataset:126d39f1139f45aa21a034a766e259a7",
 #>       "@type": "Dataset",
 #>       "name": "DASIM2",
-#>       "dateCreated": "2025-11-21T06:29:54.130Z",
-#>       "dateModified": "2025-11-21T06:29:55.416Z",
+#>       "dateCreated": "2025-12-01T06:29:53.147Z",
+#>       "dateModified": "2025-12-01T06:29:54.408Z",
 #>       "path": "/datasource/DASIM/table/DASIM2"
 #>     },
 #>     {
 #>       "@id": "#dataset:751c46cbe6f0a855a30ff7e4a277b9f7",
 #>       "@type": "Dataset",
 #>       "name": "DASIM3",
-#>       "dateCreated": "2025-11-21T06:29:55.422Z",
-#>       "dateModified": "2025-11-21T06:29:56.673Z",
+#>       "dateCreated": "2025-12-01T06:29:54.420Z",
+#>       "dateModified": "2025-12-01T06:29:55.701Z",
 #>       "path": "/datasource/DASIM/table/DASIM3"
 #>     },
 #>     {
 #>       "@id": "#project:75ce8dd801d77084f51879380a79a63f",
 #>       "@type": "Project",
 #>       "name": "DASIM",
-#>       "dateCreated": "2025-11-21T06:29:51.419Z",
-#>       "dateModified": "2025-11-21T06:29:56.673Z",
+#>       "dateCreated": "2025-12-01T06:29:50.433Z",
+#>       "dateModified": "2025-12-01T06:29:55.701Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -793,32 +793,32 @@ print(safe_people_crate_v2)
 #>       "@id": "#dataset:54210c91d41fb827a4f59768990b4eff",
 #>       "@type": "Dataset",
 #>       "name": "DISCORDANT_STUDY1",
-#>       "dateCreated": "2025-11-21T06:30:00.616Z",
-#>       "dateModified": "2025-11-21T06:30:01.638Z",
+#>       "dateCreated": "2025-12-01T06:29:59.410Z",
+#>       "dateModified": "2025-12-01T06:30:00.435Z",
 #>       "path": "/datasource/DISCORDANT/table/DISCORDANT_STUDY1"
 #>     },
 #>     {
 #>       "@id": "#dataset:00ff5ee78b73ea5b16e4b09443231024",
 #>       "@type": "Dataset",
 #>       "name": "DISCORDANT_STUDY2",
-#>       "dateCreated": "2025-11-21T06:30:01.640Z",
-#>       "dateModified": "2025-11-21T06:30:02.669Z",
+#>       "dateCreated": "2025-12-01T06:30:00.437Z",
+#>       "dateModified": "2025-12-01T06:30:01.462Z",
 #>       "path": "/datasource/DISCORDANT/table/DISCORDANT_STUDY2"
 #>     },
 #>     {
 #>       "@id": "#dataset:91f71e9cebe49dbf2b03f4fd71e479a9",
 #>       "@type": "Dataset",
 #>       "name": "DISCORDANT_STUDY3",
-#>       "dateCreated": "2025-11-21T06:30:02.671Z",
-#>       "dateModified": "2025-11-21T06:30:03.695Z",
+#>       "dateCreated": "2025-12-01T06:30:01.464Z",
+#>       "dateModified": "2025-12-01T06:30:02.486Z",
 #>       "path": "/datasource/DISCORDANT/table/DISCORDANT_STUDY3"
 #>     },
 #>     {
 #>       "@id": "#project:ed06bd2010a1cb3637c91ec7c49e50df",
 #>       "@type": "Project",
 #>       "name": "DISCORDANT",
-#>       "dateCreated": "2025-11-21T06:29:59.268Z",
-#>       "dateModified": "2025-11-21T06:30:03.695Z",
+#>       "dateCreated": "2025-12-01T06:29:58.082Z",
+#>       "dateModified": "2025-12-01T06:30:02.486Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -853,32 +853,32 @@ print(safe_people_crate_v2)
 #>       "@id": "#dataset:c8548bc7ff500ba110dbe4ef793ac9c9",
 #>       "@type": "Dataset",
 #>       "name": "Cohort1_exposome",
-#>       "dateCreated": "2025-11-21T06:30:39.500Z",
-#>       "dateModified": "2025-11-21T06:30:42.634Z",
+#>       "dateCreated": "2025-12-01T06:30:37.883Z",
+#>       "dateModified": "2025-12-01T06:30:41.006Z",
 #>       "path": "/datasource/GREENSPACE/table/Cohort1_exposome"
 #>     },
 #>     {
 #>       "@id": "#dataset:a4f3ce1dd96095f6b891be51e7f3a5c4",
 #>       "@type": "Dataset",
 #>       "name": "Cohort2_exposome",
-#>       "dateCreated": "2025-11-21T06:30:39.484Z",
-#>       "dateModified": "2025-11-21T06:30:40.574Z",
+#>       "dateCreated": "2025-12-01T06:30:37.865Z",
+#>       "dateModified": "2025-12-01T06:30:38.953Z",
 #>       "path": "/datasource/GREENSPACE/table/Cohort2_exposome"
 #>     },
 #>     {
 #>       "@id": "#dataset:d49470a26aafea5e78b1962298dbabbc",
 #>       "@type": "Dataset",
 #>       "name": "Cohort3_exposome",
-#>       "dateCreated": "2025-11-21T06:30:39.516Z",
-#>       "dateModified": "2025-11-21T06:30:41.604Z",
+#>       "dateCreated": "2025-12-01T06:30:37.898Z",
+#>       "dateModified": "2025-12-01T06:30:39.981Z",
 #>       "path": "/datasource/GREENSPACE/table/Cohort3_exposome"
 #>     },
 #>     {
 #>       "@id": "#project:9ddf75b5b495e34834a172290df35898",
 #>       "@type": "Project",
 #>       "name": "GREENSPACE",
-#>       "dateCreated": "2025-11-21T06:30:38.431Z",
-#>       "dateModified": "2025-11-21T06:30:42.634Z",
+#>       "dateCreated": "2025-12-01T06:30:36.827Z",
+#>       "dateModified": "2025-12-01T06:30:41.006Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -919,35 +919,43 @@ print(safe_people_crate_v2)
 #>       ]
 #>     },
 #>     {
-#>       "@id": "#dataset:21e85cf62e7fc94bbbe7e5f69c0c67dd",
+#>       "@id": "#dataset:b10c3ad2f75be5359fedf73de2961e80",
 #>       "@type": "Dataset",
-#>       "name": "UPBdata1",
-#>       "dateCreated": "2025-11-21T06:31:14.962Z",
-#>       "dateModified": "2025-11-21T06:31:16.045Z",
-#>       "path": "/datasource/MEDIATION/table/UPBdata1"
+#>       "name": "ega_phenotypes",
+#>       "dateCreated": "2025-12-01T06:30:48.788Z",
+#>       "dateModified": "2025-12-01T06:30:53.440Z",
+#>       "path": "/datasource/GWAS/table/ega_phenotypes"
 #>     },
 #>     {
-#>       "@id": "#dataset:702a18ca75a2e19bb7be97a6406ef18b",
+#>       "@id": "#dataset:8e4101a333521d27864dea316d774b71",
 #>       "@type": "Dataset",
-#>       "name": "UPBdata2",
-#>       "dateCreated": "2025-11-21T06:31:14.996Z",
-#>       "dateModified": "2025-11-21T06:31:18.111Z",
-#>       "path": "/datasource/MEDIATION/table/UPBdata2"
+#>       "name": "ega_phenotypes_1",
+#>       "dateCreated": "2025-12-01T06:30:48.669Z",
+#>       "dateModified": "2025-12-01T06:30:51.186Z",
+#>       "path": "/datasource/GWAS/table/ega_phenotypes_1"
 #>     },
 #>     {
-#>       "@id": "#dataset:e3d5f9227d1fd14a2865ef4bd220ed89",
+#>       "@id": "#dataset:dd6d971d67b5a64084f291867b39f734",
 #>       "@type": "Dataset",
-#>       "name": "UPBdata3",
-#>       "dateCreated": "2025-11-21T06:31:14.979Z",
-#>       "dateModified": "2025-11-21T06:31:17.086Z",
-#>       "path": "/datasource/MEDIATION/table/UPBdata3"
+#>       "name": "ega_phenotypes_2",
+#>       "dateCreated": "2025-12-01T06:30:48.616Z",
+#>       "dateModified": "2025-12-01T06:30:50.087Z",
+#>       "path": "/datasource/GWAS/table/ega_phenotypes_2"
 #>     },
 #>     {
-#>       "@id": "#project:834dd3aaa0edbddc6ae1d8b774f96584",
+#>       "@id": "#dataset:307b716f7b36475e2e22cad496b3d1d9",
+#>       "@type": "Dataset",
+#>       "name": "ega_phenotypes_3",
+#>       "dateCreated": "2025-12-01T06:30:48.730Z",
+#>       "dateModified": "2025-12-01T06:30:52.266Z",
+#>       "path": "/datasource/GWAS/table/ega_phenotypes_3"
+#>     },
+#>     {
+#>       "@id": "#project:fefb689567a71cf6410c2bbb54613ec2",
 #>       "@type": "Project",
-#>       "name": "MEDIATION",
-#>       "dateCreated": "2025-11-21T06:31:13.917Z",
-#>       "dateModified": "2025-11-21T06:31:18.111Z",
+#>       "name": "GWAS",
+#>       "dateCreated": "2025-12-01T06:30:47.552Z",
+#>       "dateModified": "2025-12-01T06:30:53.440Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -984,6 +992,99 @@ print(safe_people_crate_v2)
 #>         },
 #>         {
 #>           "@id": "#dataset:d49470a26aafea5e78b1962298dbabbc"
+#>         },
+#>         {
+#>           "@id": "#dataset:b10c3ad2f75be5359fedf73de2961e80"
+#>         },
+#>         {
+#>           "@id": "#dataset:8e4101a333521d27864dea316d774b71"
+#>         },
+#>         {
+#>           "@id": "#dataset:dd6d971d67b5a64084f291867b39f734"
+#>         },
+#>         {
+#>           "@id": "#dataset:307b716f7b36475e2e22cad496b3d1d9"
+#>         }
+#>       ]
+#>     },
+#>     {
+#>       "@id": "#dataset:21e85cf62e7fc94bbbe7e5f69c0c67dd",
+#>       "@type": "Dataset",
+#>       "name": "UPBdata1",
+#>       "dateCreated": "2025-12-01T06:31:13.597Z",
+#>       "dateModified": "2025-12-01T06:31:14.689Z",
+#>       "path": "/datasource/MEDIATION/table/UPBdata1"
+#>     },
+#>     {
+#>       "@id": "#dataset:702a18ca75a2e19bb7be97a6406ef18b",
+#>       "@type": "Dataset",
+#>       "name": "UPBdata2",
+#>       "dateCreated": "2025-12-01T06:31:13.638Z",
+#>       "dateModified": "2025-12-01T06:31:16.775Z",
+#>       "path": "/datasource/MEDIATION/table/UPBdata2"
+#>     },
+#>     {
+#>       "@id": "#dataset:e3d5f9227d1fd14a2865ef4bd220ed89",
+#>       "@type": "Dataset",
+#>       "name": "UPBdata3",
+#>       "dateCreated": "2025-12-01T06:31:13.621Z",
+#>       "dateModified": "2025-12-01T06:31:15.729Z",
+#>       "path": "/datasource/MEDIATION/table/UPBdata3"
+#>     },
+#>     {
+#>       "@id": "#project:834dd3aaa0edbddc6ae1d8b774f96584",
+#>       "@type": "Project",
+#>       "name": "MEDIATION",
+#>       "dateCreated": "2025-12-01T06:31:12.562Z",
+#>       "dateModified": "2025-12-01T06:31:16.775Z",
+#>       "hasPart": [
+#>         {
+#>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
+#>         },
+#>         {
+#>           "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9"
+#>         },
+#>         {
+#>           "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492"
+#>         },
+#>         {
+#>           "@id": "#dataset:f4d064411abd484ace828bf96f134d2a"
+#>         },
+#>         {
+#>           "@id": "#dataset:126d39f1139f45aa21a034a766e259a7"
+#>         },
+#>         {
+#>           "@id": "#dataset:751c46cbe6f0a855a30ff7e4a277b9f7"
+#>         },
+#>         {
+#>           "@id": "#dataset:54210c91d41fb827a4f59768990b4eff"
+#>         },
+#>         {
+#>           "@id": "#dataset:00ff5ee78b73ea5b16e4b09443231024"
+#>         },
+#>         {
+#>           "@id": "#dataset:91f71e9cebe49dbf2b03f4fd71e479a9"
+#>         },
+#>         {
+#>           "@id": "#dataset:c8548bc7ff500ba110dbe4ef793ac9c9"
+#>         },
+#>         {
+#>           "@id": "#dataset:a4f3ce1dd96095f6b891be51e7f3a5c4"
+#>         },
+#>         {
+#>           "@id": "#dataset:d49470a26aafea5e78b1962298dbabbc"
+#>         },
+#>         {
+#>           "@id": "#dataset:b10c3ad2f75be5359fedf73de2961e80"
+#>         },
+#>         {
+#>           "@id": "#dataset:8e4101a333521d27864dea316d774b71"
+#>         },
+#>         {
+#>           "@id": "#dataset:dd6d971d67b5a64084f291867b39f734"
+#>         },
+#>         {
+#>           "@id": "#dataset:307b716f7b36475e2e22cad496b3d1d9"
 #>         },
 #>         {
 #>           "@id": "#dataset:21e85cf62e7fc94bbbe7e5f69c0c67dd"
@@ -1000,32 +1101,32 @@ print(safe_people_crate_v2)
 #>       "@id": "#dataset:bb7b3635445edcfaf3b9dc68299d29da",
 #>       "@type": "Dataset",
 #>       "name": "EXPAND_WITH_MISSING1",
-#>       "dateCreated": "2025-11-21T06:30:08.064Z",
-#>       "dateModified": "2025-11-21T06:30:09.161Z",
+#>       "dateCreated": "2025-12-01T06:30:06.884Z",
+#>       "dateModified": "2025-12-01T06:30:07.973Z",
 #>       "path": "/datasource/SURVIVAL/table/EXPAND_WITH_MISSING1"
 #>     },
 #>     {
 #>       "@id": "#dataset:a28ed89e0405e86b2164ff17ec305fa1",
 #>       "@type": "Dataset",
 #>       "name": "EXPAND_WITH_MISSING2",
-#>       "dateCreated": "2025-11-21T06:30:09.167Z",
-#>       "dateModified": "2025-11-21T06:30:10.239Z",
+#>       "dateCreated": "2025-12-01T06:30:07.983Z",
+#>       "dateModified": "2025-12-01T06:30:09.054Z",
 #>       "path": "/datasource/SURVIVAL/table/EXPAND_WITH_MISSING2"
 #>     },
 #>     {
 #>       "@id": "#dataset:51c57ed988a9d0bf2ef0bf455bfc2aeb",
 #>       "@type": "Dataset",
 #>       "name": "EXPAND_WITH_MISSING3",
-#>       "dateCreated": "2025-11-21T06:30:10.245Z",
-#>       "dateModified": "2025-11-21T06:30:11.370Z",
+#>       "dateCreated": "2025-12-01T06:30:09.059Z",
+#>       "dateModified": "2025-12-01T06:30:10.180Z",
 #>       "path": "/datasource/SURVIVAL/table/EXPAND_WITH_MISSING3"
 #>     },
 #>     {
 #>       "@id": "#project:95d623adf67cf98b01e50f9d3833c88d",
 #>       "@type": "Project",
 #>       "name": "SURVIVAL",
-#>       "dateCreated": "2025-11-21T06:30:06.841Z",
-#>       "dateModified": "2025-11-21T06:30:11.370Z",
+#>       "dateCreated": "2025-12-01T06:30:05.660Z",
+#>       "dateModified": "2025-12-01T06:30:10.180Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -1062,6 +1163,18 @@ print(safe_people_crate_v2)
 #>         },
 #>         {
 #>           "@id": "#dataset:d49470a26aafea5e78b1962298dbabbc"
+#>         },
+#>         {
+#>           "@id": "#dataset:b10c3ad2f75be5359fedf73de2961e80"
+#>         },
+#>         {
+#>           "@id": "#dataset:8e4101a333521d27864dea316d774b71"
+#>         },
+#>         {
+#>           "@id": "#dataset:dd6d971d67b5a64084f291867b39f734"
+#>         },
+#>         {
+#>           "@id": "#dataset:307b716f7b36475e2e22cad496b3d1d9"
 #>         },
 #>         {
 #>           "@id": "#dataset:21e85cf62e7fc94bbbe7e5f69c0c67dd"
@@ -1087,32 +1200,32 @@ print(safe_people_crate_v2)
 #>       "@id": "#dataset:8283529a745f2ac75e7113cbb6224d9d",
 #>       "@type": "Dataset",
 #>       "name": "TESTING1",
-#>       "dateCreated": "2025-11-21T06:30:15.411Z",
-#>       "dateModified": "2025-11-21T06:30:16.447Z",
+#>       "dateCreated": "2025-12-01T06:30:14.234Z",
+#>       "dateModified": "2025-12-01T06:30:15.271Z",
 #>       "path": "/datasource/TESTING/table/TESTING1"
 #>     },
 #>     {
 #>       "@id": "#dataset:af9ac7693eea4df57ab8184c79827c46",
 #>       "@type": "Dataset",
 #>       "name": "TESTING2",
-#>       "dateCreated": "2025-11-21T06:30:16.449Z",
-#>       "dateModified": "2025-11-21T06:30:17.486Z",
+#>       "dateCreated": "2025-12-01T06:30:15.274Z",
+#>       "dateModified": "2025-12-01T06:30:16.307Z",
 #>       "path": "/datasource/TESTING/table/TESTING2"
 #>     },
 #>     {
 #>       "@id": "#dataset:b872c61650e3ef96cee6740df002de88",
 #>       "@type": "Dataset",
 #>       "name": "TESTING3",
-#>       "dateCreated": "2025-11-21T06:30:17.489Z",
-#>       "dateModified": "2025-11-21T06:30:18.525Z",
+#>       "dateCreated": "2025-12-01T06:30:16.310Z",
+#>       "dateModified": "2025-12-01T06:30:17.341Z",
 #>       "path": "/datasource/TESTING/table/TESTING3"
 #>     },
 #>     {
 #>       "@id": "#project:de081b572c4403b6c1b1de3b54f53f50",
 #>       "@type": "Project",
 #>       "name": "TESTING",
-#>       "dateCreated": "2025-11-21T06:30:14.263Z",
-#>       "dateModified": "2025-11-21T06:30:18.525Z",
+#>       "dateCreated": "2025-12-01T06:30:13.080Z",
+#>       "dateModified": "2025-12-01T06:30:17.341Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -1149,6 +1262,18 @@ print(safe_people_crate_v2)
 #>         },
 #>         {
 #>           "@id": "#dataset:d49470a26aafea5e78b1962298dbabbc"
+#>         },
+#>         {
+#>           "@id": "#dataset:b10c3ad2f75be5359fedf73de2961e80"
+#>         },
+#>         {
+#>           "@id": "#dataset:8e4101a333521d27864dea316d774b71"
+#>         },
+#>         {
+#>           "@id": "#dataset:dd6d971d67b5a64084f291867b39f734"
+#>         },
+#>         {
+#>           "@id": "#dataset:307b716f7b36475e2e22cad496b3d1d9"
 #>         },
 #>         {
 #>           "@id": "#dataset:21e85cf62e7fc94bbbe7e5f69c0c67dd"
@@ -1183,24 +1308,24 @@ print(safe_people_crate_v2)
 #>       "@id": "#dataset:ec2d084490ee102df7fb9b0aef8c4ba5",
 #>       "@type": "Dataset",
 #>       "name": "titanic_server_1",
-#>       "dateCreated": "2025-11-21T06:31:07.198Z",
-#>       "dateModified": "2025-11-21T06:31:09.278Z",
+#>       "dateCreated": "2025-12-01T06:31:05.823Z",
+#>       "dateModified": "2025-12-01T06:31:07.924Z",
 #>       "path": "/datasource/TITANIC_NEWCOMERS_WORKSHOP/table/titanic_server_1"
 #>     },
 #>     {
 #>       "@id": "#dataset:d80f3b59f40f9805cf30c7b7576e02c7",
 #>       "@type": "Dataset",
 #>       "name": "titanic_server_2",
-#>       "dateCreated": "2025-11-21T06:31:07.181Z",
-#>       "dateModified": "2025-11-21T06:31:08.248Z",
+#>       "dateCreated": "2025-12-01T06:31:05.806Z",
+#>       "dateModified": "2025-12-01T06:31:06.874Z",
 #>       "path": "/datasource/TITANIC_NEWCOMERS_WORKSHOP/table/titanic_server_2"
 #>     },
 #>     {
 #>       "@id": "#project:170350c2a28f551c6ab0cceea9b4dc59",
 #>       "@type": "Project",
 #>       "name": "TITANIC_NEWCOMERS_WORKSHOP",
-#>       "dateCreated": "2025-11-21T06:31:06.127Z",
-#>       "dateModified": "2025-11-21T06:31:09.278Z",
+#>       "dateCreated": "2025-12-01T06:31:04.774Z",
+#>       "dateModified": "2025-12-01T06:31:07.924Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -1237,6 +1362,18 @@ print(safe_people_crate_v2)
 #>         },
 #>         {
 #>           "@id": "#dataset:d49470a26aafea5e78b1962298dbabbc"
+#>         },
+#>         {
+#>           "@id": "#dataset:b10c3ad2f75be5359fedf73de2961e80"
+#>         },
+#>         {
+#>           "@id": "#dataset:8e4101a333521d27864dea316d774b71"
+#>         },
+#>         {
+#>           "@id": "#dataset:dd6d971d67b5a64084f291867b39f734"
+#>         },
+#>         {
+#>           "@id": "#dataset:307b716f7b36475e2e22cad496b3d1d9"
 #>         },
 #>         {
 #>           "@id": "#dataset:21e85cf62e7fc94bbbe7e5f69c0c67dd"
@@ -1277,24 +1414,24 @@ print(safe_people_crate_v2)
 #>       "@id": "#dataset:5ac85ba32a57883d9801fbd136ab4109",
 #>       "@type": "Dataset",
 #>       "name": "growth_1",
-#>       "dateCreated": "2025-11-21T06:31:27.317Z",
-#>       "dateModified": "2025-11-21T06:31:29.410Z",
+#>       "dateCreated": "2025-12-01T06:31:25.803Z",
+#>       "dateModified": "2025-12-01T06:31:27.940Z",
 #>       "path": "/datasource/depression/table/growth_1"
 #>     },
 #>     {
 #>       "@id": "#dataset:7cfd8f3865d8743132c236c03133127d",
 #>       "@type": "Dataset",
 #>       "name": "growth_2",
-#>       "dateCreated": "2025-11-21T06:31:27.290Z",
-#>       "dateModified": "2025-11-21T06:31:28.382Z",
+#>       "dateCreated": "2025-12-01T06:31:25.784Z",
+#>       "dateModified": "2025-12-01T06:31:26.863Z",
 #>       "path": "/datasource/depression/table/growth_2"
 #>     },
 #>     {
 #>       "@id": "#project:760afbd9700dfefeb93e4827c239fcd1",
 #>       "@type": "Project",
 #>       "name": "depression",
-#>       "dateCreated": "2025-11-21T06:31:26.245Z",
-#>       "dateModified": "2025-11-21T06:31:29.410Z",
+#>       "dateCreated": "2025-12-01T06:31:24.756Z",
+#>       "dateModified": "2025-12-01T06:31:27.940Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -1331,6 +1468,18 @@ print(safe_people_crate_v2)
 #>         },
 #>         {
 #>           "@id": "#dataset:d49470a26aafea5e78b1962298dbabbc"
+#>         },
+#>         {
+#>           "@id": "#dataset:b10c3ad2f75be5359fedf73de2961e80"
+#>         },
+#>         {
+#>           "@id": "#dataset:8e4101a333521d27864dea316d774b71"
+#>         },
+#>         {
+#>           "@id": "#dataset:dd6d971d67b5a64084f291867b39f734"
+#>         },
+#>         {
+#>           "@id": "#dataset:307b716f7b36475e2e22cad496b3d1d9"
 #>         },
 #>         {
 #>           "@id": "#dataset:21e85cf62e7fc94bbbe7e5f69c0c67dd"
@@ -1377,16 +1526,16 @@ print(safe_people_crate_v2)
 #>       "@id": "#dataset:ceb8ca0ea36c02a2e395982d9461d6ad",
 #>       "@type": "Dataset",
 #>       "name": "myKey",
-#>       "dateCreated": "2025-11-21T06:31:35.672Z",
-#>       "dateModified": "2025-11-21T06:31:37.489Z",
+#>       "dateCreated": "2025-12-01T06:31:34.052Z",
+#>       "dateModified": "2025-12-01T06:31:35.892Z",
 #>       "path": "/datasource/serverDataKey/table/myKey"
 #>     },
 #>     {
 #>       "@id": "#project:3f9c1a0026c7f8b7140ba648fbf2002b",
 #>       "@type": "Project",
 #>       "name": "serverDataKey",
-#>       "dateCreated": "2025-11-21T06:31:35.336Z",
-#>       "dateModified": "2025-11-21T06:31:37.489Z",
+#>       "dateCreated": "2025-12-01T06:31:33.748Z",
+#>       "dateModified": "2025-12-01T06:31:35.892Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -1423,6 +1572,18 @@ print(safe_people_crate_v2)
 #>         },
 #>         {
 #>           "@id": "#dataset:d49470a26aafea5e78b1962298dbabbc"
+#>         },
+#>         {
+#>           "@id": "#dataset:b10c3ad2f75be5359fedf73de2961e80"
+#>         },
+#>         {
+#>           "@id": "#dataset:8e4101a333521d27864dea316d774b71"
+#>         },
+#>         {
+#>           "@id": "#dataset:dd6d971d67b5a64084f291867b39f734"
+#>         },
+#>         {
+#>           "@id": "#dataset:307b716f7b36475e2e22cad496b3d1d9"
 #>         },
 #>         {
 #>           "@id": "#dataset:21e85cf62e7fc94bbbe7e5f69c0c67dd"
@@ -1486,6 +1647,9 @@ print(safe_people_crate_v2)
 #>           "@id": "#project:9ddf75b5b495e34834a172290df35898"
 #>         },
 #>         {
+#>           "@id": "#project:fefb689567a71cf6410c2bbb54613ec2"
+#>         },
+#>         {
 #>           "@id": "#project:834dd3aaa0edbddc6ae1d8b774f96584"
 #>         },
 #>         {
@@ -1518,8 +1682,6 @@ print(safe_people_crate_v2)
 You are welcome to use any of the following hex codes when referencing
 `{dsROCrate}`:
 
-<br />
-
-[<img src="man/figures/logo.png" alt="logo" align="left" height="150"/>](man/figures/logo.png)
-[<img src="man/figures/logo_white.png" alt="logo-white" align="left" height="150"/>](man/figures/logo_white.png)
-[<img src="man/figures/logo_black.png" alt="logo-black" align="left" height="150"/>](man/figures/logo_black.png)
+[<img src="man/figures/logo.png" alt="logo" align="left" height="150" style="float:left; height:150px;"/>](man/figures/logo.png)
+[<img src="man/figures/logo_white.png" alt="logo-white" align="left" height="150" style="float:left; height:150px;"/>](man/figures/logo_white.png)
+[<img src="man/figures/logo_black.png" alt="logo-black" align="left" height="150" style="float:left; height:150px;"/>](man/figures/logo_black.png)

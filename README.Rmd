@@ -66,7 +66,7 @@ rocrate_txt <- function(rocrate) {
 }
 ```
 
-# dsROCrate: 'DataSHIELD' RO-Crate Wrapper Functions <img src="man/figures/logo.png" alt="logo" align="right" height="200"/>
+# dsROCrate: 'DataSHIELD' RO-Crate Wrapper Functions <img src="man/figures/logo.png" alt="logo" align="right" height="200" style="float:right; height:200px;"/>
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
@@ -415,8 +415,6 @@ print(safe_people_crate_v2)
 
 You are welcome to use any of the following hex codes when referencing `{dsROCrate}`:
 
-<br />
-
-[<img src="man/figures/logo.png" alt="logo" align="left" height="150"/>](man/figures/logo.png)
-[<img src="man/figures/logo_white.png" alt="logo-white" align="left" height="150"/>](man/figures/logo_white.png)
-[<img src="man/figures/logo_black.png" alt="logo-black" align="left" height="150"/>](man/figures/logo_black.png)
+[<img src="man/figures/logo.png" alt="logo" align="left" height="150" style="float:left; height:150px;"/>](man/figures/logo.png)
+[<img src="man/figures/logo_white.png" alt="logo-white" align="left" height="150" style="float:left; height:150px;"/>](man/figures/logo_white.png)
+[<img src="man/figures/logo_black.png" alt="logo-black" align="left" height="150" style="float:left; height:150px;"/>](man/figures/logo_black.png)
