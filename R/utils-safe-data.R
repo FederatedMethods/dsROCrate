@@ -3,7 +3,7 @@
 #' @inheritParams safe_data
 #' @param ... Other optional arguments. See the full documentation
 #'
-#' @returns List with safe data entity(ies).
+#' @returns RO-Crate with safe data entity(ies).
 #' @rdname extract_safe_data
 #' @keywords internal
 extract_safe_data <- function(x, ...) {
@@ -39,11 +39,54 @@ extract_safe_data.opal <- function(x, ..., rocrate = rocrateR::rocrate()) {
   return(rocrate)
 }
 
+#' @param id (Optional) Vector with `@id` strings for safe data entity(ies)
+#'     to be extracted from the given RO-Crate, `x`.
 #' @rdname extract_safe_data
 #' @export
-extract_safe_data.rocrate <- function(x, ...) {
+extract_safe_data.rocrate <- function(
+  x,
+  ...,
+  id = NULL,
+  rocrate = rocrateR::rocrate()
+) {
   # validate RO-Crate
   rocrateR::is_rocrate(x)
+
+  # extract Dataset entities
+  entities_lst <- rocrateR::get_entity(x, type = "Dataset")
+
+  # if `id` was provided, then filter out only those Dataset entities
+  if (!is.null(id)) {
+    idx <- entities_lst |>
+      sapply(\(x) getElement(x, "@id") %in% id)
+    entities_lst <- entities_lst[idx]
+  }
+
+  # remove root entity, ./
+  idx <- entities_lst |>
+    sapply(\(x) getElement(x, "@id") == "./")
+  entities_lst[idx] <- NULL
+
+  # check if any entities were found
+  if (length(entities_lst) == 0) {
+    stop("No matching entities were found!", call. = FALSE)
+  } else {
+    message(
+      length(entities_lst),
+      " 'Dataset' entit",
+      ifelse(length(entities_lst) == 1, "y was", "ies were"),
+      " found!"
+    )
+  }
+
+  # add Dataset entities to the RO-Crate
+  suppressWarnings({
+    rocrate <- rocrate |>
+      rocrateR::add_entities(entities_lst, quiet = TRUE)
+  })
+
+  # return RO-Crate with the Safe Data details
+  return(rocrate)
 }
 
 #' Flatten object with Safe Data details
@@ -54,11 +97,13 @@ extract_safe_data.rocrate <- function(x, ...) {
 #'     If not provided, extract all entities with `@type = 'Dataset'`.
 #'
 #' @returns Data frame with fields for `table` name(s) in the given object.
+#' @rdname flatten_safe_data
 #' @keywords internal
 flatten_safe_data <- function(x, ...) {
   UseMethod("flatten_safe_data", x)
 }
 
+#' @rdname flatten_safe_data
 #' @export
 flatten_safe_data.rocrate <- function(x, ..., id = NULL) {
   tryCatch(
