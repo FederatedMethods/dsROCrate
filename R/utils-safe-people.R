@@ -88,3 +88,51 @@ extract_safe_people.rocrate <- function(
   # return RO-Crate with the safe_people details
   return(rocrate)
 }
+
+#' Flatten object with Safe People details
+#'
+#' @param x Object (e.g., RO-Crate) with Safe People details. This can be
+#'     generated with the [extract_safe_data()] function.
+#' @param id Vector of strings with the `@id`s for the users to be extracted.
+#'     If not provided, extract all entities with `@type = 'Person'`.
+#'
+#' @returns Data frame with fields for `table` name(s) in the given RO-Crate.
+#' @rdname flatten_safe_people
+#' @keywords internal
+flatten_safe_people <- function(x, ...) {
+  UseMethod("flatten_safe_people", x)
+}
+
+#' @rdname flatten_safe_people
+#' @export
+flatten_safe_people.rocrate <- function(x, ..., id = NULL) {
+  tryCatch(
+    {
+      # extract Person entities
+      entities_tbl <- x |>
+        rocrateR::get_entity(type = "Person") |>
+        # extract @id and name for each entity
+        lapply(function(ent) {
+          tibble::tibble(
+            id = getElement(ent, "@id"),
+            name = getElement(ent, "name"),
+            organisation = getElement(ent, "organisation")
+          )
+        }) |>
+        # combine all rows
+        dplyr::bind_rows()
+
+      # if `id` is provided, then only keep those entities
+      if (!is.null(id)) {
+        entities_tbl <- entities_tbl |>
+          dplyr::filter(id %in% !!id)
+      }
+
+      # return dataset entities
+      return(entities_tbl)
+    },
+    error = function(e) {
+      tibble::tibble()
+    }
+  )
+}
