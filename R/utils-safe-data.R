@@ -46,20 +46,25 @@ extract_safe_data.rocrate <- function(x, ...) {
   rocrateR::is_rocrate(x)
 }
 
-#' Flatten RO-Crate with Safe Data details
+#' Flatten object with Safe Data details
 #'
-#' @param safe_data_rocrate RO-Crate object with Safe Data details. This can be
+#' @param x Object (e.g., RO-Crate) with Safe Data details. This can be
 #'     generated with the [extract_safe_data()] function.
 #' @param id Vector of strings with the `@id`s for the datasets to be extracted.
 #'     If not provided, extract all entities with `@type = 'Dataset'`.
 #'
-#' @returns Data frame with fields for `table` name(s) in the given RO-Crate.
+#' @returns Data frame with fields for `table` name(s) in the given object.
 #' @keywords internal
-flatten_safe_data_rocrate <- function(safe_data_rocrate, id = NULL) {
+flatten_safe_data <- function(x, ...) {
+  UseMethod("flatten_safe_data", x)
+}
+
+#' @export
+flatten_safe_data.rocrate <- function(x, ..., id = NULL) {
   tryCatch(
     {
       # extract Dataset entities
-      dataset_ents_tbl <- safe_data_rocrate |>
+      entities_tbl <- x |>
         rocrateR::get_entity(type = "Dataset") |>
         # extract @id and name for each entity
         lapply(function(ent) {
@@ -75,12 +80,12 @@ flatten_safe_data_rocrate <- function(safe_data_rocrate, id = NULL) {
 
       # if `id` is provided, then only keep those entities
       if (!is.null(id)) {
-        dataset_ents_tbl <- dataset_ents_tbl |>
+        entities_tbl <- entities_tbl |>
           dplyr::filter(id %in% !!id)
       }
 
       # return dataset entities
-      return(dataset_ents_tbl)
+      return(entities_tbl)
     },
     error = function(e) {
       tibble::tibble()
