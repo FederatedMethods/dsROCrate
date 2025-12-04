@@ -40,6 +40,9 @@ rocrate_report.rocrate <- function(
   render = TRUE,
   overwrite = FALSE
 ) {
+  # local bindings
+  id <- name <- project <- NULL
+
   # validate RO-Crate
   rocrateR::is_rocrate(x)
 
@@ -103,28 +106,54 @@ rocrate_report.rocrate <- function(
 
   # create Markdown report
   report_contents <- paste0(
-    "# DataSHIELD Report\n\n",
-    "##### Created: ",
-    Sys.Date(),
-    "\n\n"
+    "# DataSHIELD Report\n",
+    "##### Last Updated: ",
+    Sys.time(),
+    "\n"
   )
+
+  ## create visualisation for the overview
+  overview_tbl <- flatten_safe_people(safe_people_rocrate) |>
+    dplyr::select(-id) |>
+    dplyr::bind_cols(
+      flatten_safe_project(safe_project_rocrate) |>
+        dplyr::select(-id)
+    )
+  overview_tbl |>
+    vtree::vtree(
+      vars = c("name", "project", "table"),
+      labelvar = c(
+        name = "Safe People",
+        project = "Safe Project",
+        table = "Safe Data"
+      ),
+      showpct = FALSE,
+      showcount = FALSE,
+      horiz = FALSE,
+      varnamebold = TRUE,
+      splitwidth = 1,
+      vsplitwidth = 1,
+      folder = dirname(filepath),
+      imageFileOnly = render,
+      # pxheight = ifelse(length(unique(overview_tbl$project)) <= 3, 300, 600),
+      pxheight = min(80 * nrow(overview_tbl), 900),
+      pxwidth = 200 * nrow(overview_tbl) # 200px * numbers of safe data entities
+    )
+  # find path to latest PNG generated with `vtree`
+  diagram_filepath <- list.files(dirname(filepath), "^vtree")
+  diagram_filepath <- diagram_filepath[length(diagram_filepath)]
 
   ## append overview table
   report_contents <- c(
     report_contents,
     "## Overview\n\n",
-    flatten_safe_people(safe_people_rocrate) |>
-      dplyr::select(-id) |>
-      dplyr::bind_cols(
-        flatten_safe_project(safe_project_rocrate) |>
-          dplyr::select(-id)
+    paste0("![](", diagram_filepath, ")\n<br />\n"),
+    overview_tbl |>
+      # tidy up duplicated values in `name` and `project`
+      dplyr::mutate(
+        name = unfill_vec(name),
+        project = unfill_vec(project)
       ) |>
-      # dplyr::group_by(name) |>
-      # dplyr::mutate(name = rep(unique(name), times = dplyr::n())) |>
-      # dplyr::group_by(project) |>
-      # dplyr::mutate(
-      #   project = rep(unique(project), times = dplyr::n())
-      # ) |>
       dplyr::rename(
         `Safe People` = name,
         `Safe Project` = project,
@@ -134,39 +163,36 @@ rocrate_report.rocrate <- function(
       paste0(collapse = "\n")
   )
 
-  report_contents <- c(report_contents, "\n<br />\n---\n<br />\n")
+  report_contents <- c(report_contents, "\n<hr />\n", "## Entities")
 
   ## append Safe People details
   report_contents <- c(
     report_contents,
-    "## Safe People\n\n",
+    "\n### Safe People\n",
     flatten_safe_people(safe_people_rocrate) |>
       knitr::kable() |>
-      paste0(collapse = "\n"),
-    "\n\n"
+      paste0(collapse = "\n")
   )
 
   ## append Safe Project & Safe Data details
   report_contents <- c(
     report_contents,
-    "## Safe Project\n\n",
+    "### Safe Project\n",
     flatten_safe_project(safe_project_rocrate) |>
       knitr::kable() |>
-      paste0(collapse = "\n"),
-    "\n\n"
+      paste0(collapse = "\n")
   )
 
   ## append Safe Data details
   report_contents <- c(
     report_contents,
-    "## Safe Data\n\n",
+    "### Safe Data\n",
     flatten_safe_data(safe_data_rocrate) |>
       knitr::kable() |>
-      paste0(collapse = "\n"),
-    "\n\n"
+      paste0(collapse = "\n")
   )
 
-  report_contents <- c(report_contents, "\n<br />\n---\n<br />\n")
+  report_contents <- c(report_contents, "\n<hr />\n")
 
   ## append input RO-Crate
   # save the input into intermediate JSON file
@@ -179,10 +205,10 @@ rocrate_report.rocrate <- function(
   rocrate_txt <- readLines(tmp_file)
   report_contents <- c(
     report_contents,
-    "## RO-Crate \n\n",
+    "## RO-Crate \n<code><pre>",
     # display formatted RO-Crate
-    rocrate_txt |>
-      paste0(collapse = "\n")
+    rocrate_txt,
+    "</pre></code>"
   )
 
   ## write contents inside file
@@ -200,7 +226,7 @@ rocrate_report.rocrate <- function(
         "html_document",
         sub(".md", ".html", filepath)
       )
-      browseURL(paste0("file://", sub(".md", ".html", filepath)))
+      utils::browseURL(paste0("file://", sub(".md", ".html", filepath)))
     })
   }
 
