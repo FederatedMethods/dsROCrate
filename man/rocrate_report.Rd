@@ -13,7 +13,13 @@ rocrate_report(x, ...)
 
 \method{rocrate_report}{default}(x, ...)
 
-\method{rocrate_report}{rocrate}(x, ...)
+\method{rocrate_report}{rocrate}(
+  x,
+  ...,
+  filepath = tempfile(fileext = ".md"),
+  render = TRUE,
+  overwrite = FALSE
+)
 }
 \arguments{
 \item{x}{This can be an RO-Crate (\link[rocrateR:rocrate]{rocrate} class) or a
@@ -21,6 +27,14 @@ string with the path to an RO-Crate.}
 
 \item{...}{Other optional arguments. See the full documentation,
 \code{\link[=rocrate_report]{?dsROCrate::rocrate_report}}.}
+
+\item{filepath}{String with file path for Markdown report with the summary
+of the given object, \code{x}.}
+
+\item{render}{Boolean flag to indicate whether to render the markdown report.}
+
+\item{overwrite}{Boolean flag to indicate whether to overwrite a previous
+version of markdown report.}
 }
 \value{
 RO-Crate report as markdown (.md) file and/or HTML.

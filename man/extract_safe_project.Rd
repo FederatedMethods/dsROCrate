@@ -10,7 +10,7 @@ extract_safe_project(x, ...)
 
 \method{extract_safe_project}{opal}(x, ..., rocrate = rocrateR::rocrate())
 
-\method{extract_safe_project}{rocrate}(x, ...)
+\method{extract_safe_project}{rocrate}(x, ..., id = NULL, rocrate = rocrateR::rocrate())
 }
 \arguments{
 \item{x}{This can be a connection to a 'DataSHIELD' server (e.g., object with
@@ -22,6 +22,9 @@ RO-Crate.}
 
 \item{rocrate}{(Optional) RO-Crate object to update with safe project
 details.}
+
+\item{id}{(Optional) Vector with \verb{@id} strings for safe project entity(ies)
+to be extracted from the given RO-Crate, \code{x}.}
 }
 \value{
 List with safe project entity(ies).

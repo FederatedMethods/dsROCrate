@@ -26,7 +26,7 @@ RO-Crate.}
 to be extracted from the given RO-Crate, \code{x}.}
 }
 \value{
-List with safe people entity(ies).
+RO-Crate with safe people entity(ies).
 }
 \description{
 Extract safe people entity(ies)

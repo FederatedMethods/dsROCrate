@@ -10,7 +10,7 @@ extract_safe_data(x, ...)
 
 \method{extract_safe_data}{opal}(x, ..., rocrate = rocrateR::rocrate())
 
-\method{extract_safe_data}{rocrate}(x, ...)
+\method{extract_safe_data}{rocrate}(x, ..., id = NULL, rocrate = rocrateR::rocrate())
 }
 \arguments{
 \item{x}{This can be a connection to a 'DataSHIELD' server (e.g., object with
@@ -21,9 +21,12 @@ RO-Crate.}
 \item{...}{Other optional arguments. See the full documentation}
 
 \item{rocrate}{(Optional) RO-Crate object to update with safe data details.}
+
+\item{id}{(Optional) Vector with \verb{@id} strings for safe data entity(ies)
+to be extracted from the given RO-Crate, \code{x}.}
 }
 \value{
-List with safe data entity(ies).
+RO-Crate with safe data entity(ies).
 }
 \description{
 Extract safe data entity(ies)
