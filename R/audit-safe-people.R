@@ -10,7 +10,7 @@
 #' @param ... Other optional arguments, see full documentation for details.
 #' @param user String with the user name for which to extract Safe People
 #'     details.
-#' @param project String with project name from which to extra Safe People
+#' @param project String with project name(s) from which to extra Safe People
 #'     details.
 #'
 #' @returns Updated RO-Crate object with Safe People information.
@@ -47,15 +47,18 @@ audit_safe_people.opal <- function(x, ..., user, project = NULL) {
 
   # if `project` is given, then extract tables associated to that project
   if (!is.null(project)) {
-    # check if the given project exists
-    project_exists(x, project)
+    # check if the given project(s) can be found in the given server
+    sapply(project, \(p) project_exists(x, p))
 
-    # retrieve tables for the given project
-    project_tables <- get_project_tables(x, project)
-    project_tables_all <- tibble::tibble(
-      project = project,
-      table = project_tables
-    )
+    # retrieve tables for the given project(s)
+    project_tables_all <- project |>
+      lapply(function(p) {
+        tibble::tibble(
+          project = p,
+          table = get_project_tables(x, p)
+        )
+      }) |>
+      dplyr::bind_rows()
   } else {
     # extract all data sources
     ds <- opalr::opal.datasources(x)
