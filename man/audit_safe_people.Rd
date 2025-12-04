@@ -29,7 +29,7 @@ RO-Crate.}
 \item{user}{String with the user name for which to extract Safe People
 details.}
 
-\item{project}{String with project name from which to extra Safe People
+\item{project}{String with project name(s) from which to extra Safe People
 details.}
 }
 \value{
