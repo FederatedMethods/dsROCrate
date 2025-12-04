@@ -96,7 +96,7 @@ extract_safe_data.rocrate <- function(
 #' @param id Vector of strings with the `@id`s for the datasets to be extracted.
 #'     If not provided, extract all entities with `@type = 'Dataset'`.
 #'
-#' @returns Data frame with fields for `table` name(s) in the given object.
+#' @returns Data frame with fields for @`id`, `table` name in the given object.
 #' @rdname flatten_safe_data
 #' @keywords internal
 flatten_safe_data <- function(x, ...) {

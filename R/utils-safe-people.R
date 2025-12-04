@@ -3,7 +3,7 @@
 #' @inheritParams safe_data
 #' @param ... Other optional arguments. See the full documentation
 #'
-#' @returns List with safe people entity(ies).
+#' @returns RO-Crate with safe people entity(ies).
 #' @rdname extract_safe_people
 #' @keywords internal
 extract_safe_people <- function(x, ...) {
@@ -35,7 +35,7 @@ extract_safe_people.opal <- function(x, ..., rocrate = rocrateR::rocrate()) {
 #' @param id (Optional) Vector with `@id` strings for safe people entity(ies)
 #'     to be extracted from the given RO-Crate, `x`.
 #' @rdname extract_safe_people
-#' @keywords internal
+#' @export
 extract_safe_people.rocrate <- function(
   x,
   ...,
@@ -51,15 +51,15 @@ extract_safe_people.rocrate <- function(
   }
 
   # extract entities with type = 'Person'
-  safe_people_ents <- rocrateR::get_entity(x, type = "Person")
+  entities_lst <- rocrateR::get_entity(x, type = "Person")
 
   # filter out person-entities in the `id`
-  idx <- safe_people_ents |>
+  idx <- entities_lst |>
     sapply(\(x) getElement(x, "@id") %in% id)
-  safe_people_ents_v2 <- safe_people_ents[idx]
+  entities_lst_v2 <- entities_lst[idx]
 
   # check if any entities were found
-  if (length(safe_people_ents_v2) == 0) {
+  if (length(entities_lst_v2) == 0) {
     stop(
       "No matching entities were found for the Author(s) in the root ",
       "entity (./):\n",
@@ -68,24 +68,24 @@ extract_safe_people.rocrate <- function(
     )
   } else {
     message(
-      length(safe_people_ents_v2),
+      length(entities_lst_v2),
       " 'Author' entit",
-      ifelse(length(safe_people_ents_v2) == 1, "y was", "ies were"),
+      ifelse(length(entities_lst_v2) == 1, "y was", "ies were"),
       " found!"
     )
   }
 
   # add user to the RO-Crate
   rocrate <- rocrate |>
-    rocrateR::add_entity(safe_people_ents_v2, overwrite = TRUE) |>
+    rocrateR::add_entities(entities_lst_v2, overwrite = TRUE, quiet = TRUE) |>
     # link new user entity @id to the root (./) author property
     rocrateR::add_entity_value(
       id = "./",
       key = "author",
-      value = list(`@id` = getElement(safe_people_ents_v2, "@id"))
+      value = list(`@id` = getElement(entities_lst_v2, "@id"))
     )
 
-  # return RO-Crate with the safe_people details
+  # return RO-Crate with the Safe People details
   return(rocrate)
 }
 
@@ -93,10 +93,12 @@ extract_safe_people.rocrate <- function(
 #'
 #' @param x Object (e.g., RO-Crate) with Safe People details. This can be
 #'     generated with the [extract_safe_data()] function.
+#' @param ... Other optional arguments (not in used).
 #' @param id Vector of strings with the `@id`s for the users to be extracted.
 #'     If not provided, extract all entities with `@type = 'Person'`.
 #'
-#' @returns Data frame with fields for `table` name(s) in the given RO-Crate.
+#' @returns Data frame with fields for @`id` and `user` name in the given
+#' object.
 #' @rdname flatten_safe_people
 #' @keywords internal
 flatten_safe_people <- function(x, ...) {
