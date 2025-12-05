@@ -68,7 +68,7 @@ rocrate_report.rocrate <- function(
     }
   }
 
-  # attempt to extract safe people details
+  # attempt to extract Safe People details
   safe_people_rocrate <- tryCatch(
     {
       extract_safe_people(x)
@@ -78,7 +78,7 @@ rocrate_report.rocrate <- function(
     }
   )
 
-  # attempt to extract safe data details
+  # attempt to extract Safe Data details
   safe_data_rocrate <- tryCatch(
     {
       extract_safe_data(x)
@@ -98,6 +98,16 @@ rocrate_report.rocrate <- function(
   safe_project_rocrate <- tryCatch(
     {
       extract_safe_project(x, id = member_of)
+    },
+    error = function(e) {
+      NULL
+    }
+  )
+
+  # attempt to extract Safe Setting details
+  safe_setting_rocrate <- tryCatch(
+    {
+      extract_safe_setting(x)
     },
     error = function(e) {
       NULL
@@ -137,7 +147,7 @@ rocrate_report.rocrate <- function(
       imageFileOnly = render,
       pngknit = render,
       pxheight = min(80 * nrow(overview_tbl), 500),
-      pxwidth = 200 * nrow(overview_tbl) # 200px * numbers of safe data entities
+      pxwidth = 200 * nrow(overview_tbl) # 200px * numbers of Safe Data entities
     )
   # find path to latest PNG generated with `vtree`
   diagram_filepath <- list.files(dirname(filepath), "^vtree")
@@ -194,6 +204,15 @@ rocrate_report.rocrate <- function(
       paste0(collapse = "\n")
   )
 
+  ## append Safe Settings details
+  report_contents <- c(
+    report_contents,
+    "### Safe Settings\n",
+    flatten_safe_setting(safe_setting_rocrate) |>
+      knitr::kable() |>
+      paste0(collapse = "\n")
+  )
+
   report_contents <- c(report_contents, "\n<hr />\n")
 
   ## append input RO-Crate
@@ -238,7 +257,8 @@ rocrate_report.rocrate <- function(
         overview_data = tidy_overview_tbl,
         safe_people = flatten_safe_people(safe_people_rocrate),
         safe_data = flatten_safe_data(safe_data_rocrate),
-        safe_project = flatten_safe_project(safe_project_rocrate)
+        safe_project = flatten_safe_project(safe_project_rocrate),
+        safe_setting = flatten_safe_setting(safe_setting_rocrate)
       )
     ))
   }
@@ -250,7 +270,8 @@ rocrate_report.rocrate <- function(
     list(
       safe_people = flatten_safe_people(safe_people_rocrate),
       safe_data = flatten_safe_data(safe_data_rocrate),
-      safe_project = flatten_safe_project(safe_project_rocrate)
+      safe_project = flatten_safe_project(safe_project_rocrate),
+      safe_setting = flatten_safe_setting(safe_setting_rocrate)
     )
   )
 }
