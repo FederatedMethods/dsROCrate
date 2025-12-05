@@ -132,6 +132,10 @@ audit_safe_people.opal <- function(x, ..., user, project = NULL) {
   safe_people_crate <- safe_people_crate |>
     dsROCrate::safe_people(user = user, connection = x)
 
+  # add Safe Setting details
+  safe_people_crate <- x |>
+    extract_safe_setting(rocrate = safe_people_crate)
+
   # return new RO-Crate
   return(invisible(safe_people_crate))
 }
