@@ -119,7 +119,7 @@ rocrate_report.rocrate <- function(
       flatten_safe_project(safe_project_rocrate) |>
         dplyr::select(-id)
     )
-  overview_tbl |>
+  diagram_lst <- overview_tbl |>
     vtree::vtree(
       vars = c("name", "project", "table"),
       labelvar = c(
@@ -135,8 +135,8 @@ rocrate_report.rocrate <- function(
       vsplitwidth = 1,
       folder = dirname(filepath),
       imageFileOnly = render,
-      # pxheight = ifelse(length(unique(overview_tbl$project)) <= 3, 300, 600),
-      pxheight = min(80 * nrow(overview_tbl), 900),
+      pngknit = render,
+      pxheight = min(80 * nrow(overview_tbl), 500),
       pxwidth = 200 * nrow(overview_tbl) # 200px * numbers of safe data entities
     )
   # find path to latest PNG generated with `vtree`
@@ -144,21 +144,23 @@ rocrate_report.rocrate <- function(
   diagram_filepath <- diagram_filepath[length(diagram_filepath)]
 
   ## append overview table
+  ### create tidy version of the overview table
+  tidy_overview_tbl <- overview_tbl |>
+    # tidy up duplicated values in `name` and `project`
+    dplyr::mutate(
+      name = unfill_vec(name),
+      project = unfill_vec(project)
+    ) |>
+    dplyr::rename(
+      `Safe People` = name,
+      `Safe Project` = project,
+      `Safe Data` = table
+    )
   report_contents <- c(
     report_contents,
     "## Overview\n\n",
     paste0("![](", diagram_filepath, ")\n<br />\n"),
-    overview_tbl |>
-      # tidy up duplicated values in `name` and `project`
-      dplyr::mutate(
-        name = unfill_vec(name),
-        project = unfill_vec(project)
-      ) |>
-      dplyr::rename(
-        `Safe People` = name,
-        `Safe Project` = project,
-        `Safe Data` = table
-      ) |>
+    tidy_overview_tbl |>
       knitr::kable() |>
       paste0(collapse = "\n")
   )
@@ -228,6 +230,17 @@ rocrate_report.rocrate <- function(
       )
       utils::browseURL(paste0("file://", sub(".md", ".html", filepath)))
     })
+  } else {
+    print(diagram_lst)
+    return(invisible(
+      list(
+        overview_diagram = diagram_lst,
+        overview_data = tidy_overview_tbl,
+        safe_people = flatten_safe_people(safe_people_rocrate),
+        safe_data = flatten_safe_data(safe_data_rocrate),
+        safe_project = flatten_safe_project(safe_project_rocrate)
+      )
+    ))
   }
 
   message("A report has been written to:\n ", filepath)
