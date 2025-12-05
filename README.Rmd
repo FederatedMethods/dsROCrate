@@ -9,7 +9,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "inst/images/README-",
-  out.width = "100%"
+  out.width = "100%",
+  screenshot.opts = list(vwidth = 2000, vheight = 600, zoom = 3, selector = "div.html-widget")
 )
 
 # save the built-in output hook
@@ -392,9 +393,38 @@ safe_people_crate_v1 <- opalr::opal.login(
 print(safe_people_crate_v1)
 ```
 
+###### Markdown report
+
+A markdown report can be created with an overview and details for an RO-Crate,
+using the `dsROCrate::rocrate_report`:
+
+**Only generate .Rmd file**
+
+```{r safe_people_crate_audit_v1}
+safe_people_crate_v1_rmd <- tempfile(fileext = ".Rmd") # temporary file
+
+safe_people_crate_contents <- safe_people_crate_v1 |>
+  dsROCrate::rocrate_report(filepath = safe_people_crate_v1_rmd, render = FALSE)
+
+# display Overview diagram
+safe_people_crate_contents$overview_diagram
+
+# display Overview data (Safe People, Safe Projects and Safe Data)
+safe_people_crate_contents$overview_data |>
+  knitr::kable()
+```
+
+**Render and display report (HTML)**
+
+```{r, eval = FALSE}
+safe_people_crate_v1 |>
+  dsROCrate::rocrate_report(filepath = safe_people_crate_v1_rmd, 
+                            render = TRUE, 
+                            overwrite = TRUE)
+```
 
 ##### List all accessible projects & tables for an user
-```{r, warning=FALSE}
+```{r safe_people_crate_audit_v2, warning=FALSE}
 safe_people_crate_v2 <- opalr::opal.login(
   username = USERNAME,
   password = USERPASS,
@@ -402,10 +432,18 @@ safe_people_crate_v2 <- opalr::opal.login(
 ) |>
   dsROCrate::audit_safe_people(user = "dsuser")
 
-print(safe_people_crate_v2)
+safe_people_crate_v2_rmd <- tempfile(fileext = ".Rmd") # temporary file
+
+safe_people_crate_contents_v2 <- safe_people_crate_v2 |>
+  dsROCrate::rocrate_report(filepath = safe_people_crate_v2_rmd, render = FALSE)
+
+# display Overview diagram
+safe_people_crate_contents_v2$overview_diagram
+
+# display Overview data (Safe People, Safe Projects and Safe Data)
+safe_people_crate_contents_v2$overview_data |>
+  knitr::kable()
 ```
-
-
 
 ### Safe Project
 
@@ -418,3 +456,8 @@ You are welcome to use any of the following hex codes when referencing `{dsROCra
 [<img src="man/figures/logo.png" alt="logo" align="left" height="150" style="float:left; height:150px;"/>](man/figures/logo.png)
 [<img src="man/figures/logo_white.png" alt="logo-white" align="left" height="150" style="float:left; height:150px;"/>](man/figures/logo_white.png)
 [<img src="man/figures/logo_black.png" alt="logo-black" align="left" height="150" style="float:left; height:150px;"/>](man/figures/logo_black.png)
+
+```{r, echo = FALSE, message = FALSE, error = FALSE}
+unlink(safe_people_crate_v1_rmd, TRUE, TRUE)
+unlink(safe_people_crate_v2_rmd, TRUE, TRUE)
+```
