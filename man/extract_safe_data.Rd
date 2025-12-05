@@ -4,7 +4,7 @@
 \alias{extract_safe_data}
 \alias{extract_safe_data.opal}
 \alias{extract_safe_data.rocrate}
-\title{Extract safe data entity(ies)}
+\title{Extract Safe Data entity(ies)}
 \usage{
 extract_safe_data(x, ...)
 
@@ -20,15 +20,15 @@ RO-Crate.}
 
 \item{...}{Other optional arguments. See the full documentation}
 
-\item{rocrate}{(Optional) RO-Crate object to update with safe data details.}
+\item{rocrate}{(Optional) RO-Crate object to update with Safe Data details.}
 
-\item{id}{(Optional) Vector with \verb{@id} strings for safe data entity(ies)
+\item{id}{(Optional) Vector with \verb{@id} strings for Safe Data entity(ies)
 to be extracted from the given RO-Crate, \code{x}.}
 }
 \value{
-RO-Crate with safe data entity(ies).
+RO-Crate with Safe Data entity(ies).
 }
 \description{
-Extract safe data entity(ies)
+Extract Safe Data entity(ies)
 }
 \keyword{internal}
