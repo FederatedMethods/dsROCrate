@@ -128,7 +128,7 @@ safe_output.opal <- function(
   }
 
   # parse logs
-  userlogs <- opalr::dsadmin.log(x) |>
+  userlogs_tbl <- opalr::dsadmin.log(x) |>
     tibble::as_tibble() |>
     dplyr::mutate(
       `@timestamp` = as.POSIXct(`@timestamp`, format = "%Y-%m-%dT%H:%M:%S")
@@ -136,10 +136,13 @@ safe_output.opal <- function(
     # filter logs
     dplyr::filter(dplyr::between(`@timestamp`, logs_from, logs_to)) |>
     dplyr::filter(logger_name == "datashield.user") |>
-    dplyr::filter(user == !!user) |>
-    glue::glue_data(
+    dplyr::filter(user == !!user)
+  userlogs <- NULL
+  if (nrow(userlogs_tbl) > 0) {
+    userlogs <- glue::glue_data(
       "[{level}][{format(`@timestamp`, '%Y-%m-%dT%H:%M:%S')}]{stringr::str_pad(paste0('[', ds_action, ']'), 12, 'right', ' ')}{message}"
     )
+  }
 
   # check if any logs were found in the given time frame
   if (length(userlogs) == 0) {
