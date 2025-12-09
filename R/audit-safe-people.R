@@ -1,6 +1,6 @@
-#' Audit safe people details
+#' Audit Safe People details
 #'
-#' Audit safe people details from a 'DataSHIELD' server, an RO-Crate object or
+#' Audit Safe People details from a 'DataSHIELD' server, an RO-Crate object or
 #' a file path pointing to an RO-Crate.
 #'
 #' @param x This can be a connection to a 'DataSHIELD' server (e.g., object with
@@ -63,7 +63,7 @@ audit_safe_people.opal <- function(x, ..., user, project = NULL) {
     # extract all data sources
     ds <- opalr::opal.datasources(x)
 
-    # cycle through the data sourcew and extract project and table names
+    # cycle through the data sources and extract project and table names
     project_tables_all <- seq_len(nrow(ds)) |>
       lapply(function(i) {
         tryCatch(
@@ -128,7 +128,7 @@ audit_safe_people.opal <- function(x, ..., user, project = NULL) {
       dsROCrate::safe_project(project = p, connection = x)
   }
 
-  # add safe people details
+  # add Safe People details
   safe_people_crate <- safe_people_crate |>
     dsROCrate::safe_people(user = user, connection = x)
 
@@ -146,7 +146,7 @@ audit_safe_people.rocrate <- function(x, ...) {
   # validate RO-Crate object
   rocrateR::is_rocrate(x)
 
-  # extract safe people entities
+  # extract Safe People entities
   safe_people_ents <- extract_safe_people(x)
 
   # return invisibly
