@@ -51,21 +51,30 @@ audit_safe_project.opal <- function(x, ..., project = NULL) {
       table = project_tables
     )
   } else {
-    safe_project_ents <- extract_safe_project(x)
-    safe_project_ents |>
-      getElement("@graph") |>
-      sapply(function(ent) {
-        if (getElement(ent, "@type")[[1]] == "Project") {
-          tibble::tibble(
-            project = getElement(ent, "name")[[1]],
-            table = NA
+    # extract all data sources
+    ds <- opalr::opal.datasources(x)
+
+    # cycle through the data sources and extract project and table names
+    suppressWarnings({
+      project_tables_all <- seq_len(nrow(ds)) |>
+        lapply(function(i) {
+          tryCatch(
+            {
+              project_name <- ds[i, "name"]
+              project_tables <- get_project_tables(x, project_name)
+              tibble::tibble(
+                project = project_name,
+                table = unlist(project_tables)
+              )
+            },
+            error = function(e) {
+              return(tibble::tibble(project = project_name))
+            }
           )
-        } else {
-          return(NULL)
-        }
-      }) |>
-      # combine results
-      dplyr::bind_rows()
+        }) |>
+        dplyr::bind_rows() |>
+        dplyr::filter(!is.na(table))
+    })
   }
 
   # get permissions for each table in the project
@@ -101,9 +110,47 @@ audit_safe_project.opal <- function(x, ..., project = NULL) {
       dsROCrate::safe_project(project = p, connection = x)
   }
 
-  # TODO: add safe people details; this might require individual RO-crates,
-  # as the current setup means that all users have access to all tables in a
-  # project, which won't be the case always.
+  # get users' details
+  safe_people_tbl <- opalr::oadmin.users(x)
+
+  # filter out table permissions based on the users found previously:
+  project_table_permissions_tbl <- project_table_permissions_tbl |>
+    dplyr::filter(subject %in% safe_people_tbl$name)
+
+  # add Safe People details
+  for (i in seq_len(nrow(safe_people_tbl))) {
+    safe_project_crate <- safe_project_crate |>
+      dsROCrate::safe_people(user = safe_people_tbl$name[i], connection = x)
+  }
+
+  # extract Dataset entities from the RO-Crate: @id & name
+  safe_data_entities_tbl <- safe_project_crate |>
+    flatten_safe_data() |>
+    dplyr::rename("table_id" = "id")
+
+  # extract Person entities from the RO-Crate: @id & name
+  safe_people_entities_tbl <- safe_project_crate |>
+    flatten_safe_people() |>
+    dplyr::rename("user_id" = "id")
+
+  ## combine the table permissions with Dataset & People entities' @ids
+  project_table_permissions_tbl_v2 <- project_table_permissions_tbl |>
+    dplyr::left_join(safe_data_entities_tbl, by = c("table" = "name")) |>
+    dplyr::left_join(safe_people_entities_tbl, by = c("subject" = "name")) |>
+    dplyr::rename(user = subject)
+
+  ## generate user permission entities and add to the RO-Crate
+  user_perm_entity_lst <- project_table_permissions_tbl_v2 |>
+    purrr::pmap(user_perm_entity) |>
+    purrr::list_c()
+  for (i in seq_along(user_perm_entity_lst)) {
+    safe_project_crate <- safe_project_crate |>
+      rocrateR::add_entity(user_perm_entity_lst[[i]])
+  }
+
+  # add Safe Setting details
+  safe_project_crate <- x |>
+    extract_safe_setting(rocrate = safe_project_crate)
 
   # return new RO-Crate
   return(invisible(safe_project_crate))
