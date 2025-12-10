@@ -134,6 +134,78 @@ project_exists <- function(x, project) {
   }
 }
 
+#' Create user permission entities
+#'
+#' @param user String with user name.
+#' @param user_id String with user `@id`.
+#' @param table String with dataset/table name.
+#' @param table_id String with dataset/table `@id`.
+#' @param permission String with permission ('view', 'view-values', 'edit',
+#'     'edit-values' OR 'administrate').
+#' @param ... Other additional values.
+#'
+#' @returns List of [rocrateR::entity] objects
+#' @keywords internal
+user_perm_entity <- function(user, user_id, table, table_id, permission, ...) {
+  # set local bindings
+  description <- type <- NULL
+  action_status <- "PotentialActionStatus"
+  agent <- list(list(`@id` = user_id))
+  object <- list(list(`@id` = table_id))
+
+  # create combined @id
+  comb_id <- paste0("#perm:", digest::digest(paste0(user, "-", table)))
+
+  # update combine @id, @type and description based on permission
+  if (permission == "view") {
+    comb_id <- paste0(comb_id, "-dict-summary-read")
+    type <- "ReadAction"
+    description <- "User may view table dictionary and summary statistics only; access to individual values is restricted."
+  } else if (permission == "view-values") {
+    comb_id <- paste0(comb_id, "-read-all")
+    type <- "ReadAction"
+    description <- "User may view table dictionary and all individual values."
+  } else if (permission == "edit") {
+    comb_id <- paste0(comb_id, c("-write-dict", "-summary-read"))
+    type <- c("WriteAction", "ReadAction")
+    description <- c(
+      "User may edit the table dictionary but cannot view individual values.",
+      "User may view summary statistics only; access to individual values is restricted."
+    )
+  } else if (permission == "edit-values") {
+    comb_id <- paste0(comb_id, c("-write-dict", "-read-all"))
+    type <- c("WriteAction", "ReadAction")
+    description <- c(
+      "User may edit the table dictionary.",
+      "User may view table dictionary and all individual values."
+    )
+  } else if (permission == "administrate") {
+    comb_id <- paste0(comb_id, "-admin-table")
+    type <- "ControlAction"
+    description <- "User has full administrative rights: view/edit dictionary and view/edit individual values."
+  } else {
+    return(NULL)
+  }
+
+  # create entity objects
+  permission_entities_tbl <- tibble::tibble(
+    x = comb_id,
+    type = type,
+    agent = agent,
+    object = object,
+    actionStatus = action_status,
+    description = description
+  )
+
+  # seq_len(nrow(permission_entities_tbl)) |>
+  #   lapply(function(i) {
+  #     rocrateR::entity(permission_entities_tbl$`id`[i],
+  #                      type = permission_entities_tbl$type[i])
+  #   })
+  purrr::pmap(permission_entities_tbl, rocrateR::entity)
+  # rocrateR::entity(as.list(permission_entities_tbl))
+}
+
 #' Validate OBiBa's Opal connection
 #'
 #' @param x Connection to OBiBa's Opal server (see [opalr::opal.login()]).
