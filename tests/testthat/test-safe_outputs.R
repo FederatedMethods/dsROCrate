@@ -15,18 +15,18 @@ test_that("safe_output works", {
       dsROCrate::safe_output(connection = NULL)
   )
 
-  # attempt extracting outputs from an RO-Crate without safe people details
+  # attempt extracting outputs from an RO-Crate without Safe People details
   expect_warning(
     basic_rocrate |>
       dsROCrate::safe_output(connection = opal_con)
   )
 
-  # add safe people details
+  # add Safe People details
   ## add project entity to the RO-Crate
   basic_rocrate_2 <- basic_rocrate |>
     rocrateR::add_entity(rocrateR::entity("Fake Project", type = "Project"))
 
-  ## add safe people details for
+  ## add Safe People details for
   basic_rocrate_3 <- basic_rocrate_2 |>
     dsROCrate::safe_people(connection = opal_con, user = PEOPLE)
 

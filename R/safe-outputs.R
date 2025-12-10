@@ -89,10 +89,10 @@ safe_output.opal <- function(
       safe_people_id <- rocrate_author["@id"][[1]]
     }
 
-    # check if safe people section wasn't found
+    # check if Safe People section wasn't found
     if (is.null(safe_people_id)) {
       warning(
-        "Safe people section not found (i.e., no author for root entity) ",
+        "Safe People section not found (i.e., no author for root entity) ",
         "in the given RO-Crate. \nEither run `dsROCrate::safe_people()` ",
         "or set `user` when calling `dsROCrate::safe_output()`!",
         call. = FALSE
@@ -102,7 +102,7 @@ safe_output.opal <- function(
       return(rocrate)
     }
 
-    # retrieve safe people entity for the current user
+    # retrieve Safe People entity for the current user
     safe_people_information <- safe_people_id |>
       sapply(\(x) rocrateR::get_entity(rocrate, id = x))
 
@@ -114,7 +114,7 @@ safe_output.opal <- function(
     # check if for any reason multiple users were found
     if (length(user) != 1) {
       warning(
-        "Error when retrieving the safe people section in the given ",
+        "Error when retrieving the Safe People section in the given ",
         "RO-Crate. ",
         length(user),
         " entries in the 'author' ",

@@ -12,7 +12,7 @@
 #' @param ... Other optional arguments. See the full documentation,
 #'     [`?dsROCrate::safe_people`][safe_people()].
 #' @param user List (or [entity][rocrateR::entity()] object) with details for
-#'     the safe people, it must include `@id` and `name` entries. Alternatively,
+#'     the Safe People, it must include `@id` and `name` entries. Alternatively,
 #'     this can be a string with the `name` of the current user.
 #' @param user_id_suffix String with ID suffix for the tables/datasets
 #'     entities in the RO-Crate (default: `"#dataset:"`).

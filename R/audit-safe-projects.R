@@ -1,6 +1,6 @@
-#' Audit safe project details
+#' Audit Safe Project details
 #'
-#' Audit safe project details from a 'DataSHIELD' server, an RO-Crate object or
+#' Audit Safe Project details from a 'DataSHIELD' server, an RO-Crate object or
 #' a file path pointing to an RO-Crate.
 #'
 #' @inheritParams safe_people
@@ -93,7 +93,7 @@ audit_safe_project.opal <- function(x, ..., project = NULL) {
   # have access to them
   safe_project_crate <- rocrateR::rocrate_5s()
 
-  ## add safe data and safe project details
+  ## add Safe Data and Safe Project details
   for (p in unique(project_table_permissions_tbl$project)) {
     # filter out tables for the current project
     project_tables <- project_table_permissions_tbl |>

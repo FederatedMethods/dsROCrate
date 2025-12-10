@@ -1,16 +1,16 @@
-#' Extract safe people entity(ies)
+#' Extract Safe People entity(ies)
 #'
 #' @inheritParams safe_data
 #' @param ... Other optional arguments. See the full documentation
 #'
-#' @returns RO-Crate with safe people entity(ies).
+#' @returns RO-Crate with Safe People entity(ies).
 #' @rdname extract_safe_people
 #' @keywords internal
 extract_safe_people <- function(x, ...) {
   UseMethod("extract_safe_people", x)
 }
 
-#' @param rocrate (Optional) RO-Crate object to update with safe people details.
+#' @param rocrate (Optional) RO-Crate object to update with Safe People details.
 #' @rdname extract_safe_people
 #' @export
 extract_safe_people.opal <- function(x, ..., rocrate = rocrateR::rocrate()) {
@@ -28,11 +28,11 @@ extract_safe_people.opal <- function(x, ..., rocrate = rocrateR::rocrate()) {
     }
   }
 
-  # return RO-Crate with safe project details
+  # return RO-Crate with Safe Project details
   return(rocrate)
 }
 
-#' @param id (Optional) Vector with `@id` strings for safe people entity(ies)
+#' @param id (Optional) Vector with `@id` strings for Safe People entity(ies)
 #'     to be extracted from the given RO-Crate, `x`.
 #' @rdname extract_safe_people
 #' @export

@@ -111,7 +111,7 @@ audit_safe_people.opal <- function(x, ..., user, project = NULL) {
   # create RO-Create with user, projects and datasets they have access to
   safe_people_crate <- rocrateR::rocrate_5s()
 
-  ## add safe data and safe project details
+  ## add Safe Data and Safe Project details
   for (p in unique(project_table_permissions_tbl_v2$project)) {
     # filter out tables for the current project
     project_tables <- project_table_permissions_tbl_v2 |>

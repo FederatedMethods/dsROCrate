@@ -94,7 +94,7 @@ rocrate_report.rocrate <- function(
     sapply(\(x) getElement(x, "memberOf")) |>
     unlist()
 
-  # attempt to extract safe project details
+  # attempt to extract Safe Project details
   safe_project_rocrate <- tryCatch(
     {
       extract_safe_project(x, id = member_of)

@@ -25,7 +25,7 @@ test_that("safe_people works", {
   basic_rocrate_2 <- basic_rocrate |>
     rocrateR::add_entity(rocrateR::entity("Fake Project", type = "Project"))
 
-  # add default safe people details (user logged in)
+  # add default Safe People details (user logged in)
   basic_rocrate_3 <- basic_rocrate_2 |>
     dsROCrate::safe_people(connection = opal_con)
   ## retrieve safe_people entity
@@ -33,7 +33,7 @@ test_that("safe_people works", {
     rocrateR::get_entity(type = "Person")
   expect_equal(length(basic_rocrate_2_sp), 1)
 
-  # add custom safe people
+  # add custom Safe People
   basic_rocrate_4 <- basic_rocrate_2 |>
     dsROCrate::safe_people(
       connection = opal_con,

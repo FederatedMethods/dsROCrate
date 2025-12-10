@@ -31,7 +31,7 @@ test_that("safe_project works", {
   # add all datasets for a valid project
   basic_rocrate_3 <- basic_rocrate |>
     dsROCrate::safe_data(project = PROJECT, connection = opal_con) |>
-    # add the safe project details
+    # add the Safe Project details
     dsROCrate::safe_project(project = PROJECT, connection = opal_con)
   ## extract datasets
   basic_rocrate_3_sd <- basic_rocrate_3 |>

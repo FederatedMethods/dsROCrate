@@ -10,12 +10,12 @@
 #' Physical settings for data access can include locations like
 #' [SafePods](https://safepodnetwork.ac.uk/) – secured rooms that use controlled
 #' door access, CCTV and secure technology to ensure that sensitive data cannot
-#' be mishandled or removed from the safe setting. Researchers can analyse the
+#' be mishandled or removed from the Safe Setting. Researchers can analyse the
 #' data in these secure rooms, but do not have access to the internet, external
 #' devices (such as printers), or any other way of removing protected data from
 #' the space.
 #'
-#' Digital safe settings provide secure access to data from a remote location.
+#' Digital Safe Settings provide secure access to data from a remote location.
 #' To be approved for remote data access, researchers will need to prove that
 #' their organisation meets physical and IT security standards.
 #'
@@ -73,7 +73,7 @@ safe_setting.opal <- function(x, ..., rocrate = NULL) {
       rocrateR::add_entity(disc_setting_entities[[i]], overwrite = TRUE)
   }
 
-  # update the hasPart section of the "safe project" to link these entities
+  # update the hasPart section of the "Safe Project" to link these entities
   # TODO: explore whether this is needed
 
   # extract information about R packages installed in the environment

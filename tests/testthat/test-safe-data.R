@@ -1,6 +1,10 @@
 test_that("safe_data works", {
-  # open connection to OBiBa's Opal demo server
-  source("opal-demo-server.R")
+  describe("safe_data", {
+    it(
+      "open connection to OBiBa's Opal demo server",
+      source("opal-demo-server.R")
+    )
+  })
 
   basic_rocrate <- rocrateR::rocrate_5s()
 
@@ -32,15 +36,16 @@ test_that("safe_data works", {
 
   # add specific datasets for a valid project
   basic_rocrate_3 <- basic_rocrate |>
-    dsROCrate::safe_data(project = PROJECT,
-                         tables = TABLES,
-                         connection = opal_con)
+    dsROCrate::safe_data(
+      project = PROJECT,
+      tables = TABLES,
+      connection = opal_con
+    )
   ## extract datasets
   basic_rocrate_3_sd <- basic_rocrate_3 |>
     rocrateR::get_entity(type = "Dataset")
   ## verify the length of the datasets is equal to 1 + 1 (root directory)
   expect_equal(length(basic_rocrate_3_sd), 2)
-
 
   # close connection to OBiBa's Opal demo server
   opalr::opal.logout(opal_con)
