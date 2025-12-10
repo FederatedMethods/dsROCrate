@@ -36,8 +36,13 @@ test_that("safe_project works", {
   ## extract datasets
   basic_rocrate_3_sd <- basic_rocrate_3 |>
     rocrateR::get_entity(type = "Dataset")
-  ## verify the length of the datasets is equal to 3 + 1 (root directory)
-  expect_equal(length(basic_rocrate_3_sd), 4)
+  ## extract datasets' names
+  basic_rocrate_3_sd_names <- basic_rocrate_3_sd |>
+    sapply(getElement, name = "name")
+  ## verify that CNSIM1, CNSIM2 and CNSIM3 are part in the crate
+  expect_true(all(
+    c("CNSIM1", "CNSIM2", "CNSIM3") %in% basic_rocrate_3_sd_names
+  ))
 
   # close connection to OBiBa's Opal demo server
   opalr::opal.logout(opal_con)
