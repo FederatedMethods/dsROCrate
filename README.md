@@ -85,7 +85,7 @@ o <- opalr::opal.login(
 print(o)
 #> url: https://opal-demo.obiba.org 
 #> name: opal-demo.obiba.org 
-#> version: 5.3.3 
+#> version: 5.4.0 
 #> username: administrator
 ```
 
@@ -129,7 +129,7 @@ print(basic_rocrate)
 #>       "@type": "Dataset",
 #>       "name": "",
 #>       "description": "",
-#>       "datePublished": "2025-12-05",
+#>       "datePublished": "2025-12-12",
 #>       "license": {
 #>         "@id": "http://spdx.org/licenses/CC-BY-4.0"
 #>       },
@@ -164,8 +164,8 @@ print(basic_rocrate) # note that the output will be truncated
 #>       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM1",
-#>       "dateCreated": "2025-12-05T06:29:48.726Z",
-#>       "dateModified": "2025-12-05T06:29:49.963Z",
+#>       "dateCreated": "2025-12-12T06:29:55.390Z",
+#>       "dateModified": "2025-12-12T06:29:56.545Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM1"
 #>     }
 #>   ]
@@ -188,8 +188,8 @@ print(basic_rocrate) # note that the output will be truncated
 #>       "@id": "#project:7ba189863f9f641196596cb28e04aa14",
 #>       "@type": "Project",
 #>       "name": "CNSIM",
-#>       "dateCreated": "2025-12-05T06:29:47.358Z",
-#>       "dateModified": "2025-12-05T06:29:52.303Z",
+#>       "dateCreated": "2025-12-12T06:29:53.990Z",
+#>       "dateModified": "2025-12-12T06:29:58.821Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -329,11 +329,11 @@ print(basic_rocrate) # note that the output will be truncated
 #>       "description": "Base 'DataSHIELD' functions for the server side. 'DataSHIELD' is a software package which allows\n    you to do non-disclosive federated analysis on sensitive data. 'DataSHIELD' analytic functions have\n    been designed to only share non disclosive summary statistics, with built in automated output\n    checking based on statistical disclosure control. With data sites setting the threshold values for\n    the automated output checks. For more details, see 'citation(\"dsBase\")'."
 #>     },
 #>     {
-#>       "@id": "457a08b576ab34be6f239dfed9fc8a2e",
+#>       "@id": "e2f7c43973c40d7a6a6731da5a0aa564",
 #>       "@type": "SoftwareApplication",
 #>       "name": "dsTidyverse",
-#>       "version": "1.0.3",
-#>       "description": "Implementation of selected 'Tidyverse' functions within 'DataSHIELD', an open-source federated analysis solution in R. Currently, DataSHIELD contains very limited tools for data manipulation, so the aim of this package is to improve the researcher experience by implementing essential functions for data manipulation, including subsetting, filtering, grouping, and renaming variables. This is the serverside package which should be installed on the server holding the data, and is used in conjuncture with the clientside package 'dsTidyverseClient' which is installed in the local R environment of the analyst. For more information, see <https://www.tidyverse.org/> and <https://datashield.org/>."
+#>       "version": "1.1.0",
+#>       "description": "Implementation of selected 'Tidyverse' functions within 'DataSHIELD', an open-source federated analysis solution in R. Currently, DataSHIELD contains very limited tools for data manipulation, so the aim of this package is to improve the researcher experience by implementing essential functions for data manipulation, including subsetting, filtering, grouping, and renaming variables. This is the serverside package which should be installed on the server holding the data, and is used in conjuncture with the clientside package 'dsTidyverseClient' which is installed in the local R environment of the analyst. For more information, see <https://tidyverse.org/> and <https://datashield.org/>."
 #>     },
 #>     {
 #>       "@id": "cb799d87d85ee53fa4b23de013c8c8ad",
@@ -418,28 +418,7 @@ DSI::datashield.assign.table(conns["study1"],
                              errors.print = TRUE)
 
 dsBaseClient::ds.ls(datasources = conns["study1"])
-#> $study1
-#> $study1$environment.searched
-#> [1] "R_GlobalEnv"
-#> 
-#> $study1$objects.found
-#> [1] "dsROCrate_test"
 dsBaseClient::ds.summary("dsROCrate_test")
-#> $study1
-#> $study1$class
-#> [1] "data.frame"
-#> 
-#> $study1$`number of rows`
-#> [1] 2163
-#> 
-#> $study1$`number of columns`
-#> [1] 11
-#> 
-#> $study1$`variables held`
-#>  [1] "LAB_TSC"            "LAB_TRIG"           "LAB_HDL"           
-#>  [4] "LAB_GLUC_ADJUSTED"  "PM_BMI_CONTINUOUS"  "DIS_CVA"           
-#>  [7] "MEDI_LPD"           "DIS_DIAB"           "DIS_AMI"           
-#> [10] "GENDER"             "PM_BMI_CATEGORICAL"
 ```
 
 ------------------------------------------------------------------------
@@ -452,27 +431,16 @@ basic_rocrate <- o |>
                          logs_from = Sys.time() - 60, # capture the last minute
                          logs_to = Sys.time())
 #> opening file input connection.
-#>  Found 97 records... Imported 97 records. Simplifying...
+#>  Found 40 records... Imported 40 records. Simplifying...
 #> closing file input connection.
-#> Warning: A `path` wasn't provided! The logs will be included in the RO-Crate
-#> object, under the `content` tag!
+#> Warning: No logs were found for the following configuration:
+#>  User: dsuser
+#>  Period: 2025-12-12 15:21:14.513063 -- 2025-12-12 15:22:14.513073
 ```
 
 ``` r
 print(basic_rocrate) # note that the output will be truncated
 ...
-#>     {
-#>       "@id": "2025-12-05-dslogs-dsuser.log",
-#>       "@type": "File",
-#>       "dateModified": "2025-12-05 12:32:29",
-#>       "name": "2025-12-05-dslogs-dsuser.log",
-#>       "encodingFormat": "text/plain",
-#>       "content": [
-#>         ["[INFO][2025-12-05T12:32:26][OPEN]      created a datashield session 2d8ea162-88fa-4d09-99be-0324c897e1b7", "[INFO][2025-12-05T12:32:27][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2025-12-05T12:32:27][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2025-12-05T12:32:28][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2025-12-05T12:32:28][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2025-12-05T12:32:28][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2025-12-05T12:32:28][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2025-12-05T12:32:28][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2025-12-05T12:32:28][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2025-12-05T12:32:28][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2025-12-05T12:32:28][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2025-12-05T12:32:28][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2025-12-05T12:32:29][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2025-12-05T12:32:29][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
-#>       ]
-#>     }
-#>   ]
-#> }
 ```
 
 ### 2.(n-1). Close connection
@@ -508,8 +476,6 @@ logs_entity[[1]]$content <- NULL
 # update the RO-Crate
 basic_rocrate <- basic_rocrate |>
   rocrateR::add_entity(logs_entity[[1]], overwrite = TRUE)
-#> Warning in rocrateR::add_entity(basic_rocrate, logs_entity[[1]], overwrite =
-#> TRUE): Overwritting the entity with @id = '2025-12-05-dslogs-dsuser.log'
 ```
 
 ``` r
@@ -517,7 +483,7 @@ basic_rocrate <- basic_rocrate |>
 path_to_rocrate_bag <- basic_rocrate |>
   rocrateR::bag_rocrate(path = "./rocrates", overwrite = TRUE)
 #> RO-Crate successfully 'bagged'!
-#> For details, see: ./rocrates/rocrate-fedfd058e3e2ce88b112dbacf77d5f66.zip
+#> For details, see: ./rocrates/rocrate-900f7304a39004a8d9dcd71bee48f93d.zip
 ```
 
 We can explore the contents with the following commands:
@@ -532,7 +498,6 @@ path_to_rocrate_bag |>
 #> ./rocrates/ROC/
 #> ├── bagit.txt
 #> ├── data
-#> │   ├── 2025-12-05-dslogs-dsuser.log
 #> │   └── ro-crate-metadata.json
 #> ├── manifest-sha512.txt
 #> └── tagmanifest-sha512.txt
@@ -579,7 +544,7 @@ print(safe_people_crate_v1)
 #>       "@type": "Dataset",
 #>       "name": "",
 #>       "description": "",
-#>       "datePublished": "2025-12-05",
+#>       "datePublished": "2025-12-12",
 #>       "license": {
 #>         "@id": "http://spdx.org/licenses/CC-BY-4.0"
 #>       },
@@ -599,32 +564,32 @@ print(safe_people_crate_v1)
 #>       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM1",
-#>       "dateCreated": "2025-12-05T06:29:48.726Z",
-#>       "dateModified": "2025-12-05T06:29:49.963Z",
+#>       "dateCreated": "2025-12-12T06:29:55.390Z",
+#>       "dateModified": "2025-12-12T06:29:56.545Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM1"
 #>     },
 #>     {
 #>       "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM2",
-#>       "dateCreated": "2025-12-05T06:29:49.971Z",
-#>       "dateModified": "2025-12-05T06:29:51.106Z",
+#>       "dateCreated": "2025-12-12T06:29:56.556Z",
+#>       "dateModified": "2025-12-12T06:29:57.666Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM2"
 #>     },
 #>     {
 #>       "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM3",
-#>       "dateCreated": "2025-12-05T06:29:51.117Z",
-#>       "dateModified": "2025-12-05T06:29:52.303Z",
+#>       "dateCreated": "2025-12-12T06:29:57.668Z",
+#>       "dateModified": "2025-12-12T06:29:58.821Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM3"
 #>     },
 #>     {
 #>       "@id": "#project:7ba189863f9f641196596cb28e04aa14",
 #>       "@type": "Project",
 #>       "name": "CNSIM",
-#>       "dateCreated": "2025-12-05T06:29:47.358Z",
-#>       "dateModified": "2025-12-05T06:29:52.303Z",
+#>       "dateCreated": "2025-12-12T06:29:53.990Z",
+#>       "dateModified": "2025-12-12T06:29:58.821Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -646,6 +611,93 @@ print(safe_people_crate_v1)
 #>           "@id": "#project:7ba189863f9f641196596cb28e04aa14"
 #>         }
 #>       ]
+#>     },
+#>     {
+#>       "@id": "_:localid:datashield.privacyLevel:5",
+#>       "@type": "PropertyValue",
+#>       "name": "datashield.privacyLevel",
+#>       "value": "5"
+#>     },
+#>     {
+#>       "@id": "_:localid:default.datashield.privacyControlLevel:banana",
+#>       "@type": "PropertyValue",
+#>       "name": "default.datashield.privacyControlLevel",
+#>       "value": "banana"
+#>     },
+#>     {
+#>       "@id": "_:localid:default.nfilter.glm:0.33",
+#>       "@type": "PropertyValue",
+#>       "name": "default.nfilter.glm",
+#>       "value": "0.33"
+#>     },
+#>     {
+#>       "@id": "_:localid:default.nfilter.kNN:3",
+#>       "@type": "PropertyValue",
+#>       "name": "default.nfilter.kNN",
+#>       "value": "3"
+#>     },
+#>     {
+#>       "@id": "_:localid:default.nfilter.levels.density:0.33",
+#>       "@type": "PropertyValue",
+#>       "name": "default.nfilter.levels.density",
+#>       "value": "0.33"
+#>     },
+#>     {
+#>       "@id": "_:localid:default.nfilter.levels.max:40",
+#>       "@type": "PropertyValue",
+#>       "name": "default.nfilter.levels.max",
+#>       "value": "40"
+#>     },
+#>     {
+#>       "@id": "_:localid:default.nfilter.noise:0.25",
+#>       "@type": "PropertyValue",
+#>       "name": "default.nfilter.noise",
+#>       "value": "0.25"
+#>     },
+#>     {
+#>       "@id": "_:localid:default.nfilter.string:80",
+#>       "@type": "PropertyValue",
+#>       "name": "default.nfilter.string",
+#>       "value": "80"
+#>     },
+#>     {
+#>       "@id": "_:localid:default.nfilter.stringShort:20",
+#>       "@type": "PropertyValue",
+#>       "name": "default.nfilter.stringShort",
+#>       "value": "20"
+#>     },
+#>     {
+#>       "@id": "_:localid:default.nfilter.subset:3",
+#>       "@type": "PropertyValue",
+#>       "name": "default.nfilter.subset",
+#>       "value": "3"
+#>     },
+#>     {
+#>       "@id": "_:localid:default.nfilter.tab:3",
+#>       "@type": "PropertyValue",
+#>       "name": "default.nfilter.tab",
+#>       "value": "3"
+#>     },
+#>     {
+#>       "@id": "cb5ccdc930d110416079c6d5cbb81ed8",
+#>       "@type": "SoftwareApplication",
+#>       "name": "dsBase",
+#>       "version": "6.3.4",
+#>       "description": "Base 'DataSHIELD' functions for the server side. 'DataSHIELD' is a software package which allows\n    you to do non-disclosive federated analysis on sensitive data. 'DataSHIELD' analytic functions have\n    been designed to only share non disclosive summary statistics, with built in automated output\n    checking based on statistical disclosure control. With data sites setting the threshold values for\n    the automated output checks. For more details, see 'citation(\"dsBase\")'."
+#>     },
+#>     {
+#>       "@id": "e2f7c43973c40d7a6a6731da5a0aa564",
+#>       "@type": "SoftwareApplication",
+#>       "name": "dsTidyverse",
+#>       "version": "1.1.0",
+#>       "description": "Implementation of selected 'Tidyverse' functions within 'DataSHIELD', an open-source federated analysis solution in R. Currently, DataSHIELD contains very limited tools for data manipulation, so the aim of this package is to improve the researcher experience by implementing essential functions for data manipulation, including subsetting, filtering, grouping, and renaming variables. This is the serverside package which should be installed on the server holding the data, and is used in conjuncture with the clientside package 'dsTidyverseClient' which is installed in the local R environment of the analyst. For more information, see <https://tidyverse.org/> and <https://datashield.org/>."
+#>     },
+#>     {
+#>       "@id": "cb799d87d85ee53fa4b23de013c8c8ad",
+#>       "@type": "SoftwareApplication",
+#>       "name": "resourcer",
+#>       "version": "1.4.0",
+#>       "description": "A resource represents some data or a computation unit. It is \n    described by a URL and credentials. This package proposes a Resource model\n    with \"resolver\" and \"client\" classes to facilitate the access and the usage of the \n    resources."
 #>     }
 #>   ]
 #> }
@@ -665,11 +717,15 @@ safe_people_crate_contents <- safe_people_crate_v1 |>
   dsROCrate::rocrate_report(filepath = safe_people_crate_v1_rmd, render = FALSE)
 #> 1 'Author' entity was found!
 #> 3 'Dataset' entities were found!
+#> Warning: No entities were found with @type = 'ReadAction'!
+#> Warning: No entities were found with @type = 'WriteAction'!
+#> Warning: No entities were found with @type = 'ControlAction'!
 #> 1 'Project' entity was found!
+#> 14 'PropertyValue' OR 'SoftwareApplication' entities were found!
 
 # display Overview diagram
 safe_people_crate_contents$overview_diagram
-#> file:////private/var/folders/59/4_l6kbyj2qsczmk2b52qg_f40000gn/T/Rtmpm9KVcP/file166fe53c8b11c/widget166fe1ce3d03d.html screenshot completed
+#> file:////private/var/folders/59/4_l6kbyj2qsczmk2b52qg_f40000gn/T/Rtmp9oAWJY/file150805e5df2c8/widget1508069ee58de.html screenshot completed
 ```
 
 <img src="inst/images/README-safe_people_crate_audit_v1-1.png" width="100%" />
@@ -711,12 +767,13 @@ safe_people_crate_v2_rmd <- tempfile(fileext = ".Rmd") # temporary file
 safe_people_crate_contents_v2 <- safe_people_crate_v2 |>
   dsROCrate::rocrate_report(filepath = safe_people_crate_v2_rmd, render = FALSE)
 #> 1 'Author' entity was found!
-#> 30 'Dataset' entities were found!
-#> 11 'Project' entities were found!
+#> 29 'Dataset' entities were found!
+#> 10 'Project' entities were found!
+#> 14 'PropertyValue' OR 'SoftwareApplication' entities were found!
 
 # display Overview diagram
 safe_people_crate_contents_v2$overview_diagram
-#> file:////private/var/folders/59/4_l6kbyj2qsczmk2b52qg_f40000gn/T/Rtmpm9KVcP/file166fe22fff1f0/widget166fe5164d583.html screenshot completed
+#> file:////private/var/folders/59/4_l6kbyj2qsczmk2b52qg_f40000gn/T/Rtmp9oAWJY/file150803d449d86/widget1508063c1e7d6.html screenshot completed
 ```
 
 <img src="inst/images/README-safe_people_crate_audit_v2-1.png" width="100%" />
@@ -759,9 +816,344 @@ safe_people_crate_contents_v2$overview_data |>
 |             |                            | titanic_server_2     |
 |             | depression                 | growth_1             |
 |             |                            | growth_2             |
-|             | serverDataKey              | myKey                |
 
 ### Safe Project
+
+##### List users and dataset/table level permissions within a project
+
+``` r
+safe_project_crate_v1 <- opalr::opal.login(
+  username = USERNAME,
+  password = USERPASS,
+  url = SERVER
+) |>
+  dsROCrate::audit_safe_project(project = "CNSIM")
+
+print(safe_project_crate_v1)
+#> {
+#>   "@context": "https://w3id.org/ro/crate/1.2/context",
+#>   "@graph": [
+#>     {
+#>       "@id": "ro-crate-metadata.json",
+#>       "@type": "CreativeWork",
+#>       "about": {
+#>         "@id": "./"
+#>       },
+#>       "conformsTo": {
+#>         "@id": "https://w3id.org/ro/crate/1.2"
+#>       }
+#>     },
+#>     {
+#>       "@id": "./",
+#>       "@type": "Dataset",
+#>       "name": "",
+#>       "description": "",
+#>       "datePublished": "2025-12-12",
+#>       "license": {
+#>         "@id": "http://spdx.org/licenses/CC-BY-4.0"
+#>       },
+#>       "conformsTo": {
+#>         "@id": "https://w3id.org/5s-crate/0.4"
+#>       }
+#>     },
+#>     {
+#>       "@id": "https://w3id.org/5s-crate/0.4",
+#>       "@type": ["CreativeWork", "Profile"],
+#>       "name": "Five Safes RO-Crate profile"
+#>     },
+#>     {
+#>       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",
+#>       "@type": "Dataset",
+#>       "name": "CNSIM1",
+#>       "dateCreated": "2025-12-12T06:29:55.390Z",
+#>       "dateModified": "2025-12-12T06:29:56.545Z",
+#>       "path": "/datasource/CNSIM/table/CNSIM1"
+#>     },
+#>     {
+#>       "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9",
+#>       "@type": "Dataset",
+#>       "name": "CNSIM2",
+#>       "dateCreated": "2025-12-12T06:29:56.556Z",
+#>       "dateModified": "2025-12-12T06:29:57.666Z",
+#>       "path": "/datasource/CNSIM/table/CNSIM2"
+#>     },
+#>     {
+#>       "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492",
+#>       "@type": "Dataset",
+#>       "name": "CNSIM3",
+#>       "dateCreated": "2025-12-12T06:29:57.668Z",
+#>       "dateModified": "2025-12-12T06:29:58.821Z",
+#>       "path": "/datasource/CNSIM/table/CNSIM3"
+#>     },
+#>     {
+#>       "@id": "#project:7ba189863f9f641196596cb28e04aa14",
+#>       "@type": "Project",
+#>       "name": "CNSIM",
+#>       "dateCreated": "2025-12-12T06:29:53.990Z",
+#>       "dateModified": "2025-12-12T06:29:58.821Z",
+#>       "hasPart": [
+#>         {
+#>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
+#>         },
+#>         {
+#>           "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9"
+#>         },
+#>         {
+#>           "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492"
+#>         }
+#>       ]
+#>     },
+#>     {
+#>       "@id": "#person:a0af2a94926db1b49ad7a812eef509d2",
+#>       "@type": "Person",
+#>       "name": "dsuser"
+#>     },
+#>     {
+#>       "@id": "#person:a3cd7ce7818436c83b1eadaa5ba47411",
+#>       "@type": "Person",
+#>       "name": "dsuser2"
+#>     },
+#>     {
+#>       "@id": "#person:5657241505661473308ae9aa9a378293",
+#>       "@type": "Person",
+#>       "name": "dsuser3"
+#>     },
+#>     {
+#>       "@id": "#perm:9bf7f75b6c5b07d02830b95652cd39a0-dict-summary-read",
+#>       "@type": "ReadAction",
+#>       "agent": {
+#>         "@id": "#person:a0af2a94926db1b49ad7a812eef509d2"
+#>       },
+#>       "object": {
+#>         "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
+#>     },
+#>     {
+#>       "@id": "#perm:942b70778081ab4a9f41b2f8e5c149a5-write-dict",
+#>       "@type": "WriteAction",
+#>       "agent": {
+#>         "@id": "#person:a3cd7ce7818436c83b1eadaa5ba47411"
+#>       },
+#>       "object": {
+#>         "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may edit the table dictionary but cannot view individual values."
+#>     },
+#>     {
+#>       "@id": "#perm:942b70778081ab4a9f41b2f8e5c149a5-summary-read",
+#>       "@type": "ReadAction",
+#>       "agent": {
+#>         "@id": "#person:a3cd7ce7818436c83b1eadaa5ba47411"
+#>       },
+#>       "object": {
+#>         "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may view summary statistics only; access to individual values is restricted."
+#>     },
+#>     {
+#>       "@id": "#perm:363eb627d1e49c08933f2e26142e6d56-dict-summary-read",
+#>       "@type": "ReadAction",
+#>       "agent": {
+#>         "@id": "#person:a0af2a94926db1b49ad7a812eef509d2"
+#>       },
+#>       "object": {
+#>         "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
+#>     },
+#>     {
+#>       "@id": "#perm:63b8097908f682bff1760e48d28c5855-dict-summary-read",
+#>       "@type": "ReadAction",
+#>       "agent": {
+#>         "@id": "#person:a0af2a94926db1b49ad7a812eef509d2"
+#>       },
+#>       "object": {
+#>         "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
+#>     },
+#>     {
+#>       "@id": "#perm:04c3f293c7a360fe0a1b7c29c8363540-write-dict",
+#>       "@type": "WriteAction",
+#>       "agent": {
+#>         "@id": "#person:5657241505661473308ae9aa9a378293"
+#>       },
+#>       "object": {
+#>         "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may edit the table dictionary but cannot view individual values."
+#>     },
+#>     {
+#>       "@id": "#perm:04c3f293c7a360fe0a1b7c29c8363540-summary-read",
+#>       "@type": "ReadAction",
+#>       "agent": {
+#>         "@id": "#person:5657241505661473308ae9aa9a378293"
+#>       },
+#>       "object": {
+#>         "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may view summary statistics only; access to individual values is restricted."
+#>     },
+#>     {
+#>       "@id": "#perm:156ecf5add0b7f9d4733f524a5c778ec-read-all",
+#>       "@type": "ReadAction",
+#>       "agent": {
+#>         "@id": "#person:a3cd7ce7818436c83b1eadaa5ba47411"
+#>       },
+#>       "object": {
+#>         "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may view table dictionary and all individual values."
+#>     },
+#>     {
+#>       "@id": "_:localid:datashield.privacyLevel:5",
+#>       "@type": "PropertyValue",
+#>       "name": "datashield.privacyLevel",
+#>       "value": "5"
+#>     },
+#>     {
+#>       "@id": "_:localid:default.datashield.privacyControlLevel:banana",
+#>       "@type": "PropertyValue",
+#>       "name": "default.datashield.privacyControlLevel",
+#>       "value": "banana"
+#>     },
+#>     {
+#>       "@id": "_:localid:default.nfilter.glm:0.33",
+#>       "@type": "PropertyValue",
+#>       "name": "default.nfilter.glm",
+#>       "value": "0.33"
+#>     },
+#>     {
+#>       "@id": "_:localid:default.nfilter.kNN:3",
+#>       "@type": "PropertyValue",
+#>       "name": "default.nfilter.kNN",
+#>       "value": "3"
+#>     },
+#>     {
+#>       "@id": "_:localid:default.nfilter.levels.density:0.33",
+#>       "@type": "PropertyValue",
+#>       "name": "default.nfilter.levels.density",
+#>       "value": "0.33"
+#>     },
+#>     {
+#>       "@id": "_:localid:default.nfilter.levels.max:40",
+#>       "@type": "PropertyValue",
+#>       "name": "default.nfilter.levels.max",
+#>       "value": "40"
+#>     },
+#>     {
+#>       "@id": "_:localid:default.nfilter.noise:0.25",
+#>       "@type": "PropertyValue",
+#>       "name": "default.nfilter.noise",
+#>       "value": "0.25"
+#>     },
+#>     {
+#>       "@id": "_:localid:default.nfilter.string:80",
+#>       "@type": "PropertyValue",
+#>       "name": "default.nfilter.string",
+#>       "value": "80"
+#>     },
+#>     {
+#>       "@id": "_:localid:default.nfilter.stringShort:20",
+#>       "@type": "PropertyValue",
+#>       "name": "default.nfilter.stringShort",
+#>       "value": "20"
+#>     },
+#>     {
+#>       "@id": "_:localid:default.nfilter.subset:3",
+#>       "@type": "PropertyValue",
+#>       "name": "default.nfilter.subset",
+#>       "value": "3"
+#>     },
+#>     {
+#>       "@id": "_:localid:default.nfilter.tab:3",
+#>       "@type": "PropertyValue",
+#>       "name": "default.nfilter.tab",
+#>       "value": "3"
+#>     },
+#>     {
+#>       "@id": "cb5ccdc930d110416079c6d5cbb81ed8",
+#>       "@type": "SoftwareApplication",
+#>       "name": "dsBase",
+#>       "version": "6.3.4",
+#>       "description": "Base 'DataSHIELD' functions for the server side. 'DataSHIELD' is a software package which allows\n    you to do non-disclosive federated analysis on sensitive data. 'DataSHIELD' analytic functions have\n    been designed to only share non disclosive summary statistics, with built in automated output\n    checking based on statistical disclosure control. With data sites setting the threshold values for\n    the automated output checks. For more details, see 'citation(\"dsBase\")'."
+#>     },
+#>     {
+#>       "@id": "e2f7c43973c40d7a6a6731da5a0aa564",
+#>       "@type": "SoftwareApplication",
+#>       "name": "dsTidyverse",
+#>       "version": "1.1.0",
+#>       "description": "Implementation of selected 'Tidyverse' functions within 'DataSHIELD', an open-source federated analysis solution in R. Currently, DataSHIELD contains very limited tools for data manipulation, so the aim of this package is to improve the researcher experience by implementing essential functions for data manipulation, including subsetting, filtering, grouping, and renaming variables. This is the serverside package which should be installed on the server holding the data, and is used in conjuncture with the clientside package 'dsTidyverseClient' which is installed in the local R environment of the analyst. For more information, see <https://tidyverse.org/> and <https://datashield.org/>."
+#>     },
+#>     {
+#>       "@id": "cb799d87d85ee53fa4b23de013c8c8ad",
+#>       "@type": "SoftwareApplication",
+#>       "name": "resourcer",
+#>       "version": "1.4.0",
+#>       "description": "A resource represents some data or a computation unit. It is \n    described by a URL and credentials. This package proposes a Resource model\n    with \"resolver\" and \"client\" classes to facilitate the access and the usage of the \n    resources."
+#>     }
+#>   ]
+#> }
+```
+
+###### Markdown report
+
+A markdown report can be created with an overview and details for an
+RO-Crate, using the `dsROCrate::rocrate_report`:
+
+**Only generate .Rmd file**
+
+``` r
+safe_project_crate_v1_rmd <- tempfile(fileext = ".Rmd") # temporary file
+
+safe_project_crate_contents <- safe_project_crate_v1 |>
+  dsROCrate::rocrate_report(filepath = safe_project_crate_v1_rmd, render = FALSE)
+#> 3 'Author' entities were found!
+#> 3 'Dataset' entities were found!
+#> Warning: No entities were found with @type = 'ControlAction'!
+#> 1 'Project' entity was found!
+#> 14 'PropertyValue' OR 'SoftwareApplication' entities were found!
+
+# display Overview diagram
+safe_project_crate_contents$overview_diagram
+#> file:////private/var/folders/59/4_l6kbyj2qsczmk2b52qg_f40000gn/T/Rtmp9oAWJY/file1508065482cb2/widget15080656e8e10.html screenshot completed
+```
+
+<img src="inst/images/README-safe_project_crate_audit_v1-1.png" width="100%" />
+
+``` r
+
+# display Overview data (Safe People, Safe Projects and Safe Data)
+safe_project_crate_contents$overview_data |>
+  knitr::kable()
+```
+
+| Safe Project | Safe Data | Safe People | Access Level |
+|:-------------|:----------|:------------|:-------------|
+| CNSIM        | CNSIM1    | dsuser      | read         |
+|              |           | dsuser2     | read, write  |
+|              | CNSIM2    | dsuser      | read         |
+|              | CNSIM3    | dsuser      | read         |
+|              |           | dsuser2     | read         |
+|              |           | dsuser3     | read, write  |
+
+**Render and display report (HTML)**
+
+``` r
+safe_project_crate_v1 |>
+  dsROCrate::rocrate_report(filepath = safe_project_crate_v1_rmd, 
+                            render = TRUE, 
+                            overwrite = TRUE)
+```
 
 <br />
 

@@ -286,7 +286,7 @@ conns <- DSI::datashield.login(logins = logindata)
 ```
 
 ###### Simulate some operations
-```{r}
+```{r, eval = FALSE}
 ## assign data
 DSI::datashield.assign.table(conns["study1"], 
                              symbol = "dsROCrate_test",
@@ -336,7 +336,7 @@ NOTE: In the above example, a `path` to store the logs wasn't provided when
 calling `dsROCrate::safe_output`, before creating an RO-Crate bag, we should 
 save the contents of this file first
 
-```{r}
+```{r, eval = FALSE}
 logs_entity <- basic_rocrate |>
   rocrateR::get_entity(type = "File")
 # write file using the path given by `@id`
@@ -447,6 +447,48 @@ safe_people_crate_contents_v2$overview_data |>
 
 ### Safe Project
 
+##### List users and dataset/table level permissions within a project
+```{r, warning=FALSE}
+safe_project_crate_v1 <- opalr::opal.login(
+  username = USERNAME,
+  password = USERPASS,
+  url = SERVER
+) |>
+  dsROCrate::audit_safe_project(project = "CNSIM")
+
+print(safe_project_crate_v1)
+```
+
+###### Markdown report
+
+A markdown report can be created with an overview and details for an RO-Crate,
+using the `dsROCrate::rocrate_report`:
+
+**Only generate .Rmd file**
+
+```{r safe_project_crate_audit_v1}
+safe_project_crate_v1_rmd <- tempfile(fileext = ".Rmd") # temporary file
+
+safe_project_crate_contents <- safe_project_crate_v1 |>
+  dsROCrate::rocrate_report(filepath = safe_project_crate_v1_rmd, render = FALSE)
+
+# display Overview diagram
+safe_project_crate_contents$overview_diagram
+
+# display Overview data (Safe People, Safe Projects and Safe Data)
+safe_project_crate_contents$overview_data |>
+  knitr::kable()
+```
+
+**Render and display report (HTML)**
+
+```{r, eval = FALSE}
+safe_project_crate_v1 |>
+  dsROCrate::rocrate_report(filepath = safe_project_crate_v1_rmd, 
+                            render = TRUE, 
+                            overwrite = TRUE)
+```
+
 <br />
 
 ## n. Identity
@@ -460,4 +502,5 @@ You are welcome to use any of the following hex codes when referencing `{dsROCra
 ```{r, echo = FALSE, message = FALSE, error = FALSE}
 unlink(safe_people_crate_v1_rmd, TRUE, TRUE)
 unlink(safe_people_crate_v2_rmd, TRUE, TRUE)
+unlink(safe_project_crate_v1_rmd, TRUE, TRUE)
 ```
