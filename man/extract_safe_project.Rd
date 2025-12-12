@@ -4,7 +4,7 @@
 \alias{extract_safe_project}
 \alias{extract_safe_project.opal}
 \alias{extract_safe_project.rocrate}
-\title{Extract safe project entity(ies)}
+\title{Extract Safe Project entity(ies)}
 \usage{
 extract_safe_project(x, ...)
 
@@ -20,16 +20,16 @@ RO-Crate.}
 
 \item{...}{Other optional arguments. See the full documentation}
 
-\item{rocrate}{(Optional) RO-Crate object to update with safe project
+\item{rocrate}{(Optional) RO-Crate object to update with Safe Project
 details.}
 
-\item{id}{(Optional) Vector with \verb{@id} strings for safe project entity(ies)
+\item{id}{(Optional) Vector with \verb{@id} strings for Safe Project entity(ies)
 to be extracted from the given RO-Crate, \code{x}.}
 }
 \value{
-List with safe project entity(ies).
+List with Safe Project entity(ies).
 }
 \description{
-Extract safe project entity(ies)
+Extract Safe Project entity(ies)
 }
 \keyword{internal}

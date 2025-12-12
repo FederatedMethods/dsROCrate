@@ -6,7 +6,7 @@
 \alias{audit_safe_people.default}
 \alias{audit_safe_people.opal}
 \alias{audit_safe_people.rocrate}
-\title{Audit safe people details}
+\title{Audit Safe People details}
 \usage{
 audit_safe_people(x, ...)
 
@@ -36,6 +36,6 @@ details.}
 Updated RO-Crate object with Safe People information.
 }
 \description{
-Audit safe people details from a 'DataSHIELD' server, an RO-Crate object or
+Audit Safe People details from a 'DataSHIELD' server, an RO-Crate object or
 a file path pointing to an RO-Crate.
 }

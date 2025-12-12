@@ -20,7 +20,8 @@ safe_people(x, ...)
   rocrate = NULL,
   user = NULL,
   user_id_suffix = "#person:",
-  set_author = TRUE
+  set_author = TRUE,
+  set_project = TRUE
 )
 
 \method{safe_people}{rocrate}(
@@ -29,6 +30,7 @@ safe_people(x, ...)
   user = NULL,
   user_id_suffix = "#person:",
   set_author = TRUE,
+  set_project = TRUE,
   connection = NULL
 )
 }
@@ -46,7 +48,7 @@ object or a path to a valid RO-Crate. If so, then \code{connection} is
 required.}
 
 \item{user}{List (or \link[rocrateR:entity]{entity} object) with details for
-the safe people, it must include \verb{@id} and \code{name} entries. Alternatively,
+the Safe People, it must include \verb{@id} and \code{name} entries. Alternatively,
 this can be a string with the \code{name} of the current user.}
 
 \item{user_id_suffix}{String with ID suffix for the tables/datasets
@@ -54,6 +56,9 @@ entities in the RO-Crate (default: \code{"#dataset:"}).}
 
 \item{set_author}{Boolean flag to indicate if the current user should be
 set as the author of the RO-Crate.}
+
+\item{set_project}{Boolean flag to indicate if any \code{Project} entities found
+in \code{x} should be linked to the Safe People entity.}
 
 \item{connection}{Connection object for the 'DataSHIELD' server where the
 values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is

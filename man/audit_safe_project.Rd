@@ -6,7 +6,7 @@
 \alias{audit_safe_project.default}
 \alias{audit_safe_project.opal}
 \alias{audit_safe_project.rocrate}
-\title{Audit safe project details}
+\title{Audit Safe Project details}
 \usage{
 audit_safe_project(x, ...)
 
@@ -33,6 +33,6 @@ details.}
 Updated RO-Crate object with Safe Project information.
 }
 \description{
-Audit safe project details from a 'DataSHIELD' server, an RO-Crate object or
+Audit Safe Project details from a 'DataSHIELD' server, an RO-Crate object or
 a file path pointing to an RO-Crate.
 }

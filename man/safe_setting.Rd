@@ -50,12 +50,12 @@ These settings also prevent the deliberate disclosure of data to others.
 Physical settings for data access can include locations like
 \href{https://safepodnetwork.ac.uk/}{SafePods} – secured rooms that use controlled
 door access, CCTV and secure technology to ensure that sensitive data cannot
-be mishandled or removed from the safe setting. Researchers can analyse the
+be mishandled or removed from the Safe Setting. Researchers can analyse the
 data in these secure rooms, but do not have access to the internet, external
 devices (such as printers), or any other way of removing protected data from
 the space.
 
-Digital safe settings provide secure access to data from a remote location.
+Digital Safe Settings provide secure access to data from a remote location.
 To be approved for remote data access, researchers will need to prove that
 their organisation meets physical and IT security standards.
 }

@@ -4,7 +4,7 @@
 \alias{extract_safe_people}
 \alias{extract_safe_people.opal}
 \alias{extract_safe_people.rocrate}
-\title{Extract safe people entity(ies)}
+\title{Extract Safe People entity(ies)}
 \usage{
 extract_safe_people(x, ...)
 
@@ -20,15 +20,15 @@ RO-Crate.}
 
 \item{...}{Other optional arguments. See the full documentation}
 
-\item{rocrate}{(Optional) RO-Crate object to update with safe people details.}
+\item{rocrate}{(Optional) RO-Crate object to update with Safe People details.}
 
-\item{id}{(Optional) Vector with \verb{@id} strings for safe people entity(ies)
+\item{id}{(Optional) Vector with \verb{@id} strings for Safe People entity(ies)
 to be extracted from the given RO-Crate, \code{x}.}
 }
 \value{
-RO-Crate with safe people entity(ies).
+RO-Crate with Safe People entity(ies).
 }
 \description{
-Extract safe people entity(ies)
+Extract Safe People entity(ies)
 }
 \keyword{internal}
