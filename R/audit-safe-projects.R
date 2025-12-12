@@ -120,7 +120,12 @@ audit_safe_project.opal <- function(x, ..., project = NULL) {
   # add Safe People details
   for (i in seq_len(nrow(safe_people_tbl))) {
     safe_project_crate <- safe_project_crate |>
-      dsROCrate::safe_people(user = safe_people_tbl$name[i], connection = x)
+      dsROCrate::safe_people(
+        user = safe_people_tbl$name[i],
+        connection = x,
+        set_author = FALSE,
+        set_project = FALSE
+      )
   }
 
   # extract Dataset entities from the RO-Crate: @id & name
