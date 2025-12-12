@@ -63,7 +63,8 @@
 <span>  rocrate <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  user <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  user_id_suffix <span class="op">=</span> <span class="st">"#person:"</span>,</span>
-<span>  set_author <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  set_author <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  set_project <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'rocrate'</span></span>
@@ -73,6 +74,7 @@
 <span>  user <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  user_id_suffix <span class="op">=</span> <span class="st">"#person:"</span>,</span>
 <span>  set_author <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  set_project <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  connection <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -107,7 +109,7 @@ required.</p></dd>
 
 <dt id="arg-user">user<a class="anchor" aria-label="anchor" href="#arg-user"></a></dt>
 <dd><p>List (or <a href="https://rdrr.io/pkg/rocrateR/man/entity.html" class="external-link">entity</a> object) with details for
-the safe people, it must include <code>@id</code> and <code>name</code> entries. Alternatively,
+the Safe People, it must include <code>@id</code> and <code>name</code> entries. Alternatively,
 this can be a string with the <code>name</code> of the current user.</p></dd>
 
 
@@ -119,6 +121,11 @@ entities in the RO-Crate (default: <code>"#dataset:"</code>).</p></dd>
 <dt id="arg-set-author">set_author<a class="anchor" aria-label="anchor" href="#arg-set-author"></a></dt>
 <dd><p>Boolean flag to indicate if the current user should be
 set as the author of the RO-Crate.</p></dd>
+
+
+<dt id="arg-set-project">set_project<a class="anchor" aria-label="anchor" href="#arg-set-project"></a></dt>
+<dd><p>Boolean flag to indicate if any <code>Project</code> entities found
+in <code>x</code> should be linked to the Safe People entity.</p></dd>
 
 
 <dt id="arg-connection">connection<a class="anchor" aria-label="anchor" href="#arg-connection"></a></dt>

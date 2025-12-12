@@ -17,6 +17,7 @@
 <url><loc>/reference/flatten_safe_people.html</loc></url>
 <url><loc>/reference/flatten_safe_project.html</loc></url>
 <url><loc>/reference/flatten_safe_setting.html</loc></url>
+<url><loc>/reference/flatten_user_perm_entity.html</loc></url>
 <url><loc>/reference/get_project_tables.html</loc></url>
 <url><loc>/reference/get_table_permissions.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
@@ -29,6 +30,7 @@
 <url><loc>/reference/safe_project.html</loc></url>
 <url><loc>/reference/safe_setting.html</loc></url>
 <url><loc>/reference/unfill_vec.html</loc></url>
+<url><loc>/reference/user_perm_entity.html</loc></url>
 <url><loc>/reference/validate_opal_con.html</loc></url>
 </urlset>
 
