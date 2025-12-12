@@ -229,9 +229,8 @@ rocrate_report.rocrate <- function(
         permission = paste0(unique(permission), collapse = ", "),
         .groups = "drop"
       ) |>
-      # tidy up duplicated values in `name` and `project`
+      # tidy up duplicated values in `project` and `table`
       dplyr::mutate(
-        name = unfill_vec(name),
         project = unfill_vec(project),
         table = unfill_vec(table)
       ) |>
