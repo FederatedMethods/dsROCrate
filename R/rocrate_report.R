@@ -88,6 +88,20 @@ rocrate_report.rocrate <- function(
     }
   )
 
+  # attempt to extract user permission entities
+  user_perm_entity_lst <- tryCatch(
+    {
+      # TODO: Update the following to single call, once this issue has been
+      # resolved: https://github.com/ResearchObject/ro-crate-r/issues/5
+      c("ReadAction", "WriteAction", "ControlAction") |>
+        sapply(\(t) rocrateR::get_entity(x, type = t)) |>
+        purrr::list_c()
+    },
+    error = function(e) {
+      NULL
+    }
+  )
+
   # extract project IDs from the Safe People RO-Crate
   member_of <- safe_people_rocrate |>
     rocrateR::get_entity(type = "Person") |>
@@ -123,49 +137,123 @@ rocrate_report.rocrate <- function(
   )
 
   ## create visualisation for the overview
-  overview_tbl <- flatten_safe_people(safe_people_rocrate) |>
-    dplyr::select(-id) |>
-    dplyr::bind_cols(
-      flatten_safe_project(safe_project_rocrate) |>
-        dplyr::select(-id)
-    )
-  diagram_lst <- overview_tbl |>
-    vtree::vtree(
-      vars = c("name", "project", "table"),
-      labelvar = c(
-        name = "Safe People",
-        project = "Safe Project",
-        table = "Safe Data"
-      ),
-      showpct = FALSE,
-      showcount = FALSE,
-      horiz = FALSE,
-      varnamebold = TRUE,
-      splitwidth = 1,
-      vsplitwidth = 1,
-      folder = dirname(filepath),
-      imageFileOnly = render,
-      pngknit = render,
-      pxheight = min(80 * nrow(overview_tbl), 500),
-      pxwidth = 200 * nrow(overview_tbl) # 200px * numbers of Safe Data entities
-    )
+  ### extract (if available) table with user permissions
+  user_perm_tbl <- flatten_user_perm_entity(user_perm_entity_lst)
+  ### extract table with Safe People details
+  safe_people_tbl <- flatten_safe_people(safe_people_rocrate) |>
+    dplyr::rename(user_id = id)
+  ### extract table with Safe Project details
+  safe_project_tbl <- flatten_safe_project(safe_project_rocrate)
+  ### extract table with Safe Data details
+  safe_data_tbl <- flatten_safe_data(safe_data_rocrate) |>
+    dplyr::rename(table_id = id, table_name = name)
+  if (!is.null(user_perm_tbl) && nrow(user_perm_tbl) > 0) {
+    overview_tbl <- user_perm_tbl |>
+      # combine with Safe People details
+      dplyr::left_join(safe_people_tbl, by = "user_id") |>
+      # drop unused columns
+      dplyr::select(-id, -actionStatus, -description) |>
+      # combine with Safe Data details
+      dplyr::left_join(safe_data_tbl, by = c("table_id")) |>
+      # combine with Safe Project details
+      dplyr::left_join(safe_project_tbl, by = c("table_name" = "table")) |>
+      # drop unused columns
+      dplyr::select(-id, -user_id, -table_id, -type) |>
+      dplyr::rename(table = table_name)
+  } else {
+    overview_tbl <- flatten_safe_people(safe_people_rocrate) |>
+      dplyr::select(-id) |>
+      dplyr::bind_cols(
+        flatten_safe_project(safe_project_rocrate) |>
+          dplyr::select(-id)
+      )
+  }
+
+  # check if `overview_tbl` has `permission` field
+  if ("permission" %in% colnames(overview_tbl)) {
+    diagram_lst <- overview_tbl |>
+      vtree::vtree(
+        vars = c("project", "table", "name", "permission"),
+        labelvar = c(
+          name = "Safe People",
+          project = "Safe Project",
+          table = "Safe Data",
+          permission = "Access Level"
+        ),
+        showpct = FALSE,
+        showcount = FALSE,
+        horiz = FALSE,
+        varnamebold = TRUE,
+        splitwidth = 1,
+        vsplitwidth = 1,
+        folder = dirname(filepath),
+        imageFileOnly = render,
+        pngknit = render,
+        pxheight = min(80 * nrow(overview_tbl), 500),
+        pxwidth = 200 * nrow(overview_tbl)
+      )
+  } else {
+    diagram_lst <- overview_tbl |>
+      vtree::vtree(
+        vars = c("name", "project", "table"),
+        labelvar = c(
+          name = "Safe People",
+          project = "Safe Project",
+          table = "Safe Data"
+        ),
+        showpct = FALSE,
+        showcount = FALSE,
+        horiz = FALSE,
+        varnamebold = TRUE,
+        splitwidth = 1,
+        vsplitwidth = 1,
+        folder = dirname(filepath),
+        imageFileOnly = render,
+        pngknit = render,
+        pxheight = min(80 * nrow(overview_tbl), 500),
+        pxwidth = 200 * nrow(overview_tbl)
+      )
+  }
   # find path to latest PNG generated with `vtree`
   diagram_filepath <- list.files(dirname(filepath), "^vtree")
   diagram_filepath <- diagram_filepath[length(diagram_filepath)]
 
   ## append overview table
   ### create tidy version of the overview table
-  tidy_overview_tbl <- overview_tbl |>
-    # tidy up duplicated values in `name` and `project`
-    dplyr::mutate(
-      name = unfill_vec(name),
-      project = unfill_vec(project)
-    ) |>
-    dplyr::rename(
-      `Safe People` = name,
-      `Safe Project` = project,
-      `Safe Data` = table
-    )
+  #### check if `overview_tbl` has `permission` field
+  if ("permission" %in% colnames(overview_tbl)) {
+    tidy_overview_tbl <- overview_tbl |>
+      dplyr::select(project, table, name, permission) |>
+      dplyr::group_by(project, table, name) |>
+      dplyr::summarise(
+        permission = paste0(unique(permission), collapse = ", "),
+        .groups = "drop"
+      ) |>
+      # tidy up duplicated values in `name` and `project`
+      dplyr::mutate(
+        name = unfill_vec(name),
+        project = unfill_vec(project),
+        table = unfill_vec(table)
+      ) |>
+      dplyr::rename(
+        `Safe People` = name,
+        `Safe Project` = project,
+        `Safe Data` = table,
+        `Access Level` = permission
+      )
+  } else {
+    tidy_overview_tbl <- overview_tbl |>
+      # tidy up duplicated values in `name` and `project`
+      dplyr::mutate(
+        name = unfill_vec(name),
+        project = unfill_vec(project)
+      ) |>
+      dplyr::rename(
+        `Safe People` = name,
+        `Safe Project` = project,
+        `Safe Data` = table
+      )
+  }
   report_contents <- c(
     report_contents,
     "## Overview\n\n",
@@ -203,6 +291,19 @@ rocrate_report.rocrate <- function(
       knitr::kable() |>
       paste0(collapse = "\n")
   )
+
+  ## append Safe Data permissions
+  #### check if `overview_tbl` has `permission` field
+  if ("permission" %in% colnames(overview_tbl)) {
+    report_contents <- c(
+      report_contents,
+      "#### Safe Data permissions\n",
+      flatten_user_perm_entity(user_perm_entity_lst) |>
+        dplyr::select(-actionStatus, -description) |>
+        knitr::kable() |>
+        paste0(collapse = "\n")
+    )
+  }
 
   ## append Safe Settings details
   report_contents <- c(
@@ -257,6 +358,7 @@ rocrate_report.rocrate <- function(
         overview_data = tidy_overview_tbl,
         safe_people = flatten_safe_people(safe_people_rocrate),
         safe_data = flatten_safe_data(safe_data_rocrate),
+        safe_data_permissions = flatten_user_perm_entity(user_perm_entity_lst),
         safe_project = flatten_safe_project(safe_project_rocrate),
         safe_setting = flatten_safe_setting(safe_setting_rocrate)
       )
@@ -270,6 +372,7 @@ rocrate_report.rocrate <- function(
     list(
       safe_people = flatten_safe_people(safe_people_rocrate),
       safe_data = flatten_safe_data(safe_data_rocrate),
+      safe_data_permissions = flatten_user_perm_entity(user_perm_entity_lst),
       safe_project = flatten_safe_project(safe_project_rocrate),
       safe_setting = flatten_safe_setting(safe_setting_rocrate)
     )
