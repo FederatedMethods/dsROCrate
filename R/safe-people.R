@@ -18,6 +18,8 @@
 #'     entities in the RO-Crate (default: `"#dataset:"`).
 #' @param set_author Boolean flag to indicate if the current user should be
 #'     set as the author of the RO-Crate.
+#' @param set_project Boolean flag to indicate if any `Project` entities found
+#'     in `x` should be linked to the Safe People entity.
 #'
 #' @returns Updated RO-Crate object with Safe People information.
 #' @export
@@ -50,7 +52,8 @@ safe_people.opal <- function(
   rocrate = NULL,
   user = NULL,
   user_id_suffix = "#person:",
-  set_author = TRUE
+  set_author = TRUE,
+  set_project = TRUE
 ) {
   # NOTE: connection not currently in use, this is a PLACEHOLDER!
   # x is a valid opal connection object
@@ -90,8 +93,8 @@ safe_people.opal <- function(
     )
   }
 
-  # add membership information, if Safe Project was found
-  if (length(safe_project_entity)) {
+  # add membership information, if Safe Project was found and set_project = TRUE
+  if (length(safe_project_entity) && set_project) {
     user_entity$memberOf <- safe_project_entity |>
       lapply(\(x) list(`@id` = x[["@id"]]))
   }
@@ -122,6 +125,7 @@ safe_people.rocrate <- function(
   user = NULL,
   user_id_suffix = "#person:",
   set_author = TRUE,
+  set_project = TRUE,
   connection = NULL
 ) {
   # check if the connection was given
@@ -135,6 +139,7 @@ safe_people.rocrate <- function(
     rocrate = x,
     user = user,
     user_id_suffix = user_id_suffix,
-    set_author = set_author
+    set_author = set_author,
+    set_project = set_project
   )
 }
