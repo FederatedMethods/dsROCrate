@@ -47,16 +47,21 @@ extract_safe_people.rocrate <- function(
     # extract author `@id`s from the root directory
     id <- rocrateR::get_entity(x, id = "./", type = "Dataset") |>
       lapply(\(x) getElement(x, "author")) |>
-      sapply(\(x) getElement(x, "@id"))
+      sapply(\(x) getElement(x, "@id")) |>
+      unlist()
   }
 
   # extract entities with type = 'Person'
   entities_lst <- rocrateR::get_entity(x, type = "Person")
 
-  # filter out person-entities in the `id`
-  idx <- entities_lst |>
-    sapply(\(x) getElement(x, "@id") %in% id)
-  entities_lst_v2 <- entities_lst[idx]
+  # filter out person-entities in the `id`, if `id` is not NULL
+  if (length(id) && !is.null(id)) {
+    idx <- entities_lst |>
+      sapply(\(x) getElement(x, "@id") %in% id)
+    entities_lst_v2 <- entities_lst[idx]
+  } else {
+    entities_lst_v2 <- entities_lst
+  }
 
   # check if any entities were found
   if (length(entities_lst_v2) == 0) {
@@ -77,13 +82,13 @@ extract_safe_people.rocrate <- function(
 
   # add user to the RO-Crate
   rocrate <- rocrate |>
-    rocrateR::add_entities(entities_lst_v2, overwrite = TRUE, quiet = TRUE) |>
-    # link new user entity @id to the root (./) author property
-    rocrateR::add_entity_value(
-      id = "./",
-      key = "author",
-      value = list(`@id` = getElement(entities_lst_v2, "@id"))
-    )
+    rocrateR::add_entities(entities_lst_v2, overwrite = TRUE, quiet = TRUE) #|>
+  # # link new user entity @id to the root (./) author property
+  # rocrateR::add_entity_value(
+  #   id = "./",
+  #   key = "author",
+  #   value = list(`@id` = getElement(entities_lst_v2, "@id"))
+  # )
 
   # return RO-Crate with the Safe People details
   return(rocrate)
