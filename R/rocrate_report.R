@@ -31,6 +31,8 @@ rocrate_report.default <- function(x, ...) {
 #' @param render Boolean flag to indicate whether to render the markdown report.
 #' @param overwrite Boolean flag to indicate whether to overwrite a previous
 #'     version of markdown report.
+#' @param include_user_perm Boolean flag to indicate whether to include user
+#'     permissions in the report overview's diagram.
 #' @rdname rocrate_report
 #' @export
 rocrate_report.rocrate <- function(
@@ -38,7 +40,8 @@ rocrate_report.rocrate <- function(
   ...,
   filepath = tempfile(fileext = ".md"),
   render = TRUE,
-  overwrite = FALSE
+  overwrite = FALSE,
+  include_user_perm = TRUE
 ) {
   # local bindings
   id <- name <- project <- NULL
@@ -169,8 +172,8 @@ rocrate_report.rocrate <- function(
       )
   }
 
-  # check if `overview_tbl` has `permission` field
-  if ("permission" %in% colnames(overview_tbl)) {
+  # check if `overview_tbl` has `permission` field AND include_user_perm = TRUE
+  if ("permission" %in% colnames(overview_tbl) && include_user_perm) {
     diagram_lst <- overview_tbl |>
       vtree::vtree(
         vars = c("project", "table", "name", "permission"),

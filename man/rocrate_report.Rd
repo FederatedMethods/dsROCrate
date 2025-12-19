@@ -18,7 +18,8 @@ rocrate_report(x, ...)
   ...,
   filepath = tempfile(fileext = ".md"),
   render = TRUE,
-  overwrite = FALSE
+  overwrite = FALSE,
+  include_user_perm = TRUE
 )
 }
 \arguments{
@@ -35,6 +36,9 @@ of the given object, \code{x}.}
 
 \item{overwrite}{Boolean flag to indicate whether to overwrite a previous
 version of markdown report.}
+
+\item{include_user_perm}{Boolean flag to indicate whether to include user
+permissions in the report.}
 }
 \value{
 RO-Crate report as markdown (.md) file and/or HTML.
