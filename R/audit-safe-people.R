@@ -98,7 +98,7 @@ audit_safe_people.opal <- function(x, ..., user, project = NULL) {
 
   # filter out project permissions for the given user
   project_table_permissions_tbl_v2 <- project_table_permissions_tbl |>
-    dplyr::filter(subject == user, type == "user")
+    dplyr::filter(subject %in% user, type == "user")
 
   # check if any permission records were found for the current project
   if (nrow(project_table_permissions_tbl_v2) == 0) {
@@ -129,8 +129,41 @@ audit_safe_people.opal <- function(x, ..., user, project = NULL) {
   }
 
   # add Safe People details
-  safe_people_crate <- safe_people_crate |>
-    dsROCrate::safe_people(user = user, connection = x)
+  for (i in seq_len(length(user))) {
+    safe_people_crate <- safe_people_crate |>
+      dsROCrate::safe_people(
+        user = user[i],
+        connection = x,
+        set_author = FALSE,
+        set_project = FALSE
+      )
+  }
+
+  # extract Dataset entities from the RO-Crate: @id & name
+  safe_data_entities_tbl <- safe_people_crate |>
+    flatten_safe_data() |>
+    dplyr::rename("table_id" = "id")
+
+  # extract Person entities from the RO-Crate: @id & name
+  safe_people_entities_tbl <- safe_people_crate |>
+    flatten_safe_people() |>
+    dplyr::rename("user_id" = "id")
+
+  ## combine the table permissions with Dataset & People entities' @ids
+  project_table_permissions_tbl_v3 <- project_table_permissions_tbl |>
+    dplyr::filter(subject %in% user, type == "user") |>
+    dplyr::left_join(safe_data_entities_tbl, by = c("table" = "name")) |>
+    dplyr::left_join(safe_people_entities_tbl, by = c("subject" = "name")) |>
+    dplyr::rename(user = subject)
+
+  ## generate user permission entities and add to the RO-Crate
+  user_perm_entity_lst <- project_table_permissions_tbl_v3 |>
+    purrr::pmap(user_perm_entity) |>
+    purrr::list_c()
+  for (i in seq_along(user_perm_entity_lst)) {
+    safe_people_crate <- safe_people_crate |>
+      rocrateR::add_entity(user_perm_entity_lst[[i]])
+  }
 
   # add Safe Setting details
   safe_people_crate <- x |>
