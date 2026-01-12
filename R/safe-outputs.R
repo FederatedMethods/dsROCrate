@@ -152,9 +152,9 @@ safe_output.opal <- function(
       "\n User: ",
       user,
       "\n Period: ",
-      logs_from,
+      format(logs_from, '%Y-%m-%d %H:%M:%S'),
       " -- ",
-      logs_to,
+      format(logs_to, '%Y-%m-%d %H:%M:%S'),
       call. = FALSE
     )
 
@@ -171,10 +171,12 @@ safe_output.opal <- function(
     dateModified = Sys.time(),
     name = basename(log_filename),
     description = paste0(
-      "This file contains the raw logs for the user, between: ",
-      logs_from,
+      "This file contains the raw logs for the user: `",
+      user,
+      "` , between: ",
+      format(logs_from, '%Y-%m-%d %H:%M:%S'),
       " and ",
-      logs_to
+      format(logs_to, '%Y-%m-%d %H:%M:%S')
     ),
     encodingFormat = "text/plain"
   )
@@ -254,7 +256,13 @@ safe_output.opal <- function(
     rocrateR::add_entity_value(
       id = "./",
       key = "hasPart",
-      value = list(`@id` = c(log_entity$`@id`, log_maps_entity$`@id`))
+      value = c(
+        getElement(rocrateR::get_entity(rocrate, id = "./"), "hasPart"),
+        list(
+          list(`@id` = log_entity$`@id`),
+          list(`@id` = log_maps_entity$`@id`)
+        )
+      )
     )
 
   # return RO-Crate with the new entity
