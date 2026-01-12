@@ -286,7 +286,7 @@ conns <- DSI::datashield.login(logins = logindata)
 ```
 
 ###### Simulate some operations
-```{r, eval = FALSE}
+```{r, eval = TRUE}
 ## assign data
 DSI::datashield.assign.table(conns["study1"], 
                              symbol = "dsROCrate_test",
@@ -336,19 +336,29 @@ NOTE: In the above example, a `path` to store the logs wasn't provided when
 calling `dsROCrate::safe_output`, before creating an RO-Crate bag, we should 
 save the contents of this file first
 
-```{r, eval = FALSE}
+```{r, eval = TRUE, warning = FALSE}
 logs_entity <- basic_rocrate |>
   rocrateR::get_entity(type = "File")
 # write file using the path given by `@id`
+## write raw logs
 writeLines(
   logs_entity[[1]]$content[[1]], 
   file.path("./rocrates", logs_entity[[1]]$`@id`)
 )
+## write CSV with mappings and executed functions
+write.csv(
+  logs_entity[[2]]$content[[1]], 
+  file.path("./rocrates", logs_entity[[2]]$`@id`),
+  row.names = FALSE
+)
+
 # remove the section `content`
 logs_entity[[1]]$content <- NULL
+logs_entity[[2]]$content <- NULL
 # update the RO-Crate
 basic_rocrate <- basic_rocrate |>
-  rocrateR::add_entity(logs_entity[[1]], overwrite = TRUE)
+  rocrateR::add_entity(logs_entity[[1]], overwrite = TRUE) |>
+  rocrateR::add_entity(logs_entity[[2]], overwrite = TRUE)
 ```
 
 ```{r}

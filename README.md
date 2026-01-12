@@ -129,7 +129,7 @@ print(basic_rocrate)
 #>       "@type": "Dataset",
 #>       "name": "",
 #>       "description": "",
-#>       "datePublished": "2025-12-12",
+#>       "datePublished": "2026-01-12",
 #>       "license": {
 #>         "@id": "http://spdx.org/licenses/CC-BY-4.0"
 #>       },
@@ -164,8 +164,8 @@ print(basic_rocrate) # note that the output will be truncated
 #>       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM1",
-#>       "dateCreated": "2025-12-12T06:29:55.390Z",
-#>       "dateModified": "2025-12-12T06:29:56.545Z",
+#>       "dateCreated": "2026-01-12T06:29:57.431Z",
+#>       "dateModified": "2026-01-12T06:29:58.577Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM1"
 #>     }
 #>   ]
@@ -188,8 +188,8 @@ print(basic_rocrate) # note that the output will be truncated
 #>       "@id": "#project:7ba189863f9f641196596cb28e04aa14",
 #>       "@type": "Project",
 #>       "name": "CNSIM",
-#>       "dateCreated": "2025-12-12T06:29:53.990Z",
-#>       "dateModified": "2025-12-12T06:29:58.821Z",
+#>       "dateCreated": "2026-01-12T06:29:56.147Z",
+#>       "dateModified": "2026-01-12T06:30:00.883Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -418,7 +418,28 @@ DSI::datashield.assign.table(conns["study1"],
                              errors.print = TRUE)
 
 dsBaseClient::ds.ls(datasources = conns["study1"])
+#> $study1
+#> $study1$environment.searched
+#> [1] "R_GlobalEnv"
+#> 
+#> $study1$objects.found
+#> [1] "dsROCrate_test"
 dsBaseClient::ds.summary("dsROCrate_test")
+#> $study1
+#> $study1$class
+#> [1] "data.frame"
+#> 
+#> $study1$`number of rows`
+#> [1] 2163
+#> 
+#> $study1$`number of columns`
+#> [1] 11
+#> 
+#> $study1$`variables held`
+#>  [1] "LAB_TSC"            "LAB_TRIG"           "LAB_HDL"           
+#>  [4] "LAB_GLUC_ADJUSTED"  "PM_BMI_CONTINUOUS"  "DIS_CVA"           
+#>  [7] "MEDI_LPD"           "DIS_DIAB"           "DIS_AMI"           
+#> [10] "GENDER"             "PM_BMI_CATEGORICAL"
 ```
 
 ------------------------------------------------------------------------
@@ -431,16 +452,75 @@ basic_rocrate <- o |>
                          logs_from = Sys.time() - 60, # capture the last minute
                          logs_to = Sys.time())
 #> opening file input connection.
-#>  Found 40 records... Imported 40 records. Simplifying...
+#>  Found 418 records... Imported 418 records. Simplifying...
 #> closing file input connection.
-#> Warning: No logs were found for the following configuration:
-#>  User: dsuser
-#>  Period: 2025-12-12 15:21:14.513063 -- 2025-12-12 15:22:14.513073
+#> Warning: A `path` wasn't provided! The logs will be included in the RO-Crate
+#> object, under the `content` tag!
 ```
 
 ``` r
 print(basic_rocrate) # note that the output will be truncated
 ...
+#>       "@type": "SoftwareApplication",
+#>       "name": "resourcer",
+#>       "version": "1.4.0",
+#>       "description": "A resource represents some data or a computation unit. It is \n    described by a URL and credentials. This package proposes a Resource model\n    with \"resolver\" and \"client\" classes to facilitate the access and the usage of the \n    resources."
+#>     },
+#>     {
+#>       "@id": "2026-01-12-dslogs-dsuser.log",
+#>       "@type": "File",
+#>       "dateModified": "2026-01-12 16:05:24",
+#>       "name": "2026-01-12-dslogs-dsuser.log",
+#>       "description": "This file contains the raw logs for the user: `dsuser` , between: 2026-01-12 16:04:24 and 2026-01-12 16:05:24",
+#>       "encodingFormat": "text/plain",
+#>       "content": [
+#>         ["[INFO][2026-01-12T16:05:21][OPEN]      created a datashield session 711d6089-a3c0-487f-ba93-8efa38dd57d8", "[INFO][2026-01-12T16:05:21][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-12T16:05:22][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-12T16:05:23][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-12T16:05:23][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-12T16:05:23][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-12T16:05:23][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-12T16:05:23][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-12T16:05:23][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-12T16:05:23][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-12T16:05:23][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-12T16:05:23][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-12T16:05:23][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-12T16:05:23][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
+#>       ]
+#>     },
+#>     {
+#>       "@id": "2026-01-12-dslogs-dsuser_mappings.csv",
+#>       "@type": "File",
+#>       "dateModified": "2026-01-12 16:05:24",
+#>       "name": "2026-01-12-dslogs-dsuser_mappings.csv",
+#>       "description": "This file contains mappings and evaluated functions",
+#>       "encodingFormat": "text/csv",
+#>       "content": [
+#>         [
+#>           {
+#>             "ds_table": "CNSIM.CNSIM1",
+#>             "ds_symbol": "dsROCrate_test",
+#>             "ds_function": "base::exists",
+#>             "ds_eval": "base::exists(\"dsROCrate_test\")"
+#>           },
+#>           {
+#>             "ds_table": "CNSIM.CNSIM1",
+#>             "ds_symbol": "dsROCrate_test",
+#>             "ds_function": "dsBase::classDS",
+#>             "ds_eval": "dsBase::classDS(\"dsROCrate_test\")"
+#>           },
+#>           {
+#>             "ds_table": "CNSIM.CNSIM1",
+#>             "ds_symbol": "dsROCrate_test",
+#>             "ds_function": "dsBase::isValidDS",
+#>             "ds_eval": "dsBase::isValidDS(dsROCrate_test)"
+#>           },
+#>           {
+#>             "ds_table": "CNSIM.CNSIM1",
+#>             "ds_symbol": "dsROCrate_test",
+#>             "ds_function": "dsBase::dimDS",
+#>             "ds_eval": "dsBase::dimDS(\"dsROCrate_test\")"
+#>           },
+#>           {
+#>             "ds_table": "CNSIM.CNSIM1",
+#>             "ds_symbol": "dsROCrate_test",
+#>             "ds_function": "dsBase::colnamesDS",
+#>             "ds_eval": "dsBase::colnamesDS(\"dsROCrate_test\")"
+#>           }
+#>         ]
+#>       ]
+#>     }
+#>   ]
+#> }
 ```
 
 ### 2.(n-1). Close connection
@@ -467,15 +547,25 @@ we should save the contents of this file first
 logs_entity <- basic_rocrate |>
   rocrateR::get_entity(type = "File")
 # write file using the path given by `@id`
+## write raw logs
 writeLines(
   logs_entity[[1]]$content[[1]], 
   file.path("./rocrates", logs_entity[[1]]$`@id`)
 )
+## write CSV with mappings and executed functions
+write.csv(
+  logs_entity[[2]]$content[[1]], 
+  file.path("./rocrates", logs_entity[[2]]$`@id`),
+  row.names = FALSE
+)
+
 # remove the section `content`
 logs_entity[[1]]$content <- NULL
+logs_entity[[2]]$content <- NULL
 # update the RO-Crate
 basic_rocrate <- basic_rocrate |>
-  rocrateR::add_entity(logs_entity[[1]], overwrite = TRUE)
+  rocrateR::add_entity(logs_entity[[1]], overwrite = TRUE) |>
+  rocrateR::add_entity(logs_entity[[2]], overwrite = TRUE)
 ```
 
 ``` r
@@ -483,7 +573,7 @@ basic_rocrate <- basic_rocrate |>
 path_to_rocrate_bag <- basic_rocrate |>
   rocrateR::bag_rocrate(path = "./rocrates", overwrite = TRUE)
 #> RO-Crate successfully 'bagged'!
-#> For details, see: ./rocrates/rocrate-900f7304a39004a8d9dcd71bee48f93d.zip
+#> For details, see: ./rocrates/rocrate-d2be223f15678b8f8a6f6ff06e3ed590.zip
 ```
 
 We can explore the contents with the following commands:
@@ -498,6 +588,8 @@ path_to_rocrate_bag |>
 #> ./rocrates/ROC/
 #> ├── bagit.txt
 #> ├── data
+#> │   ├── 2026-01-12-dslogs-dsuser.log
+#> │   ├── 2026-01-12-dslogs-dsuser_mappings.csv
 #> │   └── ro-crate-metadata.json
 #> ├── manifest-sha512.txt
 #> └── tagmanifest-sha512.txt
@@ -544,15 +636,12 @@ print(safe_people_crate_v1)
 #>       "@type": "Dataset",
 #>       "name": "",
 #>       "description": "",
-#>       "datePublished": "2025-12-12",
+#>       "datePublished": "2026-01-12",
 #>       "license": {
 #>         "@id": "http://spdx.org/licenses/CC-BY-4.0"
 #>       },
 #>       "conformsTo": {
 #>         "@id": "https://w3id.org/5s-crate/0.4"
-#>       },
-#>       "author": {
-#>         "@id": "#person:a0af2a94926db1b49ad7a812eef509d2"
 #>       }
 #>     },
 #>     {
@@ -564,32 +653,32 @@ print(safe_people_crate_v1)
 #>       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM1",
-#>       "dateCreated": "2025-12-12T06:29:55.390Z",
-#>       "dateModified": "2025-12-12T06:29:56.545Z",
+#>       "dateCreated": "2026-01-12T06:29:57.431Z",
+#>       "dateModified": "2026-01-12T06:29:58.577Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM1"
 #>     },
 #>     {
 #>       "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM2",
-#>       "dateCreated": "2025-12-12T06:29:56.556Z",
-#>       "dateModified": "2025-12-12T06:29:57.666Z",
+#>       "dateCreated": "2026-01-12T06:29:58.589Z",
+#>       "dateModified": "2026-01-12T06:29:59.703Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM2"
 #>     },
 #>     {
 #>       "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM3",
-#>       "dateCreated": "2025-12-12T06:29:57.668Z",
-#>       "dateModified": "2025-12-12T06:29:58.821Z",
+#>       "dateCreated": "2026-01-12T06:29:59.713Z",
+#>       "dateModified": "2026-01-12T06:30:00.883Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM3"
 #>     },
 #>     {
 #>       "@id": "#project:7ba189863f9f641196596cb28e04aa14",
 #>       "@type": "Project",
 #>       "name": "CNSIM",
-#>       "dateCreated": "2025-12-12T06:29:53.990Z",
-#>       "dateModified": "2025-12-12T06:29:58.821Z",
+#>       "dateCreated": "2026-01-12T06:29:56.147Z",
+#>       "dateModified": "2026-01-12T06:30:00.883Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -605,12 +694,43 @@ print(safe_people_crate_v1)
 #>     {
 #>       "@id": "#person:a0af2a94926db1b49ad7a812eef509d2",
 #>       "@type": "Person",
-#>       "name": "dsuser",
-#>       "memberOf": [
-#>         {
-#>           "@id": "#project:7ba189863f9f641196596cb28e04aa14"
-#>         }
-#>       ]
+#>       "name": "dsuser"
+#>     },
+#>     {
+#>       "@id": "#perm:9bf7f75b6c5b07d02830b95652cd39a0-dict-summary-read",
+#>       "@type": "ReadAction",
+#>       "agent": {
+#>         "@id": "#person:a0af2a94926db1b49ad7a812eef509d2"
+#>       },
+#>       "object": {
+#>         "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
+#>     },
+#>     {
+#>       "@id": "#perm:363eb627d1e49c08933f2e26142e6d56-dict-summary-read",
+#>       "@type": "ReadAction",
+#>       "agent": {
+#>         "@id": "#person:a0af2a94926db1b49ad7a812eef509d2"
+#>       },
+#>       "object": {
+#>         "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
+#>     },
+#>     {
+#>       "@id": "#perm:63b8097908f682bff1760e48d28c5855-dict-summary-read",
+#>       "@type": "ReadAction",
+#>       "agent": {
+#>         "@id": "#person:a0af2a94926db1b49ad7a812eef509d2"
+#>       },
+#>       "object": {
+#>         "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
 #>     },
 #>     {
 #>       "@id": "_:localid:datashield.privacyLevel:5",
@@ -717,7 +837,6 @@ safe_people_crate_contents <- safe_people_crate_v1 |>
   dsROCrate::rocrate_report(filepath = safe_people_crate_v1_rmd, render = FALSE)
 #> 1 'Author' entity was found!
 #> 3 'Dataset' entities were found!
-#> Warning: No entities were found with @type = 'ReadAction'!
 #> Warning: No entities were found with @type = 'WriteAction'!
 #> Warning: No entities were found with @type = 'ControlAction'!
 #> 1 'Project' entity was found!
@@ -725,10 +844,9 @@ safe_people_crate_contents <- safe_people_crate_v1 |>
 
 # display Overview diagram
 safe_people_crate_contents$overview_diagram
-#> file:////private/var/folders/59/4_l6kbyj2qsczmk2b52qg_f40000gn/T/Rtmp9oAWJY/file150805e5df2c8/widget1508069ee58de.html screenshot completed
 ```
 
-<img src="inst/images/README-safe_people_crate_audit_v1-1.png" width="100%" />
+<img src="inst/images/README-safe_people_crate_audit_v1-1.png" alt="" width="100%" />
 
 ``` r
 
@@ -737,11 +855,11 @@ safe_people_crate_contents$overview_data |>
   knitr::kable()
 ```
 
-| Safe People | Safe Project | Safe Data |
-|:------------|:-------------|:----------|
-| dsuser      | CNSIM        | CNSIM1    |
-|             |              | CNSIM2    |
-|             |              | CNSIM3    |
+| Safe Project | Safe Data | Safe People | Access Level |
+|:-------------|:----------|:------------|:-------------|
+| CNSIM        | CNSIM1    | dsuser      | read         |
+|              | CNSIM2    | dsuser      | read         |
+|              | CNSIM3    | dsuser      | read         |
 
 **Render and display report (HTML)**
 
@@ -773,10 +891,9 @@ safe_people_crate_contents_v2 <- safe_people_crate_v2 |>
 
 # display Overview diagram
 safe_people_crate_contents_v2$overview_diagram
-#> file:////private/var/folders/59/4_l6kbyj2qsczmk2b52qg_f40000gn/T/Rtmp9oAWJY/file150803d449d86/widget1508063c1e7d6.html screenshot completed
 ```
 
-<img src="inst/images/README-safe_people_crate_audit_v2-1.png" width="100%" />
+<img src="inst/images/README-safe_people_crate_audit_v2-1.png" alt="" width="100%" />
 
 ``` r
 
@@ -785,37 +902,37 @@ safe_people_crate_contents_v2$overview_data |>
   knitr::kable()
 ```
 
-| Safe People | Safe Project               | Safe Data            |
-|:------------|:---------------------------|:---------------------|
-| dsuser      | CNSIM                      | CNSIM1               |
-|             |                            | CNSIM2               |
-|             |                            | CNSIM3               |
-|             | DASIM                      | DASIM1               |
-|             |                            | DASIM2               |
-|             |                            | DASIM3               |
-|             | DISCORDANT                 | DISCORDANT_STUDY1    |
-|             |                            | DISCORDANT_STUDY2    |
-|             |                            | DISCORDANT_STUDY3    |
-|             | GREENSPACE                 | Cohort1_exposome     |
-|             |                            | Cohort2_exposome     |
-|             |                            | Cohort3_exposome     |
-|             | GWAS                       | ega_phenotypes       |
-|             |                            | ega_phenotypes_1     |
-|             |                            | ega_phenotypes_2     |
-|             |                            | ega_phenotypes_3     |
-|             | MEDIATION                  | UPBdata1             |
-|             |                            | UPBdata2             |
-|             |                            | UPBdata3             |
-|             | SURVIVAL                   | EXPAND_WITH_MISSING1 |
-|             |                            | EXPAND_WITH_MISSING2 |
-|             |                            | EXPAND_WITH_MISSING3 |
-|             | TESTING                    | TESTING1             |
-|             |                            | TESTING2             |
-|             |                            | TESTING3             |
-|             | TITANIC_NEWCOMERS_WORKSHOP | titanic_server_1     |
-|             |                            | titanic_server_2     |
-|             | depression                 | growth_1             |
-|             |                            | growth_2             |
+| Safe Project               | Safe Data            | Safe People | Access Level |
+|:---------------------------|:---------------------|:------------|:-------------|
+| CNSIM                      | CNSIM1               | dsuser      | read         |
+|                            | CNSIM2               | dsuser      | read         |
+|                            | CNSIM3               | dsuser      | read         |
+| DASIM                      | DASIM1               | dsuser      | read         |
+|                            | DASIM2               | dsuser      | read         |
+|                            | DASIM3               | dsuser      | read         |
+| DISCORDANT                 | DISCORDANT_STUDY1    | dsuser      | read         |
+|                            | DISCORDANT_STUDY2    | dsuser      | read         |
+|                            | DISCORDANT_STUDY3    | dsuser      | read         |
+| GREENSPACE                 | Cohort1_exposome     | dsuser      | read         |
+|                            | Cohort2_exposome     | dsuser      | read         |
+|                            | Cohort3_exposome     | dsuser      | read         |
+| GWAS                       | ega_phenotypes       | dsuser      | read         |
+|                            | ega_phenotypes_1     | dsuser      | read         |
+|                            | ega_phenotypes_2     | dsuser      | read         |
+|                            | ega_phenotypes_3     | dsuser      | read         |
+| MEDIATION                  | UPBdata1             | dsuser      | read         |
+|                            | UPBdata2             | dsuser      | read         |
+|                            | UPBdata3             | dsuser      | read         |
+| SURVIVAL                   | EXPAND_WITH_MISSING1 | dsuser      | read         |
+|                            | EXPAND_WITH_MISSING2 | dsuser      | read         |
+|                            | EXPAND_WITH_MISSING3 | dsuser      | read         |
+| TESTING                    | TESTING1             | dsuser      | read         |
+|                            | TESTING2             | dsuser      | read         |
+|                            | TESTING3             | dsuser      | read         |
+| TITANIC_NEWCOMERS_WORKSHOP | titanic_server_1     | dsuser      | read         |
+|                            | titanic_server_2     | dsuser      | read         |
+| depression                 | growth_1             | dsuser      | read         |
+|                            | growth_2             | dsuser      | read         |
 
 ### Safe Project
 
@@ -848,7 +965,7 @@ print(safe_project_crate_v1)
 #>       "@type": "Dataset",
 #>       "name": "",
 #>       "description": "",
-#>       "datePublished": "2025-12-12",
+#>       "datePublished": "2026-01-12",
 #>       "license": {
 #>         "@id": "http://spdx.org/licenses/CC-BY-4.0"
 #>       },
@@ -865,32 +982,32 @@ print(safe_project_crate_v1)
 #>       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM1",
-#>       "dateCreated": "2025-12-12T06:29:55.390Z",
-#>       "dateModified": "2025-12-12T06:29:56.545Z",
+#>       "dateCreated": "2026-01-12T06:29:57.431Z",
+#>       "dateModified": "2026-01-12T06:29:58.577Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM1"
 #>     },
 #>     {
 #>       "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM2",
-#>       "dateCreated": "2025-12-12T06:29:56.556Z",
-#>       "dateModified": "2025-12-12T06:29:57.666Z",
+#>       "dateCreated": "2026-01-12T06:29:58.589Z",
+#>       "dateModified": "2026-01-12T06:29:59.703Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM2"
 #>     },
 #>     {
 #>       "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM3",
-#>       "dateCreated": "2025-12-12T06:29:57.668Z",
-#>       "dateModified": "2025-12-12T06:29:58.821Z",
+#>       "dateCreated": "2026-01-12T06:29:59.713Z",
+#>       "dateModified": "2026-01-12T06:30:00.883Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM3"
 #>     },
 #>     {
 #>       "@id": "#project:7ba189863f9f641196596cb28e04aa14",
 #>       "@type": "Project",
 #>       "name": "CNSIM",
-#>       "dateCreated": "2025-12-12T06:29:53.990Z",
-#>       "dateModified": "2025-12-12T06:29:58.821Z",
+#>       "dateCreated": "2026-01-12T06:29:56.147Z",
+#>       "dateModified": "2026-01-12T06:30:00.883Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -909,16 +1026,6 @@ print(safe_project_crate_v1)
 #>       "name": "dsuser"
 #>     },
 #>     {
-#>       "@id": "#person:a3cd7ce7818436c83b1eadaa5ba47411",
-#>       "@type": "Person",
-#>       "name": "dsuser2"
-#>     },
-#>     {
-#>       "@id": "#person:5657241505661473308ae9aa9a378293",
-#>       "@type": "Person",
-#>       "name": "dsuser3"
-#>     },
-#>     {
 #>       "@id": "#perm:9bf7f75b6c5b07d02830b95652cd39a0-dict-summary-read",
 #>       "@type": "ReadAction",
 #>       "agent": {
@@ -929,30 +1036,6 @@ print(safe_project_crate_v1)
 #>       },
 #>       "actionStatus": "PotentialActionStatus",
 #>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
-#>     },
-#>     {
-#>       "@id": "#perm:942b70778081ab4a9f41b2f8e5c149a5-write-dict",
-#>       "@type": "WriteAction",
-#>       "agent": {
-#>         "@id": "#person:a3cd7ce7818436c83b1eadaa5ba47411"
-#>       },
-#>       "object": {
-#>         "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
-#>       },
-#>       "actionStatus": "PotentialActionStatus",
-#>       "description": "User may edit the table dictionary but cannot view individual values."
-#>     },
-#>     {
-#>       "@id": "#perm:942b70778081ab4a9f41b2f8e5c149a5-summary-read",
-#>       "@type": "ReadAction",
-#>       "agent": {
-#>         "@id": "#person:a3cd7ce7818436c83b1eadaa5ba47411"
-#>       },
-#>       "object": {
-#>         "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
-#>       },
-#>       "actionStatus": "PotentialActionStatus",
-#>       "description": "User may view summary statistics only; access to individual values is restricted."
 #>     },
 #>     {
 #>       "@id": "#perm:363eb627d1e49c08933f2e26142e6d56-dict-summary-read",
@@ -977,42 +1060,6 @@ print(safe_project_crate_v1)
 #>       },
 #>       "actionStatus": "PotentialActionStatus",
 #>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
-#>     },
-#>     {
-#>       "@id": "#perm:04c3f293c7a360fe0a1b7c29c8363540-write-dict",
-#>       "@type": "WriteAction",
-#>       "agent": {
-#>         "@id": "#person:5657241505661473308ae9aa9a378293"
-#>       },
-#>       "object": {
-#>         "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492"
-#>       },
-#>       "actionStatus": "PotentialActionStatus",
-#>       "description": "User may edit the table dictionary but cannot view individual values."
-#>     },
-#>     {
-#>       "@id": "#perm:04c3f293c7a360fe0a1b7c29c8363540-summary-read",
-#>       "@type": "ReadAction",
-#>       "agent": {
-#>         "@id": "#person:5657241505661473308ae9aa9a378293"
-#>       },
-#>       "object": {
-#>         "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492"
-#>       },
-#>       "actionStatus": "PotentialActionStatus",
-#>       "description": "User may view summary statistics only; access to individual values is restricted."
-#>     },
-#>     {
-#>       "@id": "#perm:156ecf5add0b7f9d4733f524a5c778ec-read-all",
-#>       "@type": "ReadAction",
-#>       "agent": {
-#>         "@id": "#person:a3cd7ce7818436c83b1eadaa5ba47411"
-#>       },
-#>       "object": {
-#>         "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492"
-#>       },
-#>       "actionStatus": "PotentialActionStatus",
-#>       "description": "User may view table dictionary and all individual values."
 #>     },
 #>     {
 #>       "@id": "_:localid:datashield.privacyLevel:5",
@@ -1117,18 +1164,18 @@ safe_project_crate_v1_rmd <- tempfile(fileext = ".Rmd") # temporary file
 
 safe_project_crate_contents <- safe_project_crate_v1 |>
   dsROCrate::rocrate_report(filepath = safe_project_crate_v1_rmd, render = FALSE)
-#> 3 'Author' entities were found!
+#> 1 'Author' entity was found!
 #> 3 'Dataset' entities were found!
+#> Warning: No entities were found with @type = 'WriteAction'!
 #> Warning: No entities were found with @type = 'ControlAction'!
 #> 1 'Project' entity was found!
 #> 14 'PropertyValue' OR 'SoftwareApplication' entities were found!
 
 # display Overview diagram
 safe_project_crate_contents$overview_diagram
-#> file:////private/var/folders/59/4_l6kbyj2qsczmk2b52qg_f40000gn/T/Rtmp9oAWJY/file1508065482cb2/widget15080656e8e10.html screenshot completed
 ```
 
-<img src="inst/images/README-safe_project_crate_audit_v1-1.png" width="100%" />
+<img src="inst/images/README-safe_project_crate_audit_v1-1.png" alt="" width="100%" />
 
 ``` r
 
@@ -1140,11 +1187,8 @@ safe_project_crate_contents$overview_data |>
 | Safe Project | Safe Data | Safe People | Access Level |
 |:-------------|:----------|:------------|:-------------|
 | CNSIM        | CNSIM1    | dsuser      | read         |
-|              |           | dsuser2     | read, write  |
 |              | CNSIM2    | dsuser      | read         |
 |              | CNSIM3    | dsuser      | read         |
-|              |           | dsuser2     | read         |
-|              |           | dsuser3     | read, write  |
 
 **Render and display report (HTML)**
 
