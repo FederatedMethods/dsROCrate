@@ -139,9 +139,10 @@ safe_output.opal <- function(
     dplyr::filter(user == !!user)
   userlogs <- NULL
   if (nrow(userlogs_tbl) > 0) {
-    userlogs <- glue::glue_data(
-      "[{level}][{format(`@timestamp`, '%Y-%m-%dT%H:%M:%S')}]{stringr::str_pad(paste0('[', ds_action, ']'), 12, 'right', ' ')}{message}"
-    )
+    userlogs <- userlogs_tbl |>
+      glue::glue_data(
+        "[{level}][{format(`@timestamp`, '%Y-%m-%dT%H:%M:%S')}]{stringr::str_pad(paste0('[', ds_action, ']'), 12, 'right', ' ')}{message}"
+      )
   }
 
   # check if any logs were found in the given time frame
@@ -169,7 +170,51 @@ safe_output.opal <- function(
     type = "File",
     dateModified = Sys.time(),
     name = basename(log_filename),
+    description = paste0(
+      "This file contains the raw logs for the user, between: ",
+      logs_from,
+      " and ",
+      logs_to
+    ),
     encodingFormat = "text/plain"
+  )
+
+  # extract list of functions executed
+  ## tables/symbols mapped - only records with ds_table
+  userlogs_tbl_mappings <- userlogs_tbl |>
+    dplyr::filter(!is.na(ds_table)) |>
+    dplyr::distinct(ds_table, ds_symbol)
+  ## evaluated functions - only records with ds_eval
+  userlogs_tbl_evaluations <- userlogs_tbl |>
+    dplyr::filter(!is.na(ds_eval)) |>
+    dplyr::distinct(ds_eval) |>
+    dplyr::mutate(
+      # extract function name from ds_eval
+      ds_function = ds_eval |>
+        stringr::str_extract("^.*(?=\\()"),
+      # extract symbol/object from ds_eval
+      ds_symbol = ds_eval |>
+        stringr::str_extract("(?<=\\()(.*?)(?=\\))") |>
+        stringr::str_remove_all('"|\'') |>
+        stringr::str_extract("[^\\$]*"),
+      .before = 1
+    ) |>
+    ## verify that `ds_symbol` is a mapped object (`userlogs_tbl_mappings`)
+    dplyr::filter(ds_symbol %in% userlogs_tbl_mappings$ds_symbol)
+  ## combine mappings and evaluated functions
+  userlogs_tbl_maps_evals <- userlogs_tbl_mappings |>
+    dplyr::left_join(userlogs_tbl_evaluations, by = "ds_symbol")
+
+  log_maps_filename <- paste0(Sys.Date(), "-dslogs-", user, "_mappings.csv")
+
+  # create new data entity for log file
+  log_maps_entity <- rocrateR::entity(
+    x = basename(log_maps_filename),
+    type = "File",
+    dateModified = Sys.time(),
+    name = basename(log_maps_filename),
+    description = "This file contains mappings and evaluated functions",
+    encodingFormat = "text/csv"
   )
 
   # check if a `path` was not provided, then display warning and store contents
@@ -181,6 +226,7 @@ safe_output.opal <- function(
       call. = FALSE
     )
     log_entity$content <- list(userlogs)
+    log_maps_entity$content <- list(userlogs_tbl_maps_evals)
   } else {
     # validate if the given path is valid
     if (!dir.exists(path)) {
@@ -190,18 +236,25 @@ safe_output.opal <- function(
         call. = FALSE
       )
       log_entity$content <- list(userlogs)
+      log_maps_entity$content <- list(userlogs_tbl_maps_evals)
     } else {
       writeLines(userlogs, file.path(path, log_filename))
+      write.csv(
+        userlogs_tbl_maps_evals,
+        file.path(path, log_maps_filename),
+        row.names = FALSE
+      )
     }
   }
 
-  # add entity to the RO-Crate
+  # add entities to the RO-Crate
   rocrate <- rocrate |>
     rocrateR::add_entity(log_entity) |>
+    rocrateR::add_entity(log_maps_entity) |>
     rocrateR::add_entity_value(
       id = "./",
       key = "hasPart",
-      value = list(`@id` = log_entity$`@id`)
+      value = list(`@id` = c(log_entity$`@id`, log_maps_entity$`@id`))
     )
 
   # return RO-Crate with the new entity
