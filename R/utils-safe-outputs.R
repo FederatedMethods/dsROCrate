@@ -1,0 +1,116 @@
+#' Extract Safe Output entity(ies)
+#'
+#' @inheritParams safe_data
+#' @param ... Other optional arguments. See the full documentation
+#'
+#' @returns RO-Crate with Safe Output entity(ies).
+#' @rdname extract_safe_output
+#' @keywords internal
+extract_safe_output <- function(x, ...) {
+  UseMethod("extract_safe_output", x)
+}
+
+#' @param rocrate (Optional) RO-Crate object to update with Safe Output details.
+#' @rdname extract_safe_output
+#' @export
+extract_safe_output.opal <- function(x, ..., rocrate = rocrateR::rocrate()) {
+  # extract all the Safe Outputs for the current Opal connection
+  rocrate <- safe_output(x, rocrate = rocrate)
+
+  # return RO-Crate with Safe Output details
+  return(rocrate)
+}
+
+#' @param id (Optional) Vector with `@id` strings for Safe Output entity(ies)
+#'     to be extracted from the given RO-Crate, `x`.
+#' @rdname extract_safe_output
+#' @export
+extract_safe_output.rocrate <- function(
+  x,
+  ...,
+  id = NULL,
+  rocrate = rocrateR::rocrate()
+) {
+  # validate RO-Crate
+  rocrateR::is_rocrate(x)
+
+  # extract File entities
+  entities_lst <- rocrateR::get_entity(x, type = "File")
+
+  # if `id` was provided, then filter out only those entities
+  if (!is.null(id)) {
+    idx <- entities_lst |>
+      sapply(\(x) getElement(x, "@id") %in% id)
+    entities_lst <- entities_lst[idx]
+  }
+
+  # check if any entities were found
+  if (length(entities_lst) == 0) {
+    stop("No matching entities were found!", call. = FALSE)
+  } else {
+    message(
+      length(entities_lst),
+      " 'File' entit",
+      ifelse(length(entities_lst) == 1, "y was", "ies were"),
+      " found!"
+    )
+  }
+
+  # add entities to the RO-Crate
+  suppressWarnings({
+    rocrate <- rocrate |>
+      rocrateR::add_entities(entities_lst, quiet = TRUE)
+  })
+
+  # return RO-Crate with the Safe Output details
+  return(rocrate)
+}
+
+#' Flatten object with Safe Output details
+#'
+#' @param x Object (e.g., RO-Crate) with Safe Output details. This can be
+#'     generated with the [extract_safe_output()] function.
+#' @param id Vector of strings with the `@id`s for the outputs to be extracted.
+#'     If not provided, extract all entities with `@type = 'File'`.
+#'
+#' @returns Data frame with object mappings and functions from safe outputs.
+#' @rdname flatten_safe_output
+#' @keywords internal
+flatten_safe_output <- function(x, ...) {
+  UseMethod("flatten_safe_output", x)
+}
+
+#' @rdname flatten_safe_output
+#' @export
+flatten_safe_output.rocrate <- function(x, ..., id = NULL) {
+  tryCatch(
+    {
+      # extract entities
+      entities_tbl <- rocrateR::get_entity(x, type = "File") |>
+        # extract @id, name, description, encodingFormat  and content for each entity
+        lapply(function(ent) {
+          tibble::tibble(
+            id = getElement(ent, "@id"),
+            name = getElement(ent, "name"),
+            description = getElement(ent, "description"),
+            encodingFormat = getElement(ent, "encodingFormat"),
+            content = getElement(ent, "content")
+          )
+        }) |>
+        # combine all rows
+        dplyr::bind_rows()
+
+      # if `id` is provided, then only keep those entities
+      if (!is.null(id)) {
+        entities_tbl <- entities_tbl |>
+          dplyr::filter(id %in% !!id)
+      }
+
+      # return dataset entities
+      return(entities_tbl)
+    },
+    error = function(e) {
+      tibble::tibble()
+    }
+  )
+}
