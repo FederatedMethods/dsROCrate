@@ -20,8 +20,7 @@ generated with the \code{\link[=extract_safe_data]{extract_safe_data()}} functio
 uses the \code{x} by default.}
 }
 \value{
-Data frame with fields for @\code{id}, \code{project} name and \code{table} name in
-the given object(s).
+Data frame with safe project details.
 }
 \description{
 Flatten object with Safe Project details

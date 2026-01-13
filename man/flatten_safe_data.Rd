@@ -17,7 +17,7 @@ generated with the \code{\link[=extract_safe_data]{extract_safe_data()}} functio
 If not provided, extract all entities with \verb{@type = 'Dataset'}.}
 }
 \value{
-Data frame with fields for @\code{id}, \code{table} name in the given object.
+Data frame with safe data details.
 }
 \description{
 Flatten object with Safe Data details

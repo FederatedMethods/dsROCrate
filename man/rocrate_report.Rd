@@ -38,7 +38,7 @@ of the given object, \code{x}.}
 version of markdown report.}
 
 \item{include_user_perm}{Boolean flag to indicate whether to include user
-permissions in the report.}
+permissions in the report overview's diagram.}
 }
 \value{
 RO-Crate report as markdown (.md) file and/or HTML.

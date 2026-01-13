@@ -18,7 +18,7 @@ If not provided, extract all entities with \verb{@type = 'PropertyValue'} or
 \verb{@type = 'SoftwareApplication'}.}
 }
 \value{
-Data frame with fields for @\code{id}, \code{table} name in the given object.
+Data frame with safe settings.
 }
 \description{
 Flatten object with Safe Setting details

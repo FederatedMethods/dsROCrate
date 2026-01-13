@@ -19,8 +19,7 @@ generated with the \code{\link[=extract_safe_data]{extract_safe_data()}} functio
 If not provided, extract all entities with \verb{@type = 'Person'}.}
 }
 \value{
-Data frame with fields for @\code{id} and \code{user} name in the given
-object.
+Data frame with safe people details.
 }
 \description{
 Flatten object with Safe People details
