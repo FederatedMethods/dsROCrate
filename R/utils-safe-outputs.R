@@ -11,11 +11,25 @@ extract_safe_output <- function(x, ...) {
 }
 
 #' @param rocrate (Optional) RO-Crate object to update with Safe Output details.
+#' @inheritParams safe_output
 #' @rdname extract_safe_output
 #' @export
-extract_safe_output.opal <- function(x, ..., rocrate = rocrateR::rocrate()) {
+extract_safe_output.opal <- function(
+  x,
+  ...,
+  user = NULL,
+  logs_to = Sys.time(),
+  logs_from = logs_to - 24 * 60^2,
+  rocrate = rocrateR::rocrate()
+) {
   # extract all the Safe Outputs for the current Opal connection
-  rocrate <- safe_output(x, rocrate = rocrate)
+  rocrate <- safe_output(
+    x,
+    user = user,
+    logs_to = logs_to,
+    logs_from = logs_from,
+    rocrate = rocrate
+  )
 
   # return RO-Crate with Safe Output details
   return(rocrate)
@@ -23,12 +37,14 @@ extract_safe_output.opal <- function(x, ..., rocrate = rocrateR::rocrate()) {
 
 #' @param id (Optional) Vector with `@id` strings for Safe Output entity(ies)
 #'     to be extracted from the given RO-Crate, `x`.
+#' @inheritParams safe_output
 #' @rdname extract_safe_output
 #' @export
 extract_safe_output.rocrate <- function(
   x,
   ...,
   id = NULL,
+  user = NULL,
   rocrate = rocrateR::rocrate()
 ) {
   # validate RO-Crate
@@ -41,6 +57,13 @@ extract_safe_output.rocrate <- function(
   if (!is.null(id)) {
     idx <- entities_lst |>
       sapply(\(x) getElement(x, "@id") %in% id)
+    entities_lst <- entities_lst[idx]
+  }
+
+  # if `user` was provided, ensure that the entities' @id, contains this user
+  if (!is.null(user)) {
+    idx <- entities_lst |>
+      sapply(\(x) grepl(user, getElement(x, "@id")))
     entities_lst <- entities_lst[idx]
   }
 
