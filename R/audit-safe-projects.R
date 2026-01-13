@@ -157,6 +157,10 @@ audit_safe_project.opal <- function(x, ..., project = NULL) {
   safe_project_crate <- x |>
     extract_safe_setting(rocrate = safe_project_crate)
 
+  # add Safe Output details
+  safe_project_crate <- x |>
+    extract_safe_output(rocrate = safe_project_crate)
+
   # return new RO-Crate
   return(invisible(safe_project_crate))
 }

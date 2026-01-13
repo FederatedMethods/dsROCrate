@@ -169,6 +169,10 @@ audit_safe_people.opal <- function(x, ..., user, project = NULL) {
   safe_people_crate <- x |>
     extract_safe_setting(rocrate = safe_people_crate)
 
+  # add Safe Output details
+  safe_people_crate <- x |>
+    extract_safe_output(rocrate = safe_people_crate)
+
   # return new RO-Crate
   return(invisible(safe_people_crate))
 }
