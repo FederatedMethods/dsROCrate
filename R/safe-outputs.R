@@ -136,7 +136,7 @@ safe_output.opal <- function(
     # filter logs
     dplyr::filter(dplyr::between(`@timestamp`, logs_from, logs_to)) |>
     dplyr::filter(logger_name == "datashield.user") |>
-    dplyr::filter(user == !!user)
+    dplyr::filter(user %in% !!user)
   userlogs <- NULL
   if (nrow(userlogs_tbl) > 0) {
     userlogs <- userlogs_tbl |>
