@@ -129,7 +129,7 @@ print(basic_rocrate)
 #>       "@type": "Dataset",
 #>       "name": "",
 #>       "description": "",
-#>       "datePublished": "2026-01-12",
+#>       "datePublished": "2026-01-13",
 #>       "license": {
 #>         "@id": "http://spdx.org/licenses/CC-BY-4.0"
 #>       },
@@ -164,8 +164,8 @@ print(basic_rocrate) # note that the output will be truncated
 #>       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM1",
-#>       "dateCreated": "2026-01-12T06:29:57.431Z",
-#>       "dateModified": "2026-01-12T06:29:58.577Z",
+#>       "dateCreated": "2026-01-13T06:29:53.743Z",
+#>       "dateModified": "2026-01-13T06:29:54.908Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM1"
 #>     }
 #>   ]
@@ -188,8 +188,8 @@ print(basic_rocrate) # note that the output will be truncated
 #>       "@id": "#project:7ba189863f9f641196596cb28e04aa14",
 #>       "@type": "Project",
 #>       "name": "CNSIM",
-#>       "dateCreated": "2026-01-12T06:29:56.147Z",
-#>       "dateModified": "2026-01-12T06:30:00.883Z",
+#>       "dateCreated": "2026-01-13T06:29:52.446Z",
+#>       "dateModified": "2026-01-13T06:29:57.223Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -452,7 +452,7 @@ basic_rocrate <- o |>
                          logs_from = Sys.time() - 60, # capture the last minute
                          logs_to = Sys.time())
 #> opening file input connection.
-#>  Found 418 records... Imported 418 records. Simplifying...
+#>  Found 49 records... Imported 49 records. Simplifying...
 #> closing file input connection.
 #> Warning: A `path` wasn't provided! The logs will be included in the RO-Crate
 #> object, under the `content` tag!
@@ -467,21 +467,21 @@ print(basic_rocrate) # note that the output will be truncated
 #>       "description": "A resource represents some data or a computation unit. It is \n    described by a URL and credentials. This package proposes a Resource model\n    with \"resolver\" and \"client\" classes to facilitate the access and the usage of the \n    resources."
 #>     },
 #>     {
-#>       "@id": "2026-01-12-dslogs-dsuser.log",
+#>       "@id": "2026-01-13-dslogs-dsuser.log",
 #>       "@type": "File",
-#>       "dateModified": "2026-01-12 16:05:24",
-#>       "name": "2026-01-12-dslogs-dsuser.log",
-#>       "description": "This file contains the raw logs for the user: `dsuser` , between: 2026-01-12 16:04:24 and 2026-01-12 16:05:24",
+#>       "dateModified": "2026-01-13 10:03:57",
+#>       "name": "2026-01-13-dslogs-dsuser.log",
+#>       "description": "This file contains the raw logs for the user: `dsuser` , between: 2026-01-13 10:02:57 and 2026-01-13 10:03:57",
 #>       "encodingFormat": "text/plain",
 #>       "content": [
-#>         ["[INFO][2026-01-12T16:05:21][OPEN]      created a datashield session 711d6089-a3c0-487f-ba93-8efa38dd57d8", "[INFO][2026-01-12T16:05:21][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-12T16:05:22][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-12T16:05:23][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-12T16:05:23][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-12T16:05:23][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-12T16:05:23][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-12T16:05:23][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-12T16:05:23][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-12T16:05:23][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-12T16:05:23][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-12T16:05:23][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-12T16:05:23][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-12T16:05:23][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
+#>         ["[INFO][2026-01-13T10:03:53][OPEN]      created a datashield session 43a38dac-89a9-47ca-a57c-e7a669e014fe", "[INFO][2026-01-13T10:03:55][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-13T10:03:55][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-13T10:03:56][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-13T10:03:56][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-13T10:03:56][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-13T10:03:56][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-13T10:03:56][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-13T10:03:56][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-13T10:03:56][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-13T10:03:56][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-13T10:03:56][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-13T10:03:56][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-13T10:03:57][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
 #>       ]
 #>     },
 #>     {
-#>       "@id": "2026-01-12-dslogs-dsuser_mappings.csv",
+#>       "@id": "2026-01-13-dslogs-dsuser_mappings.csv",
 #>       "@type": "File",
-#>       "dateModified": "2026-01-12 16:05:24",
-#>       "name": "2026-01-12-dslogs-dsuser_mappings.csv",
+#>       "dateModified": "2026-01-13 10:03:57",
+#>       "name": "2026-01-13-dslogs-dsuser_mappings.csv",
 #>       "description": "This file contains mappings and evaluated functions",
 #>       "encodingFormat": "text/csv",
 #>       "content": [
@@ -573,7 +573,7 @@ basic_rocrate <- basic_rocrate |>
 path_to_rocrate_bag <- basic_rocrate |>
   rocrateR::bag_rocrate(path = "./rocrates", overwrite = TRUE)
 #> RO-Crate successfully 'bagged'!
-#> For details, see: ./rocrates/rocrate-d2be223f15678b8f8a6f6ff06e3ed590.zip
+#> For details, see: ./rocrates/rocrate-ed4e631aea4cef802de309a64d28060f.zip
 ```
 
 We can explore the contents with the following commands:
@@ -588,8 +588,8 @@ path_to_rocrate_bag |>
 #> ./rocrates/ROC/
 #> ├── bagit.txt
 #> ├── data
-#> │   ├── 2026-01-12-dslogs-dsuser.log
-#> │   ├── 2026-01-12-dslogs-dsuser_mappings.csv
+#> │   ├── 2026-01-13-dslogs-dsuser.log
+#> │   ├── 2026-01-13-dslogs-dsuser_mappings.csv
 #> │   └── ro-crate-metadata.json
 #> ├── manifest-sha512.txt
 #> └── tagmanifest-sha512.txt
@@ -636,7 +636,7 @@ print(safe_people_crate_v1)
 #>       "@type": "Dataset",
 #>       "name": "",
 #>       "description": "",
-#>       "datePublished": "2026-01-12",
+#>       "datePublished": "2026-01-13",
 #>       "license": {
 #>         "@id": "http://spdx.org/licenses/CC-BY-4.0"
 #>       },
@@ -653,32 +653,32 @@ print(safe_people_crate_v1)
 #>       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM1",
-#>       "dateCreated": "2026-01-12T06:29:57.431Z",
-#>       "dateModified": "2026-01-12T06:29:58.577Z",
+#>       "dateCreated": "2026-01-13T06:29:53.743Z",
+#>       "dateModified": "2026-01-13T06:29:54.908Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM1"
 #>     },
 #>     {
 #>       "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM2",
-#>       "dateCreated": "2026-01-12T06:29:58.589Z",
-#>       "dateModified": "2026-01-12T06:29:59.703Z",
+#>       "dateCreated": "2026-01-13T06:29:54.912Z",
+#>       "dateModified": "2026-01-13T06:29:56.062Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM2"
 #>     },
 #>     {
 #>       "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM3",
-#>       "dateCreated": "2026-01-12T06:29:59.713Z",
-#>       "dateModified": "2026-01-12T06:30:00.883Z",
+#>       "dateCreated": "2026-01-13T06:29:56.065Z",
+#>       "dateModified": "2026-01-13T06:29:57.223Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM3"
 #>     },
 #>     {
 #>       "@id": "#project:7ba189863f9f641196596cb28e04aa14",
 #>       "@type": "Project",
 #>       "name": "CNSIM",
-#>       "dateCreated": "2026-01-12T06:29:56.147Z",
-#>       "dateModified": "2026-01-12T06:30:00.883Z",
+#>       "dateCreated": "2026-01-13T06:29:52.446Z",
+#>       "dateModified": "2026-01-13T06:29:57.223Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -965,7 +965,7 @@ print(safe_project_crate_v1)
 #>       "@type": "Dataset",
 #>       "name": "",
 #>       "description": "",
-#>       "datePublished": "2026-01-12",
+#>       "datePublished": "2026-01-13",
 #>       "license": {
 #>         "@id": "http://spdx.org/licenses/CC-BY-4.0"
 #>       },
@@ -982,32 +982,32 @@ print(safe_project_crate_v1)
 #>       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM1",
-#>       "dateCreated": "2026-01-12T06:29:57.431Z",
-#>       "dateModified": "2026-01-12T06:29:58.577Z",
+#>       "dateCreated": "2026-01-13T06:29:53.743Z",
+#>       "dateModified": "2026-01-13T06:29:54.908Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM1"
 #>     },
 #>     {
 #>       "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM2",
-#>       "dateCreated": "2026-01-12T06:29:58.589Z",
-#>       "dateModified": "2026-01-12T06:29:59.703Z",
+#>       "dateCreated": "2026-01-13T06:29:54.912Z",
+#>       "dateModified": "2026-01-13T06:29:56.062Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM2"
 #>     },
 #>     {
 #>       "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM3",
-#>       "dateCreated": "2026-01-12T06:29:59.713Z",
-#>       "dateModified": "2026-01-12T06:30:00.883Z",
+#>       "dateCreated": "2026-01-13T06:29:56.065Z",
+#>       "dateModified": "2026-01-13T06:29:57.223Z",
 #>       "path": "/datasource/CNSIM/table/CNSIM3"
 #>     },
 #>     {
 #>       "@id": "#project:7ba189863f9f641196596cb28e04aa14",
 #>       "@type": "Project",
 #>       "name": "CNSIM",
-#>       "dateCreated": "2026-01-12T06:29:56.147Z",
-#>       "dateModified": "2026-01-12T06:30:00.883Z",
+#>       "dateCreated": "2026-01-13T06:29:52.446Z",
+#>       "dateModified": "2026-01-13T06:29:57.223Z",
 #>       "hasPart": [
 #>         {
 #>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
@@ -1024,6 +1024,16 @@ print(safe_project_crate_v1)
 #>       "@id": "#person:a0af2a94926db1b49ad7a812eef509d2",
 #>       "@type": "Person",
 #>       "name": "dsuser"
+#>     },
+#>     {
+#>       "@id": "#person:a3cd7ce7818436c83b1eadaa5ba47411",
+#>       "@type": "Person",
+#>       "name": "dsuser2"
+#>     },
+#>     {
+#>       "@id": "#person:5657241505661473308ae9aa9a378293",
+#>       "@type": "Person",
+#>       "name": "dsuser3"
 #>     },
 #>     {
 #>       "@id": "#perm:9bf7f75b6c5b07d02830b95652cd39a0-dict-summary-read",
@@ -1050,6 +1060,30 @@ print(safe_project_crate_v1)
 #>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
 #>     },
 #>     {
+#>       "@id": "#perm:802d140a064e6ebf3a784f759af1b640-write-dict",
+#>       "@type": "WriteAction",
+#>       "agent": {
+#>         "@id": "#person:a3cd7ce7818436c83b1eadaa5ba47411"
+#>       },
+#>       "object": {
+#>         "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may edit the table dictionary but cannot view individual values."
+#>     },
+#>     {
+#>       "@id": "#perm:802d140a064e6ebf3a784f759af1b640-summary-read",
+#>       "@type": "ReadAction",
+#>       "agent": {
+#>         "@id": "#person:a3cd7ce7818436c83b1eadaa5ba47411"
+#>       },
+#>       "object": {
+#>         "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may view summary statistics only; access to individual values is restricted."
+#>     },
+#>     {
 #>       "@id": "#perm:63b8097908f682bff1760e48d28c5855-dict-summary-read",
 #>       "@type": "ReadAction",
 #>       "agent": {
@@ -1060,6 +1094,18 @@ print(safe_project_crate_v1)
 #>       },
 #>       "actionStatus": "PotentialActionStatus",
 #>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
+#>     },
+#>     {
+#>       "@id": "#perm:04c3f293c7a360fe0a1b7c29c8363540-read-all",
+#>       "@type": "ReadAction",
+#>       "agent": {
+#>         "@id": "#person:5657241505661473308ae9aa9a378293"
+#>       },
+#>       "object": {
+#>         "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may view table dictionary and all individual values."
 #>     },
 #>     {
 #>       "@id": "_:localid:datashield.privacyLevel:5",
@@ -1164,9 +1210,8 @@ safe_project_crate_v1_rmd <- tempfile(fileext = ".Rmd") # temporary file
 
 safe_project_crate_contents <- safe_project_crate_v1 |>
   dsROCrate::rocrate_report(filepath = safe_project_crate_v1_rmd, render = FALSE)
-#> 1 'Author' entity was found!
+#> 3 'Author' entities were found!
 #> 3 'Dataset' entities were found!
-#> Warning: No entities were found with @type = 'WriteAction'!
 #> Warning: No entities were found with @type = 'ControlAction'!
 #> 1 'Project' entity was found!
 #> 14 'PropertyValue' OR 'SoftwareApplication' entities were found!
@@ -1188,7 +1233,9 @@ safe_project_crate_contents$overview_data |>
 |:-------------|:----------|:------------|:-------------|
 | CNSIM        | CNSIM1    | dsuser      | read         |
 |              | CNSIM2    | dsuser      | read         |
+|              |           | dsuser2     | read, write  |
 |              | CNSIM3    | dsuser      | read         |
+|              |           | dsuser3     | read         |
 
 **Render and display report (HTML)**
 
