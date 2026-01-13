@@ -52,7 +52,7 @@ extract_safe_project.rocrate <- function(
   # extract Dataset entities
   data_entities_lst <- rocrateR::get_entity(x, type = "Dataset")
 
-  # if `id` was provided, then filter out only those Project entities
+  # if `id` was provided, then filter out only those entities
   if (!is.null(id)) {
     idx <- entities_lst |>
       sapply(\(x) getElement(x, "@id") %in% id)
@@ -71,7 +71,7 @@ extract_safe_project.rocrate <- function(
     )
   }
 
-  # add Project entities to the RO-Crate
+  # add entities to the RO-Crate
   suppressWarnings({
     for (p in seq_along(entities_lst)) {
       # attempt extracting Safe Data entities
@@ -108,8 +108,7 @@ extract_safe_project.rocrate <- function(
 #'     generated with the [extract_safe_data()] function. If not provided, it
 #'     uses the `x` by default.
 #'
-#' @returns Data frame with fields for @`id`, `project` name and `table` name in
-#' the given object(s).
+#' @returns Data frame with safe project details.
 #' @keywords internal
 #' @rdname flatten_safe_project
 flatten_safe_project <- function(x, ...) {

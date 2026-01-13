@@ -55,7 +55,7 @@ extract_safe_data.rocrate <- function(
   # extract Dataset entities
   entities_lst <- rocrateR::get_entity(x, type = "Dataset")
 
-  # if `id` was provided, then filter out only those Dataset entities
+  # if `id` was provided, then filter out only those entities
   if (!is.null(id)) {
     idx <- entities_lst |>
       sapply(\(x) getElement(x, "@id") %in% id)
@@ -96,7 +96,7 @@ extract_safe_data.rocrate <- function(
 #' @param id Vector of strings with the `@id`s for the datasets to be extracted.
 #'     If not provided, extract all entities with `@type = 'Dataset'`.
 #'
-#' @returns Data frame with fields for @`id`, `table` name in the given object.
+#' @returns Data frame with safe data details.
 #' @rdname flatten_safe_data
 #' @keywords internal
 flatten_safe_data <- function(x, ...) {

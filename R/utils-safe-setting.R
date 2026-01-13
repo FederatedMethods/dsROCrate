@@ -40,7 +40,7 @@ extract_safe_setting.rocrate <- function(
     rocrateR::get_entity(x, type = "SoftwareApplication")
   )
 
-  # if `id` was provided, then filter out only those Dataset entities
+  # if `id` was provided, then filter out only those entities
   if (!is.null(id)) {
     idx <- entities_lst |>
       sapply(\(x) getElement(x, "@id") %in% id)
@@ -59,7 +59,7 @@ extract_safe_setting.rocrate <- function(
     )
   }
 
-  # add Dataset entities to the RO-Crate
+  # add entities to the RO-Crate
   suppressWarnings({
     rocrate <- rocrate |>
       rocrateR::add_entities(entities_lst, quiet = TRUE)
@@ -77,7 +77,7 @@ extract_safe_setting.rocrate <- function(
 #'     If not provided, extract all entities with `@type = 'PropertyValue'` or
 #'     `@type = 'SoftwareApplication'`.
 #'
-#' @returns Data frame with fields for @`id`, `table` name in the given object.
+#' @returns Data frame with safe settings.
 #' @rdname flatten_safe_setting
 #' @keywords internal
 flatten_safe_setting <- function(x, ...) {
@@ -89,7 +89,7 @@ flatten_safe_setting <- function(x, ...) {
 flatten_safe_setting.rocrate <- function(x, ..., id = NULL) {
   tryCatch(
     {
-      # extract Dataset entities
+      # extract entities
       entities_tbl <- c(
         rocrateR::get_entity(x, type = "PropertyValue"),
         rocrateR::get_entity(x, type = "SoftwareApplication")

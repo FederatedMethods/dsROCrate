@@ -80,7 +80,7 @@ extract_safe_people.rocrate <- function(
     )
   }
 
-  # add user to the RO-Crate
+  # add entities to the RO-Crate
   rocrate <- rocrate |>
     rocrateR::add_entities(entities_lst_v2, overwrite = TRUE, quiet = TRUE) #|>
   # # link new user entity @id to the root (./) author property
@@ -102,8 +102,7 @@ extract_safe_people.rocrate <- function(
 #' @param id Vector of strings with the `@id`s for the users to be extracted.
 #'     If not provided, extract all entities with `@type = 'Person'`.
 #'
-#' @returns Data frame with fields for @`id` and `user` name in the given
-#' object.
+#' @returns Data frame with safe people details.
 #' @rdname flatten_safe_people
 #' @keywords internal
 flatten_safe_people <- function(x, ...) {
