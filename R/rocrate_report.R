@@ -131,6 +131,16 @@ rocrate_report.rocrate <- function(
     }
   )
 
+  # attempt to extract Safe Output details
+  safe_outputs_rocrate <- tryCatch(
+    {
+      extract_safe_output(x)
+    },
+    error = function(e) {
+      NULL
+    }
+  )
+
   # create Markdown report
   report_contents <- paste0(
     "# DataSHIELD Report\n",
@@ -172,29 +182,89 @@ rocrate_report.rocrate <- function(
       )
   }
 
+  # attempt extracting list of functions executed by the users from safe outputs
+  safe_output_tbl <- flatten_safe_output(safe_outputs_rocrate) |>
+    # extract only entities with mappings and functions, stored in CSV format
+    dplyr::filter(encodingFormat == "text/csv") |>
+    # extract content
+    purrr::pluck("content") |>
+    purrr::list_c()
+
+  if (!is.null(safe_output_tbl) && nrow(safe_output_tbl) > 0) {
+    # split `ds.table` into `project` and `table`
+    safe_output_tbl_v2 <- safe_output_tbl |>
+      dplyr::mutate(
+        project = stringr::str_extract(ds_table, "^.*(?=\\.)"),
+        table = stringr::str_extract(ds_table, "(?<=\\.).*$")
+      ) |>
+      dplyr::distinct(project, table, username, ds_function)
+
+    # append the list of functions to the overview table
+    overview_tbl <- overview_tbl |>
+      dplyr::left_join(
+        safe_output_tbl_v2,
+        by = c("project" = "project", "table" = "table", "name" = "username")
+      ) |>
+      # replace 'NA' in ds_function with empty string
+      dplyr::mutate(
+        ds_function = dplyr::case_when(is.na(ds_function) ~ "", T ~ ds_function)
+      )
+  }
+
   # check if `overview_tbl` has `permission` field AND include_user_perm = TRUE
   if ("permission" %in% colnames(overview_tbl) && include_user_perm) {
-    diagram_lst <- overview_tbl |>
-      vtree::vtree(
-        vars = c("project", "table", "name", "permission"),
-        labelvar = c(
-          name = "Safe People",
-          project = "Safe Project",
-          table = "Safe Data",
-          permission = "Access Level"
-        ),
-        showpct = FALSE,
-        showcount = FALSE,
-        horiz = FALSE,
-        varnamebold = TRUE,
-        splitwidth = 1,
-        vsplitwidth = 1,
-        folder = dirname(filepath),
-        imageFileOnly = render,
-        pngknit = render,
-        pxheight = min(80 * nrow(overview_tbl), 500),
-        pxwidth = 200 * nrow(overview_tbl)
-      )
+    # check if `overview_tbl` has `ds_function` field
+    if ("ds_function" %in% colnames(overview_tbl)) {
+      diagram_lst <- overview_tbl |>
+        dplyr::group_by(project, table, name, ds_function) |>
+        dplyr::reframe(
+          permission = paste0(unique(permission), collapse = " & "),
+        ) |>
+        vtree::vtree(
+          vars = c("project", "table", "permission", "name", "ds_function"),
+          labelvar = c(
+            name = "Safe People",
+            project = "Safe Project",
+            table = "Safe Data",
+            ds_function = "DataSHIELD Function",
+            permission = "Access Level"
+          ),
+          showpct = FALSE,
+          showcount = FALSE,
+          horiz = FALSE,
+          varnamebold = TRUE,
+          splitwidth = 1,
+          vsplitwidth = 1,
+          folder = dirname(filepath),
+          imageFileOnly = render,
+          pngknit = render,
+          pxheight = min(80 * nrow(overview_tbl), 500),
+          pxwidth = 200 * nrow(overview_tbl),
+          prune = list(ds_function = "")
+        )
+    } else {
+      diagram_lst <- overview_tbl |>
+        vtree::vtree(
+          vars = c("project", "table", "permission", "name"),
+          labelvar = c(
+            name = "Safe People",
+            project = "Safe Project",
+            table = "Safe Data",
+            permission = "Access Level"
+          ),
+          showpct = FALSE,
+          showcount = FALSE,
+          horiz = FALSE,
+          varnamebold = TRUE,
+          splitwidth = 1,
+          vsplitwidth = 1,
+          folder = dirname(filepath),
+          imageFileOnly = render,
+          pngknit = render,
+          pxheight = min(80 * nrow(overview_tbl), 500),
+          pxwidth = 200 * nrow(overview_tbl)
+        )
+    }
   } else {
     diagram_lst <- overview_tbl |>
       vtree::vtree(
@@ -225,24 +295,47 @@ rocrate_report.rocrate <- function(
   ### create tidy version of the overview table
   #### check if `overview_tbl` has `permission` field
   if ("permission" %in% colnames(overview_tbl)) {
-    tidy_overview_tbl <- overview_tbl |>
-      dplyr::select(project, table, name, permission) |>
-      dplyr::group_by(project, table, name) |>
-      dplyr::summarise(
-        permission = paste0(unique(permission), collapse = ", "),
-        .groups = "drop"
-      ) |>
-      # tidy up duplicated values in `project` and `table`
-      dplyr::mutate(
-        project = unfill_vec(project),
-        table = unfill_vec(table)
-      ) |>
-      dplyr::rename(
-        `Safe People` = name,
-        `Safe Project` = project,
-        `Safe Data` = table,
-        `Access Level` = permission
-      )
+    if ("ds_function" %in% colnames(overview_tbl)) {
+      tidy_overview_tbl <- overview_tbl |>
+        dplyr::select(project, table, permission, name, ds_function) |>
+        dplyr::group_by(project, table, name) |>
+        dplyr::reframe(
+          permission = paste0(unique(permission), collapse = " & "),
+          ds_function = ds_function,
+          .groups = "drop"
+        ) |>
+        # tidy up duplicated values in `project` and `table`
+        dplyr::mutate(
+          project = unfill_vec(project),
+          table = unfill_vec(table)
+        ) |>
+        dplyr::select(
+          `Safe Project` = project,
+          `Safe Data` = table,
+          `Access Level` = permission,
+          `Safe People` = name,
+          `DataSHIELD Function` = ds_function
+        ) |>
+        dplyr::distinct()
+    } else {
+      tidy_overview_tbl <- overview_tbl |>
+        dplyr::select(project, table, name, permission) |>
+        dplyr::group_by(project, table, name) |>
+        dplyr::reframe(
+          permission = paste0(unique(permission), collapse = " & ")
+        ) |>
+        # tidy up duplicated values in `project` and `table`
+        dplyr::mutate(
+          project = unfill_vec(project),
+          table = unfill_vec(table)
+        ) |>
+        dplyr::select(
+          `Safe Project` = project,
+          `Safe Data` = table,
+          `Access Level` = permission,
+          `Safe People` = name
+        )
+    }
   } else {
     tidy_overview_tbl <- overview_tbl |>
       # tidy up duplicated values in `name` and `project`
@@ -250,10 +343,10 @@ rocrate_report.rocrate <- function(
         name = unfill_vec(name),
         project = unfill_vec(project)
       ) |>
-      dplyr::rename(
-        `Safe People` = name,
+      dplyr::select(
         `Safe Project` = project,
-        `Safe Data` = table
+        `Safe Data` = table,
+        `Safe People` = name
       )
   }
   report_contents <- c(
@@ -261,6 +354,7 @@ rocrate_report.rocrate <- function(
     "## Overview\n\n",
     paste0("![](", diagram_filepath, ")\n<br />\n"),
     tidy_overview_tbl |>
+      dplyr::distinct() |>
       knitr::kable() |>
       paste0(collapse = "\n")
   )
