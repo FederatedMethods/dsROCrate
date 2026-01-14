@@ -55,10 +55,10 @@ the updated RO-Crate returned by this function.}
 extracted. Optional, if no user is provided, then this will be extracted
 from the \code{author} in the root (\verb{./}) entity of the RO-Crate.}
 
-\item{logs_to}{Upper limit timestamp to filter outputs to be extracted
+\item{logs_to}{Upper limit timestamp to filter out the outputs generated
 (default: \code{Sys.time()}, current system time).}
 
-\item{logs_from}{Lower limit timestamp to filter outputs to be extracted
+\item{logs_from}{Lower limit timestamp to filter out the outputs generated
 (default: \code{Sys.time() - 24 * 60 ^ 2}, last 24 hours)}
 
 \item{connection}{Connection object for the 'DataSHIELD' server where the

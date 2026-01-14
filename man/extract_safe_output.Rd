@@ -8,9 +8,22 @@
 \usage{
 extract_safe_output(x, ...)
 
-\method{extract_safe_output}{opal}(x, ..., rocrate = rocrateR::rocrate())
+\method{extract_safe_output}{opal}(
+  x,
+  ...,
+  user = NULL,
+  logs_to = Sys.time(),
+  logs_from = logs_to - 24 * 60^2,
+  rocrate = rocrateR::rocrate()
+)
 
-\method{extract_safe_output}{rocrate}(x, ..., id = NULL, rocrate = rocrateR::rocrate())
+\method{extract_safe_output}{rocrate}(
+  x,
+  ...,
+  id = NULL,
+  user = NULL,
+  rocrate = rocrateR::rocrate()
+)
 }
 \arguments{
 \item{x}{This can be a connection to a 'DataSHIELD' server (e.g., object with
@@ -19,6 +32,16 @@ the \code{opal} class, see \code{\link[opalr:opal.login]{opalr::opal.login()}}),
 RO-Crate.}
 
 \item{...}{Other optional arguments. See the full documentation}
+
+\item{user}{String with the name of the user for which outputs will be
+extracted. Optional, if no user is provided, then this will be extracted
+from the \code{author} in the root (\verb{./}) entity of the RO-Crate.}
+
+\item{logs_to}{Upper limit timestamp to filter out the outputs generated
+(default: \code{Sys.time()}, current system time).}
+
+\item{logs_from}{Lower limit timestamp to filter out the outputs generated
+(default: \code{Sys.time() - 24 * 60 ^ 2}, last 24 hours)}
 
 \item{rocrate}{(Optional) RO-Crate object to update with Safe Output details.}
 

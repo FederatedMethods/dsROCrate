@@ -14,7 +14,14 @@ audit_safe_people(x, ...)
 
 \method{audit_safe_people}{default}(x, ...)
 
-\method{audit_safe_people}{opal}(x, ..., user, project = NULL)
+\method{audit_safe_people}{opal}(
+  x,
+  ...,
+  user,
+  project = NULL,
+  logs_from = -Inf,
+  logs_to = Inf
+)
 
 \method{audit_safe_people}{rocrate}(x, ...)
 }
@@ -31,6 +38,12 @@ details.}
 
 \item{project}{String with project name(s) from which to extra Safe People
 details.}
+
+\item{logs_from}{Lower limit timestamp to filter out the outputs generated
+(default: \code{-Inf}, everything up to \code{logs_to})}
+
+\item{logs_to}{Upper limit timestamp to filter out the outputs generated
+(default: \code{Inf}, everything from \code{logs_from} onwards).}
 }
 \value{
 Updated RO-Crate object with Safe People information.
