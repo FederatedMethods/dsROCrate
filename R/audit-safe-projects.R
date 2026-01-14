@@ -168,13 +168,18 @@ audit_safe_project.opal <- function(
     extract_safe_setting(rocrate = safe_project_crate)
 
   # add Safe Output details
-  safe_project_crate <- x |>
-    extract_safe_output(
-      user = safe_people_entities_tbl$name,
-      logs_to = logs_to,
-      logs_from = logs_from,
-      rocrate = safe_project_crate
-    )
+  for (u in safe_people_entities_tbl$name) {
+    # # suppress warnings, as some users might not have logs in the given period
+    # suppressWarnings({
+    safe_project_crate <- x |>
+      extract_safe_output(
+        user = u,
+        logs_to = logs_to,
+        logs_from = logs_from,
+        rocrate = safe_project_crate
+      )
+    # })
+  }
 
   # return new RO-Crate
   return(safe_project_crate)
