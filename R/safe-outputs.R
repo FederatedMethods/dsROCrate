@@ -146,10 +146,9 @@ safe_output.opal <- function(
       `@timestamp` = as.POSIXct(`@timestamp`, format = "%Y-%m-%dT%H:%M:%S")
     ) |>
     # filter logs
-    # dplyr::filter(dplyr::between(`@timestamp`, logs_from, logs_to)) |>
     dplyr::filter(`@timestamp` >= logs_from, `@timestamp` <= logs_to) |>
     dplyr::filter(logger_name == "datashield.user") |>
-    dplyr::filter(user %in% !!user)
+    dplyr::filter(username %in% user)
   userlogs <- NULL
   if (nrow(userlogs_tbl) > 0) {
     userlogs <- userlogs_tbl |>
@@ -202,7 +201,7 @@ safe_output.opal <- function(
   ## evaluated functions - only records with ds_eval
   userlogs_tbl_evaluations <- userlogs_tbl |>
     dplyr::filter(!is.na(ds_eval)) |>
-    dplyr::distinct(ds_eval) |>
+    dplyr::distinct(username, ds_eval) |>
     dplyr::mutate(
       # extract function name from ds_eval
       ds_function = ds_eval |>
