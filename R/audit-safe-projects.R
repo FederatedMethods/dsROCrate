@@ -7,6 +7,10 @@
 #' @param ... Other optional arguments, see full documentation for details.
 #' @param project String with project name from which to extra Safe Project
 #'     details.
+#' @param logs_from Lower limit timestamp to filter out the outputs generated
+#'     (default: `-Inf`, everything up to `logs_to`)
+#' @param logs_to Upper limit timestamp to filter out the outputs generated
+#'     (default: `Inf`, everything from `logs_from` onwards).
 #'
 #' @returns Updated RO-Crate object with Safe Project information.
 #' @export
@@ -31,7 +35,13 @@ audit_safe_project.default <- function(x, ...) {
 
 #' @rdname audit_safe_project
 #' @export
-audit_safe_project.opal <- function(x, ..., project = NULL) {
+audit_safe_project.opal <- function(
+  x,
+  ...,
+  project = NULL,
+  logs_from = -Inf,
+  logs_to = Inf
+) {
   # local bindings
   project_tables_all <- subject <- type <- NULL
 
@@ -159,10 +169,15 @@ audit_safe_project.opal <- function(x, ..., project = NULL) {
 
   # add Safe Output details
   safe_project_crate <- x |>
-    extract_safe_output(rocrate = safe_project_crate)
+    extract_safe_output(
+      user = safe_people_entities_tbl$name,
+      logs_to = logs_to,
+      logs_from = logs_from,
+      rocrate = safe_project_crate
+    )
 
   # return new RO-Crate
-  return(invisible(safe_project_crate))
+  return(safe_project_crate)
 }
 
 #' @rdname audit_safe_project

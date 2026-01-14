@@ -12,6 +12,10 @@
 #'     details.
 #' @param project String with project name(s) from which to extra Safe People
 #'     details.
+#' @param logs_from Lower limit timestamp to filter out the outputs generated
+#'     (default: `-Inf`, everything up to `logs_to`)
+#' @param logs_to Upper limit timestamp to filter out the outputs generated
+#'     (default: `Inf`, everything from `logs_from` onwards).
 #'
 #' @returns Updated RO-Crate object with Safe People information.
 #' @export
@@ -38,7 +42,14 @@ audit_safe_people.default <- function(x, ...) {
 
 #' @rdname audit_safe_people
 #' @export
-audit_safe_people.opal <- function(x, ..., user, project = NULL) {
+audit_safe_people.opal <- function(
+  x,
+  ...,
+  user,
+  project = NULL,
+  logs_from = -Inf,
+  logs_to = Inf
+) {
   # local bindings
   project_tables_all <- subject <- type <- NULL
 
@@ -171,10 +182,15 @@ audit_safe_people.opal <- function(x, ..., user, project = NULL) {
 
   # add Safe Output details
   safe_people_crate <- x |>
-    extract_safe_output(rocrate = safe_people_crate)
+    extract_safe_output(
+      user = safe_people_entities_tbl$name,
+      logs_to = logs_to,
+      logs_from = logs_from,
+      rocrate = safe_people_crate
+    )
 
   # return new RO-Crate
-  return(invisible(safe_people_crate))
+  return(safe_people_crate)
 }
 
 #' @rdname audit_safe_people
@@ -187,5 +203,5 @@ audit_safe_people.rocrate <- function(x, ...) {
   safe_people_ents <- extract_safe_people(x)
 
   # return invisibly
-  return(invisible(safe_people_ents))
+  return(safe_people_ents)
 }
