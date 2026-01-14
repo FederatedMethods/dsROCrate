@@ -65,7 +65,14 @@ a file path pointing to an RO-Crate.</p>
 <span><span class="fu">audit_safe_people</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'opal'</span></span>
-<span><span class="fu">audit_safe_people</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, <span class="va">user</span>, project <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">audit_safe_people</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  <span class="va">user</span>,</span>
+<span>  project <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  logs_from <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>,</span>
+<span>  logs_to <span class="op">=</span> <span class="cn">Inf</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'rocrate'</span></span>
 <span><span class="fu">audit_safe_people</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
@@ -94,6 +101,16 @@ details.</p></dd>
 <dt id="arg-project">project<a class="anchor" aria-label="anchor" href="#arg-project"></a></dt>
 <dd><p>String with project name(s) from which to extra Safe People
 details.</p></dd>
+
+
+<dt id="arg-logs-from">logs_from<a class="anchor" aria-label="anchor" href="#arg-logs-from"></a></dt>
+<dd><p>Lower limit timestamp to filter out the outputs generated
+(default: <code>-Inf</code>, everything up to <code>logs_to</code>)</p></dd>
+
+
+<dt id="arg-logs-to">logs_to<a class="anchor" aria-label="anchor" href="#arg-logs-to"></a></dt>
+<dd><p>Upper limit timestamp to filter out the outputs generated
+(default: <code>Inf</code>, everything from <code>logs_from</code> onwards).</p></dd>
 
 </dl></div>
     <div id="value">
