@@ -22,9 +22,9 @@
 #' @param user String with the name of the user for which outputs will be
 #'     extracted. Optional, if no user is provided, then this will be extracted
 #'     from the `author` in the root (`./`) entity of the RO-Crate.
-#' @param logs_to Upper limit timestamp to filter outputs to be extracted
+#' @param logs_to Upper limit timestamp to filter out the outputs generated
 #'     (default: `Sys.time()`, current system time).
-#' @param logs_from Lower limit timestamp to filter outputs to be extracted
+#' @param logs_from Lower limit timestamp to filter out the outputs generated
 #'     (default: `Sys.time() - 24 * 60 ^ 2`, last 24 hours)
 #'
 #' @returns Updated RO-Crate object with Safe Outputs information.
