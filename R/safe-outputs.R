@@ -64,6 +64,18 @@ safe_output.opal <- function(
   # local bindings
   `@timestamp` <- logger_name <- safe_people_id <- NULL
 
+  # create formatted versions of input dates
+  logs_from_formatted <- ifelse(
+    is.infinite(logs_from),
+    "ALL",
+    format(logs_from, '%Y-%m-%d %H:%M:%S')
+  )
+  logs_to_formatted <- ifelse(
+    is.infinite(logs_to),
+    "ALL",
+    format(logs_to, '%Y-%m-%d %H:%M:%S')
+  )
+
   # x is a valid opal connection object
   validate_opal_con(x)
 
@@ -134,7 +146,8 @@ safe_output.opal <- function(
       `@timestamp` = as.POSIXct(`@timestamp`, format = "%Y-%m-%dT%H:%M:%S")
     ) |>
     # filter logs
-    dplyr::filter(dplyr::between(`@timestamp`, logs_from, logs_to)) |>
+    # dplyr::filter(dplyr::between(`@timestamp`, logs_from, logs_to)) |>
+    dplyr::filter(`@timestamp` >= logs_from, `@timestamp` <= logs_to) |>
     dplyr::filter(logger_name == "datashield.user") |>
     dplyr::filter(user %in% !!user)
   userlogs <- NULL
@@ -152,9 +165,9 @@ safe_output.opal <- function(
       "\n User: ",
       user,
       "\n Period: ",
-      format(logs_from, '%Y-%m-%d %H:%M:%S'),
+      logs_from_formatted,
       " -- ",
-      format(logs_to, '%Y-%m-%d %H:%M:%S'),
+      logs_to_formatted,
       call. = FALSE
     )
 
@@ -174,9 +187,9 @@ safe_output.opal <- function(
       "This file contains the raw logs for the user: `",
       user,
       "` , between: ",
-      format(logs_from, '%Y-%m-%d %H:%M:%S'),
+      logs_from_formatted,
       " and ",
-      format(logs_to, '%Y-%m-%d %H:%M:%S')
+      logs_to_formatted
     ),
     encodingFormat = "text/plain"
   )
