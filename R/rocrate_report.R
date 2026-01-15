@@ -196,8 +196,8 @@ rocrate_report.rocrate <- function(
     # split `ds.table` into `project` and `table`
     safe_output_tbl_v2 <- safe_output_tbl |>
       dplyr::mutate(
-        project = stringr::str_extract(ds_table, "^.*(?=\\.)"),
-        table = stringr::str_extract(ds_table, "(?<=\\.).*$")
+        project = gsub("(?=\\.).*$", "", ds_table, perl = TRUE),
+        table = gsub("^.*(?<=\\.)", "", ds_table, perl = TRUE)
       ) |>
       dplyr::distinct(project, table, username, ds_function)
 

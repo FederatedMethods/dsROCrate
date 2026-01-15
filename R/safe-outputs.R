@@ -155,7 +155,7 @@ safe_output.opal <- function(
   if (nrow(userlogs_tbl) > 0) {
     userlogs <- userlogs_tbl |>
       glue::glue_data(
-        "[{level}][{format(`@timestamp`, '%Y-%m-%dT%H:%M:%S')}]{stringr::str_pad(paste0('[', ds_action, ']'), 12, 'right', ' ')}{message}"
+        "[{level}][{format(`@timestamp`, '%Y-%m-%dT%H:%M:%S')}]{sprintf('%-12s', paste0('[', ds_action, ']'))}{message}"
       )
   }
 
@@ -207,12 +207,13 @@ safe_output.opal <- function(
     dplyr::mutate(
       # extract function name from ds_eval
       ds_function = ds_eval |>
-        stringr::str_extract("^.*(?=\\()"),
+        gsub(pattern = "(?=\\().*$", replacement = "", perl = TRUE),
       # extract symbol/object from ds_eval
       ds_symbol = ds_eval |>
-        stringr::str_extract("(?<=\\()(.*?)(?=\\))") |>
-        stringr::str_remove_all('"|\'') |>
-        stringr::str_extract("[^\\$]*"),
+        gsub(pattern = "^.*(?<=\\()", replacement = "", perl = TRUE) |>
+        gsub(pattern = "(?=\\)).*$", replacement = "", perl = TRUE) |>
+        gsub(pattern = '"|\'', replacement = "", perl = TRUE) |>
+        gsub(pattern = "(?=\\$).*", replacement = "", perl = TRUE),
       .before = 1
     ) |>
     ## verify that `ds_symbol` is a mapped object (`userlogs_tbl_mappings`)
