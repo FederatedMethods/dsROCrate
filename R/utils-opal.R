@@ -94,6 +94,9 @@ get_table_permissions <- function(x, project, tables) {
 #' @returns Tibble with properties of the entities.
 #' @keywords internal
 flatten_user_perm_entity <- function(x) {
+  # local bindings
+  agent <- object <- table_id <- user_id <- NULL
+
   # flatten list of entities
   x_tbl <- x |>
     lapply(tibble::as_tibble, .name_repair = "minimal") |>

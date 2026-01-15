@@ -50,6 +50,7 @@ safe_output.default <- function(x, ...) {
 #' @export
 safe_output.character <- function(x, ..., rocrate = NULL) {}
 
+#' @importFrom utils write.csv
 #' @rdname safe_output
 #' @export
 safe_output.opal <- function(
@@ -63,6 +64,7 @@ safe_output.opal <- function(
 ) {
   # local bindings
   `@timestamp` <- logger_name <- safe_people_id <- NULL
+  ds_eval <- ds_symbol <- ds_table <- username <- NULL
 
   # create formatted versions of input dates
   logs_from_formatted <- ifelse(
