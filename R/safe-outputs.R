@@ -63,8 +63,8 @@ safe_output.opal <- function(
   logs_from = logs_to - 24 * 60^2
 ) {
   # local bindings
-  `@timestamp` <- logger_name <- safe_people_id <- NULL
-  ds_eval <- ds_symbol <- ds_table <- username <- NULL
+  `@timestamp` <- logger_name <- safe_people_id <- username <- NULL
+  ds_action <- ds_eval <- ds_function <- ds_symbol <- ds_table <- NULL
 
   # create formatted versions of input dates
   logs_from_formatted <- ifelse(
@@ -196,15 +196,20 @@ safe_output.opal <- function(
   )
 
   # extract list of functions executed
-  ## tables/symbols mapped - only records with ds_table
-  userlogs_tbl_mappings <- userlogs_tbl |>
-    dplyr::filter(!is.na(ds_table)) |>
-    dplyr::distinct(ds_table, ds_symbol)
-  ## evaluated functions - only records with ds_eval
-  userlogs_tbl_evaluations <- userlogs_tbl |>
-    dplyr::filter(!is.na(ds_eval)) |>
-    dplyr::distinct(username, ds_eval) |>
+  ## evaluated functions and tables/symbols mapped
+  userlogs_tbl_maps_evals <- userlogs_tbl |>
+    dplyr::filter(ds_action %in% c("ASSIGN", "AGGREGATE")) |>
+    # create derived `ds_eval` when `ds_action` = 'ASSIGN'
     dplyr::mutate(
+      ds_eval = dplyr::coalesce(
+        ds_eval,
+        paste0(ds_symbol, " <- opal[", ds_table, "]")
+      )
+    ) |>
+    dplyr::distinct(username, ds_action, ds_eval, ds_table, `@timestamp`) |>
+    dplyr::mutate(
+      # format timestamp
+      `@timestamp` = format(`@timestamp`, '%Y-%m-%dT%H:%M:%S'),
       # extract function name from ds_eval
       ds_function = ds_eval |>
         gsub(pattern = "(?=\\().*$", replacement = "", perl = TRUE),
@@ -214,13 +219,19 @@ safe_output.opal <- function(
         gsub(pattern = "(?=\\)).*$", replacement = "", perl = TRUE) |>
         gsub(pattern = '"|\'', replacement = "", perl = TRUE) |>
         gsub(pattern = "(?=\\$).*", replacement = "", perl = TRUE),
+      ds_symbol = ifelse(ds_symbol == ds_eval, NA, ds_symbol),
+      ds_function = ifelse(ds_symbol == ds_eval, NA, ds_function),
       .before = 1
     ) |>
-    ## verify that `ds_symbol` is a mapped object (`userlogs_tbl_mappings`)
-    dplyr::filter(ds_symbol %in% userlogs_tbl_mappings$ds_symbol)
-  ## combine mappings and evaluated functions
-  userlogs_tbl_maps_evals <- userlogs_tbl_mappings |>
-    dplyr::left_join(userlogs_tbl_evaluations, by = "ds_symbol")
+    dplyr::select(
+      timestamp = `@timestamp`,
+      ds_action,
+      username,
+      ds_eval,
+      ds_function,
+      ds_symbol,
+      ds_table
+    )
 
   log_maps_filename <- paste0(Sys.Date(), "-dslogs-", user, "_mappings.csv")
 
