@@ -26,6 +26,7 @@ rocrate_report.default <- function(x, ...) {
   )
 }
 
+#' @param title String with title for the report (default: 'DataSHIELD Report').
 #' @param filepath String with file path for Markdown report with the summary
 #'     of the given object, `x`.
 #' @param render Boolean flag to indicate whether to render the markdown report.
@@ -38,6 +39,7 @@ rocrate_report.default <- function(x, ...) {
 rocrate_report.rocrate <- function(
   x,
   ...,
+  title = "DataSHIELD Report\n",
   filepath = tempfile(fileext = ".md"),
   render = TRUE,
   overwrite = FALSE,
@@ -145,7 +147,7 @@ rocrate_report.rocrate <- function(
 
   # create Markdown report
   report_contents <- paste0(
-    "# DataSHIELD Report\n",
+    paste0("# ", title, "\n"),
     "##### Last Updated: ",
     Sys.time(),
     "\n"
@@ -184,22 +186,22 @@ rocrate_report.rocrate <- function(
       )
   }
 
-  # attempt extracting list of functions executed by the users from safe outputs
+  # attempt extracting list of functions executed by the users from Safe Outputs
   safe_output_tbl <- flatten_safe_output(safe_outputs_rocrate) |>
     # extract only entities with mappings and functions, stored in CSV format
     dplyr::filter(encodingFormat == "text/csv") |>
     # extract content
-    purrr::pluck("content") |>
+    purrr::pluck("content", .default = list()) |>
     purrr::list_c()
 
   if (!is.null(safe_output_tbl) && nrow(safe_output_tbl) > 0) {
-    # split `ds.table` into `project` and `table`
+    # split `ds_table` into `project` and `table`
     safe_output_tbl_v2 <- safe_output_tbl |>
       dplyr::mutate(
         project = gsub("(?=\\.).*$", "", ds_table, perl = TRUE),
         table = gsub("^.*(?<=\\.)", "", ds_table, perl = TRUE)
       ) |>
-      dplyr::distinct(project, table, username, ds_function)
+      dplyr::distinct(project, table, username, ds_function, timestamp)
 
     # append the list of functions to the overview table
     overview_tbl <- overview_tbl |>
@@ -207,8 +209,9 @@ rocrate_report.rocrate <- function(
         safe_output_tbl_v2,
         by = c("project" = "project", "table" = "table", "name" = "username")
       ) |>
-      # replace 'NA' in ds_function with empty string
+      # replace 'NA' in ds_function & timestamp with empty string
       dplyr::mutate(
+        timestamp = dplyr::case_when(is.na(timestamp) ~ "", T ~ timestamp),
         ds_function = dplyr::case_when(is.na(ds_function) ~ "", T ~ ds_function)
       )
   }
@@ -299,13 +302,26 @@ rocrate_report.rocrate <- function(
   if ("permission" %in% colnames(overview_tbl)) {
     if ("ds_function" %in% colnames(overview_tbl)) {
       tidy_overview_tbl <- overview_tbl |>
-        dplyr::select(project, table, permission, name, ds_function) |>
+        dplyr::distinct(
+          project,
+          table,
+          permission,
+          name,
+          ds_function,
+          timestamp
+        ) |>
         dplyr::group_by(project, table, name) |>
         dplyr::reframe(
           permission = paste0(unique(permission), collapse = " & "),
           ds_function = ds_function,
+          timestamp = timestamp,
           .groups = "drop"
         ) |>
+        # dplyr::group_by(project, table, name, permission, ds_function) |>
+        # dplyr::reframe(
+        #   timestamp = paste0(timestamp, collapse = "<br>"),
+        #   .groups = "drop"
+        # ) |>
         # tidy up duplicated values in `project` and `table`
         dplyr::mutate(
           project = unfill_vec(project),
@@ -316,7 +332,8 @@ rocrate_report.rocrate <- function(
           `Safe Data` = table,
           `Access Level` = permission,
           `Safe People` = name,
-          `DataSHIELD Function` = ds_function
+          `DataSHIELD Function` = ds_function,
+          `Timestamp` = timestamp
         ) |>
         dplyr::distinct()
     } else {
