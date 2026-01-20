@@ -206,7 +206,20 @@ safe_output.opal <- function(
         paste0(ds_symbol, " <- opal[", ds_table, "]")
       )
     ) |>
-    dplyr::distinct(username, ds_action, ds_eval, ds_table, `@timestamp`) |>
+    dplyr::distinct(
+      ds_id,
+      username,
+      ds_action,
+      ds_eval,
+      ds_table,
+      `@timestamp`
+    ) |>
+    # refill values for ds_table, based on ds_id
+    dplyr::group_by(ds_id) |>
+    dplyr::mutate(
+      ds_table = refill_vec(ds_table)
+    ) |>
+    dplyr::ungroup() |>
     dplyr::mutate(
       # format timestamp
       `@timestamp` = format(`@timestamp`, '%Y-%m-%dT%H:%M:%S'),
@@ -219,8 +232,9 @@ safe_output.opal <- function(
         gsub(pattern = "(?=\\)).*$", replacement = "", perl = TRUE) |>
         gsub(pattern = '"|\'', replacement = "", perl = TRUE) |>
         gsub(pattern = "(?=\\$).*", replacement = "", perl = TRUE),
+      # autofill `ds_function` when `ds_action` = 'ASSIGN'
+      ds_function = ifelse(ds_symbol == ds_eval, "base::assign", ds_function),
       ds_symbol = ifelse(ds_symbol == ds_eval, NA, ds_symbol),
-      ds_function = ifelse(ds_symbol == ds_eval, NA, ds_function),
       .before = 1
     ) |>
     dplyr::select(
