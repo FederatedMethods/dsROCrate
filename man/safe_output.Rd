@@ -17,7 +17,7 @@ safe_output(x, ...)
 \method{safe_output}{opal}(
   x,
   ...,
-  rocrate = NULL,
+  rocrate = rocrateR::rocrate_5s(),
   path = NULL,
   user = NULL,
   logs_to = Sys.time(),

@@ -8,9 +8,9 @@
 \usage{
 extract_safe_people(x, ...)
 
-\method{extract_safe_people}{opal}(x, ..., rocrate = rocrateR::rocrate())
+\method{extract_safe_people}{opal}(x, ..., rocrate = rocrateR::rocrate_5s())
 
-\method{extract_safe_people}{rocrate}(x, ..., id = NULL, rocrate = rocrateR::rocrate())
+\method{extract_safe_people}{rocrate}(x, ..., id = NULL, rocrate = rocrateR::rocrate_5s())
 }
 \arguments{
 \item{x}{This can be a connection to a 'DataSHIELD' server (e.g., object with

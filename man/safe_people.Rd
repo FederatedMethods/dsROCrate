@@ -17,7 +17,7 @@ safe_people(x, ...)
 \method{safe_people}{opal}(
   x,
   ...,
-  rocrate = NULL,
+  rocrate = rocrateR::rocrate_5s(),
   user = NULL,
   user_id_suffix = "#person:",
   set_author = TRUE,

@@ -14,7 +14,7 @@ extract_safe_output(x, ...)
   user = NULL,
   logs_to = Sys.time(),
   logs_from = logs_to - 24 * 60^2,
-  rocrate = rocrateR::rocrate()
+  rocrate = rocrateR::rocrate_5s()
 )
 
 \method{extract_safe_output}{rocrate}(
@@ -22,7 +22,7 @@ extract_safe_output(x, ...)
   ...,
   id = NULL,
   user = NULL,
-  rocrate = rocrateR::rocrate()
+  rocrate = rocrateR::rocrate_5s()
 )
 }
 \arguments{

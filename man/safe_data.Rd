@@ -17,7 +17,7 @@ safe_data(x, ...)
 \method{safe_data}{opal}(
   x,
   ...,
-  rocrate = NULL,
+  rocrate = rocrateR::rocrate_5s(),
   project = NULL,
   tables = NULL,
   dataset_id_suffix = "#dataset:"

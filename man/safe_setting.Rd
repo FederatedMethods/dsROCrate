@@ -14,7 +14,7 @@
 \usage{
 safe_setting(x, ...)
 
-\method{safe_setting}{opal}(x, ..., rocrate = NULL)
+\method{safe_setting}{opal}(x, ..., rocrate = rocrateR::rocrate_5s())
 
 \method{safe_setting}{rocrate}(x, ..., connection = NULL)
 }

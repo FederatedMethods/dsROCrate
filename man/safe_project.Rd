@@ -18,7 +18,7 @@ safe_project(x, ...)
 \method{safe_project}{ArmadilloCredentials}(
   x,
   ...,
-  rocrate = NULL,
+  rocrate = rocrateR::rocrate_5s(),
   project = NULL,
   dataset_id_suffix = "#dataset:",
   project_id_suffix = "#project:"
@@ -27,7 +27,7 @@ safe_project(x, ...)
 \method{safe_project}{opal}(
   x,
   ...,
-  rocrate = NULL,
+  rocrate = rocrateR::rocrate_5s(),
   project = NULL,
   dataset_id_suffix = "#dataset:",
   project_id_suffix = "#project:"
