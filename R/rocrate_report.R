@@ -44,7 +44,7 @@ rocrate_report.default <- function(x, ...) {
 rocrate_report.rocrate <- function(
   x,
   ...,
-  title = "DataSHIELD Report\n",
+  title = "DataSHIELD Report",
   filepath = tempfile(fileext = ".md"),
   render = TRUE,
   doc_format = "html",
@@ -157,9 +157,8 @@ rocrate_report.rocrate <- function(
   ## initialise markdown header (see https://rmarkdown.rstudio.com/lesson-9.html)
   report_contents <- paste0(
     "---\n",
-    "title: ",
-    title,
-    "output:\n",
+    paste0("title: ", title),
+    "\noutput:\n",
     "  pdf_document:\n",
     "    df_print: kable\n",
     "  html_document: default\n",
@@ -178,8 +177,7 @@ rocrate_report.rocrate <- function(
     "  - \\usepackage{float}\n",
     "  - \\usepackage{titling}\n",
     "  - \\setlength{\\droptitle}{-1.5cm}\n",
-    "date: ",
-    format(Sys.time(), '%Y-%m-%d %H:%M:%S'),
+    paste0("date: ", format(Sys.time(), '%Y-%m-%d %H:%M:%S')),
     "\n---\n"
   )
 
@@ -437,7 +435,7 @@ rocrate_report.rocrate <- function(
     paste0(
       "\\begin{figure}[H]\n",
       "\\centering\n",
-      "\\includegraphics[height=0.75\\textheight, keepaspectratio]{",
+      "\\includegraphics[height=0.75\\textheight, keepaspectratio, width=0.9\\textwidth]{",
       diagram_filepath,
       "}",
       "\\caption{RO-Crate Overview}\n",
