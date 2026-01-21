@@ -51,7 +51,7 @@ docker compose up -d
 Then you can inspect the Docker GUI, where you should see something like the
 following:
 
-<img src="../inst/images/ds_docker_compose.png" alt="Docker conf" height=200px/>
+<img src="../man/figures/ds_docker_compose.png" alt="Docker conf" height=200px/>
 
 
 ---------
