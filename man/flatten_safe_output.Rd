@@ -2,10 +2,13 @@
 % Please edit documentation in R/utils-safe-outputs.R
 \name{flatten_safe_output}
 \alias{flatten_safe_output}
+\alias{flatten_safe_output.default}
 \alias{flatten_safe_output.rocrate}
 \title{Flatten object with Safe Output details}
 \usage{
 flatten_safe_output(x, ...)
+
+\method{flatten_safe_output}{default}(x, ...)
 
 \method{flatten_safe_output}{rocrate}(x, ..., id = NULL)
 }

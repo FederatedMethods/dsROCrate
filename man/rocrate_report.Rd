@@ -16,10 +16,14 @@ rocrate_report(x, ...)
 \method{rocrate_report}{rocrate}(
   x,
   ...,
+  title = "DataSHIELD Report\\n",
   filepath = tempfile(fileext = ".md"),
   render = TRUE,
+  doc_format = "html",
   overwrite = FALSE,
-  include_user_perm = TRUE
+  include_user_perm = TRUE,
+  diag_width = NULL,
+  diag_height = NULL
 )
 }
 \arguments{
@@ -29,16 +33,26 @@ string with the path to an RO-Crate.}
 \item{...}{Other optional arguments. See the full documentation,
 \code{\link[=rocrate_report]{?dsROCrate::rocrate_report}}.}
 
+\item{title}{String with title for the report (default: 'DataSHIELD Report').}
+
 \item{filepath}{String with file path for Markdown report with the summary
 of the given object, \code{x}.}
 
 \item{render}{Boolean flag to indicate whether to render the markdown report.}
+
+\item{doc_format}{String with file format for the markdown report.}
 
 \item{overwrite}{Boolean flag to indicate whether to overwrite a previous
 version of markdown report.}
 
 \item{include_user_perm}{Boolean flag to indicate whether to include user
 permissions in the report overview's diagram.}
+
+\item{diag_width}{Numeric value with width (in inches) for the report
+overview's diagram (default: \code{NULL}, estimated based on number of nodes).}
+
+\item{diag_height}{Numeric value with height (in inches) for the report
+overview's diagram (default: \code{NULL}, estimated based on number of nodes).}
 }
 \value{
 RO-Crate report as markdown (.md) file and/or HTML.

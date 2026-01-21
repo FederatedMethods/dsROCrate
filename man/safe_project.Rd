@@ -2,6 +2,7 @@
 % Please edit documentation in R/safe-projects.R
 \name{safe_project}
 \alias{safe_project}
+\alias{safe_project.ArmadilloCredentials}
 \alias{safe_project.opal}
 \alias{safe_project.rocrate}
 \title{Safe projects details}
@@ -13,6 +14,15 @@
 }
 \usage{
 safe_project(x, ...)
+
+\method{safe_project}{ArmadilloCredentials}(
+  x,
+  ...,
+  rocrate = NULL,
+  project = NULL,
+  dataset_id_suffix = "#dataset:",
+  project_id_suffix = "#project:"
+)
 
 \method{safe_project}{opal}(
   x,
