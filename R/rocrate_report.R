@@ -161,6 +161,7 @@ rocrate_report.rocrate <- function(
     "\noutput:\n",
     "  pdf_document:\n",
     "    df_print: kable\n",
+    "    highlight: tango\n",
     "  html_document: default\n",
     "fontsize: 11pt\n",
     "geometry:\n",
