@@ -25,9 +25,11 @@ RoxygenNote: 7.3.3
 Imports: 
     digest,
     dplyr,
+    DSMolgenisArmadillo,
     glue,
     jsonlite,
     methods,
+    MolgenisArmadillo,
     opalr,
     purrr,
     rmarkdown,
