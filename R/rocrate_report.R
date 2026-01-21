@@ -30,10 +30,14 @@ rocrate_report.default <- function(x, ...) {
 #' @param filepath String with file path for Markdown report with the summary
 #'     of the given object, `x`.
 #' @param render Boolean flag to indicate whether to render the markdown report.
+#' @param doc_format String with file format for the markdown report.
 #' @param overwrite Boolean flag to indicate whether to overwrite a previous
 #'     version of markdown report.
 #' @param include_user_perm Boolean flag to indicate whether to include user
 #'     permissions in the report overview's diagram.
+#' @param diag_width Numeric value with width for the report overview's diagram.
+#' @param diag_height Numeric value with height for the report overview's
+#'     diagram.
 #' @rdname rocrate_report
 #' @export
 rocrate_report.rocrate <- function(
@@ -42,8 +46,11 @@ rocrate_report.rocrate <- function(
   title = "DataSHIELD Report\n",
   filepath = tempfile(fileext = ".md"),
   render = TRUE,
+  doc_format = "html",
   overwrite = FALSE,
-  include_user_perm = TRUE
+  include_user_perm = TRUE,
+  diag_width = NULL,
+  diag_height = NULL
 ) {
   # local bindings
   id <- name <- project <- table_id <- table_name <- username <- user_id <- NULL
@@ -146,11 +153,30 @@ rocrate_report.rocrate <- function(
   )
 
   # create Markdown report
+  ## initialise markdown header (see https://rmarkdown.rstudio.com/lesson-9.html)
   report_contents <- paste0(
-    paste0("# ", title, "\n"),
-    "##### Last Updated: ",
+    "---\n",
+    "title: ",
+    title,
+    "output:\n",
+    "  pdf_document:\n",
+    "    df_print: kable\n",
+    "  html_document: default\n",
+    "fontsize: 11pt\n",
+    "geometry:\n",
+    "  - margin=.5in\n",
+    "  - landscape\n",
+    "header-includes: \n",
+    "  - \\usepackage{array}\n",
+    "  - \\usepackage{longtable}\n",
+    "  - \\usepackage{xurl}\n",
+    "  - \\usepackage{hyphenat}\n",
+    "  - \\usepackage{microtype}\n",
+    "  - \\sloppy\n",
+    "  - \\setlength{\\emergencystretch}{3em}\n",
+    "date: ",
     format(Sys.time(), '%Y-%m-%d %H:%M:%S'),
-    "\n"
+    "\n---\n"
   )
 
   ## create visualisation for the overview
@@ -394,9 +420,11 @@ rocrate_report.rocrate <- function(
     "## Overview\n\n",
     "<div style=\"margin:0;\">\n\n",
     paste0(
-      "<img src='",
+      "![](",
+      #   "<img src='",
       diagram_filepath,
-      "' style='display:block; margin:0;' />\n<br />\n"
+      #   "' style='display:block; margin:0;' />\n<br />\n",
+      ")\n\n"
     ),
     "</div>\n\n",
     tidy_overview_tbl |>
@@ -484,14 +512,27 @@ rocrate_report.rocrate <- function(
 
   ## render document
   if (render) {
-    suppressWarnings({
-      rmarkdown::render(
-        filepath,
-        "html_document",
-        sub(".md", ".html", filepath)
-      )
-      utils::browseURL(paste0("file://", sub(".md", ".html", filepath)))
-    })
+    if (tolower(doc_format) %in% c("html", "html_document")) {
+      suppressWarnings({
+        rmarkdown::render(
+          filepath,
+          "html_document",
+          sub(".md", ".html", filepath)
+        )
+        utils::browseURL(paste0("file://", sub(".md", ".html", filepath)))
+      })
+    } else if (tolower(doc_format) %in% c("pdf", "pdf_document")) {
+      suppressWarnings({
+        rmarkdown::render(
+          filepath,
+          "pdf_document",
+          sub(".md", ".pdf", filepath)
+        )
+        utils::browseURL(paste0("file://", sub(".md", ".pdf", filepath)))
+      })
+    } else {
+      stop("The format `", doc_format, "` is not valid! Try 'html' or 'pdf'.")
+    }
   } else {
     print(diagram_lst)
     return(invisible(
