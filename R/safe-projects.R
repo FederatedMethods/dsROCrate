@@ -44,8 +44,8 @@ safe_project.character <- function(x, ...) {}
 safe_project.ArmadilloCredentials <- function(
   x,
   ...,
+  project,
   rocrate = rocrateR::rocrate_5s(),
-  project = NULL,
   dataset_id_suffix = "#dataset:",
   project_id_suffix = "#project:"
 ) {
@@ -53,7 +53,8 @@ safe_project.ArmadilloCredentials <- function(
   project_exists(x, project)
 
   # retrieve details associated to `project`
-  project_details_tbl <- MolgenisArmadillo::armadillo.get_projects_info(x)
+  project_details_tbl <- MolgenisArmadillo::armadillo.get_projects_info() |>
+    purrr::list_rbind()
 }
 
 #' @rdname safe_project
@@ -61,8 +62,8 @@ safe_project.ArmadilloCredentials <- function(
 safe_project.opal <- function(
   x,
   ...,
+  project,
   rocrate = rocrateR::rocrate_5s(),
-  project = NULL,
   dataset_id_suffix = "#dataset:",
   project_id_suffix = "#project:"
 ) {
@@ -139,7 +140,7 @@ safe_project.opal <- function(
 safe_project.rocrate <- function(
   x,
   ...,
-  project = NULL,
+  project,
   dataset_id_suffix = "#dataset:",
   project_id_suffix = "#project:",
   connection = NULL
