@@ -154,27 +154,6 @@ is_opal_admin_con <- function(x) {
   }
 }
 
-#' Verify if project exists
-#'
-#' Wrapper for the [opalr::opal.project_exists()] function.
-#'
-#' @inheritParams get_table_permissions
-#'
-#' @returns Nothing, call for its side effect. Stop execution of script if
-#' `project` does not exist in the given server.
-#'
-#' @keywords internal
-#'
-#' @family Opal
-project_exists <- function(x, project) {
-  if (!opalr::opal.project_exists(x, project)) {
-    stop(
-      "The project given `project` was not found in the given Opal connection!",
-      call. = FALSE
-    )
-  }
-}
-
 #' Create user permission entities
 #'
 #' @param user String with user name.
