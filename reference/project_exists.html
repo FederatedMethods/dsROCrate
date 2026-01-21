@@ -54,7 +54,13 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">project_exists</span><span class="op">(</span><span class="va">x</span>, <span class="va">project</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">project_exists</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'ArmadilloCredentials'</span></span>
+<span><span class="fu">project_exists</span><span class="op">(</span><span class="va">x</span>, <span class="va">project</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'opal'</span></span>
+<span><span class="fu">project_exists</span><span class="op">(</span><span class="va">x</span>, <span class="va">project</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -62,11 +68,11 @@
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>Connection to OBiBa's Opal server (see <code><a href="https://www.obiba.org/opalr/reference/opal.login.html" class="external-link">opalr::opal.login()</a></code>).</p></dd>
+<dd><p>Connection object to backend for DataSHIELD server (e.g., Opal).</p></dd>
 
 
 <dt id="arg-project">project<a class="anchor" aria-label="anchor" href="#arg-project"></a></dt>
-<dd><p>String with project name.</p></dd>
+<dd><p>String with project name to be verified.</p></dd>
 
 </dl></div>
     <div id="value">

@@ -6,6 +6,7 @@
 <url><loc>/articles/index.html</loc></url>
 <url><loc>/authors.html</loc></url>
 <url><loc>/index.html</loc></url>
+<url><loc>/reference/armadillo_login.html</loc></url>
 <url><loc>/reference/audit_safe_people.html</loc></url>
 <url><loc>/reference/audit_safe_project.html</loc></url>
 <url><loc>/reference/dsROCrate-package.html</loc></url>
@@ -25,6 +26,7 @@
 <url><loc>/reference/index.html</loc></url>
 <url><loc>/reference/is_opal_admin_con.html</loc></url>
 <url><loc>/reference/project_exists.html</loc></url>
+<url><loc>/reference/refill_vec.html</loc></url>
 <url><loc>/reference/rocrate_report.html</loc></url>
 <url><loc>/reference/safe_data.html</loc></url>
 <url><loc>/reference/safe_output.html</loc></url>
