@@ -80,7 +80,7 @@ The goal of dsROCrate is to provide functions to wrap elements from a
 
 ## 1. Installation
 
-You can install the development version of dsROCrate from [GitHub](https://github.com/) with:
+You can install the development version of dsROCrate from [GitHub](https://github.com/DataSHIELD-5S/dsROCrate) with:
 
 ``` r
 # install.packages("pak")
@@ -90,7 +90,7 @@ pak::pak("DataSHIELD-5S/dsROCrate")
 ## 2. Creating your first RO-Crate
 In this example, we will be using OBiBa's 
 [Opal](https://opaldoc.obiba.org/en/latest/index.html) as the _back-end_ for
-DataSHIELD.
+DataSHIELD. Another option would be MOLGENIS' [Armadillo](https://github.com/molgenis/molgenis-service-armadillo/).
 
 ### 2.1. Connect to an Opal Server
 #### Setup
@@ -128,7 +128,7 @@ TABLES <- c("CNSIM1")
 #### Open connection
 
 Once the credentials and Five Safes variables are configured,we can start a 
-new session to the opal server with the following command:
+new session on the opal server with the following command:
 
 ```{r}
 # login to local server with `USERNAME` and `USERPASS`.
@@ -149,12 +149,6 @@ package can be installed with the following command:
 
 ```{r, eval = FALSE, echo = TRUE}
 # install.packages("pak")
-pak::pak("ResearchObject/ro-crate-r@dev")
-```
-
-```{r, eval = FALSE, echo = FALSE}
-# NOTE: this will only be able when the package is on the CRAN!!
-# install.packages("pak")
 pak::pak("rocrateR")
 ```
 
@@ -171,7 +165,7 @@ profile.
 print(basic_rocrate)
 ```
 
-### 2.3. Add _Five Safes_ Elements
+### 2.3. Add the _Five Safes_ Elements
 #### Safe Data
 To add details for Safe Data, use the function `dsROCrate::safe_data()`.
 
@@ -235,7 +229,8 @@ print(basic_rocrate) # note that the output will be truncated
 #### Safe Outputs
 To add details for Safe Outputs, use the function `dsROCrate::safe_output()`.
 Currently, only log files from the operations executed by the user within a 
-specific period. Set the period using `logs_from` and `logs_to`. 
+specific period. Set the period using `logs_from` and `logs_to`. Additionally,
+a list of functions executed by the user are extracted in a separate file/entity.
 
 **⚠️NOTE:** Similar to `dsROCrate::safe_setting`, the `dsROCrate::safe_output` 
 function requires of administrator rights, so here, we will have to log in with 
@@ -316,13 +311,13 @@ basic_rocrate <- o |>
 print(basic_rocrate) # note that the output will be truncated
 ```
 
-### 2.(n-1). Close connection
+### 2.4. Close connection
 
 ```{r}
 opalr::opal.logout(o)
 ```
 
-### 2.n. Bag/Save RO-Crate
+### 2.5. Bag/Save RO-Crate
 
 The resulting RO-Crate can be stored into an RO-Crate bag/archive with the
 function `rocrateR::bag_rocrate`:
@@ -334,7 +329,8 @@ dir.create("./rocrates", showWarnings = FALSE)
 
 NOTE: In the above example, a `path` to store the logs wasn't provided when 
 calling `dsROCrate::safe_output`, before creating an RO-Crate bag, we should 
-save the contents of this file first
+save the contents of this file first. In addition, the contents for the entity
+with the list of functions executed:
 
 ```{r, eval = TRUE, warning = FALSE}
 logs_entity <- basic_rocrate |>
@@ -378,7 +374,7 @@ path_to_rocrate_bag |>
   fs::dir_tree()
 ```
 
-### 2.(n+1). Clean working directory
+### 2.6. Clean working directory
 
 ```{r}
 unlink("./rocrates", recursive = TRUE, force = TRUE)
@@ -389,7 +385,7 @@ unlink("./rocrates", recursive = TRUE, force = TRUE)
 
 ## 3. Auditing RO-Crates and servers
 
-### Safe People
+### 3.1. Safe People
 
 ##### List accessible tables within a project for an user
 ```{r, warning=FALSE}
@@ -428,7 +424,8 @@ safe_people_crate_contents$overview_data |>
 
 ```{r, eval = FALSE}
 safe_people_crate_v1 |>
-  dsROCrate::rocrate_report(filepath = safe_people_crate_v1_rmd, 
+  dsROCrate::rocrate_report(filepath = safe_people_crate_v1_rmd,
+                            title = "DataSHIELD Safe People - Audit Report",
                             render = TRUE, 
                             overwrite = TRUE)
 ```
@@ -455,7 +452,7 @@ safe_people_crate_contents_v2$overview_data |>
   knitr::kable()
 ```
 
-### Safe Project
+### 3.2. Safe Project
 
 ##### List users and dataset/table level permissions within a project
 ```{r, warning=FALSE}
@@ -495,13 +492,14 @@ safe_project_crate_contents$overview_data |>
 ```{r, eval = FALSE}
 safe_project_crate_v1 |>
   dsROCrate::rocrate_report(filepath = safe_project_crate_v1_rmd, 
+                            title = "DataSHIELD Safe Project - Audit Report",
                             render = TRUE, 
                             overwrite = TRUE)
 ```
 
 <br />
 
-## n. Identity
+## 4. Identity
 
 You are welcome to use any of the following hex codes when referencing `{dsROCrate}`:
 
