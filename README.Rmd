@@ -8,7 +8,7 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "inst/images/README-",
+  fig.path = "man/figures/README-",
   out.width = "100%",
   screenshot.opts = list(vwidth = 2000, vheight = 600, zoom = 3, selector = "div.html-widget")
 )

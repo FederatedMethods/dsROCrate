@@ -454,7 +454,7 @@ basic_rocrate <- o |>
                          logs_from = Sys.time() - 60, # capture the last minute
                          logs_to = Sys.time())
 #> opening file input connection.
-#>  Found 500 records... Found 929 records... Imported 929 records. Simplifying...
+#>  Found 500 records... Found 1000 records... Found 1145 records... Imported 1145 records. Simplifying...
 #> closing file input connection.
 #> Warning: A `path` wasn't provided! The logs will be included in the RO-Crate
 #> object, under the `content` tag!
@@ -471,25 +471,25 @@ print(basic_rocrate) # note that the output will be truncated
 #>     {
 #>       "@id": "2026-01-21-dslogs-dsuser.log",
 #>       "@type": "File",
-#>       "dateModified": "2026-01-21 14:50:20",
+#>       "dateModified": "2026-01-21 15:13:45",
 #>       "name": "2026-01-21-dslogs-dsuser.log",
-#>       "description": "This file contains the raw logs for the user: `dsuser` , between: 2026-01-21 14:49:20 and 2026-01-21 14:50:20",
+#>       "description": "This file contains the raw logs for the user: `dsuser` , between: 2026-01-21 15:12:45 and 2026-01-21 15:13:45",
 #>       "encodingFormat": "text/plain",
 #>       "content": [
-#>         ["[INFO][2026-01-21T14:50:17][OPEN]      created a datashield session 5ae2cdd1-bf4e-46af-ac3d-c785a7a0d68b", "[INFO][2026-01-21T14:50:18][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T14:50:18][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T14:50:20][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
+#>         ["[INFO][2026-01-21T15:13:43][OPEN]      created a datashield session 91271535-17f7-4749-a58b-0a12cd18b646", "[INFO][2026-01-21T15:13:43][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T15:13:43][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T15:13:44][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T15:13:44][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:44][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
 #>       ]
 #>     },
 #>     {
 #>       "@id": "2026-01-21-dslogs-dsuser_mappings.csv",
 #>       "@type": "File",
-#>       "dateModified": "2026-01-21 14:50:20",
+#>       "dateModified": "2026-01-21 15:13:45",
 #>       "name": "2026-01-21-dslogs-dsuser_mappings.csv",
 #>       "description": "This file contains mappings and evaluated functions",
 #>       "encodingFormat": "text/csv",
 #>       "content": [
 #>         [
 #>           {
-#>             "timestamp": "2026-01-21T14:50:18",
+#>             "timestamp": "2026-01-21T15:13:43",
 #>             "ds_action": "ASSIGN",
 #>             "username": "dsuser",
 #>             "ds_eval": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
@@ -497,7 +497,7 @@ print(basic_rocrate) # note that the output will be truncated
 #>             "ds_table": "CNSIM.CNSIM1"
 #>           },
 #>           {
-#>             "timestamp": "2026-01-21T14:50:19",
+#>             "timestamp": "2026-01-21T15:13:44",
 #>             "ds_action": "AGGREGATE",
 #>             "username": "dsuser",
 #>             "ds_eval": "dsBase::lsDS(search.filter = NULL, 1L)",
@@ -506,7 +506,7 @@ print(basic_rocrate) # note that the output will be truncated
 #>             "ds_table": "CNSIM.CNSIM1"
 #>           },
 #>           {
-#>             "timestamp": "2026-01-21T14:50:19",
+#>             "timestamp": "2026-01-21T15:13:44",
 #>             "ds_action": "AGGREGATE",
 #>             "username": "dsuser",
 #>             "ds_eval": "base::exists(\"dsROCrate_test\")",
@@ -515,7 +515,7 @@ print(basic_rocrate) # note that the output will be truncated
 #>             "ds_table": "CNSIM.CNSIM1"
 #>           },
 #>           {
-#>             "timestamp": "2026-01-21T14:50:19",
+#>             "timestamp": "2026-01-21T15:13:45",
 #>             "ds_action": "AGGREGATE",
 #>             "username": "dsuser",
 #>             "ds_eval": "dsBase::classDS(\"dsROCrate_test\")",
@@ -524,7 +524,7 @@ print(basic_rocrate) # note that the output will be truncated
 #>             "ds_table": "CNSIM.CNSIM1"
 #>           },
 #>           {
-#>             "timestamp": "2026-01-21T14:50:19",
+#>             "timestamp": "2026-01-21T15:13:45",
 #>             "ds_action": "AGGREGATE",
 #>             "username": "dsuser",
 #>             "ds_eval": "dsBase::isValidDS(dsROCrate_test)",
@@ -533,7 +533,7 @@ print(basic_rocrate) # note that the output will be truncated
 #>             "ds_table": "CNSIM.CNSIM1"
 #>           },
 #>           {
-#>             "timestamp": "2026-01-21T14:50:20",
+#>             "timestamp": "2026-01-21T15:13:45",
 #>             "ds_action": "AGGREGATE",
 #>             "username": "dsuser",
 #>             "ds_eval": "dsBase::dimDS(\"dsROCrate_test\")",
@@ -542,7 +542,7 @@ print(basic_rocrate) # note that the output will be truncated
 #>             "ds_table": "CNSIM.CNSIM1"
 #>           },
 #>           {
-#>             "timestamp": "2026-01-21T14:50:20",
+#>             "timestamp": "2026-01-21T15:13:45",
 #>             "ds_action": "AGGREGATE",
 #>             "username": "dsuser",
 #>             "ds_eval": "dsBase::colnamesDS(\"dsROCrate_test\")",
@@ -608,7 +608,7 @@ basic_rocrate <- basic_rocrate |>
 path_to_rocrate_bag <- basic_rocrate |>
   rocrateR::bag_rocrate(path = "./rocrates", overwrite = TRUE)
 #> RO-Crate successfully 'bagged'!
-#> For details, see: ./rocrates/rocrate-ad1b1398951bd765028f470ac1b2c130.zip
+#> For details, see: ./rocrates/rocrate-9a5965a4b49295231e3eed1c6d1f5051.zip
 ```
 
 We can explore the contents with the following commands:
@@ -652,7 +652,7 @@ safe_people_crate_v1 <- opalr::opal.login(
 ) |>
   dsROCrate::audit_safe_people(user = "dsuser", project = "CNSIM")
 #> opening file input connection.
-#>  Found 500 records... Found 929 records... Imported 929 records. Simplifying...
+#>  Found 500 records... Found 1000 records... Found 1145 records... Imported 1145 records. Simplifying...
 #> closing file input connection.
 
 print(safe_people_crate_v1)
@@ -868,18 +868,18 @@ print(safe_people_crate_v1)
 #>     {
 #>       "@id": "2026-01-21-dslogs-dsuser.log",
 #>       "@type": "File",
-#>       "dateModified": "2026-01-21 14:50:22",
+#>       "dateModified": "2026-01-21 15:13:47",
 #>       "name": "2026-01-21-dslogs-dsuser.log",
 #>       "description": "This file contains the raw logs for the user: `dsuser` , between: ALL and ALL",
 #>       "encodingFormat": "text/plain",
 #>       "content": [
-#>         ["[INFO][2026-01-21T10:32:32][OPEN]      created a datashield session 1c385be4-5e04-494f-a04a-086ae483cf2c", "[INFO][2026-01-21T10:32:34][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T10:32:34][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T10:32:35][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T10:47:31][OPEN]      created a datashield session c16f0a52-ffc9-4258-bf83-e6f4b1e1b812", "[INFO][2026-01-21T10:47:32][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T10:47:32][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T10:47:33][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T14:50:17][OPEN]      created a datashield session 5ae2cdd1-bf4e-46af-ac3d-c785a7a0d68b", "[INFO][2026-01-21T14:50:18][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T14:50:18][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T14:50:20][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
+#>         ["[INFO][2026-01-21T10:32:32][OPEN]      created a datashield session 1c385be4-5e04-494f-a04a-086ae483cf2c", "[INFO][2026-01-21T10:32:34][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T10:32:34][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T10:32:35][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T10:47:31][OPEN]      created a datashield session c16f0a52-ffc9-4258-bf83-e6f4b1e1b812", "[INFO][2026-01-21T10:47:32][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T10:47:32][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T10:47:33][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T14:50:17][OPEN]      created a datashield session 5ae2cdd1-bf4e-46af-ac3d-c785a7a0d68b", "[INFO][2026-01-21T14:50:18][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T14:50:18][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T14:50:20][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:43][OPEN]      created a datashield session 91271535-17f7-4749-a58b-0a12cd18b646", "[INFO][2026-01-21T15:13:43][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T15:13:43][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T15:13:44][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T15:13:44][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:44][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
 #>       ]
 #>     },
 #>     {
 #>       "@id": "2026-01-21-dslogs-dsuser_mappings.csv",
 #>       "@type": "File",
-#>       "dateModified": "2026-01-21 14:50:22",
+#>       "dateModified": "2026-01-21 15:13:47",
 #>       "name": "2026-01-21-dslogs-dsuser_mappings.csv",
 #>       "description": "This file contains mappings and evaluated functions",
 #>       "encodingFormat": "text/csv",
@@ -980,6 +980,68 @@ print(safe_people_crate_v1)
 #>             "ds_function": "dsBase::colnamesDS",
 #>             "ds_symbol": "dsROCrate_test",
 #>             "ds_table": "CNSIM.CNSIM1"
+#>           },
+#>           {
+#>             "timestamp": "2026-01-21T15:13:43",
+#>             "ds_action": "ASSIGN",
+#>             "username": "dsuser",
+#>             "ds_eval": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
+#>             "ds_function": "base::assign",
+#>             "ds_table": "CNSIM.CNSIM1"
+#>           },
+#>           {
+#>             "timestamp": "2026-01-21T15:13:44",
+#>             "ds_action": "AGGREGATE",
+#>             "username": "dsuser",
+#>             "ds_eval": "dsBase::lsDS(search.filter = NULL, 1L)",
+#>             "ds_function": "dsBase::lsDS",
+#>             "ds_symbol": "search.filter = NULL, 1L",
+#>             "ds_table": "CNSIM.CNSIM1"
+#>           },
+#>           {
+#>             "timestamp": "2026-01-21T15:13:44",
+#>             "ds_action": "AGGREGATE",
+#>             "username": "dsuser",
+#>             "ds_eval": "base::exists(\"dsROCrate_test\")",
+#>             "ds_function": "base::exists",
+#>             "ds_symbol": "dsROCrate_test",
+#>             "ds_table": "CNSIM.CNSIM1"
+#>           },
+#>           {
+#>             "timestamp": "2026-01-21T15:13:45",
+#>             "ds_action": "AGGREGATE",
+#>             "username": "dsuser",
+#>             "ds_eval": "dsBase::classDS(\"dsROCrate_test\")",
+#>             "ds_function": "dsBase::classDS",
+#>             "ds_symbol": "dsROCrate_test",
+#>             "ds_table": "CNSIM.CNSIM1"
+#>           },
+#>           {
+#>             "timestamp": "2026-01-21T15:13:45",
+#>             "ds_action": "AGGREGATE",
+#>             "username": "dsuser",
+#>             "ds_eval": "dsBase::isValidDS(dsROCrate_test)",
+#>             "ds_function": "dsBase::isValidDS",
+#>             "ds_symbol": "dsROCrate_test",
+#>             "ds_table": "CNSIM.CNSIM1"
+#>           },
+#>           {
+#>             "timestamp": "2026-01-21T15:13:45",
+#>             "ds_action": "AGGREGATE",
+#>             "username": "dsuser",
+#>             "ds_eval": "dsBase::dimDS(\"dsROCrate_test\")",
+#>             "ds_function": "dsBase::dimDS",
+#>             "ds_symbol": "dsROCrate_test",
+#>             "ds_table": "CNSIM.CNSIM1"
+#>           },
+#>           {
+#>             "timestamp": "2026-01-21T15:13:45",
+#>             "ds_action": "AGGREGATE",
+#>             "username": "dsuser",
+#>             "ds_eval": "dsBase::colnamesDS(\"dsROCrate_test\")",
+#>             "ds_function": "dsBase::colnamesDS",
+#>             "ds_symbol": "dsROCrate_test",
+#>             "ds_table": "CNSIM.CNSIM1"
 #>           }
 #>         ]
 #>       ]
@@ -1012,7 +1074,7 @@ safe_people_crate_contents <- safe_people_crate_v1 |>
 safe_people_crate_contents$overview_diagram
 ```
 
-<img src="inst/images/README-safe_people_crate_audit_v1-1.png" alt="" width="100%" />
+<img src="man/figures/README-safe_people_crate_audit_v1-1.png" alt="" width="100%" />
 
 ``` r
 
@@ -1034,6 +1096,13 @@ safe_people_crate_contents$overview_data |>
 |  |  | read | dsuser | dsBase::isValidDS | 2026-01-21T14:50:19 |
 |  |  | read | dsuser | dsBase::dimDS | 2026-01-21T14:50:20 |
 |  |  | read | dsuser | dsBase::colnamesDS | 2026-01-21T14:50:20 |
+|  |  | read | dsuser | base::assign | 2026-01-21T15:13:43 |
+|  |  | read | dsuser | dsBase::lsDS | 2026-01-21T15:13:44 |
+|  |  | read | dsuser | base::exists | 2026-01-21T15:13:44 |
+|  |  | read | dsuser | dsBase::classDS | 2026-01-21T15:13:45 |
+|  |  | read | dsuser | dsBase::isValidDS | 2026-01-21T15:13:45 |
+|  |  | read | dsuser | dsBase::dimDS | 2026-01-21T15:13:45 |
+|  |  | read | dsuser | dsBase::colnamesDS | 2026-01-21T15:13:45 |
 |  | CNSIM2 | read | dsuser |  |  |
 |  | CNSIM3 | read | dsuser |  |  |
 
@@ -1057,7 +1126,7 @@ safe_people_crate_v2 <- opalr::opal.login(
 ) |>
   dsROCrate::audit_safe_people(user = "dsuser")
 #> opening file input connection.
-#>  Found 500 records... Found 929 records... Imported 929 records. Simplifying...
+#>  Found 500 records... Found 1000 records... Found 1145 records... Imported 1145 records. Simplifying...
 #> closing file input connection.
 
 safe_people_crate_v2_rmd <- tempfile(fileext = ".Rmd") # temporary file
@@ -1074,7 +1143,7 @@ safe_people_crate_contents_v2 <- safe_people_crate_v2 |>
 safe_people_crate_contents_v2$overview_diagram
 ```
 
-<img src="inst/images/README-safe_people_crate_audit_v2-1.png" alt="" width="100%" />
+<img src="man/figures/README-safe_people_crate_audit_v2-1.png" alt="" width="100%" />
 
 ``` r
 
@@ -1096,6 +1165,13 @@ safe_people_crate_contents_v2$overview_data |>
 |  |  | read | dsuser | dsBase::isValidDS | 2026-01-21T14:50:19 |
 |  |  | read | dsuser | dsBase::dimDS | 2026-01-21T14:50:20 |
 |  |  | read | dsuser | dsBase::colnamesDS | 2026-01-21T14:50:20 |
+|  |  | read | dsuser | base::assign | 2026-01-21T15:13:43 |
+|  |  | read | dsuser | dsBase::lsDS | 2026-01-21T15:13:44 |
+|  |  | read | dsuser | base::exists | 2026-01-21T15:13:44 |
+|  |  | read | dsuser | dsBase::classDS | 2026-01-21T15:13:45 |
+|  |  | read | dsuser | dsBase::isValidDS | 2026-01-21T15:13:45 |
+|  |  | read | dsuser | dsBase::dimDS | 2026-01-21T15:13:45 |
+|  |  | read | dsuser | dsBase::colnamesDS | 2026-01-21T15:13:45 |
 |  | CNSIM2 | read | dsuser |  |  |
 |  | CNSIM3 | read | dsuser |  |  |
 | DASIM | DASIM1 | read | dsuser |  |  |
@@ -1137,7 +1213,7 @@ safe_project_crate_v1 <- opalr::opal.login(
 ) |>
   dsROCrate::audit_safe_project(project = "CNSIM")
 #> opening file input connection.
-#>  Found 500 records... Found 929 records... Imported 929 records. Simplifying...
+#>  Found 500 records... Found 1000 records... Found 1145 records... Imported 1145 records. Simplifying...
 #> closing file input connection.
 
 print(safe_project_crate_v1)
@@ -1353,18 +1429,18 @@ print(safe_project_crate_v1)
 #>     {
 #>       "@id": "2026-01-21-dslogs-dsuser.log",
 #>       "@type": "File",
-#>       "dateModified": "2026-01-21 14:50:42",
+#>       "dateModified": "2026-01-21 15:14:06",
 #>       "name": "2026-01-21-dslogs-dsuser.log",
 #>       "description": "This file contains the raw logs for the user: `dsuser` , between: ALL and ALL",
 #>       "encodingFormat": "text/plain",
 #>       "content": [
-#>         ["[INFO][2026-01-21T10:32:32][OPEN]      created a datashield session 1c385be4-5e04-494f-a04a-086ae483cf2c", "[INFO][2026-01-21T10:32:34][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T10:32:34][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T10:32:35][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T10:47:31][OPEN]      created a datashield session c16f0a52-ffc9-4258-bf83-e6f4b1e1b812", "[INFO][2026-01-21T10:47:32][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T10:47:32][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T10:47:33][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T14:50:17][OPEN]      created a datashield session 5ae2cdd1-bf4e-46af-ac3d-c785a7a0d68b", "[INFO][2026-01-21T14:50:18][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T14:50:18][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T14:50:20][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
+#>         ["[INFO][2026-01-21T10:32:32][OPEN]      created a datashield session 1c385be4-5e04-494f-a04a-086ae483cf2c", "[INFO][2026-01-21T10:32:34][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T10:32:34][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T10:32:35][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T10:47:31][OPEN]      created a datashield session c16f0a52-ffc9-4258-bf83-e6f4b1e1b812", "[INFO][2026-01-21T10:47:32][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T10:47:32][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T10:47:33][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T14:50:17][OPEN]      created a datashield session 5ae2cdd1-bf4e-46af-ac3d-c785a7a0d68b", "[INFO][2026-01-21T14:50:18][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T14:50:18][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T14:50:20][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:43][OPEN]      created a datashield session 91271535-17f7-4749-a58b-0a12cd18b646", "[INFO][2026-01-21T15:13:43][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T15:13:43][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T15:13:44][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T15:13:44][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:44][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
 #>       ]
 #>     },
 #>     {
 #>       "@id": "2026-01-21-dslogs-dsuser_mappings.csv",
 #>       "@type": "File",
-#>       "dateModified": "2026-01-21 14:50:42",
+#>       "dateModified": "2026-01-21 15:14:06",
 #>       "name": "2026-01-21-dslogs-dsuser_mappings.csv",
 #>       "description": "This file contains mappings and evaluated functions",
 #>       "encodingFormat": "text/csv",
@@ -1465,6 +1541,68 @@ print(safe_project_crate_v1)
 #>             "ds_function": "dsBase::colnamesDS",
 #>             "ds_symbol": "dsROCrate_test",
 #>             "ds_table": "CNSIM.CNSIM1"
+#>           },
+#>           {
+#>             "timestamp": "2026-01-21T15:13:43",
+#>             "ds_action": "ASSIGN",
+#>             "username": "dsuser",
+#>             "ds_eval": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
+#>             "ds_function": "base::assign",
+#>             "ds_table": "CNSIM.CNSIM1"
+#>           },
+#>           {
+#>             "timestamp": "2026-01-21T15:13:44",
+#>             "ds_action": "AGGREGATE",
+#>             "username": "dsuser",
+#>             "ds_eval": "dsBase::lsDS(search.filter = NULL, 1L)",
+#>             "ds_function": "dsBase::lsDS",
+#>             "ds_symbol": "search.filter = NULL, 1L",
+#>             "ds_table": "CNSIM.CNSIM1"
+#>           },
+#>           {
+#>             "timestamp": "2026-01-21T15:13:44",
+#>             "ds_action": "AGGREGATE",
+#>             "username": "dsuser",
+#>             "ds_eval": "base::exists(\"dsROCrate_test\")",
+#>             "ds_function": "base::exists",
+#>             "ds_symbol": "dsROCrate_test",
+#>             "ds_table": "CNSIM.CNSIM1"
+#>           },
+#>           {
+#>             "timestamp": "2026-01-21T15:13:45",
+#>             "ds_action": "AGGREGATE",
+#>             "username": "dsuser",
+#>             "ds_eval": "dsBase::classDS(\"dsROCrate_test\")",
+#>             "ds_function": "dsBase::classDS",
+#>             "ds_symbol": "dsROCrate_test",
+#>             "ds_table": "CNSIM.CNSIM1"
+#>           },
+#>           {
+#>             "timestamp": "2026-01-21T15:13:45",
+#>             "ds_action": "AGGREGATE",
+#>             "username": "dsuser",
+#>             "ds_eval": "dsBase::isValidDS(dsROCrate_test)",
+#>             "ds_function": "dsBase::isValidDS",
+#>             "ds_symbol": "dsROCrate_test",
+#>             "ds_table": "CNSIM.CNSIM1"
+#>           },
+#>           {
+#>             "timestamp": "2026-01-21T15:13:45",
+#>             "ds_action": "AGGREGATE",
+#>             "username": "dsuser",
+#>             "ds_eval": "dsBase::dimDS(\"dsROCrate_test\")",
+#>             "ds_function": "dsBase::dimDS",
+#>             "ds_symbol": "dsROCrate_test",
+#>             "ds_table": "CNSIM.CNSIM1"
+#>           },
+#>           {
+#>             "timestamp": "2026-01-21T15:13:45",
+#>             "ds_action": "AGGREGATE",
+#>             "username": "dsuser",
+#>             "ds_eval": "dsBase::colnamesDS(\"dsROCrate_test\")",
+#>             "ds_function": "dsBase::colnamesDS",
+#>             "ds_symbol": "dsROCrate_test",
+#>             "ds_table": "CNSIM.CNSIM1"
 #>           }
 #>         ]
 #>       ]
@@ -1497,7 +1635,7 @@ safe_project_crate_contents <- safe_project_crate_v1 |>
 safe_project_crate_contents$overview_diagram
 ```
 
-<img src="inst/images/README-safe_project_crate_audit_v1-1.png" alt="" width="100%" />
+<img src="man/figures/README-safe_project_crate_audit_v1-1.png" alt="" width="100%" />
 
 ``` r
 
@@ -1519,6 +1657,13 @@ safe_project_crate_contents$overview_data |>
 |  |  | read | dsuser | dsBase::isValidDS | 2026-01-21T14:50:19 |
 |  |  | read | dsuser | dsBase::dimDS | 2026-01-21T14:50:20 |
 |  |  | read | dsuser | dsBase::colnamesDS | 2026-01-21T14:50:20 |
+|  |  | read | dsuser | base::assign | 2026-01-21T15:13:43 |
+|  |  | read | dsuser | dsBase::lsDS | 2026-01-21T15:13:44 |
+|  |  | read | dsuser | base::exists | 2026-01-21T15:13:44 |
+|  |  | read | dsuser | dsBase::classDS | 2026-01-21T15:13:45 |
+|  |  | read | dsuser | dsBase::isValidDS | 2026-01-21T15:13:45 |
+|  |  | read | dsuser | dsBase::dimDS | 2026-01-21T15:13:45 |
+|  |  | read | dsuser | dsBase::colnamesDS | 2026-01-21T15:13:45 |
 |  | CNSIM2 | read | dsuser |  |  |
 |  | CNSIM3 | read | dsuser |  |  |
 
