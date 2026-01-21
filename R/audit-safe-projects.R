@@ -43,7 +43,7 @@ audit_safe_project.opal <- function(
   logs_to = Inf
 ) {
   # local bindings
-  project_tables_all <- subject <- type <- NULL
+  project_tables_all <- subject <- table <- type <- NULL
 
   # validate Opal connection
   is_opal_admin_con(x)
@@ -51,15 +51,27 @@ audit_safe_project.opal <- function(
 
   # if `project` is given, then extract tables associated to that project
   if (!is.null(project)) {
-    # check if the given project exists
-    project_exists(x, project)
+    project_tables_all <- project |>
+      lapply(function(p) {
+        tryCatch(
+          {
+            # check if the given project exists
+            project_exists(x, p)
 
-    # retrieve tables for the given project
-    project_tables <- get_project_tables(x, project)
-    project_tables_all <- tibble::tibble(
-      project = project,
-      table = project_tables
-    )
+            # retrieve tables for the given project
+            project_tables <- get_project_tables(x, p)
+            tibble::tibble(
+              project = p,
+              table = project_tables
+            )
+          },
+          error = function(e) {
+            return(tibble::tibble(project = p))
+          }
+        )
+      }) |>
+      dplyr::bind_rows() |>
+      dplyr::filter(!is.na(table))
   } else {
     # extract all data sources
     ds <- opalr::opal.datasources(x)
