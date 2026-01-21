@@ -149,7 +149,7 @@ rocrate_report.rocrate <- function(
   report_contents <- paste0(
     paste0("# ", title, "\n"),
     "##### Last Updated: ",
-    Sys.time(),
+    format(Sys.time(), '%Y-%m-%d %H:%M:%S'),
     "\n"
   )
 
@@ -378,6 +378,19 @@ rocrate_report.rocrate <- function(
   }
   report_contents <- c(
     report_contents,
+    paste0(
+      "> This report contains details for ",
+      length(unique(overview_tbl$name)),
+      " user",
+      ifelse(length(unique(overview_tbl$name)) > 1, "s", ""),
+      " and ",
+      length(unique(overview_tbl$project)),
+      " project",
+      ifelse(length(unique(overview_tbl$project)) > 1, "s", ""),
+      ". In addition, the tables they have access to within",
+      ifelse(length(unique(overview_tbl$project)) > 1, " a ", " the "),
+      "project.\n\n"
+    ),
     "## Overview\n\n",
     "<div style=\"margin:0;\">\n\n",
     paste0(
