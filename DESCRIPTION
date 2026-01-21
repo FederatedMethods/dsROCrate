@@ -27,6 +27,7 @@ Imports:
     dplyr,
     glue,
     jsonlite,
+    methods,
     opalr,
     purrr,
     rmarkdown,
@@ -39,3 +40,26 @@ Remotes:
 Depends: 
     R (>= 4.1.0)
 VignetteBuilder: knitr
+Collate: 
+    'ArmadilloCredentials-class.R'
+    'audit-safe-people.R'
+    'audit-safe-projects.R'
+    'dsROCrate-package.R'
+    'dsROCrate.R'
+    'print.R'
+    'rocrate_report.R'
+    'safe-data.R'
+    'safe-outputs.R'
+    'safe-people.R'
+    'safe-projects.R'
+    'safe-settings.R'
+    'utils-armadillo.R'
+    'utils-connection.R'
+    'utils-opal.R'
+    'utils-safe-data.R'
+    'utils-safe-outputs.R'
+    'utils-safe-people.R'
+    'utils-safe-project.R'
+    'utils-safe-setting.R'
+    'utils-show.R'
+    'utils-tibble.R'
