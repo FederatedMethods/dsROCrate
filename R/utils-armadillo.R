@@ -9,10 +9,10 @@
 #' @export
 armadillo_login <- function(server) {
   conn <- DSMolgenisArmadillo::armadillo.get_credentials(server)
-  # attr(conn, which = "class") <- structure("armadillo", "ArmadilloCredentials"),
-  #   package = "DSMolgenisArmadillo"
-  # )
-  # class(conn) <- c("armadillo")
+  ns <- loadNamespace("MolgenisArmadillo")
+  pkgenv <- get(".pkgglobalenv", envir = ns)
+  assign("armadillo_url", server, envir = pkgenv)
+  assign("auth_token", getElement(conn, "access_token"), envir = pkgenv)
   attr(conn, "server") <- server
   return(invisible(conn))
 }
