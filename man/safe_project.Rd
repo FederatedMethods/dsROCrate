@@ -18,8 +18,8 @@ safe_project(x, ...)
 \method{safe_project}{ArmadilloCredentials}(
   x,
   ...,
+  project,
   rocrate = rocrateR::rocrate_5s(),
-  project = NULL,
   dataset_id_suffix = "#dataset:",
   project_id_suffix = "#project:"
 )
@@ -27,8 +27,8 @@ safe_project(x, ...)
 \method{safe_project}{opal}(
   x,
   ...,
+  project,
   rocrate = rocrateR::rocrate_5s(),
-  project = NULL,
   dataset_id_suffix = "#dataset:",
   project_id_suffix = "#project:"
 )
@@ -36,7 +36,7 @@ safe_project(x, ...)
 \method{safe_project}{rocrate}(
   x,
   ...,
-  project = NULL,
+  project,
   dataset_id_suffix = "#dataset:",
   project_id_suffix = "#project:",
   connection = NULL
@@ -51,11 +51,11 @@ RO-Crate.}
 \item{...}{Other optional arguments. See the full documentation,
 \code{\link[=safe_project]{?dsROCrate::safe_project}}.}
 
+\item{project}{String with the name of the \link[=safe_project]{Safe Project}.}
+
 \item{rocrate}{RO-Crate object. Optional, if \code{x} is either an RO-Crate
 object or a path to a valid RO-Crate. If so, then \code{connection} is
 required.}
-
-\item{project}{String with the name of the \link[=safe_project]{Safe Project}.}
 
 \item{dataset_id_suffix}{String with ID suffix for the tables/datasets
 entities in the RO-Crate (default: \code{"#dataset:"}).}
