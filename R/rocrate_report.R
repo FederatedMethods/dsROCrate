@@ -35,9 +35,10 @@ rocrate_report.default <- function(x, ...) {
 #'     version of markdown report.
 #' @param include_user_perm Boolean flag to indicate whether to include user
 #'     permissions in the report overview's diagram.
-#' @param diag_width Numeric value with width for the report overview's diagram.
-#' @param diag_height Numeric value with height for the report overview's
-#'     diagram.
+#' @param diag_width Numeric value with width (in inches) for the report
+#'     overview's diagram (default: `NULL`, estimated based on number of nodes).
+#' @param diag_height Numeric value with height (in inches) for the report
+#'     overview's diagram (default: `NULL`, estimated based on number of nodes).
 #' @rdname rocrate_report
 #' @export
 rocrate_report.rocrate <- function(
@@ -174,6 +175,9 @@ rocrate_report.rocrate <- function(
     "  - \\usepackage{microtype}\n",
     "  - \\sloppy\n",
     "  - \\setlength{\\emergencystretch}{3em}\n",
+    "  - \\usepackage{float}\n",
+    "  - \\usepackage{titling}\n",
+    "  - \\setlength{\\droptitle}{-1.5cm}\n",
     "date: ",
     format(Sys.time(), '%Y-%m-%d %H:%M:%S'),
     "\n---\n"
@@ -316,8 +320,16 @@ rocrate_report.rocrate <- function(
   num_nodes <- length(nodes)
   ### scale width/height based on nodes
   scale_factor <- 0.5 # inches per node
-  width <- max(12, num_nodes * scale_factor)
-  height <- max(6, num_nodes * scale_factor)
+  if (is.null(diag_width)) {
+    width <- max(12, num_nodes * scale_factor)
+  } else {
+    width <- diag_width
+  }
+  if (is.null(diag_height)) {
+    height <- max(6, num_nodes * scale_factor)
+  } else {
+    height <- diag_height
+  }
   if (render) {
     diagram_filepath <- diagram_lst |>
       vtree::grVizToImageFile(
@@ -405,7 +417,7 @@ rocrate_report.rocrate <- function(
   report_contents <- c(
     report_contents,
     paste0(
-      "> This report contains details for ",
+      "This report contains details for ",
       length(unique(overview_tbl$name)),
       " user",
       ifelse(length(unique(overview_tbl$name)) > 1, "s", ""),
@@ -418,15 +430,28 @@ rocrate_report.rocrate <- function(
       "project.\n\n"
     ),
     "## Overview\n\n",
-    "<div style=\"margin:0;\">\n\n",
+    "<div style=\"margin:0;\">\n",
+    # "::: {style=\"text-align: center;\"}\n",
+    "<!-- PDF-only -->\n",
+    "```{=latex}\n",
     paste0(
-      "![](",
-      #   "<img src='",
+      "\\begin{figure}[H]\n",
+      "\\centering\n",
+      "\\includegraphics{",
       diagram_filepath,
-      #   "' style='display:block; margin:0;' />\n<br />\n",
-      ")\n\n"
+      "}",
+      "\\caption{RO-Crate Overview}\n",
+      "\\end{figure}\n```\n"
     ),
-    "</div>\n\n",
+    "<!-- HTML-only -->",
+    "```{=html}\n",
+    paste0(
+      "<img src=\"",
+      diagram_filepath,
+      "\" alt=\"RO-Crate Overview\" ",
+      "style=\"display:block; margin-left:auto; margin-right:auto;\" />\n"
+    ),
+    "```\n</div>\n\n",
     tidy_overview_tbl |>
       dplyr::distinct() |>
       knitr::kable() |>
@@ -469,7 +494,7 @@ rocrate_report.rocrate <- function(
       report_contents,
       "#### Safe Data permissions\n",
       flatten_user_perm_entity(user_perm_entity_lst) |>
-        dplyr::select(-actionStatus, -description) |>
+        dplyr::select(-actionStatus, -description, -permission) |>
         knitr::kable() |>
         paste0(collapse = "\n")
     )
