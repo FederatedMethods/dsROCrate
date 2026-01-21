@@ -77,7 +77,7 @@
 <div class="section level2">
 <h2 id="id_1-installation">1. Installation<a class="anchor" aria-label="anchor" href="#id_1-installation"></a>
 </h2>
-<p>You can install the development version of dsROCrate from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>You can install the development version of dsROCrate from <a href="https://github.com/DataSHIELD-5S/dsROCrate" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"DataSHIELD-5S/dsROCrate"</span><span class="op">)</span></span></code></pre></div>
@@ -85,7 +85,7 @@
 <div class="section level2">
 <h2 id="id_2-creating-your-first-ro-crate">2. Creating your first RO-Crate<a class="anchor" aria-label="anchor" href="#id_2-creating-your-first-ro-crate"></a>
 </h2>
-<p>In this example, we will be using OBiBa’s <a href="https://opaldoc.obiba.org/en/latest/index.html" class="external-link">Opal</a> as the <em>back-end</em> for DataSHIELD.</p>
+<p>In this example, we will be using OBiBa’s <a href="https://opaldoc.obiba.org/en/latest/index.html" class="external-link">Opal</a> as the <em>back-end</em> for DataSHIELD. Another option would be MOLGENIS’ <a href="https://github.com/molgenis/molgenis-service-armadillo/" class="external-link">Armadillo</a>.</p>
 <div class="section level3">
 <h3 id="id_21-connect-to-an-opal-server">2.1. Connect to an Opal Server<a class="anchor" aria-label="anchor" href="#id_21-connect-to-an-opal-server"></a>
 </h3>
@@ -115,7 +115,7 @@
 <div class="section level4">
 <h4 id="open-connection">Open connection<a class="anchor" aria-label="anchor" href="#open-connection"></a>
 </h4>
-<p>Once the credentials and Five Safes variables are configured,we can start a new session to the opal server with the following command:</p>
+<p>Once the credentials and Five Safes variables are configured,we can start a new session on the opal server with the following command:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># login to local server with `USERNAME` and `USERPASS`.</span></span>
 <span><span class="va">o</span> <span class="op">&lt;-</span> <span class="fu">opalr</span><span class="fu">::</span><span class="fu"><a href="https://www.obiba.org/opalr/reference/opal.login.html" class="external-link">opal.login</a></span><span class="op">(</span></span>
@@ -137,7 +137,7 @@
 <p>To create a basic RO-Crate, we will use the <a href="https://github.com/ResearchObject/ro-crate-r" class="external-link"><code>{rocrateR}</code></a> package. This package can be installed with the following command:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"ResearchObject/ro-crate-r@dev"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"rocrateR"</span><span class="op">)</span></span></code></pre></div>
 <p>Then, a basic RO-Crate can be created with the following command:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">basic_rocrate</span> <span class="op">&lt;-</span> <span class="fu">rocrateR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rocrateR/man/rocrate_5s.html" class="external-link">rocrate_5s</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -162,7 +162,7 @@
 <span><span class="co">#&gt;       "@type": "Dataset",</span></span>
 <span><span class="co">#&gt;       "name": "",</span></span>
 <span><span class="co">#&gt;       "description": "",</span></span>
-<span><span class="co">#&gt;       "datePublished": "2026-01-14",</span></span>
+<span><span class="co">#&gt;       "datePublished": "2026-01-21",</span></span>
 <span><span class="co">#&gt;       "license": {</span></span>
 <span><span class="co">#&gt;         "@id": "http://spdx.org/licenses/CC-BY-4.0"</span></span>
 <span><span class="co">#&gt;       },</span></span>
@@ -179,7 +179,7 @@
 <span><span class="co">#&gt; }</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="id_23-add-five-safes-elements">2.3. Add <em>Five Safes</em> Elements<a class="anchor" aria-label="anchor" href="#id_23-add-five-safes-elements"></a>
+<h3 id="id_23-add-the-five-safes-elements">2.3. Add the <em>Five Safes</em> Elements<a class="anchor" aria-label="anchor" href="#id_23-add-the-five-safes-elements"></a>
 </h3>
 <div class="section level4">
 <h4 id="safe-data">Safe Data<a class="anchor" aria-label="anchor" href="#safe-data"></a>
@@ -197,8 +197,8 @@
 <span><span class="co">#&gt;       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",</span></span>
 <span><span class="co">#&gt;       "@type": "Dataset",</span></span>
 <span><span class="co">#&gt;       "name": "CNSIM1",</span></span>
-<span><span class="co">#&gt;       "dateCreated": "2026-01-14T06:29:47.421Z",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-01-14T06:29:48.544Z",</span></span>
+<span><span class="co">#&gt;       "dateCreated": "2026-01-21T06:29:46.690Z",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-01-21T06:29:47.826Z",</span></span>
 <span><span class="co">#&gt;       "path": "/datasource/CNSIM/table/CNSIM1"</span></span>
 <span><span class="co">#&gt;     }</span></span>
 <span><span class="co">#&gt;   ]</span></span>
@@ -219,8 +219,8 @@
 <span><span class="co">#&gt;       "@id": "#project:7ba189863f9f641196596cb28e04aa14",</span></span>
 <span><span class="co">#&gt;       "@type": "Project",</span></span>
 <span><span class="co">#&gt;       "name": "CNSIM",</span></span>
-<span><span class="co">#&gt;       "dateCreated": "2026-01-14T06:29:46.093Z",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-01-14T06:29:50.847Z",</span></span>
+<span><span class="co">#&gt;       "dateCreated": "2026-01-21T06:29:45.359Z",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-01-21T06:29:50.115Z",</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
 <span><span class="co">#&gt;           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"</span></span>
@@ -368,7 +368,7 @@
 <div class="section level4">
 <h4 id="safe-outputs">Safe Outputs<a class="anchor" aria-label="anchor" href="#safe-outputs"></a>
 </h4>
-<p>To add details for Safe Outputs, use the function <code><a href="reference/safe_output.html">dsROCrate::safe_output()</a></code>. Currently, only log files from the operations executed by the user within a specific period. Set the period using <code>logs_from</code> and <code>logs_to</code>.</p>
+<p>To add details for Safe Outputs, use the function <code><a href="reference/safe_output.html">dsROCrate::safe_output()</a></code>. Currently, only log files from the operations executed by the user within a specific period. Set the period using <code>logs_from</code> and <code>logs_to</code>. Additionally, a list of functions executed by the user are extracted in a separate file/entity.</p>
 <p><strong>⚠️NOTE:</strong> Similar to <code><a href="reference/safe_setting.html">dsROCrate::safe_setting</a></code>, the <code><a href="reference/safe_output.html">dsROCrate::safe_output</a></code> function requires of administrator rights, so here, we will have to log in with administrator credentials:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># close previous connection</span></span>
@@ -456,7 +456,7 @@
 <span>                         logs_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">60</span>, <span class="co"># capture the last minute</span></span>
 <span>                         logs_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 86 records... Imported 86 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 500 records... Found 1000 records... Found 1145 records... Imported 1145 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; Warning: A `path` wasn't provided! The logs will be included in the RO-Crate</span></span>
 <span><span class="co">#&gt; object, under the `content` tag!</span></span></code></pre></div>
@@ -469,59 +469,86 @@
 <span><span class="co">#&gt;       "description": "A resource represents some data or a computation unit. It is \n    described by a URL and credentials. This package proposes a Resource model\n    with \"resolver\" and \"client\" classes to facilitate the access and the usage of the \n    resources."</span></span>
 <span><span class="co">#&gt;     },</span></span>
 <span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "2026-01-14-dslogs-dsuser.log",</span></span>
+<span><span class="co">#&gt;       "@id": "2026-01-21-dslogs-dsuser.log",</span></span>
 <span><span class="co">#&gt;       "@type": "File",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-01-14 15:46:54",</span></span>
-<span><span class="co">#&gt;       "name": "2026-01-14-dslogs-dsuser.log",</span></span>
-<span><span class="co">#&gt;       "description": "This file contains the raw logs for the user: `dsuser` , between: 2026-01-14 15:45:54 and 2026-01-14 15:46:54",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-01-21 15:13:45",</span></span>
+<span><span class="co">#&gt;       "name": "2026-01-21-dslogs-dsuser.log",</span></span>
+<span><span class="co">#&gt;       "description": "This file contains the raw logs for the user: `dsuser` , between: 2026-01-21 15:12:45 and 2026-01-21 15:13:45",</span></span>
 <span><span class="co">#&gt;       "encodingFormat": "text/plain",</span></span>
 <span><span class="co">#&gt;       "content": [</span></span>
-<span><span class="co">#&gt;         ["[INFO][2026-01-14T15:46:52][OPEN]      created a datashield session cf6fe831-9644-4566-8095-488994f625e2", "[INFO][2026-01-14T15:46:52][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-14T15:46:52][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-14T15:46:53][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-14T15:46:53][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-14T15:46:54][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-14T15:46:54][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]</span></span>
+<span><span class="co">#&gt;         ["[INFO][2026-01-21T15:13:43][OPEN]      created a datashield session 91271535-17f7-4749-a58b-0a12cd18b646", "[INFO][2026-01-21T15:13:43][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T15:13:43][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T15:13:44][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T15:13:44][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:44][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
 <span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "2026-01-14-dslogs-dsuser_mappings.csv",</span></span>
+<span><span class="co">#&gt;       "@id": "2026-01-21-dslogs-dsuser_mappings.csv",</span></span>
 <span><span class="co">#&gt;       "@type": "File",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-01-14 15:46:54",</span></span>
-<span><span class="co">#&gt;       "name": "2026-01-14-dslogs-dsuser_mappings.csv",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-01-21 15:13:45",</span></span>
+<span><span class="co">#&gt;       "name": "2026-01-21-dslogs-dsuser_mappings.csv",</span></span>
 <span><span class="co">#&gt;       "description": "This file contains mappings and evaluated functions",</span></span>
 <span><span class="co">#&gt;       "encodingFormat": "text/csv",</span></span>
 <span><span class="co">#&gt;       "content": [</span></span>
 <span><span class="co">#&gt;         [</span></span>
 <span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1",</span></span>
-<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:43",</span></span>
+<span><span class="co">#&gt;             "ds_action": "ASSIGN",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsROCrate_test &lt;- opal[CNSIM.CNSIM1]",</span></span>
+<span><span class="co">#&gt;             "ds_function": "base::assign",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:44",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "ds_function": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "search.filter = NULL, 1L",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:44",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "base::exists(\"dsROCrate_test\")",</span></span>
 <span><span class="co">#&gt;             "ds_function": "base::exists",</span></span>
-<span><span class="co">#&gt;             "username": "dsuser",</span></span>
-<span><span class="co">#&gt;             "ds_eval": "base::exists(\"dsROCrate_test\")"</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
 <span><span class="co">#&gt;           },</span></span>
 <span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1",</span></span>
-<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:45",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::classDS(\"dsROCrate_test\")",</span></span>
 <span><span class="co">#&gt;             "ds_function": "dsBase::classDS",</span></span>
-<span><span class="co">#&gt;             "username": "dsuser",</span></span>
-<span><span class="co">#&gt;             "ds_eval": "dsBase::classDS(\"dsROCrate_test\")"</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
 <span><span class="co">#&gt;           },</span></span>
 <span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1",</span></span>
-<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:45",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::isValidDS(dsROCrate_test)",</span></span>
 <span><span class="co">#&gt;             "ds_function": "dsBase::isValidDS",</span></span>
-<span><span class="co">#&gt;             "username": "dsuser",</span></span>
-<span><span class="co">#&gt;             "ds_eval": "dsBase::isValidDS(dsROCrate_test)"</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
 <span><span class="co">#&gt;           },</span></span>
 <span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1",</span></span>
-<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:45",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::dimDS(\"dsROCrate_test\")",</span></span>
 <span><span class="co">#&gt;             "ds_function": "dsBase::dimDS",</span></span>
-<span><span class="co">#&gt;             "username": "dsuser",</span></span>
-<span><span class="co">#&gt;             "ds_eval": "dsBase::dimDS(\"dsROCrate_test\")"</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
 <span><span class="co">#&gt;           },</span></span>
 <span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1",</span></span>
-<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
-<span><span class="co">#&gt;             "ds_function": "dsBase::colnamesDS",</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:45",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
 <span><span class="co">#&gt;             "username": "dsuser",</span></span>
-<span><span class="co">#&gt;             "ds_eval": "dsBase::colnamesDS(\"dsROCrate_test\")"</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::colnamesDS(\"dsROCrate_test\")",</span></span>
+<span><span class="co">#&gt;             "ds_function": "dsBase::colnamesDS",</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
 <span><span class="co">#&gt;           }</span></span>
 <span><span class="co">#&gt;         ]</span></span>
 <span><span class="co">#&gt;       ]</span></span>
@@ -533,19 +560,19 @@
 </div>
 </div>
 <div class="section level3">
-<h3 id="id_2n-1-close-connection">2.(n-1). Close connection<a class="anchor" aria-label="anchor" href="#id_2n-1-close-connection"></a>
+<h3 id="id_24-close-connection">2.4. Close connection<a class="anchor" aria-label="anchor" href="#id_24-close-connection"></a>
 </h3>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">opalr</span><span class="fu">::</span><span class="fu"><a href="https://www.obiba.org/opalr/reference/opal.logout.html" class="external-link">opal.logout</a></span><span class="op">(</span><span class="va">o</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="id_2n-bagsave-ro-crate">2.n. Bag/Save RO-Crate<a class="anchor" aria-label="anchor" href="#id_2n-bagsave-ro-crate"></a>
+<h3 id="id_25-bagsave-ro-crate">2.5. Bag/Save RO-Crate<a class="anchor" aria-label="anchor" href="#id_25-bagsave-ro-crate"></a>
 </h3>
 <p>The resulting RO-Crate can be stored into an RO-Crate bag/archive with the function <code><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.html" class="external-link">rocrateR::bag_rocrate</a></code>:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create temp directory</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="st">"./rocrates"</span>, showWarnings <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p>NOTE: In the above example, a <code>path</code> to store the logs wasn’t provided when calling <code><a href="reference/safe_output.html">dsROCrate::safe_output</a></code>, before creating an RO-Crate bag, we should save the contents of this file first</p>
+<p>NOTE: In the above example, a <code>path</code> to store the logs wasn’t provided when calling <code><a href="reference/safe_output.html">dsROCrate::safe_output</a></code>, before creating an RO-Crate bag, we should save the contents of this file first. In addition, the contents for the entity with the list of functions executed:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">logs_entity</span> <span class="op">&lt;-</span> <span class="va">basic_rocrate</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">rocrateR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rocrateR/man/get_entity.html" class="external-link">get_entity</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"File"</span><span class="op">)</span></span>
@@ -574,7 +601,7 @@
 <span><span class="va">path_to_rocrate_bag</span> <span class="op">&lt;-</span> <span class="va">basic_rocrate</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">rocrateR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.html" class="external-link">bag_rocrate</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"./rocrates"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; RO-Crate successfully 'bagged'!</span></span>
-<span><span class="co">#&gt; For details, see: ./rocrates/rocrate-46670b8913dfef5e97a3eacf7d8bba7d.zip</span></span></code></pre></div>
+<span><span class="co">#&gt; For details, see: ./rocrates/rocrate-9a5965a4b49295231e3eed1c6d1f5051.zip</span></span></code></pre></div>
 <p>We can explore the contents with the following commands:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract files in temporary directory</span></span>
@@ -586,14 +613,14 @@
 <span><span class="co">#&gt; ./rocrates/ROC/</span></span>
 <span><span class="co">#&gt; ├── bagit.txt</span></span>
 <span><span class="co">#&gt; ├── data</span></span>
-<span><span class="co">#&gt; │   ├── 2026-01-14-dslogs-dsuser.log</span></span>
-<span><span class="co">#&gt; │   ├── 2026-01-14-dslogs-dsuser_mappings.csv</span></span>
+<span><span class="co">#&gt; │   ├── 2026-01-21-dslogs-dsuser.log</span></span>
+<span><span class="co">#&gt; │   ├── 2026-01-21-dslogs-dsuser_mappings.csv</span></span>
 <span><span class="co">#&gt; │   └── ro-crate-metadata.json</span></span>
 <span><span class="co">#&gt; ├── manifest-sha512.txt</span></span>
 <span><span class="co">#&gt; └── tagmanifest-sha512.txt</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="id_2n1-clean-working-directory">2.(n+1). Clean working directory<a class="anchor" aria-label="anchor" href="#id_2n1-clean-working-directory"></a>
+<h3 id="id_26-clean-working-directory">2.6. Clean working directory<a class="anchor" aria-label="anchor" href="#id_26-clean-working-directory"></a>
 </h3>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink</a></span><span class="op">(</span><span class="st">"./rocrates"</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
@@ -604,7 +631,7 @@
 <h2 id="id_3-auditing-ro-crates-and-servers">3. Auditing RO-Crates and servers<a class="anchor" aria-label="anchor" href="#id_3-auditing-ro-crates-and-servers"></a>
 </h2>
 <div class="section level3">
-<h3 id="safe-people-1">Safe People<a class="anchor" aria-label="anchor" href="#safe-people-1"></a>
+<h3 id="id_31-safe-people">3.1. Safe People<a class="anchor" aria-label="anchor" href="#id_31-safe-people"></a>
 </h3>
 <div class="section level5">
 <h5 id="list-accessible-tables-within-a-project-for-an-user">List accessible tables within a project for an user<a class="anchor" aria-label="anchor" href="#list-accessible-tables-within-a-project-for-an-user"></a>
@@ -617,7 +644,7 @@
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="reference/audit_safe_people.html">audit_safe_people</a></span><span class="op">(</span>user <span class="op">=</span> <span class="st">"dsuser"</span>, project <span class="op">=</span> <span class="st">"CNSIM"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 86 records... Imported 86 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 500 records... Found 1000 records... Found 1145 records... Imported 1145 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">safe_people_crate_v1</span><span class="op">)</span></span>
@@ -639,7 +666,7 @@
 <span><span class="co">#&gt;       "@type": "Dataset",</span></span>
 <span><span class="co">#&gt;       "name": "",</span></span>
 <span><span class="co">#&gt;       "description": "",</span></span>
-<span><span class="co">#&gt;       "datePublished": "2026-01-14",</span></span>
+<span><span class="co">#&gt;       "datePublished": "2026-01-21",</span></span>
 <span><span class="co">#&gt;       "license": {</span></span>
 <span><span class="co">#&gt;         "@id": "http://spdx.org/licenses/CC-BY-4.0"</span></span>
 <span><span class="co">#&gt;       },</span></span>
@@ -648,10 +675,10 @@
 <span><span class="co">#&gt;       },</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "2026-01-14-dslogs-dsuser.log"</span></span>
+<span><span class="co">#&gt;           "@id": "2026-01-21-dslogs-dsuser.log"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "2026-01-14-dslogs-dsuser_mappings.csv"</span></span>
+<span><span class="co">#&gt;           "@id": "2026-01-21-dslogs-dsuser_mappings.csv"</span></span>
 <span><span class="co">#&gt;         }</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
@@ -664,32 +691,32 @@
 <span><span class="co">#&gt;       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",</span></span>
 <span><span class="co">#&gt;       "@type": "Dataset",</span></span>
 <span><span class="co">#&gt;       "name": "CNSIM1",</span></span>
-<span><span class="co">#&gt;       "dateCreated": "2026-01-14T06:29:47.421Z",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-01-14T06:29:48.544Z",</span></span>
+<span><span class="co">#&gt;       "dateCreated": "2026-01-21T06:29:46.690Z",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-01-21T06:29:47.826Z",</span></span>
 <span><span class="co">#&gt;       "path": "/datasource/CNSIM/table/CNSIM1"</span></span>
 <span><span class="co">#&gt;     },</span></span>
 <span><span class="co">#&gt;     {</span></span>
 <span><span class="co">#&gt;       "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9",</span></span>
 <span><span class="co">#&gt;       "@type": "Dataset",</span></span>
 <span><span class="co">#&gt;       "name": "CNSIM2",</span></span>
-<span><span class="co">#&gt;       "dateCreated": "2026-01-14T06:29:48.555Z",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-01-14T06:29:49.696Z",</span></span>
+<span><span class="co">#&gt;       "dateCreated": "2026-01-21T06:29:47.828Z",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-01-21T06:29:48.960Z",</span></span>
 <span><span class="co">#&gt;       "path": "/datasource/CNSIM/table/CNSIM2"</span></span>
 <span><span class="co">#&gt;     },</span></span>
 <span><span class="co">#&gt;     {</span></span>
 <span><span class="co">#&gt;       "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492",</span></span>
 <span><span class="co">#&gt;       "@type": "Dataset",</span></span>
 <span><span class="co">#&gt;       "name": "CNSIM3",</span></span>
-<span><span class="co">#&gt;       "dateCreated": "2026-01-14T06:29:49.700Z",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-01-14T06:29:50.847Z",</span></span>
+<span><span class="co">#&gt;       "dateCreated": "2026-01-21T06:29:48.962Z",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-01-21T06:29:50.115Z",</span></span>
 <span><span class="co">#&gt;       "path": "/datasource/CNSIM/table/CNSIM3"</span></span>
 <span><span class="co">#&gt;     },</span></span>
 <span><span class="co">#&gt;     {</span></span>
 <span><span class="co">#&gt;       "@id": "#project:7ba189863f9f641196596cb28e04aa14",</span></span>
 <span><span class="co">#&gt;       "@type": "Project",</span></span>
 <span><span class="co">#&gt;       "name": "CNSIM",</span></span>
-<span><span class="co">#&gt;       "dateCreated": "2026-01-14T06:29:46.093Z",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-01-14T06:29:50.847Z",</span></span>
+<span><span class="co">#&gt;       "dateCreated": "2026-01-21T06:29:45.359Z",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-01-21T06:29:50.115Z",</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
 <span><span class="co">#&gt;           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"</span></span>
@@ -831,59 +858,182 @@
 <span><span class="co">#&gt;       "description": "A resource represents some data or a computation unit. It is \n    described by a URL and credentials. This package proposes a Resource model\n    with \"resolver\" and \"client\" classes to facilitate the access and the usage of the \n    resources."</span></span>
 <span><span class="co">#&gt;     },</span></span>
 <span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "2026-01-14-dslogs-dsuser.log",</span></span>
+<span><span class="co">#&gt;       "@id": "2026-01-21-dslogs-dsuser.log",</span></span>
 <span><span class="co">#&gt;       "@type": "File",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-01-14 15:46:56",</span></span>
-<span><span class="co">#&gt;       "name": "2026-01-14-dslogs-dsuser.log",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-01-21 15:13:47",</span></span>
+<span><span class="co">#&gt;       "name": "2026-01-21-dslogs-dsuser.log",</span></span>
 <span><span class="co">#&gt;       "description": "This file contains the raw logs for the user: `dsuser` , between: ALL and ALL",</span></span>
 <span><span class="co">#&gt;       "encodingFormat": "text/plain",</span></span>
 <span><span class="co">#&gt;       "content": [</span></span>
-<span><span class="co">#&gt;         ["[INFO][2026-01-14T09:56:16][OPEN]      created a datashield session 7b15cc43-0ee2-4720-a13b-6941a1d8bf39", "[INFO][2026-01-14T09:56:18][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-14T09:56:18][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-14T09:56:19][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-14T09:56:19][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-14T09:56:19][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-14T09:56:19][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T09:56:20][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T09:56:20][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-14T09:56:20][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-14T09:56:20][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T09:56:20][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T09:56:20][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T09:56:20][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T10:58:29][OPEN]      created a datashield session d7769db6-89df-4e13-a896-6dec9334bee7", "[INFO][2026-01-14T10:58:30][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-14T10:58:30][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-14T10:58:31][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-14T12:07:43][OPEN]      created a datashield session d4880ebb-ea7d-47ad-b031-591bfad1fc89", "[INFO][2026-01-14T12:07:43][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-14T12:07:44][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-14T15:46:52][OPEN]      created a datashield session cf6fe831-9644-4566-8095-488994f625e2", "[INFO][2026-01-14T15:46:52][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-14T15:46:52][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-14T15:46:53][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-14T15:46:53][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-14T15:46:54][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-14T15:46:54][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]</span></span>
+<span><span class="co">#&gt;         ["[INFO][2026-01-21T10:32:32][OPEN]      created a datashield session 1c385be4-5e04-494f-a04a-086ae483cf2c", "[INFO][2026-01-21T10:32:34][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T10:32:34][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T10:32:35][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T10:47:31][OPEN]      created a datashield session c16f0a52-ffc9-4258-bf83-e6f4b1e1b812", "[INFO][2026-01-21T10:47:32][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T10:47:32][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T10:47:33][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T14:50:17][OPEN]      created a datashield session 5ae2cdd1-bf4e-46af-ac3d-c785a7a0d68b", "[INFO][2026-01-21T14:50:18][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T14:50:18][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T14:50:20][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:43][OPEN]      created a datashield session 91271535-17f7-4749-a58b-0a12cd18b646", "[INFO][2026-01-21T15:13:43][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T15:13:43][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T15:13:44][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T15:13:44][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:44][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
 <span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "2026-01-14-dslogs-dsuser_mappings.csv",</span></span>
+<span><span class="co">#&gt;       "@id": "2026-01-21-dslogs-dsuser_mappings.csv",</span></span>
 <span><span class="co">#&gt;       "@type": "File",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-01-14 15:46:56",</span></span>
-<span><span class="co">#&gt;       "name": "2026-01-14-dslogs-dsuser_mappings.csv",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-01-21 15:13:47",</span></span>
+<span><span class="co">#&gt;       "name": "2026-01-21-dslogs-dsuser_mappings.csv",</span></span>
 <span><span class="co">#&gt;       "description": "This file contains mappings and evaluated functions",</span></span>
 <span><span class="co">#&gt;       "encodingFormat": "text/csv",</span></span>
 <span><span class="co">#&gt;       "content": [</span></span>
 <span><span class="co">#&gt;         [</span></span>
 <span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1",</span></span>
-<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T10:32:34",</span></span>
+<span><span class="co">#&gt;             "ds_action": "ASSIGN",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsROCrate_test &lt;- opal[CNSIM.CNSIM1]",</span></span>
+<span><span class="co">#&gt;             "ds_function": "base::assign",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T10:32:35",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "ds_function": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "search.filter = NULL, 1L",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T10:47:32",</span></span>
+<span><span class="co">#&gt;             "ds_action": "ASSIGN",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsROCrate_test &lt;- opal[CNSIM.CNSIM1]",</span></span>
+<span><span class="co">#&gt;             "ds_function": "base::assign",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T10:47:33",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "ds_function": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "search.filter = NULL, 1L",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T14:50:18",</span></span>
+<span><span class="co">#&gt;             "ds_action": "ASSIGN",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsROCrate_test &lt;- opal[CNSIM.CNSIM1]",</span></span>
+<span><span class="co">#&gt;             "ds_function": "base::assign",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T14:50:19",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "ds_function": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "search.filter = NULL, 1L",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T14:50:19",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "base::exists(\"dsROCrate_test\")",</span></span>
 <span><span class="co">#&gt;             "ds_function": "base::exists",</span></span>
-<span><span class="co">#&gt;             "username": "dsuser",</span></span>
-<span><span class="co">#&gt;             "ds_eval": "base::exists(\"dsROCrate_test\")"</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
 <span><span class="co">#&gt;           },</span></span>
 <span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1",</span></span>
-<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T14:50:19",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::classDS(\"dsROCrate_test\")",</span></span>
 <span><span class="co">#&gt;             "ds_function": "dsBase::classDS",</span></span>
-<span><span class="co">#&gt;             "username": "dsuser",</span></span>
-<span><span class="co">#&gt;             "ds_eval": "dsBase::classDS(\"dsROCrate_test\")"</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
 <span><span class="co">#&gt;           },</span></span>
 <span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1",</span></span>
-<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T14:50:19",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::isValidDS(dsROCrate_test)",</span></span>
 <span><span class="co">#&gt;             "ds_function": "dsBase::isValidDS",</span></span>
-<span><span class="co">#&gt;             "username": "dsuser",</span></span>
-<span><span class="co">#&gt;             "ds_eval": "dsBase::isValidDS(dsROCrate_test)"</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
 <span><span class="co">#&gt;           },</span></span>
 <span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1",</span></span>
-<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T14:50:20",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::dimDS(\"dsROCrate_test\")",</span></span>
 <span><span class="co">#&gt;             "ds_function": "dsBase::dimDS",</span></span>
-<span><span class="co">#&gt;             "username": "dsuser",</span></span>
-<span><span class="co">#&gt;             "ds_eval": "dsBase::dimDS(\"dsROCrate_test\")"</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
 <span><span class="co">#&gt;           },</span></span>
 <span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1",</span></span>
-<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
-<span><span class="co">#&gt;             "ds_function": "dsBase::colnamesDS",</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T14:50:20",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
 <span><span class="co">#&gt;             "username": "dsuser",</span></span>
-<span><span class="co">#&gt;             "ds_eval": "dsBase::colnamesDS(\"dsROCrate_test\")"</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::colnamesDS(\"dsROCrate_test\")",</span></span>
+<span><span class="co">#&gt;             "ds_function": "dsBase::colnamesDS",</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:43",</span></span>
+<span><span class="co">#&gt;             "ds_action": "ASSIGN",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsROCrate_test &lt;- opal[CNSIM.CNSIM1]",</span></span>
+<span><span class="co">#&gt;             "ds_function": "base::assign",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:44",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "ds_function": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "search.filter = NULL, 1L",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:44",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "base::exists(\"dsROCrate_test\")",</span></span>
+<span><span class="co">#&gt;             "ds_function": "base::exists",</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:45",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::classDS(\"dsROCrate_test\")",</span></span>
+<span><span class="co">#&gt;             "ds_function": "dsBase::classDS",</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:45",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::isValidDS(dsROCrate_test)",</span></span>
+<span><span class="co">#&gt;             "ds_function": "dsBase::isValidDS",</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:45",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::dimDS(\"dsROCrate_test\")",</span></span>
+<span><span class="co">#&gt;             "ds_function": "dsBase::dimDS",</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:45",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::colnamesDS(\"dsROCrate_test\")",</span></span>
+<span><span class="co">#&gt;             "ds_function": "dsBase::colnamesDS",</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
 <span><span class="co">#&gt;           }</span></span>
 <span><span class="co">#&gt;         ]</span></span>
 <span><span class="co">#&gt;       ]</span></span>
@@ -910,19 +1060,20 @@
 <span></span>
 <span><span class="co"># display Overview diagram</span></span>
 <span><span class="va">safe_people_crate_contents</span><span class="op">$</span><span class="va">overview_diagram</span></span></code></pre></div>
-<p><img src="inst/images/README-safe_people_crate_audit_v1-1.png" alt="" width="100%"></p>
+<p><img src="reference/figures/README-safe_people_crate_audit_v1-1.png" alt="" width="100%"></p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># display Overview data (Safe People, Safe Projects and Safe Data)</span></span>
 <span><span class="va">safe_people_crate_contents</span><span class="op">$</span><span class="va">overview_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<table class="table">
+<table style="width:100%;" class="table">
 <colgroup>
-<col width="19%">
-<col width="15%">
-<col width="19%">
-<col width="17%">
-<col width="28%">
+<col width="16%">
+<col width="16%">
+<col width="16%">
+<col width="16%">
+<col width="16%">
+<col width="16%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">Safe Project</th>
@@ -930,6 +1081,7 @@
 <th align="left">Access Level</th>
 <th align="left">Safe People</th>
 <th align="left">DataSHIELD Function</th>
+<th align="left">Timestamp</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -937,7 +1089,56 @@
 <td align="left">CNSIM1</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-01-21T10:32:34</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-01-21T10:32:35</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-01-21T10:47:32</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-01-21T10:47:33</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-01-21T14:50:18</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-01-21T14:50:19</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
 <td align="left">base::exists</td>
+<td align="left">2026-01-21T14:50:19</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
@@ -945,6 +1146,7 @@
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::classDS</td>
+<td align="left">2026-01-21T14:50:19</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
@@ -952,6 +1154,7 @@
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::isValidDS</td>
+<td align="left">2026-01-21T14:50:19</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
@@ -959,6 +1162,7 @@
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::dimDS</td>
+<td align="left">2026-01-21T14:50:20</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
@@ -966,19 +1170,78 @@
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-01-21T14:50:20</td>
 </tr>
 <tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-01-21T15:13:43</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-01-21T15:13:44</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-01-21T15:13:44</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-01-21T15:13:45</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-01-21T15:13:45</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-01-21T15:13:45</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-01-21T15:13:45</td>
+</tr>
+<tr class="odd">
 <td align="left"></td>
 <td align="left">CNSIM2</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left">CNSIM3</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
+<td align="left"></td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -986,7 +1249,8 @@
 <p><strong>Render and display report (HTML)</strong></p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safe_people_crate_v1</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="reference/rocrate_report.html">rocrate_report</a></span><span class="op">(</span>filepath <span class="op">=</span> <span class="va">safe_people_crate_v1_rmd</span>, </span>
+<span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="reference/rocrate_report.html">rocrate_report</a></span><span class="op">(</span>filepath <span class="op">=</span> <span class="va">safe_people_crate_v1_rmd</span>,</span>
+<span>                            title <span class="op">=</span> <span class="st">"DataSHIELD Safe People - Audit Report"</span>,</span>
 <span>                            render <span class="op">=</span> <span class="cn">TRUE</span>, </span>
 <span>                            overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -1002,7 +1266,7 @@
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="reference/audit_safe_people.html">audit_safe_people</a></span><span class="op">(</span>user <span class="op">=</span> <span class="st">"dsuser"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 86 records... Imported 86 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 500 records... Found 1000 records... Found 1145 records... Imported 1145 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span></span>
 <span><span class="va">safe_people_crate_v2_rmd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".Rmd"</span><span class="op">)</span> <span class="co"># temporary file</span></span>
@@ -1017,19 +1281,20 @@
 <span></span>
 <span><span class="co"># display Overview diagram</span></span>
 <span><span class="va">safe_people_crate_contents_v2</span><span class="op">$</span><span class="va">overview_diagram</span></span></code></pre></div>
-<p><img src="inst/images/README-safe_people_crate_audit_v2-1.png" alt="" width="100%"></p>
+<p><img src="reference/figures/README-safe_people_crate_audit_v2-1.png" alt="" width="100%"></p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># display Overview data (Safe People, Safe Projects and Safe Data)</span></span>
 <span><span class="va">safe_people_crate_contents_v2</span><span class="op">$</span><span class="va">overview_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<table class="table">
+<table style="width:100%;" class="table">
 <colgroup>
-<col width="20%">
-<col width="20%">
-<col width="20%">
-<col width="20%">
-<col width="20%">
+<col width="16%">
+<col width="16%">
+<col width="16%">
+<col width="16%">
+<col width="16%">
+<col width="16%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">Safe Project</th>
@@ -1037,6 +1302,7 @@
 <th align="left">Access Level</th>
 <th align="left">Safe People</th>
 <th align="left">DataSHIELD Function</th>
+<th align="left">Timestamp</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -1044,7 +1310,56 @@
 <td align="left">CNSIM1</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-01-21T10:32:34</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-01-21T10:32:35</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-01-21T10:47:32</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-01-21T10:47:33</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-01-21T14:50:18</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-01-21T14:50:19</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
 <td align="left">base::exists</td>
+<td align="left">2026-01-21T14:50:19</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
@@ -1052,6 +1367,7 @@
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::classDS</td>
+<td align="left">2026-01-21T14:50:19</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
@@ -1059,6 +1375,7 @@
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::isValidDS</td>
+<td align="left">2026-01-21T14:50:19</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
@@ -1066,6 +1383,7 @@
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::dimDS</td>
+<td align="left">2026-01-21T14:50:20</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
@@ -1073,201 +1391,286 @@
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-01-21T14:50:20</td>
 </tr>
 <tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-01-21T15:13:43</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-01-21T15:13:44</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-01-21T15:13:44</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-01-21T15:13:45</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-01-21T15:13:45</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-01-21T15:13:45</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-01-21T15:13:45</td>
+</tr>
+<tr class="odd">
 <td align="left"></td>
 <td align="left">CNSIM2</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left">CNSIM3</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">DASIM</td>
 <td align="left">DASIM1</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left">DASIM2</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left">DASIM3</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">DISCORDANT</td>
 <td align="left">DISCORDANT_STUDY1</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left">DISCORDANT_STUDY2</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left">DISCORDANT_STUDY3</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">GREENSPACE</td>
 <td align="left">Cohort1_exposome</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left">Cohort2_exposome</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left">Cohort3_exposome</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">GWAS</td>
 <td align="left">ega_phenotypes</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left">ega_phenotypes_1</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left">ega_phenotypes_2</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left">ega_phenotypes_3</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">MEDIATION</td>
 <td align="left">UPBdata1</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left">UPBdata2</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left">UPBdata3</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">SURVIVAL</td>
 <td align="left">EXPAND_WITH_MISSING1</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left">EXPAND_WITH_MISSING2</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left">EXPAND_WITH_MISSING3</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">TESTING</td>
 <td align="left">TESTING1</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"></td>
 <td align="left">TESTING2</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left">TESTING3</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">TITANIC_NEWCOMERS_WORKSHOP</td>
 <td align="left">titanic_server_1</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left">titanic_server_2</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">depression</td>
 <td align="left">growth_1</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
+<td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"></td>
 <td align="left">growth_2</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
+<td align="left"></td>
 <td align="left"></td>
 </tr>
 </tbody>
@@ -1275,7 +1678,7 @@
 </div>
 </div>
 <div class="section level3">
-<h3 id="safe-project-1">Safe Project<a class="anchor" aria-label="anchor" href="#safe-project-1"></a>
+<h3 id="id_32-safe-project">3.2. Safe Project<a class="anchor" aria-label="anchor" href="#id_32-safe-project"></a>
 </h3>
 <div class="section level5">
 <h5 id="list-users-and-datasettable-level-permissions-within-a-project">List users and dataset/table level permissions within a project<a class="anchor" aria-label="anchor" href="#list-users-and-datasettable-level-permissions-within-a-project"></a>
@@ -1288,13 +1691,7 @@
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="reference/audit_safe_project.html">audit_safe_project</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">"CNSIM"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 86 records... Imported 86 records. Simplifying...</span></span>
-<span><span class="co">#&gt; closing file input connection.</span></span>
-<span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 86 records... Imported 86 records. Simplifying...</span></span>
-<span><span class="co">#&gt; closing file input connection.</span></span>
-<span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 86 records... Imported 86 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 500 records... Found 1000 records... Found 1145 records... Imported 1145 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">safe_project_crate_v1</span><span class="op">)</span></span>
@@ -1316,7 +1713,7 @@
 <span><span class="co">#&gt;       "@type": "Dataset",</span></span>
 <span><span class="co">#&gt;       "name": "",</span></span>
 <span><span class="co">#&gt;       "description": "",</span></span>
-<span><span class="co">#&gt;       "datePublished": "2026-01-14",</span></span>
+<span><span class="co">#&gt;       "datePublished": "2026-01-21",</span></span>
 <span><span class="co">#&gt;       "license": {</span></span>
 <span><span class="co">#&gt;         "@id": "http://spdx.org/licenses/CC-BY-4.0"</span></span>
 <span><span class="co">#&gt;       },</span></span>
@@ -1325,10 +1722,10 @@
 <span><span class="co">#&gt;       },</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "2026-01-14-dslogs-dsuser3.log"</span></span>
+<span><span class="co">#&gt;           "@id": "2026-01-21-dslogs-dsuser.log"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "2026-01-14-dslogs-dsuser3_mappings.csv"</span></span>
+<span><span class="co">#&gt;           "@id": "2026-01-21-dslogs-dsuser_mappings.csv"</span></span>
 <span><span class="co">#&gt;         }</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
@@ -1341,32 +1738,32 @@
 <span><span class="co">#&gt;       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",</span></span>
 <span><span class="co">#&gt;       "@type": "Dataset",</span></span>
 <span><span class="co">#&gt;       "name": "CNSIM1",</span></span>
-<span><span class="co">#&gt;       "dateCreated": "2026-01-14T06:29:47.421Z",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-01-14T06:29:48.544Z",</span></span>
+<span><span class="co">#&gt;       "dateCreated": "2026-01-21T06:29:46.690Z",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-01-21T06:29:47.826Z",</span></span>
 <span><span class="co">#&gt;       "path": "/datasource/CNSIM/table/CNSIM1"</span></span>
 <span><span class="co">#&gt;     },</span></span>
 <span><span class="co">#&gt;     {</span></span>
 <span><span class="co">#&gt;       "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9",</span></span>
 <span><span class="co">#&gt;       "@type": "Dataset",</span></span>
 <span><span class="co">#&gt;       "name": "CNSIM2",</span></span>
-<span><span class="co">#&gt;       "dateCreated": "2026-01-14T06:29:48.555Z",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-01-14T06:29:49.696Z",</span></span>
+<span><span class="co">#&gt;       "dateCreated": "2026-01-21T06:29:47.828Z",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-01-21T06:29:48.960Z",</span></span>
 <span><span class="co">#&gt;       "path": "/datasource/CNSIM/table/CNSIM2"</span></span>
 <span><span class="co">#&gt;     },</span></span>
 <span><span class="co">#&gt;     {</span></span>
 <span><span class="co">#&gt;       "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492",</span></span>
 <span><span class="co">#&gt;       "@type": "Dataset",</span></span>
 <span><span class="co">#&gt;       "name": "CNSIM3",</span></span>
-<span><span class="co">#&gt;       "dateCreated": "2026-01-14T06:29:49.700Z",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-01-14T06:29:50.847Z",</span></span>
+<span><span class="co">#&gt;       "dateCreated": "2026-01-21T06:29:48.962Z",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-01-21T06:29:50.115Z",</span></span>
 <span><span class="co">#&gt;       "path": "/datasource/CNSIM/table/CNSIM3"</span></span>
 <span><span class="co">#&gt;     },</span></span>
 <span><span class="co">#&gt;     {</span></span>
 <span><span class="co">#&gt;       "@id": "#project:7ba189863f9f641196596cb28e04aa14",</span></span>
 <span><span class="co">#&gt;       "@type": "Project",</span></span>
 <span><span class="co">#&gt;       "name": "CNSIM",</span></span>
-<span><span class="co">#&gt;       "dateCreated": "2026-01-14T06:29:46.093Z",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-01-14T06:29:50.847Z",</span></span>
+<span><span class="co">#&gt;       "dateCreated": "2026-01-21T06:29:45.359Z",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-01-21T06:29:50.115Z",</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
 <span><span class="co">#&gt;           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"</span></span>
@@ -1383,16 +1780,6 @@
 <span><span class="co">#&gt;       "@id": "#person:a0af2a94926db1b49ad7a812eef509d2",</span></span>
 <span><span class="co">#&gt;       "@type": "Person",</span></span>
 <span><span class="co">#&gt;       "name": "dsuser"</span></span>
-<span><span class="co">#&gt;     },</span></span>
-<span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "#person:a3cd7ce7818436c83b1eadaa5ba47411",</span></span>
-<span><span class="co">#&gt;       "@type": "Person",</span></span>
-<span><span class="co">#&gt;       "name": "dsuser2"</span></span>
-<span><span class="co">#&gt;     },</span></span>
-<span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "#person:5657241505661473308ae9aa9a378293",</span></span>
-<span><span class="co">#&gt;       "@type": "Person",</span></span>
-<span><span class="co">#&gt;       "name": "dsuser3"</span></span>
 <span><span class="co">#&gt;     },</span></span>
 <span><span class="co">#&gt;     {</span></span>
 <span><span class="co">#&gt;       "@id": "#perm:9bf7f75b6c5b07d02830b95652cd39a0-dict-summary-read",</span></span>
@@ -1419,42 +1806,6 @@
 <span><span class="co">#&gt;       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."</span></span>
 <span><span class="co">#&gt;     },</span></span>
 <span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "#perm:7798f70baebdb0f98d9cfce0f95c2ca7-dict-summary-read",</span></span>
-<span><span class="co">#&gt;       "@type": "ReadAction",</span></span>
-<span><span class="co">#&gt;       "agent": {</span></span>
-<span><span class="co">#&gt;         "@id": "#person:5657241505661473308ae9aa9a378293"</span></span>
-<span><span class="co">#&gt;       },</span></span>
-<span><span class="co">#&gt;       "object": {</span></span>
-<span><span class="co">#&gt;         "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9"</span></span>
-<span><span class="co">#&gt;       },</span></span>
-<span><span class="co">#&gt;       "actionStatus": "PotentialActionStatus",</span></span>
-<span><span class="co">#&gt;       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."</span></span>
-<span><span class="co">#&gt;     },</span></span>
-<span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "#perm:802d140a064e6ebf3a784f759af1b640-write-dict",</span></span>
-<span><span class="co">#&gt;       "@type": "WriteAction",</span></span>
-<span><span class="co">#&gt;       "agent": {</span></span>
-<span><span class="co">#&gt;         "@id": "#person:a3cd7ce7818436c83b1eadaa5ba47411"</span></span>
-<span><span class="co">#&gt;       },</span></span>
-<span><span class="co">#&gt;       "object": {</span></span>
-<span><span class="co">#&gt;         "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9"</span></span>
-<span><span class="co">#&gt;       },</span></span>
-<span><span class="co">#&gt;       "actionStatus": "PotentialActionStatus",</span></span>
-<span><span class="co">#&gt;       "description": "User may edit the table dictionary but cannot view individual values."</span></span>
-<span><span class="co">#&gt;     },</span></span>
-<span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "#perm:802d140a064e6ebf3a784f759af1b640-summary-read",</span></span>
-<span><span class="co">#&gt;       "@type": "ReadAction",</span></span>
-<span><span class="co">#&gt;       "agent": {</span></span>
-<span><span class="co">#&gt;         "@id": "#person:a3cd7ce7818436c83b1eadaa5ba47411"</span></span>
-<span><span class="co">#&gt;       },</span></span>
-<span><span class="co">#&gt;       "object": {</span></span>
-<span><span class="co">#&gt;         "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9"</span></span>
-<span><span class="co">#&gt;       },</span></span>
-<span><span class="co">#&gt;       "actionStatus": "PotentialActionStatus",</span></span>
-<span><span class="co">#&gt;       "description": "User may view summary statistics only; access to individual values is restricted."</span></span>
-<span><span class="co">#&gt;     },</span></span>
-<span><span class="co">#&gt;     {</span></span>
 <span><span class="co">#&gt;       "@id": "#perm:63b8097908f682bff1760e48d28c5855-dict-summary-read",</span></span>
 <span><span class="co">#&gt;       "@type": "ReadAction",</span></span>
 <span><span class="co">#&gt;       "agent": {</span></span>
@@ -1465,18 +1816,6 @@
 <span><span class="co">#&gt;       },</span></span>
 <span><span class="co">#&gt;       "actionStatus": "PotentialActionStatus",</span></span>
 <span><span class="co">#&gt;       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."</span></span>
-<span><span class="co">#&gt;     },</span></span>
-<span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "#perm:04c3f293c7a360fe0a1b7c29c8363540-admin-table",</span></span>
-<span><span class="co">#&gt;       "@type": "ControlAction",</span></span>
-<span><span class="co">#&gt;       "agent": {</span></span>
-<span><span class="co">#&gt;         "@id": "#person:5657241505661473308ae9aa9a378293"</span></span>
-<span><span class="co">#&gt;       },</span></span>
-<span><span class="co">#&gt;       "object": {</span></span>
-<span><span class="co">#&gt;         "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492"</span></span>
-<span><span class="co">#&gt;       },</span></span>
-<span><span class="co">#&gt;       "actionStatus": "PotentialActionStatus",</span></span>
-<span><span class="co">#&gt;       "description": "User has full administrative rights: view/edit dictionary and view/edit individual values."</span></span>
 <span><span class="co">#&gt;     },</span></span>
 <span><span class="co">#&gt;     {</span></span>
 <span><span class="co">#&gt;       "@id": "_:localid:datashield.privacyLevel:5",</span></span>
@@ -1566,126 +1905,182 @@
 <span><span class="co">#&gt;       "description": "A resource represents some data or a computation unit. It is \n    described by a URL and credentials. This package proposes a Resource model\n    with \"resolver\" and \"client\" classes to facilitate the access and the usage of the \n    resources."</span></span>
 <span><span class="co">#&gt;     },</span></span>
 <span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "2026-01-14-dslogs-dsuser.log",</span></span>
+<span><span class="co">#&gt;       "@id": "2026-01-21-dslogs-dsuser.log",</span></span>
 <span><span class="co">#&gt;       "@type": "File",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-01-14 15:47:17",</span></span>
-<span><span class="co">#&gt;       "name": "2026-01-14-dslogs-dsuser.log",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-01-21 15:14:06",</span></span>
+<span><span class="co">#&gt;       "name": "2026-01-21-dslogs-dsuser.log",</span></span>
 <span><span class="co">#&gt;       "description": "This file contains the raw logs for the user: `dsuser` , between: ALL and ALL",</span></span>
 <span><span class="co">#&gt;       "encodingFormat": "text/plain",</span></span>
 <span><span class="co">#&gt;       "content": [</span></span>
-<span><span class="co">#&gt;         ["[INFO][2026-01-14T09:56:16][OPEN]      created a datashield session 7b15cc43-0ee2-4720-a13b-6941a1d8bf39", "[INFO][2026-01-14T09:56:18][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-14T09:56:18][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-14T09:56:19][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-14T09:56:19][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-14T09:56:19][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-14T09:56:19][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T09:56:20][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T09:56:20][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-14T09:56:20][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-14T09:56:20][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T09:56:20][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T09:56:20][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T09:56:20][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T10:58:29][OPEN]      created a datashield session d7769db6-89df-4e13-a896-6dec9334bee7", "[INFO][2026-01-14T10:58:30][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-14T10:58:30][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-14T10:58:31][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-14T12:07:43][OPEN]      created a datashield session d4880ebb-ea7d-47ad-b031-591bfad1fc89", "[INFO][2026-01-14T12:07:43][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-14T12:07:44][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-14T15:46:52][OPEN]      created a datashield session cf6fe831-9644-4566-8095-488994f625e2", "[INFO][2026-01-14T15:46:52][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-14T15:46:52][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-14T15:46:53][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-14T15:46:53][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-14T15:46:54][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-14T15:46:54][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-14T15:46:54][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]</span></span>
+<span><span class="co">#&gt;         ["[INFO][2026-01-21T10:32:32][OPEN]      created a datashield session 1c385be4-5e04-494f-a04a-086ae483cf2c", "[INFO][2026-01-21T10:32:34][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T10:32:34][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T10:32:35][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T10:47:31][OPEN]      created a datashield session c16f0a52-ffc9-4258-bf83-e6f4b1e1b812", "[INFO][2026-01-21T10:47:32][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T10:47:32][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T10:47:33][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T14:50:17][OPEN]      created a datashield session 5ae2cdd1-bf4e-46af-ac3d-c785a7a0d68b", "[INFO][2026-01-21T14:50:18][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T14:50:18][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:19][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T14:50:19][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T14:50:20][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T14:50:20][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:43][OPEN]      created a datashield session 91271535-17f7-4749-a58b-0a12cd18b646", "[INFO][2026-01-21T15:13:43][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-01-21T15:13:43][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T15:13:44][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-01-21T15:13:44][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:44][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-01-21T15:13:45][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
 <span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "2026-01-14-dslogs-dsuser_mappings.csv",</span></span>
+<span><span class="co">#&gt;       "@id": "2026-01-21-dslogs-dsuser_mappings.csv",</span></span>
 <span><span class="co">#&gt;       "@type": "File",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-01-14 15:47:17",</span></span>
-<span><span class="co">#&gt;       "name": "2026-01-14-dslogs-dsuser_mappings.csv",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-01-21 15:14:06",</span></span>
+<span><span class="co">#&gt;       "name": "2026-01-21-dslogs-dsuser_mappings.csv",</span></span>
 <span><span class="co">#&gt;       "description": "This file contains mappings and evaluated functions",</span></span>
 <span><span class="co">#&gt;       "encodingFormat": "text/csv",</span></span>
 <span><span class="co">#&gt;       "content": [</span></span>
 <span><span class="co">#&gt;         [</span></span>
 <span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1",</span></span>
-<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T10:32:34",</span></span>
+<span><span class="co">#&gt;             "ds_action": "ASSIGN",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsROCrate_test &lt;- opal[CNSIM.CNSIM1]",</span></span>
+<span><span class="co">#&gt;             "ds_function": "base::assign",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T10:32:35",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "ds_function": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "search.filter = NULL, 1L",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T10:47:32",</span></span>
+<span><span class="co">#&gt;             "ds_action": "ASSIGN",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsROCrate_test &lt;- opal[CNSIM.CNSIM1]",</span></span>
+<span><span class="co">#&gt;             "ds_function": "base::assign",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T10:47:33",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "ds_function": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "search.filter = NULL, 1L",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T14:50:18",</span></span>
+<span><span class="co">#&gt;             "ds_action": "ASSIGN",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsROCrate_test &lt;- opal[CNSIM.CNSIM1]",</span></span>
+<span><span class="co">#&gt;             "ds_function": "base::assign",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T14:50:19",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "ds_function": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "search.filter = NULL, 1L",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T14:50:19",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "base::exists(\"dsROCrate_test\")",</span></span>
 <span><span class="co">#&gt;             "ds_function": "base::exists",</span></span>
-<span><span class="co">#&gt;             "username": "dsuser",</span></span>
-<span><span class="co">#&gt;             "ds_eval": "base::exists(\"dsROCrate_test\")"</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
 <span><span class="co">#&gt;           },</span></span>
 <span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1",</span></span>
-<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T14:50:19",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::classDS(\"dsROCrate_test\")",</span></span>
 <span><span class="co">#&gt;             "ds_function": "dsBase::classDS",</span></span>
-<span><span class="co">#&gt;             "username": "dsuser",</span></span>
-<span><span class="co">#&gt;             "ds_eval": "dsBase::classDS(\"dsROCrate_test\")"</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
 <span><span class="co">#&gt;           },</span></span>
 <span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1",</span></span>
-<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T14:50:19",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::isValidDS(dsROCrate_test)",</span></span>
 <span><span class="co">#&gt;             "ds_function": "dsBase::isValidDS",</span></span>
-<span><span class="co">#&gt;             "username": "dsuser",</span></span>
-<span><span class="co">#&gt;             "ds_eval": "dsBase::isValidDS(dsROCrate_test)"</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
 <span><span class="co">#&gt;           },</span></span>
 <span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1",</span></span>
-<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T14:50:20",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::dimDS(\"dsROCrate_test\")",</span></span>
 <span><span class="co">#&gt;             "ds_function": "dsBase::dimDS",</span></span>
-<span><span class="co">#&gt;             "username": "dsuser",</span></span>
-<span><span class="co">#&gt;             "ds_eval": "dsBase::dimDS(\"dsROCrate_test\")"</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
 <span><span class="co">#&gt;           },</span></span>
 <span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1",</span></span>
-<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T14:50:20",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::colnamesDS(\"dsROCrate_test\")",</span></span>
 <span><span class="co">#&gt;             "ds_function": "dsBase::colnamesDS",</span></span>
-<span><span class="co">#&gt;             "username": "dsuser",</span></span>
-<span><span class="co">#&gt;             "ds_eval": "dsBase::colnamesDS(\"dsROCrate_test\")"</span></span>
-<span><span class="co">#&gt;           }</span></span>
-<span><span class="co">#&gt;         ]</span></span>
-<span><span class="co">#&gt;       ]</span></span>
-<span><span class="co">#&gt;     },</span></span>
-<span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "2026-01-14-dslogs-dsuser2.log",</span></span>
-<span><span class="co">#&gt;       "@type": "File",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-01-14 15:47:17",</span></span>
-<span><span class="co">#&gt;       "name": "2026-01-14-dslogs-dsuser2.log",</span></span>
-<span><span class="co">#&gt;       "description": "This file contains the raw logs for the user: `dsuser2` , between: ALL and ALL",</span></span>
-<span><span class="co">#&gt;       "encodingFormat": "text/plain",</span></span>
-<span><span class="co">#&gt;       "content": [</span></span>
-<span><span class="co">#&gt;         ["[INFO][2026-01-14T12:39:36][OPEN]      created a datashield session 0da627f0-95aa-47fc-9657-96ccd030c8a1", "[INFO][2026-01-14T12:39:36][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM2]'", "[INFO][2026-01-14T12:39:36][PARSE]     parsed 'dsBase::meanDS(dsROCrate_test$LAB_HDL)'", "[INFO][2026-01-14T12:39:37][AGGREGATE] evaluated 'dsBase::meanDS(dsROCrate_test$LAB_HDL)'"]</span></span>
-<span><span class="co">#&gt;       ]</span></span>
-<span><span class="co">#&gt;     },</span></span>
-<span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "2026-01-14-dslogs-dsuser2_mappings.csv",</span></span>
-<span><span class="co">#&gt;       "@type": "File",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-01-14 15:47:17",</span></span>
-<span><span class="co">#&gt;       "name": "2026-01-14-dslogs-dsuser2_mappings.csv",</span></span>
-<span><span class="co">#&gt;       "description": "This file contains mappings and evaluated functions",</span></span>
-<span><span class="co">#&gt;       "encodingFormat": "text/csv",</span></span>
-<span><span class="co">#&gt;       "content": [</span></span>
-<span><span class="co">#&gt;         [</span></span>
-<span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM2",</span></span>
 <span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
-<span><span class="co">#&gt;             "ds_function": "dsBase::meanDS",</span></span>
-<span><span class="co">#&gt;             "username": "dsuser2",</span></span>
-<span><span class="co">#&gt;             "ds_eval": "dsBase::meanDS(dsROCrate_test$LAB_HDL)"</span></span>
-<span><span class="co">#&gt;           }</span></span>
-<span><span class="co">#&gt;         ]</span></span>
-<span><span class="co">#&gt;       ]</span></span>
-<span><span class="co">#&gt;     },</span></span>
-<span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "2026-01-14-dslogs-dsuser3.log",</span></span>
-<span><span class="co">#&gt;       "@type": "File",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-01-14 15:47:17",</span></span>
-<span><span class="co">#&gt;       "name": "2026-01-14-dslogs-dsuser3.log",</span></span>
-<span><span class="co">#&gt;       "description": "This file contains the raw logs for the user: `dsuser3` , between: ALL and ALL",</span></span>
-<span><span class="co">#&gt;       "encodingFormat": "text/plain",</span></span>
-<span><span class="co">#&gt;       "content": [</span></span>
-<span><span class="co">#&gt;         ["[INFO][2026-01-14T12:38:24][OPEN]      created a datashield session dbff3a23-6214-440e-b4a9-0e65249b3d47", "[INFO][2026-01-14T12:38:26][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM2]'", "[INFO][2026-01-14T12:38:51][PARSE]     parsed 'dsBase::meanDS(dsROCrate_test$LAB_HDL)'", "[INFO][2026-01-14T12:38:52][AGGREGATE] evaluated 'dsBase::meanDS(dsROCrate_test$LAB_HDL)'", "[INFO][2026-01-14T12:39:17][OPEN]      created a datashield session 3df668ca-5dc3-4025-8b31-47da1c37a1a1", "[INFO][2026-01-14T12:39:17][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM2]'", "[INFO][2026-01-14T12:39:18][PARSE]     parsed 'dsBase::meanDS(dsROCrate_test$LAB_HDL)'", "[INFO][2026-01-14T12:39:18][AGGREGATE] evaluated 'dsBase::meanDS(dsROCrate_test$LAB_HDL)'", "[INFO][2026-01-14T12:40:47][OPEN]      created a datashield session 2e2bcd02-bf1f-4fcc-a4aa-1836a6a22dc0", "[INFO][2026-01-14T12:40:49][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM3]'", "[INFO][2026-01-14T12:40:50][PARSE]     parsed 'dsBase::meanDS(dsROCrate_test$LAB_HDL)'", "[INFO][2026-01-14T12:40:51][AGGREGATE] evaluated 'dsBase::meanDS(dsROCrate_test$LAB_HDL)'"]</span></span>
-<span><span class="co">#&gt;       ]</span></span>
-<span><span class="co">#&gt;     },</span></span>
-<span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "2026-01-14-dslogs-dsuser3_mappings.csv",</span></span>
-<span><span class="co">#&gt;       "@type": "File",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-01-14 15:47:17",</span></span>
-<span><span class="co">#&gt;       "name": "2026-01-14-dslogs-dsuser3_mappings.csv",</span></span>
-<span><span class="co">#&gt;       "description": "This file contains mappings and evaluated functions",</span></span>
-<span><span class="co">#&gt;       "encodingFormat": "text/csv",</span></span>
-<span><span class="co">#&gt;       "content": [</span></span>
-<span><span class="co">#&gt;         [</span></span>
-<span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM2",</span></span>
-<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
-<span><span class="co">#&gt;             "ds_function": "dsBase::meanDS",</span></span>
-<span><span class="co">#&gt;             "username": "dsuser3",</span></span>
-<span><span class="co">#&gt;             "ds_eval": "dsBase::meanDS(dsROCrate_test$LAB_HDL)"</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
 <span><span class="co">#&gt;           },</span></span>
 <span><span class="co">#&gt;           {</span></span>
-<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM3",</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:43",</span></span>
+<span><span class="co">#&gt;             "ds_action": "ASSIGN",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsROCrate_test &lt;- opal[CNSIM.CNSIM1]",</span></span>
+<span><span class="co">#&gt;             "ds_function": "base::assign",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:44",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "ds_function": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "search.filter = NULL, 1L",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:44",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "base::exists(\"dsROCrate_test\")",</span></span>
+<span><span class="co">#&gt;             "ds_function": "base::exists",</span></span>
 <span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
-<span><span class="co">#&gt;             "ds_function": "dsBase::meanDS",</span></span>
-<span><span class="co">#&gt;             "username": "dsuser3",</span></span>
-<span><span class="co">#&gt;             "ds_eval": "dsBase::meanDS(dsROCrate_test$LAB_HDL)"</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:45",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::classDS(\"dsROCrate_test\")",</span></span>
+<span><span class="co">#&gt;             "ds_function": "dsBase::classDS",</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:45",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::isValidDS(dsROCrate_test)",</span></span>
+<span><span class="co">#&gt;             "ds_function": "dsBase::isValidDS",</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:45",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::dimDS(\"dsROCrate_test\")",</span></span>
+<span><span class="co">#&gt;             "ds_function": "dsBase::dimDS",</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-01-21T15:13:45",</span></span>
+<span><span class="co">#&gt;             "ds_action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "username": "dsuser",</span></span>
+<span><span class="co">#&gt;             "ds_eval": "dsBase::colnamesDS(\"dsROCrate_test\")",</span></span>
+<span><span class="co">#&gt;             "ds_function": "dsBase::colnamesDS",</span></span>
+<span><span class="co">#&gt;             "ds_symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "ds_table": "CNSIM.CNSIM1"</span></span>
 <span><span class="co">#&gt;           }</span></span>
 <span><span class="co">#&gt;         ]</span></span>
 <span><span class="co">#&gt;       ]</span></span>
@@ -1702,27 +2097,30 @@
 <span></span>
 <span><span class="va">safe_project_crate_contents</span> <span class="op">&lt;-</span> <span class="va">safe_project_crate_v1</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="reference/rocrate_report.html">rocrate_report</a></span><span class="op">(</span>filepath <span class="op">=</span> <span class="va">safe_project_crate_v1_rmd</span>, render <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 3 'Author' entities were found!</span></span>
+<span><span class="co">#&gt; 1 'Author' entity was found!</span></span>
 <span><span class="co">#&gt; 3 'Dataset' entities were found!</span></span>
+<span><span class="co">#&gt; Warning: No entities were found with @type = 'WriteAction'!</span></span>
+<span><span class="co">#&gt; Warning: No entities were found with @type = 'ControlAction'!</span></span>
 <span><span class="co">#&gt; 1 'Project' entity was found!</span></span>
 <span><span class="co">#&gt; 14 'PropertyValue' OR 'SoftwareApplication' entities were found!</span></span>
-<span><span class="co">#&gt; 6 'File' entities were found!</span></span>
+<span><span class="co">#&gt; 2 'File' entities were found!</span></span>
 <span></span>
 <span><span class="co"># display Overview diagram</span></span>
 <span><span class="va">safe_project_crate_contents</span><span class="op">$</span><span class="va">overview_diagram</span></span></code></pre></div>
-<p><img src="inst/images/README-safe_project_crate_audit_v1-1.png" alt="" width="100%"></p>
+<p><img src="reference/figures/README-safe_project_crate_audit_v1-1.png" alt="" width="100%"></p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># display Overview data (Safe People, Safe Projects and Safe Data)</span></span>
 <span><span class="va">safe_project_crate_contents</span><span class="op">$</span><span class="va">overview_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<table class="table">
+<table style="width:100%;" class="table">
 <colgroup>
-<col width="19%">
-<col width="15%">
-<col width="19%">
-<col width="17%">
-<col width="28%">
+<col width="16%">
+<col width="16%">
+<col width="16%">
+<col width="16%">
+<col width="16%">
+<col width="16%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">Safe Project</th>
@@ -1730,6 +2128,7 @@
 <th align="left">Access Level</th>
 <th align="left">Safe People</th>
 <th align="left">DataSHIELD Function</th>
+<th align="left">Timestamp</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -1737,7 +2136,56 @@
 <td align="left">CNSIM1</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-01-21T10:32:34</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-01-21T10:32:35</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-01-21T10:47:32</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-01-21T10:47:33</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-01-21T14:50:18</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-01-21T14:50:19</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
 <td align="left">base::exists</td>
+<td align="left">2026-01-21T14:50:19</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
@@ -1745,6 +2193,7 @@
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::classDS</td>
+<td align="left">2026-01-21T14:50:19</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
@@ -1752,6 +2201,7 @@
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::isValidDS</td>
+<td align="left">2026-01-21T14:50:19</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
@@ -1759,6 +2209,7 @@
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::dimDS</td>
+<td align="left">2026-01-21T14:50:20</td>
 </tr>
 <tr class="odd">
 <td align="left"></td>
@@ -1766,41 +2217,79 @@
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-01-21T14:50:20</td>
 </tr>
 <tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-01-21T15:13:43</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-01-21T15:13:44</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-01-21T15:13:44</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-01-21T15:13:45</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-01-21T15:13:45</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-01-21T15:13:45</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-01-21T15:13:45</td>
+</tr>
+<tr class="odd">
 <td align="left"></td>
 <td align="left">CNSIM2</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
-</tr>
-<tr class="odd">
 <td align="left"></td>
-<td align="left"></td>
-<td align="left">read &amp; write</td>
-<td align="left">dsuser2</td>
-<td align="left">dsBase::meanDS</td>
 </tr>
 <tr class="even">
-<td align="left"></td>
-<td align="left"></td>
-<td align="left">read</td>
-<td align="left">dsuser3</td>
-<td align="left">dsBase::meanDS</td>
-</tr>
-<tr class="odd">
 <td align="left"></td>
 <td align="left">CNSIM3</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
-</tr>
-<tr class="even">
 <td align="left"></td>
-<td align="left"></td>
-<td align="left">administrate</td>
-<td align="left">dsuser3</td>
-<td align="left">dsBase::meanDS</td>
 </tr>
 </tbody>
 </table>
@@ -1808,6 +2297,7 @@
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">safe_project_crate_v1</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="reference/rocrate_report.html">rocrate_report</a></span><span class="op">(</span>filepath <span class="op">=</span> <span class="va">safe_project_crate_v1_rmd</span>, </span>
+<span>                            title <span class="op">=</span> <span class="st">"DataSHIELD Safe Project - Audit Report"</span>,</span>
 <span>                            render <span class="op">=</span> <span class="cn">TRUE</span>, </span>
 <span>                            overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><br></p>
@@ -1816,7 +2306,7 @@
 </div>
 </div>
 <div class="section level2">
-<h2 id="n-identity">n. Identity<a class="anchor" aria-label="anchor" href="#n-identity"></a>
+<h2 id="id_4-identity">4. Identity<a class="anchor" aria-label="anchor" href="#id_4-identity"></a>
 </h2>
 <p>You are welcome to use any of the following hex codes when referencing <code>{dsROCrate}</code>:</p>
 <p><a href="man/figures/logo.png"><img src="reference/figures/logo.png" alt="logo" align="left" height="150" style="float:left; height:150px;"></a> <a href="man/figures/logo_white.png"><img src="reference/figures/logo_white.png" alt="logo-white" align="left" height="150" style="float:left; height:150px;"></a> <a href="man/figures/logo_black.png"><img src="reference/figures/logo_black.png" alt="logo-black" align="left" height="150" style="float:left; height:150px;"></a></p>
