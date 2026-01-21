@@ -13,7 +13,11 @@ extract_safe_setting <- function(x, ...) {
 #' @param rocrate (Optional) RO-Crate object to update with Safe Setting details.
 #' @rdname extract_safe_setting
 #' @export
-extract_safe_setting.opal <- function(x, ..., rocrate = rocrateR::rocrate()) {
+extract_safe_setting.opal <- function(
+  x,
+  ...,
+  rocrate = rocrateR::rocrate_5s()
+) {
   # extract all the Safe Settings for the current Opal connection
   rocrate <- safe_setting(x, rocrate = rocrate)
 
@@ -29,7 +33,7 @@ extract_safe_setting.rocrate <- function(
   x,
   ...,
   id = NULL,
-  rocrate = rocrateR::rocrate()
+  rocrate = rocrateR::rocrate_5s()
 ) {
   # validate RO-Crate
   rocrateR::is_rocrate(x)

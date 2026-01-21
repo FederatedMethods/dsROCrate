@@ -54,14 +54,14 @@ safe_data.default <- function(x, ...) {
 }
 
 #' @export
-safe_data.character <- function(x, ..., rocrate = NULL) {}
+safe_data.character <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {}
 
 #' @rdname safe_data
 #' @export
 safe_data.opal <- function(
   x,
   ...,
-  rocrate = NULL,
+  rocrate = rocrateR::rocrate_5s(),
   project = NULL,
   tables = NULL,
   dataset_id_suffix = "#dataset:"

@@ -13,7 +13,7 @@ extract_safe_people <- function(x, ...) {
 #' @param rocrate (Optional) RO-Crate object to update with Safe People details.
 #' @rdname extract_safe_people
 #' @export
-extract_safe_people.opal <- function(x, ..., rocrate = rocrateR::rocrate()) {
+extract_safe_people.opal <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {
   # extract all users
   opal_users <- opalr::oadmin.users(x)
 
@@ -40,7 +40,7 @@ extract_safe_people.rocrate <- function(
   x,
   ...,
   id = NULL,
-  rocrate = rocrateR::rocrate()
+  rocrate = rocrateR::rocrate_5s()
 ) {
   # if `id` wasn't provided, then extract from root (./) entity of the RO-Crate
   if (is.null(id)) {

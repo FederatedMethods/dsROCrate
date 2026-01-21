@@ -14,7 +14,11 @@ extract_safe_project <- function(x, ...) {
 #'     details.
 #' @rdname extract_safe_project
 #' @export
-extract_safe_project.opal <- function(x, ..., rocrate = rocrateR::rocrate()) {
+extract_safe_project.opal <- function(
+  x,
+  ...,
+  rocrate = rocrateR::rocrate_5s()
+) {
   # extract all data sources
   ds <- opalr::opal.datasources(x)
 
@@ -41,7 +45,7 @@ extract_safe_project.rocrate <- function(
   x,
   ...,
   id = NULL,
-  rocrate = rocrateR::rocrate()
+  rocrate = rocrateR::rocrate_5s()
 ) {
   # validate RO-Crate
   rocrateR::is_rocrate(x)

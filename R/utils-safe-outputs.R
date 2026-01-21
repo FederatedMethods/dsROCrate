@@ -20,7 +20,7 @@ extract_safe_output.opal <- function(
   user = NULL,
   logs_to = Sys.time(),
   logs_from = logs_to - 24 * 60^2,
-  rocrate = rocrateR::rocrate()
+  rocrate = rocrateR::rocrate_5s()
 ) {
   # extract all the Safe Outputs for the current Opal connection
   rocrate <- safe_output(
@@ -45,7 +45,7 @@ extract_safe_output.rocrate <- function(
   ...,
   id = NULL,
   user = NULL,
-  rocrate = rocrateR::rocrate()
+  rocrate = rocrateR::rocrate_5s()
 ) {
   # validate RO-Crate
   rocrateR::is_rocrate(x)

@@ -42,14 +42,14 @@ safe_people.default <- function(x, ...) {
 }
 
 #' @export
-safe_people.character <- function(x, ..., rocrate = NULL) {}
+safe_people.character <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {}
 
 #' @rdname safe_people
 #' @export
 safe_people.opal <- function(
   x,
   ...,
-  rocrate = NULL,
+  rocrate = rocrateR::rocrate_5s(),
   user = NULL,
   user_id_suffix = "#person:",
   set_author = TRUE,

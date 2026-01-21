@@ -13,7 +13,7 @@ extract_safe_data <- function(x, ...) {
 #' @param rocrate (Optional) RO-Crate object to update with Safe Data details.
 #' @rdname extract_safe_data
 #' @export
-extract_safe_data.opal <- function(x, ..., rocrate = rocrateR::rocrate()) {
+extract_safe_data.opal <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {
   # extract all data sources
   ds <- opalr::opal.datasources(x)
 
@@ -47,7 +47,7 @@ extract_safe_data.rocrate <- function(
   x,
   ...,
   id = NULL,
-  rocrate = rocrateR::rocrate()
+  rocrate = rocrateR::rocrate_5s()
 ) {
   # validate RO-Crate
   rocrateR::is_rocrate(x)

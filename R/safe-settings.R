@@ -44,11 +44,11 @@ safe_setting.default <- function(x, ...) {
 }
 
 #' @export
-safe_setting.character <- function(x, ..., rocrate = NULL) {}
+safe_setting.character <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {}
 
 #' @rdname safe_setting
 #' @export
-safe_setting.opal <- function(x, ..., rocrate = NULL) {
+safe_setting.opal <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {
   # x is a valid opal connection object
   validate_opal_con(x)
 

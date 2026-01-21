@@ -44,7 +44,7 @@ safe_project.character <- function(x, ...) {}
 safe_project.ArmadilloCredentials <- function(
   x,
   ...,
-  rocrate = NULL,
+  rocrate = rocrateR::rocrate_5s(),
   project = NULL,
   dataset_id_suffix = "#dataset:",
   project_id_suffix = "#project:"
@@ -61,7 +61,7 @@ safe_project.ArmadilloCredentials <- function(
 safe_project.opal <- function(
   x,
   ...,
-  rocrate = NULL,
+  rocrate = rocrateR::rocrate_5s(),
   project = NULL,
   dataset_id_suffix = "#dataset:",
   project_id_suffix = "#project:"

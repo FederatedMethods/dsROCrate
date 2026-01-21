@@ -48,7 +48,7 @@ safe_output.default <- function(x, ...) {
 }
 
 #' @export
-safe_output.character <- function(x, ..., rocrate = NULL) {}
+safe_output.character <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {}
 
 #' @importFrom utils write.csv
 #' @rdname safe_output
@@ -56,7 +56,7 @@ safe_output.character <- function(x, ..., rocrate = NULL) {}
 safe_output.opal <- function(
   x,
   ...,
-  rocrate = NULL,
+  rocrate = rocrateR::rocrate_5s(),
   path = NULL,
   user = NULL,
   logs_to = Sys.time(),
