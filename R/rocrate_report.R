@@ -56,7 +56,7 @@ rocrate_report.rocrate <- function(
   # local bindings
   id <- name <- project <- table_id <- table_name <- username <- user_id <- NULL
   actionStatus <- description <- ds_function <- ds_table <- type <- NULL
-  encodingFormat <- permission <- NULL
+  encodingFormat <- permission <- timestamp <- NULL
 
   # validate RO-Crate
   rocrateR::is_rocrate(x)
