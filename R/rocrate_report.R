@@ -437,7 +437,7 @@ rocrate_report.rocrate <- function(
     paste0(
       "\\begin{figure}[H]\n",
       "\\centering\n",
-      "\\includegraphics{",
+      "\\includegraphics[height=0.75\\textheight, keepaspectratio]{",
       diagram_filepath,
       "}",
       "\\caption{RO-Crate Overview}\n",
@@ -451,7 +451,7 @@ rocrate_report.rocrate <- function(
       "\" alt=\"RO-Crate Overview\" ",
       "style=\"display:block; margin-left:auto; margin-right:auto;\" />\n"
     ),
-    "```\n</div>\n\n",
+    "```\n</div>\n\n\\newpage",
     tidy_overview_tbl |>
       dplyr::distinct() |>
       knitr::kable() |>
@@ -522,10 +522,11 @@ rocrate_report.rocrate <- function(
   rocrate_txt <- readLines(tmp_file)
   report_contents <- c(
     report_contents,
-    "## RO-Crate \n<code><pre>",
+    "\n\\newpage\n",
+    "## RO-Crate \n```json",
     # display formatted RO-Crate
     rocrate_txt,
-    "</pre></code>"
+    "\n```"
   )
 
   ## write contents inside file
