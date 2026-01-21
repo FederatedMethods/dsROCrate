@@ -41,6 +41,23 @@ safe_project.character <- function(x, ...) {}
 
 #' @rdname safe_project
 #' @export
+safe_project.ArmadilloCredentials <- function(
+  x,
+  ...,
+  rocrate = NULL,
+  project = NULL,
+  dataset_id_suffix = "#dataset:",
+  project_id_suffix = "#project:"
+) {
+  # check if the given `project` exists
+  project_exists(x, project)
+
+  # retrieve details associated to `project`
+  project_details_tbl <- MolgenisArmadillo::armadillo.get_projects_info(x)
+}
+
+#' @rdname safe_project
+#' @export
 safe_project.opal <- function(
   x,
   ...,
@@ -50,7 +67,7 @@ safe_project.opal <- function(
   project_id_suffix = "#project:"
 ) {
   # declare local bindings
-  created <- lastUpdate <- new_dataset_entity <- NULL
+  created <- lastUpdate <- NULL
 
   # x is a valid opal connection object
   validate_opal_con(x)
