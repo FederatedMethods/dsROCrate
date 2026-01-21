@@ -16,7 +16,7 @@ rocrate_report(x, ...)
 \method{rocrate_report}{rocrate}(
   x,
   ...,
-  title = "DataSHIELD Report\\n",
+  title = "DataSHIELD Report",
   filepath = tempfile(fileext = ".md"),
   render = TRUE,
   doc_format = "html",
