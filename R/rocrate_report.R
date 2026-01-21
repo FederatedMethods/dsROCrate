@@ -216,85 +216,93 @@ rocrate_report.rocrate <- function(
       )
   }
 
-  # check if `overview_tbl` has `permission` field AND include_user_perm = TRUE
+  ## initialise `vars` and `labelvar`
+  vars <- labelvar <- NULL
+  ## check if `overview_tbl` has `permission` field AND include_user_perm = TRUE
   if ("permission" %in% colnames(overview_tbl) && include_user_perm) {
     # check if `overview_tbl` has `ds_function` field
     if ("ds_function" %in% colnames(overview_tbl)) {
-      diagram_lst <- overview_tbl |>
+      overview_agg <- overview_tbl |>
         dplyr::group_by(project, table, name, ds_function) |>
         dplyr::reframe(
           permission = paste0(unique(permission), collapse = " & "),
-        ) |>
-        vtree::vtree(
-          vars = c("project", "table", "permission", "name", "ds_function"),
-          labelvar = c(
-            name = "Safe People",
-            project = "Safe Project",
-            table = "Safe Data",
-            ds_function = "DataSHIELD Function",
-            permission = "Access Level"
-          ),
-          showpct = FALSE,
-          showcount = FALSE,
-          horiz = FALSE,
-          varnamebold = TRUE,
-          splitwidth = 1,
-          vsplitwidth = 1,
-          folder = dirname(filepath),
-          imageFileOnly = render,
-          pngknit = render,
-          pxheight = min(80 * nrow(overview_tbl), 500),
-          pxwidth = 200 * nrow(overview_tbl),
-          prune = list(ds_function = "")
         )
+      vars <- c("project", "table", "permission", "name", "ds_function")
+      labelvar <- c(
+        name = "Safe People",
+        project = "Safe Project",
+        table = "Safe Data",
+        ds_function = "DataSHIELD Function",
+        permission = "Access Level"
+      )
     } else {
-      diagram_lst <- overview_tbl |>
-        vtree::vtree(
-          vars = c("project", "table", "permission", "name"),
-          labelvar = c(
-            name = "Safe People",
-            project = "Safe Project",
-            table = "Safe Data",
-            permission = "Access Level"
-          ),
-          showpct = FALSE,
-          showcount = FALSE,
-          horiz = FALSE,
-          varnamebold = TRUE,
-          splitwidth = 1,
-          vsplitwidth = 1,
-          folder = dirname(filepath),
-          imageFileOnly = render,
-          pngknit = render,
-          pxheight = min(80 * nrow(overview_tbl), 500),
-          pxwidth = 200 * nrow(overview_tbl)
+      overview_agg <- overview_tbl |>
+        dplyr::group_by(project, table, name) |>
+        dplyr::reframe(
+          permission = paste0(unique(permission), collapse = " & "),
         )
+      vars <- c("project", "table", "permission", "name")
+      labelvar <- c(
+        name = "Safe People",
+        project = "Safe Project",
+        table = "Safe Data",
+        permission = "Access Level"
+      )
     }
   } else {
-    diagram_lst <- overview_tbl |>
-      vtree::vtree(
-        vars = c("name", "project", "table"),
-        labelvar = c(
-          name = "Safe People",
-          project = "Safe Project",
-          table = "Safe Data"
-        ),
-        showpct = FALSE,
-        showcount = FALSE,
-        horiz = FALSE,
-        varnamebold = TRUE,
-        splitwidth = 1,
-        vsplitwidth = 1,
+    overview_agg <- overview_tbl
+    vars <- c("name", "project", "table")
+    labelvar <- c(
+      name = "Safe People",
+      project = "Safe Project",
+      table = "Safe Data"
+    )
+  }
+
+  ## generate diagram
+  diagram_lst <- overview_agg |>
+    vtree::vtree(
+      vars = vars,
+      labelvar = labelvar,
+      showpct = FALSE,
+      showcount = FALSE,
+      horiz = FALSE,
+      varnamebold = TRUE,
+      splitwidth = 1,
+      vsplitwidth = 1,
+      folder = dirname(filepath),
+      # imageFileOnly = render,
+      pngknit = render,
+      # pxheight = min(80 * nrow(overview_tbl), 500),
+      # pxwidth = 200 * nrow(overview_tbl),
+      prune = list(ds_function = "")
+    )
+
+  ## if `render = TRUE`, then render diagram as PNG
+  diagram_filepath <- NULL
+  ### estimate number of nodes
+  dot <- diagram_lst$x$diagram
+  nodes <- dot |>
+    gregexpr(pattern = "Node_[A-Za-z0-9_]+", perl = TRUE) |>
+    (\(.) regmatches(dot, .))() |>
+    unlist() |>
+    unique()
+  num_nodes <- length(nodes)
+  ### scale width/height based on nodes
+  scale_factor <- 0.5 # inches per node
+  width <- max(12, num_nodes * scale_factor)
+  height <- max(6, num_nodes * scale_factor)
+  if (render) {
+    diagram_filepath <- diagram_lst |>
+      vtree::grVizToImageFile(
         folder = dirname(filepath),
-        imageFileOnly = render,
-        pngknit = render,
-        pxheight = min(80 * nrow(overview_tbl), 500),
-        pxwidth = 200 * nrow(overview_tbl)
+        filename = gsub("md$", "png", basename(filepath))
       )
   }
-  # find path to latest PNG generated with `vtree`
-  diagram_filepath <- list.files(dirname(filepath), "^vtree")
-  diagram_filepath <- diagram_filepath[length(diagram_filepath)]
+
+  # # find path to latest PNG generated with `vtree`
+  # diagram_filepath <- list.files(dirname(filepath), "^vtree")
+  # diagram_filepath <- diagram_filepath[length(diagram_filepath)]
 
   ## append overview table
   ### create tidy version of the overview table
@@ -371,7 +379,13 @@ rocrate_report.rocrate <- function(
   report_contents <- c(
     report_contents,
     "## Overview\n\n",
-    paste0("![](", diagram_filepath, ")\n<br />\n"),
+    "<div style=\"margin:0;\">\n\n",
+    paste0(
+      "<img src='",
+      diagram_filepath,
+      "' style='display:block; margin:0;' />\n<br />\n"
+    ),
+    "</div>\n\n",
     tidy_overview_tbl |>
       dplyr::distinct() |>
       knitr::kable() |>
