@@ -28,6 +28,8 @@ safe_project <- function(x, ...) {
   UseMethod("safe_project", x)
 }
 
+# S3 methods ----
+#' @method safe_project default
 #' @export
 safe_project.default <- function(x, ...) {
   stop(
@@ -36,27 +38,11 @@ safe_project.default <- function(x, ...) {
   )
 }
 
+#' @method safe_project character
 #' @export
 safe_project.character <- function(x, ...) {}
 
-#' @rdname safe_project
-#' @export
-safe_project.ArmadilloCredentials <- function(
-  x,
-  ...,
-  project,
-  rocrate = rocrateR::rocrate_5s(),
-  dataset_id_suffix = "#dataset:",
-  project_id_suffix = "#project:"
-) {
-  # check if the given `project` exists
-  project_exists(x, project)
-
-  # retrieve details associated to `project`
-  project_details_tbl <- MolgenisArmadillo::armadillo.get_projects_info() |>
-    purrr::list_rbind()
-}
-
+#' @method safe_project opal
 #' @rdname safe_project
 #' @export
 safe_project.opal <- function(
@@ -77,7 +63,7 @@ safe_project.opal <- function(
   is_opal_admin_con(x)
 
   # check if the given `project` exists
-  project_exists(x, project)
+  project_exists(x, project = project)
 
   # retrieve details associated to `project`
   project_details_tbl <- opalr::opal.project(x, project)
@@ -135,6 +121,7 @@ safe_project.opal <- function(
   return(rocrate)
 }
 
+#' @method safe_project rocrate
 #' @rdname safe_project
 #' @export
 safe_project.rocrate <- function(
@@ -159,3 +146,43 @@ safe_project.rocrate <- function(
     project_id_suffix = project_id_suffix
   )
 }
+
+# S4 generic ----
+#' @export
+setGeneric(
+  "safe_project",
+  function(
+    x,
+    ...,
+    project,
+    rocrate = rocrateR::rocrate_5s(),
+    dataset_id_suffix = "#dataset:",
+    project_id_suffix = "#project:"
+  ) {
+    standardGeneric("safe_project")
+  }
+)
+
+# S4 methods ----
+#' @rdname safe_project
+#' @export
+setMethod(
+  "safe_project",
+  signature(x = "armadillo"),
+  function(
+    x,
+    ...,
+    project,
+    rocrate = rocrateR::rocrate_5s(),
+    dataset_id_suffix = "#dataset:",
+    project_id_suffix = "#project:"
+  ) {
+    # check if the given `project` exists
+    project_exists(x, project = project)
+
+    # retrieve details associated to `project`
+    project_details_tbl <- MolgenisArmadillo::armadillo.get_projects_info() |>
+      purrr::list_c() |>
+      tibble::as_tibble()
+  }
+)
