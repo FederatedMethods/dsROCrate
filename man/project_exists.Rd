@@ -6,9 +6,13 @@
 \alias{project_exists.opal}
 \title{Verify if project exists}
 \usage{
-project_exists(x, ...)
+\S4method{project_exists}{armadillo}(
+  x,
+  ...,
+  project
+)
 
-\method{project_exists}{opal}(x, ..., project)
+project_exists.opal(x, ..., project)
 }
 \arguments{
 \item{x}{Connection object to backend for DataSHIELD server (e.g., Opal).}

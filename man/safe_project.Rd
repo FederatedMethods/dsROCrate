@@ -53,7 +53,7 @@ RO-Crate.}
 
 \item{rocrate}{RO-Crate object. Optional, if \code{x} is either an RO-Crate
 object or a path to a valid RO-Crate. If so, then \code{connection} is
-required.}
+required (default: \code{rocrateR::rocrate_5s()}).}
 
 \item{dataset_id_suffix}{String with ID suffix for the tables/datasets
 entities in the RO-Crate (default: \code{"#dataset:"}).}

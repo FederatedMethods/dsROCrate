@@ -48,7 +48,6 @@ Collate:
     'audit-safe-projects.R'
     'dsROCrate-package.R'
     'dsROCrate.R'
-    'print.R'
     'rocrate_report.R'
     'safe-data.R'
     'safe-outputs.R'

@@ -45,7 +45,7 @@ RO-Crate.}
 
 \item{rocrate}{RO-Crate object. Optional, if \code{x} is either an RO-Crate
 object or a path to a valid RO-Crate. If so, then \code{connection} is
-required.}
+required (default: \code{rocrateR::rocrate_5s()}).}
 
 \item{path}{String to path pointing to the root of the RO-Crate. This will
 be used to store log files. If not provided, logs will be stored within
