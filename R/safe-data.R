@@ -22,7 +22,7 @@
 #'     [`?dsROCrate::safe_data`][safe_data()].
 #' @param rocrate RO-Crate object. Optional, if `x` is either an RO-Crate
 #'     object or a path to a valid RO-Crate. If so, then `connection` is
-#'     required.
+#'     required (default: `rocrateR::rocrate_5s()`).
 #' @param project String with the name of the [Safe Project][safe_project()].
 #' @param tables Vector of strings with the names of the tables/datasets, part
 #'     of `project`. Optional, if not provided, all the tables/datasets
