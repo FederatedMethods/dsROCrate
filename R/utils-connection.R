@@ -12,6 +12,12 @@
 #' @keywords internal
 #' @aliases project_exists,armadillo-method
 #' @family Armadillo
+#' @usage
+#' \S4method{project_exists}{armadillo}(
+#'   x,
+#'   ...,
+#'   project
+#' )
 project_exists <- function(x, ...) {
   UseMethod("project_exists", x)
 }
@@ -36,7 +42,7 @@ project_exists.opal <- function(x, ..., project) {
 #' @aliases project_exists,armadillo-method
 #' @family Armadillo
 setMethod(
-  "safe_project",
+  "project_exists",
   signature(x = "armadillo"),
   function(
     x,
