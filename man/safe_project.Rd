@@ -2,9 +2,9 @@
 % Please edit documentation in R/safe-projects.R
 \name{safe_project}
 \alias{safe_project}
+\alias{safe_project,armadillo-method}
 \alias{safe_project.opal}
 \alias{safe_project.rocrate}
-\alias{safe_project,armadillo-method}
 \title{Safe projects details}
 \source{
 \itemize{
@@ -13,7 +13,7 @@
 }
 }
 \usage{
-safe_project(
+\S4method{safe_project}{armadillo}(
   x,
   ...,
   project,
@@ -38,15 +38,6 @@ safe_project(
   dataset_id_suffix = "#dataset:",
   project_id_suffix = "#project:",
   connection = NULL
-)
-
-\S4method{safe_project}{armadillo}(
-  x,
-  ...,
-  project,
-  rocrate = rocrateR::rocrate_5s(),
-  dataset_id_suffix = "#dataset:",
-  project_id_suffix = "#project:"
 )
 }
 \arguments{

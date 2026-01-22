@@ -2,22 +2,13 @@
 % Please edit documentation in R/utils-connection.R
 \name{project_exists}
 \alias{project_exists}
+\alias{project_exists,armadillo-method}
 \alias{project_exists.opal}
-\alias{safe_project,armadillo-method}
 \title{Verify if project exists}
 \usage{
 project_exists(x, ...)
 
 \method{project_exists}{opal}(x, ..., project)
-
-\S4method{safe_project}{armadillo}(
-  x,
-  ...,
-  project,
-  rocrate = rocrateR::rocrate_5s(),
-  dataset_id_suffix = "#dataset:",
-  project_id_suffix = "#project:"
-)
 }
 \arguments{
 \item{x}{Connection object to backend for DataSHIELD server (e.g., Opal).}
@@ -29,7 +20,8 @@ Nothing, call for its side effect. Stop execution of script if
 \code{project} does not exist in the given server.
 }
 \description{
-Wrapper for the \code{\link[opalr:opal.project_exists]{opalr::opal.project_exists()}} function.
+Wrapper for the \code{\link[opalr:opal.project_exists]{opalr::opal.project_exists()}} and
+\code{\link[MolgenisArmadillo:armadillo.list_projects]{MolgenisArmadillo::armadillo.list_projects()}} functions.
 }
 \seealso{
 Other Opal: 
