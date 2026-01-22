@@ -2,15 +2,22 @@
 % Please edit documentation in R/utils-connection.R
 \name{project_exists}
 \alias{project_exists}
-\alias{project_exists.ArmadilloCredentials}
 \alias{project_exists.opal}
+\alias{safe_project,armadillo-method}
 \title{Verify if project exists}
 \usage{
 project_exists(x, ...)
 
-\method{project_exists}{ArmadilloCredentials}(x, project)
+\method{project_exists}{opal}(x, ..., project)
 
-\method{project_exists}{opal}(x, project)
+\S4method{safe_project}{armadillo}(
+  x,
+  ...,
+  project,
+  rocrate = rocrateR::rocrate_5s(),
+  dataset_id_suffix = "#dataset:",
+  project_id_suffix = "#project:"
+)
 }
 \arguments{
 \item{x}{Connection object to backend for DataSHIELD server (e.g., Opal).}
