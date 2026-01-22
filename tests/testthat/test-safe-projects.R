@@ -6,13 +6,16 @@ test_that("safe_project works", {
 
   # attempt calling function with invalid class
   expect_error(
-    dsROCrate::safe_project(structure(list(), class = "InvalidClass"))
+    dsROCrate::safe_project(
+      structure(list(), class = "InvalidClass"),
+      project = NULL
+    )
   )
 
   # attempt calling with invalid connection
   expect_error(
     basic_rocrate |>
-      dsROCrate::safe_project(connection = NULL)
+      dsROCrate::safe_project(connection = NULL, project = NULL)
   )
 
   # attempt adding invalid project
