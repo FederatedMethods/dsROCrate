@@ -59,7 +59,7 @@ audit_safe_people.opal <- function(
   # if `project` is given, then extract tables associated to that project
   if (!is.null(project)) {
     # check if the given project(s) can be found in the given server
-    sapply(project, \(p) project_exists(x, p))
+    sapply(project, \(p) project_exists(x, project = p))
 
     # retrieve tables for the given project(s)
     project_tables_all <- project |>

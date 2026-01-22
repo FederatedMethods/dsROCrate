@@ -56,7 +56,7 @@ audit_safe_project.opal <- function(
         tryCatch(
           {
             # check if the given project exists
-            project_exists(x, p)
+            project_exists(x, project = p)
 
             # retrieve tables for the given project
             project_tables <- get_project_tables(x, p)

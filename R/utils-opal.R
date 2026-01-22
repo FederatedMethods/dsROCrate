@@ -10,7 +10,7 @@
 #' @family Opal
 get_project_tables <- function(x, project) {
   # verify if project exists
-  project_exists(x, project)
+  project_exists(x, project = project)
 
   # extract table names associated to `project`
   project_tables <- opalr::opal.project(x, project) |>

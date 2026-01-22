@@ -74,7 +74,7 @@ safe_data.opal <- function(
 
   # check if the given `project` exists, every dataset should be associated
   # with a project.
-  project_exists(x, project)
+  project_exists(x, project = project)
 
   # retrieve details associated to `project`
   project_details_tbl <- opalr::opal.project(x, project)
