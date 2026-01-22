@@ -1,9 +1,66 @@
+#' Parse user profiles
+#'
+#' @inheritParams project_exists
+#' @param ... Optional arguments, unused.
+#'
+#' @returns Data frame with given `user`'s profile details, as captured on the
+#' server pointed by `x`.
+#' @keywords internal
+#' #' @aliases parse_user_profiles,armadillo-method
+#' @family Armadillo
+#' @usage
+#' \S4method{parse_user_profiles}{armadillo}(x, ..., user)
+parse_user_profiles <- function(x, ...) {
+  UseMethod("parse_user_profiles", x)
+}
+
+# S3 methods ----
+#' @rdname parse_user_profiles
+#' @family Opal
+parse_user_profiles.opal <- function(x, ..., user) {
+  # get user profiles and filter by the current user
+  user_profiles_tbl <- opalr::opal.get(x, "/system/subject-profiles/") |>
+    dplyr::bind_rows() |>
+    dplyr::filter(principal %in% user)
+  # extract (if available) `userInfo` which contains additional details
+  if (
+    nrow(user_profiles_tbl) > 0 && "userInfo" %in% colnames(user_profiles_tbl)
+  ) {
+    user_profiles_tbl <- user_profiles_tbl |>
+      dplyr::mutate(
+        userInfo = userInfo |>
+          lapply(function(x) {
+            if (is.na(x)) {
+              tibble::tibble()
+            } else {
+              x |>
+                jsonlite::fromJSON() |>
+                tibble::as_tibble()
+            }
+          })
+      )
+  }
+  return(user_profiles_tbl)
+}
+
+# S4 methods ----
+#' @aliases parse_user_profiles,armadillo-method
+#' @family Armadillo
+setMethod(
+  "parse_user_profiles",
+  signature(x = "armadillo"),
+  function(x, ..., user) {
+    message("PLACEHOLDER!")
+  }
+)
+
 #' Verify if project exists
 #'
 #' Wrapper for the [opalr::opal.project_exists()] and
 #' [MolgenisArmadillo::armadillo.list_projects()] functions.
 #'
 #' @param x Connection object to backend for DataSHIELD server (e.g., Opal).
+#' @param ... Optional arguments, unused.
 #' @param project String with project name to be verified.
 #'
 #' @returns Nothing, call for its side effect. Stop execution of script if
