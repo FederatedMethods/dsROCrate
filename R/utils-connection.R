@@ -13,33 +13,7 @@ project_exists <- function(x, ...) {
   UseMethod("project_exists", x)
 }
 
-#' @rdname project_exists
-#' @family Armadillo
-#' @rdname safe_project
-#' @export
-setMethod(
-  "safe_project",
-  signature(x = "armadillo"),
-  function(
-    x,
-    ...,
-    project
-  ) {
-    # project_exists.ArmadilloCredentials <- function(x, project) {
-    # armadillo_url <- attr(x, "server")
-    if (!(project %in% MolgenisArmadillo::armadillo.list_projects())) {
-      stop(
-        paste0(
-          "The given `project = '",
-          project,
-          "'` was not found in the given Armadillo connection!"
-        ),
-        call. = FALSE
-      )
-    }
-  }
-)
-
+# S3 methods ----
 #' @rdname project_exists
 #' @family Opal
 project_exists.opal <- function(x, ..., project) {
@@ -54,3 +28,27 @@ project_exists.opal <- function(x, ..., project) {
     )
   }
 }
+
+# S4 methods ----
+#' @rdname project_exists
+#' @family Armadillo
+setMethod(
+  "safe_project",
+  signature(x = "armadillo"),
+  function(
+    x,
+    ...,
+    project
+  ) {
+    if (!(project %in% MolgenisArmadillo::armadillo.list_projects())) {
+      stop(
+        paste0(
+          "The given `project = '",
+          project,
+          "'` was not found in the given Armadillo connection!"
+        ),
+        call. = FALSE
+      )
+    }
+  }
+)
