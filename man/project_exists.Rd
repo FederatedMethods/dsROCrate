@@ -17,6 +17,8 @@ project_exists.opal(x, ..., project)
 \arguments{
 \item{x}{Connection object to backend for DataSHIELD server (e.g., Opal).}
 
+\item{...}{Optional arguments, unused.}
+
 \item{project}{String with project name to be verified.}
 }
 \value{
@@ -28,9 +30,13 @@ Wrapper for the \code{\link[opalr:opal.project_exists]{opalr::opal.project_exist
 \code{\link[MolgenisArmadillo:armadillo.list_projects]{MolgenisArmadillo::armadillo.list_projects()}} functions.
 }
 \seealso{
+Other Armadillo: 
+\code{\link{parse_user_profiles}()}
+
 Other Opal: 
 \code{\link{get_project_tables}()},
-\code{\link{get_table_permissions}()}
+\code{\link{get_table_permissions}()},
+\code{\link{parse_user_profiles}()}
 }
 \concept{Armadillo}
 \concept{Opal}
