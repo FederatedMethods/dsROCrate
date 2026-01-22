@@ -13,6 +13,5 @@ armadillo_login <- function(server) {
   pkgenv <- get(".pkgglobalenv", envir = ns)
   assign("armadillo_url", server, envir = pkgenv)
   assign("auth_token", getElement(conn, "access_token"), envir = pkgenv)
-  attr(conn, "server") <- server
   return(invisible(conn))
 }
