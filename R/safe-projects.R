@@ -24,6 +24,17 @@
 #'  \item Research Data Scotland, 2025. "What is the Five Safes framework?".
 #'  <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/>
 #' }
+#'
+#' @aliases safe_project,armadillo-method
+#' @usage
+#' \S4method{safe_project}{armadillo}(
+#'   x,
+#'   ...,
+#'   project,
+#'   rocrate = rocrateR::rocrate_5s(),
+#'   dataset_id_suffix = "#dataset:",
+#'   project_id_suffix = "#project:"
+#' )
 safe_project <- function(x, ...) {
   UseMethod("safe_project", x)
 }
@@ -147,24 +158,8 @@ safe_project.rocrate <- function(
   )
 }
 
-# S4 generic ----
-#' @export
-setGeneric(
-  "safe_project",
-  function(
-    x,
-    ...,
-    project,
-    rocrate = rocrateR::rocrate_5s(),
-    dataset_id_suffix = "#dataset:",
-    project_id_suffix = "#project:"
-  ) {
-    standardGeneric("safe_project")
-  }
-)
-
 # S4 methods ----
-#' @rdname safe_project
+#' @aliases safe_project,armadillo-method
 #' @export
 setMethod(
   "safe_project",
