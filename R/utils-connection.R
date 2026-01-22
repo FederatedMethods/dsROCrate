@@ -15,23 +15,34 @@ project_exists <- function(x, ...) {
 
 #' @rdname project_exists
 #' @family Armadillo
-project_exists.ArmadilloCredentials <- function(x, project) {
-  armadillo_url <- attr(x, "server")
-  if (!(project %in% MolgenisArmadillo::armadillo.list_projects())) {
-    stop(
-      paste0(
-        "The given `project = '",
-        project,
-        "'` was not found in the given Armadillo connection!"
-      ),
-      call. = FALSE
-    )
+#' @rdname safe_project
+#' @export
+setMethod(
+  "safe_project",
+  signature(x = "armadillo"),
+  function(
+    x,
+    ...,
+    project
+  ) {
+    # project_exists.ArmadilloCredentials <- function(x, project) {
+    # armadillo_url <- attr(x, "server")
+    if (!(project %in% MolgenisArmadillo::armadillo.list_projects())) {
+      stop(
+        paste0(
+          "The given `project = '",
+          project,
+          "'` was not found in the given Armadillo connection!"
+        ),
+        call. = FALSE
+      )
+    }
   }
-}
+)
 
 #' @rdname project_exists
 #' @family Opal
-project_exists.opal <- function(x, project) {
+project_exists.opal <- function(x, ..., project) {
   if (!opalr::opal.project_exists(x, project)) {
     stop(
       paste0(
