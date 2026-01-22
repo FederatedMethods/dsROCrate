@@ -1,6 +1,7 @@
 #' Verify if project exists
 #'
-#' Wrapper for the [opalr::opal.project_exists()] function.
+#' Wrapper for the [opalr::opal.project_exists()] and
+#' [MolgenisArmadillo::armadillo.list_projects()] functions.
 #'
 #' @param x Connection object to backend for DataSHIELD server (e.g., Opal).
 #' @param project String with project name to be verified.
@@ -9,6 +10,8 @@
 #' `project` does not exist in the given server.
 #'
 #' @keywords internal
+#' @aliases project_exists,armadillo-method
+#' @family Armadillo
 project_exists <- function(x, ...) {
   UseMethod("project_exists", x)
 }
@@ -30,7 +33,7 @@ project_exists.opal <- function(x, ..., project) {
 }
 
 # S4 methods ----
-#' @rdname project_exists
+#' @aliases project_exists,armadillo-method
 #' @family Armadillo
 setMethod(
   "safe_project",
