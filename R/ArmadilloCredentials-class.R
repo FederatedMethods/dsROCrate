@@ -1,6 +1,13 @@
+#' @import methods
+NULL
+
+# define virtual S4 class `armadillo`
+setClass("armadillo", contains = "VIRTUAL")
+
 # define S4 class `ArmadilloCredentials`
 setClass(
   "ArmadilloCredentials",
+  contains = "armadillo",
   slots = list(
     access_token = "character",
     id_token = "character",
