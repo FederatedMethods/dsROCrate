@@ -1,6 +1,3 @@
-#' @import methods
-NULL
-
 # define virtual S4 class `armadillo`
 setClass("armadillo", contains = "VIRTUAL")
 
