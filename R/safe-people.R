@@ -103,7 +103,10 @@ safe_people.opal <- function(
       dplyr::bind_rows()
     user_info_cols <- colnames(user_info_tbl)
     for (i in seq_along(user_info_cols)) {
-      user_entity[user_info_cols[i]] <- user_info_tbl[, i]
+      # avoid overwriting existing fields
+      if (!(user_info_cols[i] %in% names(user_entity))) {
+        user_entity[user_info_cols[i]] <- user_info_tbl[, i]
+      }
     }
   }
 
