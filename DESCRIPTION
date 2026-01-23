@@ -46,6 +46,7 @@ Collate:
     'ArmadilloCredentials-class.R'
     'audit-safe-people.R'
     'audit-safe-projects.R'
+    'audit-study.R'
     'dsROCrate-package.R'
     'dsROCrate.R'
     'rocrate_report.R'
