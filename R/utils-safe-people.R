@@ -14,8 +14,15 @@ extract_safe_people <- function(x, ...) {
 #' @rdname extract_safe_people
 #' @export
 extract_safe_people.opal <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {
+  # set local binding
+  name <- principal <- NULL
+
   # extract all users
-  opal_users <- opalr::oadmin.users(x)
+  opal_users <- opalr::opal.get(x, "/system/subject-profiles/") |>
+    dplyr::bind_rows() |>
+    dplyr::rename(name = principal) |>
+    # exclude system administrators from the report
+    dplyr::filter(!(tolower(name) %in% c("admin", "administrator")))
 
   # cycle through the data source (x) and extract project details
   for (i in seq_len(nrow(opal_users))) {
@@ -122,6 +129,14 @@ flatten_safe_people.rocrate <- function(x, ..., id = NULL) {
           tibble::tibble(
             id = getElement(ent, "@id"),
             name = getElement(ent, "name"),
+            given_name = c(
+              getElement(ent, "givenName"),
+              getElement(ent, "given_name")
+            ),
+            family_name = c(
+              getElement(ent, "familyName"),
+              getElement(ent, "family_name")
+            ),
             organisation = getElement(ent, "organisation")
           )
         }) |>
