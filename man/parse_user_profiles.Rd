@@ -2,6 +2,7 @@
 % Please edit documentation in R/utils-connection.R
 \name{parse_user_profiles}
 \alias{parse_user_profiles}
+\alias{parse_user_profiles,armadillo-method}
 \alias{parse_user_profiles.opal}
 \title{Parse user profiles}
 \usage{
@@ -32,7 +33,4 @@ Other Opal:
 }
 \concept{Armadillo}
 \concept{Opal}
-\keyword{#'}
-\keyword{@aliases}
 \keyword{internal}
-\keyword{parse_user_profiles,armadillo-method}
