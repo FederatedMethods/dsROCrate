@@ -39,16 +39,21 @@ audit_study.list <- function(
   # local bindings
   name <- principal <- project_tables_all <- subject <- table <- type <- NULL
 
-  safe_project_reports <- x |>
-    purrr::map(function(conn) {
-      audit_safe_project(
-        conn,
-        project = project,
-        logs_from = logs_from,
-        logs_to = logs_to
-      ) #|>
-      # rocrate_report(render = FALSE)
-    })
+  capture.output(
+    suppressMessages(suppressWarnings({
+      safe_project_reports <- x |>
+        purrr::map(function(conn) {
+          audit_safe_project(
+            conn,
+            project = project,
+            logs_from = logs_from,
+            logs_to = logs_to
+          ) #|>
+          # rocrate_report(render = FALSE)
+        })
+    })),
+    file = nullfile()
+  )
 
   # return list with new RO-Crates (one per connection given)
   return(safe_project_reports)
