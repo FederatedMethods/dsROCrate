@@ -55,9 +55,8 @@ safe_people.opal <- function(
   set_author = TRUE,
   set_project = TRUE
 ) {
-  # NOTE: connection not currently in use, this is a PLACEHOLDER!
   # x is a valid opal connection object
-  # validate_opal_con(x)
+  validate_opal_con(x)
 
   # attempt to retrieve project entity
   safe_project_entity <- rocrate |>
@@ -85,12 +84,27 @@ safe_people.opal <- function(
       )
     }
   } else {
-    # extract user information from the connection object
+    # create basic user entity
     user_entity <- rocrateR::entity(
       x = paste0(user_id_suffix, digest::digest(x$username)),
       type = "Person",
       name = x$username
     )
+    user <- x$username
+  }
+
+  # extract user information from the connection object
+  user_profile_tbl <- parse_user_profiles(x, user = user)
+
+  # check if the `user_profile_tbl` has a `userInfo` column, if so, then
+  # attach the fields in this one to the user entity
+  if ("userInfo" %in% colnames(user_profile_tbl)) {
+    user_info_tbl <- getElement(user_profile_tbl, "userInfo") |>
+      dplyr::bind_rows()
+    user_info_cols <- colnames(user_info_tbl)
+    for (i in seq_along(user_info_cols)) {
+      user_entity[user_info_cols[i]] <- user_info_tbl[, i]
+    }
   }
 
   # add membership information, if Safe Project was found and set_project = TRUE
