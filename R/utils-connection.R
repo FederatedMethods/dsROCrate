@@ -6,7 +6,7 @@
 #' @returns Data frame with given `user`'s profile details, as captured on the
 #' server pointed by `x`.
 #' @keywords internal
-#' #' @aliases parse_user_profiles,armadillo-method
+#' @aliases parse_user_profiles,armadillo-method
 #' @family Armadillo
 #' @usage
 #' \S4method{parse_user_profiles}{armadillo}(x, ..., user)
@@ -18,6 +18,9 @@ parse_user_profiles <- function(x, ...) {
 #' @rdname parse_user_profiles
 #' @family Opal
 parse_user_profiles.opal <- function(x, ..., user) {
+  # local bindings
+  principal <- userInfo <- NULL
+
   # get user profiles and filter by the current user
   user_profiles_tbl <- opalr::opal.get(x, "/system/subject-profiles/") |>
     dplyr::bind_rows() |>
