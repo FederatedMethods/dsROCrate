@@ -66,7 +66,7 @@ audit_safe_project.opal <- function(
             )
           },
           error = function(e) {
-            return(tibble::tibble(project = p))
+            return(tibble::tibble(project = p, table = NA))
           }
         )
       }) |>
@@ -99,6 +99,17 @@ audit_safe_project.opal <- function(
     })
   }
 
+  # add check to determine if project information was found:
+  if (nrow(project_tables_all) == 0) {
+    stop(
+      paste0(
+        "No data details were found for given project",
+        ifelse(length(project) == 1, "", "s"),
+        "!"
+      ),
+      call. = FALSE
+    )
+  }
   # get permissions for each table in the project
   # get table permissions
   project_table_permissions_tbl <- seq_len(nrow(project_tables_all)) |>
@@ -133,7 +144,13 @@ audit_safe_project.opal <- function(
   }
 
   # get users' details
-  safe_people_tbl <- opalr::oadmin.users(x)
+  safe_people_tbl <- opalr::opal.get(x, "/system/subject-profiles/") |>
+    dplyr::bind_rows() |>
+    dplyr::rename(name = principal) |>
+    # exclude system administrators from the report
+    dplyr::filter(!(tolower(name) %in% c("admin", "administrator"))) |>
+    # filter out users that don't have access to the given project(s)
+    dplyr::filter(name %in% project_table_permissions_tbl$subject)
 
   # filter out table permissions based on the users found previously:
   project_table_permissions_tbl <- project_table_permissions_tbl |>
