@@ -43,7 +43,7 @@ audit_safe_project.opal <- function(
   logs_to = Inf
 ) {
   # local bindings
-  project_tables_all <- subject <- table <- type <- NULL
+  name <- principal <- project_tables_all <- subject <- table <- type <- NULL
 
   # validate Opal connection
   is_opal_admin_con(x)
