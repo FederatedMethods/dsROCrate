@@ -120,6 +120,21 @@ rocrate_report.list <- function(
       NULL
     }
   )
+  ## Safe Outputs ----
+  safe_output_all <- tryCatch(
+    {
+      report_outputs |>
+        # extract each component per server
+        lapply(getElement, name = "safe_output") |>
+        # attach the server name as a new column
+        purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
+        # combine rows
+        dplyr::bind_rows()
+    },
+    error = function(e) {
+      NULL
+    }
+  )
   ## Safe Data permissions (optional) ----
   safe_data_permissions_all <- tryCatch(
     {
@@ -160,6 +175,11 @@ rocrate_report.list <- function(
         permission,
         user = name
       )
+
+    # if any Safe Outputs were found in the inputs, include in the overview
+    if (!is.null(safe_output_all) && nrow(safe_output_all)) {
+      # TODO
+    }
   } else {
     # extract previous overview table
     overview_data_all <- tryCatch(
@@ -386,7 +406,7 @@ rocrate_report.rocrate <- function(
     purrr::list_c()
 
   # initialise safe_output_tbl_v2, to be included in the returned outputs
-  safe_output_tbl_v2 <- NULL
+  safe_output_tbl_v2 <- tibble::tibble()
 
   if (!is.null(safe_output_tbl) && nrow(safe_output_tbl) > 0) {
     # split `ds_table` into `project` and `table`
