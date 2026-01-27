@@ -421,59 +421,11 @@ rocrate_report.rocrate <- function(
     diag_height
   )
 
-  # create tidy version of the overview table
-  ## check if `overview_tbl` has `permission` field
-  if ("permission" %in% colnames(overview_tbl)) {
-    if ("ds_function" %in% colnames(overview_tbl)) {
-      tidy_overview_tbl <- overview_tbl |>
-        dplyr::distinct(
-          project,
-          table,
-          permission,
-          name,
-          ds_function,
-          timestamp
-        ) |>
-        dplyr::group_by(project, table, name) |>
-        dplyr::reframe(
-          permission = paste0(unique(permission), collapse = " & "),
-          ds_function = ds_function,
-          timestamp = timestamp,
-          .groups = "drop"
-        ) |>
-        dplyr::select(
-          `Project` = project,
-          `Data` = table,
-          `Access Level` = permission,
-          `People` = name,
-          `DataSHIELD Function` = ds_function,
-          `Timestamp` = timestamp
-        ) |>
-        dplyr::distinct()
-    } else {
-      tidy_overview_tbl <- overview_tbl |>
-        dplyr::select(project, table, name, permission) |>
-        dplyr::group_by(project, table, name) |>
-        dplyr::reframe(
-          permission = paste0(unique(permission), collapse = " & ")
-        ) |>
-        dplyr::select(
-          `Project` = project,
-          `Data` = table,
-          `Access Level` = permission,
-          `People` = name
-        )
-    }
-  } else {
-    tidy_overview_tbl <- overview_tbl |>
-      dplyr::select(
-        `Project` = project,
-        `Data` = table,
-        `People` = name
-      )
-  }
+  # create tidy overview table ----
+  tidy_overview_tbl <- .tidy_overview(overview_tbl)
 
   # create Markdown report ----
+  ## header and overview table
   report_contents <- c(
     .markdown_report_header(title, overview_tbl, overview_lst$diag_path),
     tidy_overview_tbl |>
@@ -487,67 +439,17 @@ rocrate_report.rocrate <- function(
       paste0(collapse = "\n")
   )
 
-  report_contents <- c(report_contents, "\n<hr />\n", "## Entities")
-
-  ## append Safe People details
-  report_contents <- c(
+  ## attach entities for 5 safes
+  report_contents <- .markdown_report_body(
     report_contents,
-    "\n### People\n",
-    flatten_safe_people(safe_people_rocrate) |>
-      knitr::kable() |>
-      paste0(collapse = "\n")
+    overview_tbl,
+    safe_people_rocrate,
+    safe_project_rocrate,
+    safe_data_rocrate,
+    user_perm_entity_lst,
+    safe_setting_rocrate,
+    safe_output_tbl_v2
   )
-
-  ## append Safe Project & Safe Data details
-  report_contents <- c(
-    report_contents,
-    "### Project(s)\n",
-    flatten_safe_project(safe_project_rocrate) |>
-      knitr::kable() |>
-      paste0(collapse = "\n")
-  )
-
-  ## append Safe Data details
-  report_contents <- c(
-    report_contents,
-    "### Data\n",
-    flatten_safe_data(safe_data_rocrate) |>
-      knitr::kable() |>
-      paste0(collapse = "\n")
-  )
-
-  ## append Safe Data permissions
-  #### check if `overview_tbl` has `permission` field
-  if ("permission" %in% colnames(overview_tbl)) {
-    report_contents <- c(
-      report_contents,
-      "#### Data permissions\n",
-      flatten_user_perm_entity(user_perm_entity_lst) |>
-        dplyr::select(-actionStatus, -description, -permission) |>
-        knitr::kable() |>
-        paste0(collapse = "\n")
-    )
-  }
-
-  ## append Safe Settings details
-  report_contents <- c(
-    report_contents,
-    "### Settings\n",
-    flatten_safe_setting(safe_setting_rocrate) |>
-      knitr::kable() |>
-      paste0(collapse = "\n")
-  )
-
-  if (!is.null(safe_output_tbl_v2) && nrow(safe_output_tbl_v2) > 0) {
-    ## append Safe Outputs details
-    report_contents <- c(
-      report_contents,
-      "### Outputs\n",
-      safe_output_tbl_v2 |>
-        knitr::kable() |>
-        paste0(collapse = "\n")
-    )
-  }
 
   report_contents <- c(report_contents, "\n<hr />\n")
 
@@ -627,78 +529,6 @@ rocrate_report.rocrate <- function(
       safe_setting = flatten_safe_setting(safe_setting_rocrate),
       safe_output = safe_output_tbl_v2
     )
-  )
-}
-
-#' Generate Markdown report's header
-#'
-#' @inheritParams rocrate_report
-#'
-#' @returns String with report's header
-#' @keywords internal
-.markdown_report_header <- function(title, overview_tbl, diagram_filepath) {
-  ## initialise markdown header (see https://rmarkdown.rstudio.com/lesson-9.html)
-  paste0(
-    "---\n",
-    paste0("title: ", title),
-    "\noutput:\n",
-    "  pdf_document:\n",
-    "    df_print: kable\n",
-    "    highlight: tango\n",
-    "  html_document: default\n",
-    "fontsize: 11pt\n",
-    "geometry:\n",
-    "  - margin=.5in\n",
-    "  - landscape\n",
-    "header-includes: \n",
-    "  - \\usepackage{array}\n",
-    "  - \\usepackage{longtable}\n",
-    "  - \\usepackage{xurl}\n",
-    "  - \\usepackage{hyphenat}\n",
-    "  - \\usepackage{microtype}\n",
-    "  - \\sloppy\n",
-    "  - \\setlength{\\emergencystretch}{3em}\n",
-    "  - \\usepackage{float}\n",
-    "  - \\usepackage{titling}\n",
-    "  - \\setlength{\\droptitle}{-1.5cm}\n",
-    paste0("date: ", format(Sys.time(), '%Y-%m-%d %H:%M:%S')),
-    "\n---\n",
-    paste0(
-      "This report contains details for ",
-      length(unique(overview_tbl$name)),
-      " user",
-      ifelse(length(unique(overview_tbl$name)) > 1, "s", ""),
-      " and ",
-      length(unique(overview_tbl$project)),
-      " project",
-      ifelse(length(unique(overview_tbl$project)) > 1, "s", ""),
-      ". In addition, the tables they have access to within",
-      ifelse(length(unique(overview_tbl$project)) > 1, " a ", " the "),
-      "project.\n\n"
-    ),
-    "## Overview\n\n",
-    "<div style=\"margin:0;\">\n",
-    # "::: {style=\"text-align: center;\"}\n",
-    "<!-- PDF-only -->\n",
-    "```{=latex}\n",
-    paste0(
-      "\\begin{figure}[H]\n",
-      "\\centering\n",
-      "\\includegraphics[height=0.75\\textheight, keepaspectratio, width=0.9\\textwidth]{",
-      diagram_filepath,
-      "}",
-      "\\caption{RO-Crate Overview}\n",
-      "\\end{figure}\n```\n"
-    ),
-    "<!-- HTML-only -->",
-    "```{=html}\n",
-    paste0(
-      "<img src=\"",
-      diagram_filepath,
-      "\" alt=\"RO-Crate Overview\" ",
-      "style=\"display:block; margin-left:auto; margin-right:auto;\" />\n"
-    ),
-    "```\n</div>\n\n\\newpage"
   )
 }
 
@@ -819,4 +649,226 @@ rocrate_report.rocrate <- function(
   # diagram_filepath <- diagram_filepath[length(diagram_filepath)]
 
   return(list(diag_lst = diagram_lst, diag_path = diagram_filepath))
+}
+
+#' Create tidy version of the overview table
+#'
+#' @inheritParams .overview_diagram
+#'
+#' @returns Data frame with tidy overview table.
+#' @keywords internal
+.tidy_overview <- function(overview_tbl) {
+  ## check if `overview_tbl` has `permission` field
+  if ("permission" %in% colnames(overview_tbl)) {
+    if ("ds_function" %in% colnames(overview_tbl)) {
+      tidy_overview_tbl <- overview_tbl |>
+        dplyr::distinct(
+          project,
+          table,
+          permission,
+          name,
+          ds_function,
+          timestamp
+        ) |>
+        dplyr::group_by(project, table, name) |>
+        dplyr::reframe(
+          permission = paste0(unique(permission), collapse = " & "),
+          ds_function = ds_function,
+          timestamp = timestamp,
+          .groups = "drop"
+        ) |>
+        dplyr::select(
+          `Project` = project,
+          `Data` = table,
+          `Access Level` = permission,
+          `People` = name,
+          `DataSHIELD Function` = ds_function,
+          `Timestamp` = timestamp
+        ) |>
+        dplyr::distinct()
+    } else {
+      tidy_overview_tbl <- overview_tbl |>
+        dplyr::select(project, table, name, permission) |>
+        dplyr::group_by(project, table, name) |>
+        dplyr::reframe(
+          permission = paste0(unique(permission), collapse = " & ")
+        ) |>
+        dplyr::select(
+          `Project` = project,
+          `Data` = table,
+          `Access Level` = permission,
+          `People` = name
+        )
+    }
+  } else {
+    tidy_overview_tbl <- overview_tbl |>
+      dplyr::select(
+        `Project` = project,
+        `Data` = table,
+        `People` = name
+      )
+  }
+  return(tidy_overview_tbl)
+}
+
+
+#' Generate Markdown report's header
+#'
+#' @inheritParams .overview_diagram
+#' @inheritParams rocrate_report
+#'
+#' @returns String with report's header
+#' @keywords internal
+.markdown_report_header <- function(title, overview_tbl, diagram_filepath) {
+  ## initialise markdown header (see https://rmarkdown.rstudio.com/lesson-9.html)
+  paste0(
+    "---\n",
+    paste0("title: ", title),
+    "\noutput:\n",
+    "  pdf_document:\n",
+    "    df_print: kable\n",
+    "    highlight: tango\n",
+    "  html_document: default\n",
+    "fontsize: 11pt\n",
+    "geometry:\n",
+    "  - margin=.5in\n",
+    "  - landscape\n",
+    "header-includes: \n",
+    "  - \\usepackage{array}\n",
+    "  - \\usepackage{longtable}\n",
+    "  - \\usepackage{xurl}\n",
+    "  - \\usepackage{hyphenat}\n",
+    "  - \\usepackage{microtype}\n",
+    "  - \\sloppy\n",
+    "  - \\setlength{\\emergencystretch}{3em}\n",
+    "  - \\usepackage{float}\n",
+    "  - \\usepackage{titling}\n",
+    "  - \\setlength{\\droptitle}{-1.5cm}\n",
+    paste0("date: ", format(Sys.time(), '%Y-%m-%d %H:%M:%S')),
+    "\n---\n",
+    paste0(
+      "This report contains details for ",
+      length(unique(overview_tbl$name)),
+      " user",
+      ifelse(length(unique(overview_tbl$name)) > 1, "s", ""),
+      " and ",
+      length(unique(overview_tbl$project)),
+      " project",
+      ifelse(length(unique(overview_tbl$project)) > 1, "s", ""),
+      ". In addition, the tables they have access to within",
+      ifelse(length(unique(overview_tbl$project)) > 1, " a ", " the "),
+      "project.\n\n"
+    ),
+    "## Overview\n\n",
+    "<div style=\"margin:0;\">\n",
+    # "::: {style=\"text-align: center;\"}\n",
+    "<!-- PDF-only -->\n",
+    "```{=latex}\n",
+    paste0(
+      "\\begin{figure}[H]\n",
+      "\\centering\n",
+      "\\includegraphics[height=0.75\\textheight, keepaspectratio, width=0.9\\textwidth]{",
+      diagram_filepath,
+      "}",
+      "\\caption{RO-Crate Overview}\n",
+      "\\end{figure}\n```\n"
+    ),
+    "<!-- HTML-only -->",
+    "```{=html}\n",
+    paste0(
+      "<img src=\"",
+      diagram_filepath,
+      "\" alt=\"RO-Crate Overview\" ",
+      "style=\"display:block; margin-left:auto; margin-right:auto;\" />\n"
+    ),
+    "```\n</div>\n\n\\newpage"
+  )
+}
+
+#' Generate Markdown report's body
+#'
+#' @inheritParams .overview_diagram
+#' @param report_contents String with Markdown report (e.g., header).
+#' @param safe_people_rocrate RO-Crate object with Safe People details.
+#' @param safe_project_rocrate RO-Crate object with Safe Project details.
+#' @param safe_data_rocrate RO-Crate object with Safe Data details.
+#' @param user_perm_entity_lst List with Safe Data user permissions.
+#' @param safe_setting_rocrate RO-Crate object with Safe Setting details.
+#' @param safe_output_tbl_v2 Data frame with Safe Output details.
+#'
+#' @returns String with updated Markdown report
+#' @keywords internal
+.markdown_report_body <- function(
+  report_contents,
+  overview_tbl,
+  safe_people_rocrate,
+  safe_project_rocrate,
+  safe_data_rocrate,
+  user_perm_entity_lst,
+  safe_setting_rocrate,
+  safe_output_tbl_v2
+) {
+  report_contents <- c(report_contents, "\n<hr />\n", "## Entities")
+
+  ## append Safe People details
+  report_contents <- c(
+    report_contents,
+    "\n### People\n",
+    flatten_safe_people(safe_people_rocrate) |>
+      knitr::kable() |>
+      paste0(collapse = "\n")
+  )
+
+  ## append Safe Project & Safe Data details
+  report_contents <- c(
+    report_contents,
+    "### Project(s)\n",
+    flatten_safe_project(safe_project_rocrate) |>
+      knitr::kable() |>
+      paste0(collapse = "\n")
+  )
+
+  ## append Safe Data details
+  report_contents <- c(
+    report_contents,
+    "### Data\n",
+    flatten_safe_data(safe_data_rocrate) |>
+      knitr::kable() |>
+      paste0(collapse = "\n")
+  )
+
+  ## append Safe Data permissions
+  #### check if `overview_tbl` has `permission` field
+  if ("permission" %in% colnames(overview_tbl)) {
+    report_contents <- c(
+      report_contents,
+      "#### Data permissions\n",
+      flatten_user_perm_entity(user_perm_entity_lst) |>
+        dplyr::select(-actionStatus, -description, -permission) |>
+        knitr::kable() |>
+        paste0(collapse = "\n")
+    )
+  }
+
+  ## append Safe Settings details
+  report_contents <- c(
+    report_contents,
+    "### Settings\n",
+    flatten_safe_setting(safe_setting_rocrate) |>
+      knitr::kable() |>
+      paste0(collapse = "\n")
+  )
+
+  if (!is.null(safe_output_tbl_v2) && nrow(safe_output_tbl_v2) > 0) {
+    ## append Safe Outputs details
+    report_contents <- c(
+      report_contents,
+      "### Outputs\n",
+      safe_output_tbl_v2 |>
+        knitr::kable() |>
+        paste0(collapse = "\n")
+    )
+  }
+
+  return(report_contents)
 }
