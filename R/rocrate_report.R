@@ -343,7 +343,8 @@ rocrate_report.rocrate <- function(
     }
   )
 
-  ## create visualisation for the overview
+  # create overview ----
+  overview_tbl <- tibble::tibble()
   ### extract (if available) table with user permissions
   user_perm_tbl <- flatten_user_perm_entity(user_perm_entity_lst)
   ### extract table with Safe People details
@@ -409,106 +410,19 @@ rocrate_report.rocrate <- function(
       )
   }
 
-  ## initialise `vars` and `labelvar`
-  vars <- labelvar <- NULL
-  ## check if `overview_tbl` has `permission` field AND include_user_perm = TRUE
-  if ("permission" %in% colnames(overview_tbl) && include_user_perm) {
-    # check if `overview_tbl` has `ds_function` field
-    if ("ds_function" %in% colnames(overview_tbl)) {
-      overview_agg <- overview_tbl |>
-        dplyr::group_by(project, table, name, ds_function) |>
-        dplyr::reframe(
-          permission = paste0(unique(permission), collapse = " & "),
-        )
-      vars <- c("project", "table", "permission", "name", "ds_function")
-      labelvar <- c(
-        name = "People",
-        project = "Project",
-        table = "Data",
-        ds_function = "DataSHIELD Function",
-        permission = "Access Level"
-      )
-    } else {
-      overview_agg <- overview_tbl |>
-        dplyr::group_by(project, table, name) |>
-        dplyr::reframe(
-          permission = paste0(unique(permission), collapse = " & "),
-        )
-      vars <- c("project", "table", "permission", "name")
-      labelvar <- c(
-        name = "People",
-        project = "Project",
-        table = "Data",
-        permission = "Access Level"
-      )
-    }
-  } else {
-    overview_agg <- overview_tbl
-    vars <- c("name", "project", "table")
-    labelvar <- c(
-      name = "People",
-      project = "Project",
-      table = "Data"
-    )
-  }
+  # overview diagram ----
+  overview_lst <- .overview_diagram(
+    overview_tbl,
+    include_user_perm,
+    filepath,
+    render,
+    diag_title,
+    diag_width,
+    diag_height
+  )
 
-  ## generate diagram
-  diagram_lst <- overview_agg |>
-    vtree::vtree(
-      vars = vars,
-      labelvar = labelvar,
-      showpct = FALSE,
-      showcount = FALSE,
-      horiz = FALSE,
-      varnamebold = TRUE,
-      splitwidth = 1,
-      vsplitwidth = 1,
-      folder = dirname(filepath),
-      title = diag_title,
-      # imageFileOnly = render,
-      pngknit = render,
-      # pxheight = min(80 * nrow(overview_tbl), 500),
-      # pxwidth = 200 * nrow(overview_tbl),
-      prune = list(ds_function = "")
-    )
-
-  ## if `render = TRUE`, then render diagram as PNG
-  diagram_filepath <- NULL
-  ### estimate number of nodes
-  dot <- diagram_lst$x$diagram
-  nodes <- dot |>
-    gregexpr(pattern = "Node_[A-Za-z0-9_]+", perl = TRUE) |>
-    (\(.) regmatches(dot, .))() |>
-    unlist() |>
-    unique()
-  num_nodes <- length(nodes)
-  ### scale width/height based on nodes
-  scale_factor <- 0.5 # inches per node
-  if (is.null(diag_width)) {
-    width <- max(12, num_nodes * scale_factor)
-  } else {
-    width <- diag_width
-  }
-  if (is.null(diag_height)) {
-    height <- max(6, num_nodes * scale_factor)
-  } else {
-    height <- diag_height
-  }
-  if (render) {
-    diagram_filepath <- diagram_lst |>
-      vtree::grVizToImageFile(
-        folder = dirname(filepath),
-        filename = gsub("md$", "png", basename(filepath))
-      )
-  }
-
-  # # find path to latest PNG generated with `vtree`
-  # diagram_filepath <- list.files(dirname(filepath), "^vtree")
-  # diagram_filepath <- diagram_filepath[length(diagram_filepath)]
-
-  ## append overview table
-  ### create tidy version of the overview table
-  #### check if `overview_tbl` has `permission` field
+  # create tidy version of the overview table
+  ## check if `overview_tbl` has `permission` field
   if ("permission" %in% colnames(overview_tbl)) {
     if ("ds_function" %in% colnames(overview_tbl)) {
       tidy_overview_tbl <- overview_tbl |>
@@ -561,7 +475,7 @@ rocrate_report.rocrate <- function(
 
   # create Markdown report ----
   report_contents <- c(
-    .markdown_report_header(title, overview_tbl, diagram_filepath),
+    .markdown_report_header(title, overview_tbl, overview_lst$diag_path),
     tidy_overview_tbl |>
       # tidy up duplicated values in `project` and `table`
       dplyr::mutate(
@@ -686,10 +600,10 @@ rocrate_report.rocrate <- function(
       stop("The format `", doc_format, "` is not valid! Try 'html' or 'pdf'.")
     }
   } else {
-    print(diagram_lst)
+    print(overview_lst$diag_lst)
     return(invisible(
       list(
-        overview_diagram = diagram_lst,
+        overview_diagram = overview_lst$diag_lst,
         overview_data = tidy_overview_tbl,
         safe_people = flatten_safe_people(safe_people_rocrate),
         safe_data = flatten_safe_data(safe_data_rocrate),
@@ -786,4 +700,123 @@ rocrate_report.rocrate <- function(
     ),
     "```\n</div>\n\n\\newpage"
   )
+}
+
+#' Create diagram for RO-Crate overview
+#'
+#' @param overview_tbl Data frame with overview details for the RO-Crate.
+#' @inheritParams rocrate_report
+#'
+#' @returns Diagram object
+#' @keywords internal
+.overview_diagram <- function(
+  overview_tbl,
+  include_user_perm,
+  filepath,
+  render,
+  diag_title,
+  diag_width,
+  diag_height
+) {
+  # local bindings
+  ds_function <- name <- permission <- project <- table <- NULL
+
+  ## initialise `vars` and `labelvar`
+  vars <- labelvar <- NULL
+  ## check if `overview_tbl` has `permission` field AND include_user_perm = TRUE
+  if ("permission" %in% colnames(overview_tbl) && include_user_perm) {
+    # check if `overview_tbl` has `ds_function` field
+    if ("ds_function" %in% colnames(overview_tbl)) {
+      overview_agg <- overview_tbl |>
+        dplyr::group_by(project, table, name, ds_function) |>
+        dplyr::reframe(
+          permission = paste0(unique(permission), collapse = " & "),
+        )
+      vars <- c("project", "table", "permission", "name", "ds_function")
+      labelvar <- c(
+        name = "People",
+        project = "Project",
+        table = "Data",
+        ds_function = "DataSHIELD Function",
+        permission = "Access Level"
+      )
+    } else {
+      overview_agg <- overview_tbl |>
+        dplyr::group_by(project, table, name) |>
+        dplyr::reframe(
+          permission = paste0(unique(permission), collapse = " & "),
+        )
+      vars <- c("project", "table", "permission", "name")
+      labelvar <- c(
+        name = "People",
+        project = "Project",
+        table = "Data",
+        permission = "Access Level"
+      )
+    }
+  } else {
+    overview_agg <- overview_tbl
+    vars <- c("name", "project", "table")
+    labelvar <- c(
+      name = "People",
+      project = "Project",
+      table = "Data"
+    )
+  }
+
+  ## generate diagram
+  diagram_lst <- overview_agg |>
+    vtree::vtree(
+      vars = vars,
+      labelvar = labelvar,
+      showpct = FALSE,
+      showcount = FALSE,
+      horiz = FALSE,
+      varnamebold = TRUE,
+      splitwidth = 1,
+      vsplitwidth = 1,
+      folder = dirname(filepath),
+      title = diag_title,
+      # imageFileOnly = render,
+      pngknit = render,
+      # pxheight = min(80 * nrow(overview_tbl), 500),
+      # pxwidth = 200 * nrow(overview_tbl),
+      prune = list(ds_function = "")
+    )
+
+  ## if `render = TRUE`, then render diagram as PNG
+  diagram_filepath <- NULL
+  ### estimate number of nodes
+  dot <- diagram_lst$x$diagram
+  nodes <- dot |>
+    gregexpr(pattern = "Node_[A-Za-z0-9_]+", perl = TRUE) |>
+    (\(.) regmatches(dot, .))() |>
+    unlist() |>
+    unique()
+  num_nodes <- length(nodes)
+  ### scale width/height based on nodes
+  scale_factor <- 0.5 # inches per node
+  if (is.null(diag_width)) {
+    width <- max(12, num_nodes * scale_factor)
+  } else {
+    width <- diag_width
+  }
+  if (is.null(diag_height)) {
+    height <- max(6, num_nodes * scale_factor)
+  } else {
+    height <- diag_height
+  }
+  if (render) {
+    diagram_filepath <- diagram_lst |>
+      vtree::grVizToImageFile(
+        folder = dirname(filepath),
+        filename = gsub("md$", "png", basename(filepath))
+      )
+  }
+
+  # # find path to latest PNG generated with `vtree`
+  # diagram_filepath <- list.files(dirname(filepath), "^vtree")
+  # diagram_filepath <- diagram_filepath[length(diagram_filepath)]
+
+  return(list(diag_lst = diagram_lst, diag_path = diagram_filepath))
 }
