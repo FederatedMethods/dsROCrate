@@ -420,9 +420,9 @@ rocrate_report.rocrate <- function(
         )
       vars <- c("project", "table", "permission", "name", "ds_function")
       labelvar <- c(
-        name = "Safe People",
-        project = "Safe Project",
-        table = "Safe Data",
+        name = "People",
+        project = "Project",
+        table = "Data",
         ds_function = "DataSHIELD Function",
         permission = "Access Level"
       )
@@ -434,9 +434,9 @@ rocrate_report.rocrate <- function(
         )
       vars <- c("project", "table", "permission", "name")
       labelvar <- c(
-        name = "Safe People",
-        project = "Safe Project",
-        table = "Safe Data",
+        name = "People",
+        project = "Project",
+        table = "Data",
         permission = "Access Level"
       )
     }
@@ -444,9 +444,9 @@ rocrate_report.rocrate <- function(
     overview_agg <- overview_tbl
     vars <- c("name", "project", "table")
     labelvar <- c(
-      name = "Safe People",
-      project = "Safe Project",
-      table = "Safe Data"
+      name = "People",
+      project = "Project",
+      table = "Data"
     )
   }
 
@@ -525,21 +525,16 @@ rocrate_report.rocrate <- function(
           timestamp = timestamp,
           .groups = "drop"
         ) |>
-        # dplyr::group_by(project, table, name, permission, ds_function) |>
-        # dplyr::reframe(
-        #   timestamp = paste0(timestamp, collapse = "<br>"),
-        #   .groups = "drop"
-        # ) |>
         # tidy up duplicated values in `project` and `table`
         dplyr::mutate(
           project = unfill_vec(project),
           table = unfill_vec(table)
         ) |>
         dplyr::select(
-          `Safe Project` = project,
-          `Safe Data` = table,
+          `Project` = project,
+          `Data` = table,
           `Access Level` = permission,
-          `Safe People` = name,
+          `People` = name,
           `DataSHIELD Function` = ds_function,
           `Timestamp` = timestamp
         ) |>
@@ -557,10 +552,10 @@ rocrate_report.rocrate <- function(
           table = unfill_vec(table)
         ) |>
         dplyr::select(
-          `Safe Project` = project,
-          `Safe Data` = table,
+          `Project` = project,
+          `Data` = table,
           `Access Level` = permission,
-          `Safe People` = name
+          `People` = name
         )
     }
   } else {
@@ -571,9 +566,9 @@ rocrate_report.rocrate <- function(
         project = unfill_vec(project)
       ) |>
       dplyr::select(
-        `Safe Project` = project,
-        `Safe Data` = table,
-        `Safe People` = name
+        `Project` = project,
+        `Data` = table,
+        `People` = name
       )
   }
   report_contents <- c(
@@ -625,7 +620,7 @@ rocrate_report.rocrate <- function(
   ## append Safe People details
   report_contents <- c(
     report_contents,
-    "\n### Safe People\n",
+    "\n### People\n",
     flatten_safe_people(safe_people_rocrate) |>
       knitr::kable() |>
       paste0(collapse = "\n")
@@ -634,7 +629,7 @@ rocrate_report.rocrate <- function(
   ## append Safe Project & Safe Data details
   report_contents <- c(
     report_contents,
-    "### Safe Project\n",
+    "### Project(s)\n",
     flatten_safe_project(safe_project_rocrate) |>
       knitr::kable() |>
       paste0(collapse = "\n")
@@ -643,7 +638,7 @@ rocrate_report.rocrate <- function(
   ## append Safe Data details
   report_contents <- c(
     report_contents,
-    "### Safe Data\n",
+    "### Data\n",
     flatten_safe_data(safe_data_rocrate) |>
       knitr::kable() |>
       paste0(collapse = "\n")
@@ -654,7 +649,7 @@ rocrate_report.rocrate <- function(
   if ("permission" %in% colnames(overview_tbl)) {
     report_contents <- c(
       report_contents,
-      "#### Safe Data permissions\n",
+      "#### Data permissions\n",
       flatten_user_perm_entity(user_perm_entity_lst) |>
         dplyr::select(-actionStatus, -description, -permission) |>
         knitr::kable() |>
@@ -665,7 +660,7 @@ rocrate_report.rocrate <- function(
   ## append Safe Settings details
   report_contents <- c(
     report_contents,
-    "### Safe Settings\n",
+    "### Settings\n",
     flatten_safe_setting(safe_setting_rocrate) |>
       knitr::kable() |>
       paste0(collapse = "\n")
