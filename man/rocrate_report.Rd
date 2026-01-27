@@ -4,6 +4,7 @@
 \alias{rocrate_report}
 \alias{rocrate_report.character}
 \alias{rocrate_report.default}
+\alias{rocrate_report.list}
 \alias{rocrate_report.rocrate}
 \title{Create an RO-Crate report}
 \usage{
@@ -12,6 +13,20 @@ rocrate_report(x, ...)
 \method{rocrate_report}{character}(x, ...)
 
 \method{rocrate_report}{default}(x, ...)
+
+\method{rocrate_report}{list}(
+  x,
+  ...,
+  study_name,
+  title = "DataSHIELD Report",
+  filepath = tempfile(fileext = ".md"),
+  render = TRUE,
+  doc_format = "html",
+  overwrite = FALSE,
+  include_user_perm = TRUE,
+  diag_width = NULL,
+  diag_height = NULL
+)
 
 \method{rocrate_report}{rocrate}(
   x,
@@ -22,6 +37,7 @@ rocrate_report(x, ...)
   doc_format = "html",
   overwrite = FALSE,
   include_user_perm = TRUE,
+  diag_title = "DataSHIELD server",
   diag_width = NULL,
   diag_height = NULL
 )
@@ -32,6 +48,8 @@ string with the path to an RO-Crate.}
 
 \item{...}{Other optional arguments. See the full documentation,
 \code{\link[=rocrate_report]{?dsROCrate::rocrate_report}}.}
+
+\item{study_name}{String with the study name.}
 
 \item{title}{String with title for the report (default: 'DataSHIELD Report').}
 
@@ -53,6 +71,9 @@ overview's diagram (default: \code{NULL}, estimated based on number of nodes).}
 
 \item{diag_height}{Numeric value with height (in inches) for the report
 overview's diagram (default: \code{NULL}, estimated based on number of nodes).}
+
+\item{diag_title}{String with title for the 'root' of the diagram (default:
+'DataSHIELD server').}
 }
 \value{
 RO-Crate report as markdown (.md) file and/or HTML.
