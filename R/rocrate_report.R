@@ -39,6 +39,7 @@ rocrate_report.list <- function(
   doc_format = "html",
   overwrite = FALSE,
   include_user_perm = TRUE,
+  diag_title = "DataSHIELD server",
   diag_width = NULL,
   diag_height = NULL
 ) {
@@ -55,6 +56,7 @@ rocrate_report.list <- function(
     doc_format = doc_format,
     overwrite = TRUE,
     include_user_perm = include_user_perm,
+    diag_title = diag_title,
     diag_width = diag_width,
     diag_height = diag_height
   )
@@ -151,6 +153,7 @@ rocrate_report.list <- function(
     }
   )
   ## Overview table ----
+  overview_data_all <- tibble::tibble()
   ## combine aggregated data to generate new overview table
   safe_project_data_all <- safe_project_all |>
     dplyr::rename(project_id = id) |>
@@ -202,6 +205,23 @@ rocrate_report.list <- function(
       }
     )
   }
+
+  ## Overview diagram ----
+  overview_lst <- overview_data_all |>
+    dplyr::rename(name = user) |>
+    .overview_diagram(
+      include_user_perm,
+      filepath,
+      render,
+      diag_title,
+      diag_width,
+      diag_height
+    )
+
+  ## Create tidy overview table ----
+  tidy_overview_tbl <- overview_data_all |>
+    dplyr::rename(name = user) |>
+    .tidy_overview()
 
   # return combined outputs
   # TODO
@@ -424,7 +444,7 @@ rocrate_report.rocrate <- function(
   # create tidy overview table ----
   tidy_overview_tbl <- .tidy_overview(overview_tbl)
 
-  # create Markdown report ----
+  # create markdown report ----
   ## header and overview table
   report_contents <- c(
     .markdown_report_header(title, overview_tbl, overview_lst$diag_path),
@@ -552,46 +572,44 @@ rocrate_report.rocrate <- function(
   ds_function <- name <- permission <- project <- table <- NULL
 
   ## initialise `vars` and `labelvar`
-  vars <- labelvar <- NULL
-  ## check if `overview_tbl` has `permission` field AND include_user_perm = TRUE
+  vars <- c("project", "table")
+  labelvar <- c(project = "Project", table = "Data")
+
+  # check if `overview_tbl` has `permission` field AND include_user_perm = TRUE
   if ("permission" %in% colnames(overview_tbl) && include_user_perm) {
-    # check if `overview_tbl` has `ds_function` field
-    if ("ds_function" %in% colnames(overview_tbl)) {
-      overview_agg <- overview_tbl |>
-        dplyr::group_by(project, table, name, ds_function) |>
-        dplyr::reframe(
-          permission = paste0(unique(permission), collapse = " & "),
-        )
-      vars <- c("project", "table", "permission", "name", "ds_function")
-      labelvar <- c(
-        name = "People",
-        project = "Project",
-        table = "Data",
-        ds_function = "DataSHIELD Function",
-        permission = "Access Level"
+    vars <- c(vars, "permission")
+    labelvar <- c(labelvar, permission = "Access Level")
+  }
+
+  # attach name/user and label it 'People'
+  vars <- c(vars, "name")
+  labelvar <- c(labelvar, name = "People")
+
+  # check if `overview_tbl` has a `ds_function` field
+  if ("ds_function" %in% colnames(overview_tbl)) {
+    vars <- c(vars, "ds_function")
+    labelvar <- c(labelvar, ds_function = "DataSHIELD Function")
+
+    # replace 'NA' with empty string for `ds_function`
+    overview_tbl <- overview_tbl |>
+      dplyr::mutate(ds_function = ifelse(is.na(ds_function), "", ds_function))
+  }
+
+  # attach 'server' if found in `overview_tbl`
+  if ("server" %in% colnames(overview_tbl)) {
+    vars <- c("server", vars)
+    labelvar <- c(server = "Server", labelvar)
+  }
+
+  # aggregate the data if `permission` exists in `overview_tbl`
+  if ("permission" %in% colnames(overview_tbl)) {
+    overview_agg <- overview_tbl |>
+      dplyr::group_by(dplyr::pick(vars[vars != "permission"])) |>
+      dplyr::reframe(
+        permission = paste0(unique(permission), collapse = " & "),
       )
-    } else {
-      overview_agg <- overview_tbl |>
-        dplyr::group_by(project, table, name) |>
-        dplyr::reframe(
-          permission = paste0(unique(permission), collapse = " & "),
-        )
-      vars <- c("project", "table", "permission", "name")
-      labelvar <- c(
-        name = "People",
-        project = "Project",
-        table = "Data",
-        permission = "Access Level"
-      )
-    }
   } else {
     overview_agg <- overview_tbl
-    vars <- c("name", "project", "table")
-    labelvar <- c(
-      name = "People",
-      project = "Project",
-      table = "Data"
-    )
   }
 
   ## generate diagram
