@@ -24,6 +24,7 @@ rocrate_report(x, ...)
   doc_format = "html",
   overwrite = FALSE,
   include_user_perm = TRUE,
+  diag_title = "DataSHIELD server",
   diag_width = NULL,
   diag_height = NULL
 )
@@ -66,14 +67,14 @@ version of markdown report.}
 \item{include_user_perm}{Boolean flag to indicate whether to include user
 permissions in the report overview's diagram.}
 
+\item{diag_title}{String with title for the 'root' of the diagram (default:
+'DataSHIELD server').}
+
 \item{diag_width}{Numeric value with width (in inches) for the report
 overview's diagram (default: \code{NULL}, estimated based on number of nodes).}
 
 \item{diag_height}{Numeric value with height (in inches) for the report
 overview's diagram (default: \code{NULL}, estimated based on number of nodes).}
-
-\item{diag_title}{String with title for the 'root' of the diagram (default:
-'DataSHIELD server').}
 }
 \value{
 RO-Crate report as markdown (.md) file and/or HTML.
