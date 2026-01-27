@@ -528,11 +528,6 @@ rocrate_report.rocrate <- function(
           timestamp = timestamp,
           .groups = "drop"
         ) |>
-        # tidy up duplicated values in `project` and `table`
-        dplyr::mutate(
-          project = unfill_vec(project),
-          table = unfill_vec(table)
-        ) |>
         dplyr::select(
           `Project` = project,
           `Data` = table,
@@ -549,11 +544,6 @@ rocrate_report.rocrate <- function(
         dplyr::reframe(
           permission = paste0(unique(permission), collapse = " & ")
         ) |>
-        # tidy up duplicated values in `project` and `table`
-        dplyr::mutate(
-          project = unfill_vec(project),
-          table = unfill_vec(table)
-        ) |>
         dplyr::select(
           `Project` = project,
           `Data` = table,
@@ -563,11 +553,6 @@ rocrate_report.rocrate <- function(
     }
   } else {
     tidy_overview_tbl <- overview_tbl |>
-      # tidy up duplicated values in `name` and `project`
-      dplyr::mutate(
-        name = unfill_vec(name),
-        project = unfill_vec(project)
-      ) |>
       dplyr::select(
         `Project` = project,
         `Data` = table,
@@ -613,6 +598,11 @@ rocrate_report.rocrate <- function(
     ),
     "```\n</div>\n\n\\newpage",
     tidy_overview_tbl |>
+      # tidy up duplicated values in `project` and `table`
+      dplyr::mutate(
+        Project = unfill_vec(Project),
+        Data = unfill_vec(Data)
+      ) |>
       dplyr::distinct() |>
       knitr::kable() |>
       paste0(collapse = "\n")
@@ -669,7 +659,7 @@ rocrate_report.rocrate <- function(
       paste0(collapse = "\n")
   )
 
-  if (nrow(safe_output_tbl_v2) > 0) {
+  if (!is.null(safe_output_tbl_v2) && nrow(safe_output_tbl_v2) > 0) {
     ## append Safe Outputs details
     report_contents <- c(
       report_contents,
