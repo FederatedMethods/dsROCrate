@@ -150,6 +150,7 @@ rocrate_report.list <- function(
       NULL
     }
   )
+  ## Overview table ----
   ## combine aggregated data to generate new overview table
   safe_project_data_all <- safe_project_all |>
     dplyr::rename(project_id = id) |>
@@ -178,7 +179,11 @@ rocrate_report.list <- function(
 
     # if any Safe Outputs were found in the inputs, include in the overview
     if (!is.null(safe_output_all) && nrow(safe_output_all)) {
-      # TODO
+      overview_data_all <- overview_data_all |>
+        dplyr::left_join(
+          safe_output_all,
+          by = c("server", "project", "table", "user" = "username")
+        )
     }
   } else {
     # extract previous overview table
@@ -200,6 +205,8 @@ rocrate_report.list <- function(
 
   # return combined outputs
   # TODO
+
+  # render diagram
 
   # PLACEHOLDER OUTPUT
   return(report_outputs)
@@ -235,12 +242,12 @@ rocrate_report.rocrate <- function(
   diag_width = NULL,
   diag_height = NULL
 ) {
-  # local bindings
+  # local bindings ----
   id <- name <- project <- table_id <- table_name <- username <- user_id <- NULL
   actionStatus <- description <- ds_function <- ds_table <- type <- NULL
   encodingFormat <- permission <- timestamp <- NULL
 
-  # validate RO-Crate
+  # validate RO-Crate ----
   rocrateR::is_rocrate(x)
 
   # ensure the given file path exists
@@ -265,6 +272,7 @@ rocrate_report.rocrate <- function(
     }
   }
 
+  # pre-processing ----
   # attempt to extract Safe People details
   safe_people_rocrate <- tryCatch(
     {
@@ -333,35 +341,6 @@ rocrate_report.rocrate <- function(
     error = function(e) {
       NULL
     }
-  )
-
-  # create Markdown report
-  ## initialise markdown header (see https://rmarkdown.rstudio.com/lesson-9.html)
-  report_contents <- paste0(
-    "---\n",
-    paste0("title: ", title),
-    "\noutput:\n",
-    "  pdf_document:\n",
-    "    df_print: kable\n",
-    "    highlight: tango\n",
-    "  html_document: default\n",
-    "fontsize: 11pt\n",
-    "geometry:\n",
-    "  - margin=.5in\n",
-    "  - landscape\n",
-    "header-includes: \n",
-    "  - \\usepackage{array}\n",
-    "  - \\usepackage{longtable}\n",
-    "  - \\usepackage{xurl}\n",
-    "  - \\usepackage{hyphenat}\n",
-    "  - \\usepackage{microtype}\n",
-    "  - \\sloppy\n",
-    "  - \\setlength{\\emergencystretch}{3em}\n",
-    "  - \\usepackage{float}\n",
-    "  - \\usepackage{titling}\n",
-    "  - \\setlength{\\droptitle}{-1.5cm}\n",
-    paste0("date: ", format(Sys.time(), '%Y-%m-%d %H:%M:%S')),
-    "\n---\n"
   )
 
   ## create visualisation for the overview
@@ -579,44 +558,10 @@ rocrate_report.rocrate <- function(
         `People` = name
       )
   }
+
+  # create Markdown report ----
   report_contents <- c(
-    report_contents,
-    paste0(
-      "This report contains details for ",
-      length(unique(overview_tbl$name)),
-      " user",
-      ifelse(length(unique(overview_tbl$name)) > 1, "s", ""),
-      " and ",
-      length(unique(overview_tbl$project)),
-      " project",
-      ifelse(length(unique(overview_tbl$project)) > 1, "s", ""),
-      ". In addition, the tables they have access to within",
-      ifelse(length(unique(overview_tbl$project)) > 1, " a ", " the "),
-      "project.\n\n"
-    ),
-    "## Overview\n\n",
-    "<div style=\"margin:0;\">\n",
-    # "::: {style=\"text-align: center;\"}\n",
-    "<!-- PDF-only -->\n",
-    "```{=latex}\n",
-    paste0(
-      "\\begin{figure}[H]\n",
-      "\\centering\n",
-      "\\includegraphics[height=0.75\\textheight, keepaspectratio, width=0.9\\textwidth]{",
-      diagram_filepath,
-      "}",
-      "\\caption{RO-Crate Overview}\n",
-      "\\end{figure}\n```\n"
-    ),
-    "<!-- HTML-only -->",
-    "```{=html}\n",
-    paste0(
-      "<img src=\"",
-      diagram_filepath,
-      "\" alt=\"RO-Crate Overview\" ",
-      "style=\"display:block; margin-left:auto; margin-right:auto;\" />\n"
-    ),
-    "```\n</div>\n\n\\newpage",
+    .markdown_report_header(title, overview_tbl, diagram_filepath),
     tidy_overview_tbl |>
       # tidy up duplicated values in `project` and `table`
       dplyr::mutate(
@@ -768,5 +713,77 @@ rocrate_report.rocrate <- function(
       safe_setting = flatten_safe_setting(safe_setting_rocrate),
       safe_output = safe_output_tbl_v2
     )
+  )
+}
+
+#' Generate Markdown report's header
+#'
+#' @inheritParams rocrate_report
+#'
+#' @returns String with report's header
+#' @keywords internal
+.markdown_report_header <- function(title, overview_tbl, diagram_filepath) {
+  ## initialise markdown header (see https://rmarkdown.rstudio.com/lesson-9.html)
+  paste0(
+    "---\n",
+    paste0("title: ", title),
+    "\noutput:\n",
+    "  pdf_document:\n",
+    "    df_print: kable\n",
+    "    highlight: tango\n",
+    "  html_document: default\n",
+    "fontsize: 11pt\n",
+    "geometry:\n",
+    "  - margin=.5in\n",
+    "  - landscape\n",
+    "header-includes: \n",
+    "  - \\usepackage{array}\n",
+    "  - \\usepackage{longtable}\n",
+    "  - \\usepackage{xurl}\n",
+    "  - \\usepackage{hyphenat}\n",
+    "  - \\usepackage{microtype}\n",
+    "  - \\sloppy\n",
+    "  - \\setlength{\\emergencystretch}{3em}\n",
+    "  - \\usepackage{float}\n",
+    "  - \\usepackage{titling}\n",
+    "  - \\setlength{\\droptitle}{-1.5cm}\n",
+    paste0("date: ", format(Sys.time(), '%Y-%m-%d %H:%M:%S')),
+    "\n---\n",
+    paste0(
+      "This report contains details for ",
+      length(unique(overview_tbl$name)),
+      " user",
+      ifelse(length(unique(overview_tbl$name)) > 1, "s", ""),
+      " and ",
+      length(unique(overview_tbl$project)),
+      " project",
+      ifelse(length(unique(overview_tbl$project)) > 1, "s", ""),
+      ". In addition, the tables they have access to within",
+      ifelse(length(unique(overview_tbl$project)) > 1, " a ", " the "),
+      "project.\n\n"
+    ),
+    "## Overview\n\n",
+    "<div style=\"margin:0;\">\n",
+    # "::: {style=\"text-align: center;\"}\n",
+    "<!-- PDF-only -->\n",
+    "```{=latex}\n",
+    paste0(
+      "\\begin{figure}[H]\n",
+      "\\centering\n",
+      "\\includegraphics[height=0.75\\textheight, keepaspectratio, width=0.9\\textwidth]{",
+      diagram_filepath,
+      "}",
+      "\\caption{RO-Crate Overview}\n",
+      "\\end{figure}\n```\n"
+    ),
+    "<!-- HTML-only -->",
+    "```{=html}\n",
+    paste0(
+      "<img src=\"",
+      diagram_filepath,
+      "\" alt=\"RO-Crate Overview\" ",
+      "style=\"display:block; margin-left:auto; margin-right:auto;\" />\n"
+    ),
+    "```\n</div>\n\n\\newpage"
   )
 }
