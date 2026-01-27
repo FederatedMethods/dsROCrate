@@ -194,6 +194,8 @@ rocrate_report.list <- function(
 #'     version of markdown report.
 #' @param include_user_perm Boolean flag to indicate whether to include user
 #'     permissions in the report overview's diagram.
+#' @param diag_title String with title for the 'root' of the diagram (default:
+#'     'DataSHIELD server').
 #' @param diag_width Numeric value with width (in inches) for the report
 #'     overview's diagram (default: `NULL`, estimated based on number of nodes).
 #' @param diag_height Numeric value with height (in inches) for the report
@@ -209,6 +211,7 @@ rocrate_report.rocrate <- function(
   doc_format = "html",
   overwrite = FALSE,
   include_user_perm = TRUE,
+  diag_title = "DataSHIELD server",
   diag_width = NULL,
   diag_height = NULL
 ) {
@@ -459,6 +462,7 @@ rocrate_report.rocrate <- function(
       splitwidth = 1,
       vsplitwidth = 1,
       folder = dirname(filepath),
+      title = diag_title,
       # imageFileOnly = render,
       pngknit = render,
       # pxheight = min(80 * nrow(overview_tbl), 500),
