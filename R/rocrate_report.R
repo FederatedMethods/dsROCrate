@@ -385,6 +385,9 @@ rocrate_report.rocrate <- function(
     purrr::pluck("content", .default = list()) |>
     purrr::list_c()
 
+  # initialise safe_output_tbl_v2, to be included in the returned outputs
+  safe_output_tbl_v2 <- NULL
+
   if (!is.null(safe_output_tbl) && nrow(safe_output_tbl) > 0) {
     # split `ds_table` into `project` and `table`
     safe_output_tbl_v2 <- safe_output_tbl |>
@@ -666,6 +669,17 @@ rocrate_report.rocrate <- function(
       paste0(collapse = "\n")
   )
 
+  if (nrow(safe_output_tbl_v2) > 0) {
+    ## append Safe Outputs details
+    report_contents <- c(
+      report_contents,
+      "### Outputs\n",
+      safe_output_tbl_v2 |>
+        knitr::kable() |>
+        paste0(collapse = "\n")
+    )
+  }
+
   report_contents <- c(report_contents, "\n<hr />\n")
 
   ## append input RO-Crate
@@ -726,7 +740,8 @@ rocrate_report.rocrate <- function(
         safe_data = flatten_safe_data(safe_data_rocrate),
         safe_data_permissions = flatten_user_perm_entity(user_perm_entity_lst),
         safe_project = flatten_safe_project(safe_project_rocrate),
-        safe_setting = flatten_safe_setting(safe_setting_rocrate)
+        safe_setting = flatten_safe_setting(safe_setting_rocrate),
+        safe_output = safe_output_tbl_v2
       )
     ))
   }
@@ -740,7 +755,8 @@ rocrate_report.rocrate <- function(
       safe_data = flatten_safe_data(safe_data_rocrate),
       safe_data_permissions = flatten_user_perm_entity(user_perm_entity_lst),
       safe_project = flatten_safe_project(safe_project_rocrate),
-      safe_setting = flatten_safe_setting(safe_setting_rocrate)
+      safe_setting = flatten_safe_setting(safe_setting_rocrate),
+      safe_output = safe_output_tbl_v2
     )
   )
 }
