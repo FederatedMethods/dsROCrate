@@ -26,6 +26,49 @@ rocrate_report.default <- function(x, ...) {
   )
 }
 
+#' @param study_name String with the study name.
+#' @rdname rocrate_report
+#' @export
+rocrate_report.list <- function(
+  x,
+  ...,
+  study_name,
+  title = "DataSHIELD Report",
+  filepath = tempfile(fileext = ".md"),
+  render = TRUE,
+  doc_format = "html",
+  overwrite = FALSE,
+  include_user_perm = TRUE,
+  diag_width = NULL,
+  diag_height = NULL
+) {
+  # validate that all the objects in the list, `x`, are valid RO-Crates
+  sapply(x, rocrateR::is_rocrate)
+
+  # generate individual reports for each RO-Crate
+  report_outputs <- lapply(
+    x,
+    rocrate_report,
+    title = title,
+    filepath = filepath,
+    render = FALSE,
+    doc_format = doc_format,
+    overwrite = TRUE,
+    include_user_perm = include_user_perm,
+    diag_width = diag_width,
+    diag_height = diag_height
+  )
+
+  # combine reports
+  # TODO
+
+  # return combined outputs
+  # TODO
+
+  # PLACEHOLDER OUTPUT
+  return(report_outputs)
+}
+
 #' @param title String with title for the report (default: 'DataSHIELD Report').
 #' @param filepath String with file path for Markdown report with the summary
 #'     of the given object, `x`.
