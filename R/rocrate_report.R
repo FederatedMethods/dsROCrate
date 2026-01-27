@@ -59,8 +59,124 @@ rocrate_report.list <- function(
     diag_height = diag_height
   )
 
-  # combine reports
-  # TODO
+  # Combine reports ----
+  ## Safe People -----
+  safe_people_all <- tryCatch(
+    {
+      report_outputs |>
+        # extract each component per server
+        lapply(getElement, name = "safe_people") |>
+        # attach the server name as a new column
+        purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
+        # combine rows
+        dplyr::bind_rows()
+    },
+    error = function(e) {
+      NULL
+    }
+  )
+  ## Safe Data ----
+  safe_data_all <- tryCatch(
+    {
+      report_outputs |>
+        # extract each component per server
+        lapply(getElement, name = "safe_data") |>
+        # attach the server name as a new column
+        purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
+        # combine rows
+        dplyr::bind_rows()
+    },
+    error = function(e) {
+      NULL
+    }
+  )
+  ## Safe Projects ----
+  safe_project_all <- tryCatch(
+    {
+      report_outputs |>
+        # extract each component per server
+        lapply(getElement, name = "safe_project") |>
+        # attach the server name as a new column
+        purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
+        # combine rows
+        dplyr::bind_rows()
+    },
+    error = function(e) {
+      NULL
+    }
+  )
+  ## Safe Settings ----
+  safe_setting_all <- tryCatch(
+    {
+      report_outputs |>
+        # extract each component per server
+        lapply(getElement, name = "safe_setting") |>
+        # attach the server name as a new column
+        purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
+        # combine rows
+        dplyr::bind_rows()
+    },
+    error = function(e) {
+      NULL
+    }
+  )
+  ## Safe Data permissions (optional) ----
+  safe_data_permissions_all <- tryCatch(
+    {
+      report_outputs |>
+        # extract each component per server
+        lapply(getElement, name = "safe_data_permissions") |>
+        # attach the server name as a new column
+        purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
+        # combine rows
+        dplyr::bind_rows()
+    },
+    error = function(e) {
+      NULL
+    }
+  )
+  ## combine aggregated data to generate new overview table
+  safe_project_data_all <- safe_project_all |>
+    dplyr::rename(project_id = id) |>
+    dplyr::left_join(
+      safe_data_all |>
+        dplyr::rename(table_id = id),
+      by = c("table" = "name", "server" = "server")
+    )
+  # if data permissions were found, then combine with project-data details and
+  # generate new overview table
+  if (!is.null(safe_data_permissions_all)) {
+    overview_data_all <- safe_data_permissions_all |>
+      dplyr::left_join(
+        safe_people_all |>
+          dplyr::rename(user_id = id),
+        by = c("user_id", "server")
+      ) |>
+      dplyr::left_join(safe_project_data_all, by = c("table_id", "server")) |>
+      dplyr::select(
+        server,
+        project,
+        table,
+        permission,
+        user = name
+      )
+  } else {
+    # extract previous overview table
+    overview_data_all <- tryCatch(
+      {
+        report_outputs |>
+          # extract each component per server
+          lapply(getElement, name = "overview_data") |>
+          # attach the server name as a new column
+          purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
+          # combine rows
+          dplyr::bind_rows()
+      },
+      error = function(e) {
+        NULL
+      }
+    )
+  }
 
   # return combined outputs
   # TODO
