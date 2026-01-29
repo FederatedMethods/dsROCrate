@@ -4,10 +4,13 @@
 \alias{.tidy_overview}
 \title{Create tidy version of the overview table}
 \usage{
-.tidy_overview(overview_tbl)
+.tidy_overview(overview_tbl, include_user_perm)
 }
 \arguments{
 \item{overview_tbl}{Data frame with overview details for the RO-Crate.}
+
+\item{include_user_perm}{Boolean flag to indicate whether to include user
+permissions in the report overview's diagram.}
 }
 \value{
 Data frame with tidy overview table.

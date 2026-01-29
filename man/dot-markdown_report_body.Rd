@@ -7,12 +7,12 @@
 .markdown_report_body(
   report_contents,
   overview_tbl,
-  safe_people_rocrate,
-  safe_project_rocrate,
-  safe_data_rocrate,
-  user_perm_entity_lst,
-  safe_setting_rocrate,
-  safe_output_tbl_v2
+  safe_people_tbl,
+  safe_project_tbl,
+  safe_data_tbl,
+  safe_user_perm_tbl,
+  safe_setting_tbl,
+  safe_output_tbl
 )
 }
 \arguments{
@@ -20,20 +20,20 @@
 
 \item{overview_tbl}{Data frame with overview details for the RO-Crate.}
 
-\item{safe_people_rocrate}{RO-Crate object with Safe People details.}
+\item{safe_people_tbl}{Data frame with Safe People details.}
 
-\item{safe_project_rocrate}{RO-Crate object with Safe Project details.}
+\item{safe_project_tbl}{Data frame with Safe Project details.}
 
-\item{safe_data_rocrate}{RO-Crate object with Safe Data details.}
+\item{safe_data_tbl}{Data frame with Safe Data details.}
 
-\item{user_perm_entity_lst}{List with Safe Data user permissions.}
+\item{safe_user_perm_tbl}{Data frame with Safe Data user permissions.}
 
-\item{safe_setting_rocrate}{RO-Crate object with Safe Setting details.}
+\item{safe_setting_tbl}{Data frame with Safe Setting details.}
 
 \item{safe_output_tbl_v2}{Data frame with Safe Output details.}
 }
 \value{
-String with updated Markdown report
+String with updated Markdown report.
 }
 \description{
 Generate Markdown report's body
