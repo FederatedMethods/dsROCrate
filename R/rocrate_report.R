@@ -247,7 +247,8 @@ rocrate_report.list <- function(
     safe_data_tbl = safe_data_all,
     safe_user_perm_tbl = safe_data_permissions_all,
     safe_setting_tbl = safe_setting_all,
-    safe_output_tbl = safe_output_all
+    safe_output_tbl = safe_output_all,
+    break_by = "server"
   )
 
   report_contents <- c(report_contents, "\n<hr />\n")
@@ -889,7 +890,7 @@ rocrate_report.rocrate <- function(
       ifelse(
         "server" %in% colnames(overview_tbl),
         paste0(
-          "\n⚠️ Note that the data shown in this report was extracted from ",
+          "\n**Note:** the data shown in this report was extracted from ",
           length(unique_servers_vct),
           " server",
           ifelse(length(unique_servers_vct) > 1, "s", ""),
@@ -934,7 +935,10 @@ rocrate_report.rocrate <- function(
 #' @param safe_data_tbl Data frame with Safe Data details.
 #' @param safe_user_perm_tbl Data frame with Safe Data user permissions.
 #' @param safe_setting_tbl Data frame with Safe Setting details.
-#' @param safe_output_tbl_v2 Data frame with Safe Output details.
+#' @param safe_output_tbl Data frame with Safe Output details.
+#' @param break_by Optional string with variable to be used for breaking down
+#'     each table (e.g., server), as opposed to display all the results in a
+#'     single table.
 #'
 #' @returns String with updated Markdown report.
 #' @keywords internal
@@ -946,7 +950,8 @@ rocrate_report.rocrate <- function(
   safe_data_tbl,
   safe_user_perm_tbl,
   safe_setting_tbl,
-  safe_output_tbl
+  safe_output_tbl,
+  break_by = NULL
 ) {
   report_contents <- c(report_contents, "\n<hr />\n", "## Entities")
 
@@ -955,7 +960,7 @@ rocrate_report.rocrate <- function(
     report_contents,
     "\n### People\n",
     safe_people_tbl |>
-      knitr::kable() |>
+      .break_tibble(varname = break_by) |>
       paste0(collapse = "\n")
   )
 
@@ -964,7 +969,7 @@ rocrate_report.rocrate <- function(
     report_contents,
     "### Project(s)\n",
     safe_project_tbl |>
-      knitr::kable() |>
+      .break_tibble(varname = break_by) |>
       paste0(collapse = "\n")
   )
 
@@ -973,7 +978,7 @@ rocrate_report.rocrate <- function(
     report_contents,
     "### Data\n",
     safe_data_tbl |>
-      knitr::kable() |>
+      .break_tibble(varname = break_by) |>
       paste0(collapse = "\n")
   )
 
@@ -985,7 +990,7 @@ rocrate_report.rocrate <- function(
       "#### Data permissions\n",
       safe_user_perm_tbl |>
         dplyr::select(-actionStatus, -description, -permission) |>
-        knitr::kable() |>
+        .break_tibble(varname = break_by) |>
         paste0(collapse = "\n")
     )
   }
@@ -995,7 +1000,7 @@ rocrate_report.rocrate <- function(
     report_contents,
     "### Settings\n",
     safe_setting_tbl |>
-      knitr::kable() |>
+      .break_tibble(varname = break_by) |>
       paste0(collapse = "\n")
   )
 
@@ -1005,7 +1010,7 @@ rocrate_report.rocrate <- function(
       report_contents,
       "### Outputs\n",
       safe_output_tbl |>
-        knitr::kable() |>
+        .break_tibble(varname = break_by) |>
         paste0(collapse = "\n")
     )
   }
@@ -1045,4 +1050,34 @@ rocrate_report.rocrate <- function(
     rocrate_txt,
     "\n```"
   )
+}
+
+#' Break tibble by group, `varname`
+#'
+#' @param df Data frame to be broken down into groups.
+#' @param varname String with variable name
+#'
+#' @returns String with data frame rendered with `kable`.
+#' @keywords internal
+.break_tibble <- function(df, varname) {
+  # if `varname` is NULL or not a column in `df`, render all the data
+  if (is.null(varname) || !(varname %in% colnames(df))) {
+    return(knitr::kable(df))
+  }
+
+  # extract unique values for `varname` in `df`
+  unique_vals <- unique(getElement(df, varname))
+
+  # render data frame based on groups
+  sapply(unique_vals, function(v) {
+    c(
+      paste0("\n#### '", v, "' ", varname, "\n"),
+      df |>
+        dplyr::rename(temp = !!varname) |>
+        dplyr::filter(temp == v) |>
+        dplyr::select(-temp) |>
+        knitr::kable()
+    ) |>
+      paste0(collapse = "\n")
+  })
 }
