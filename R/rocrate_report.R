@@ -252,23 +252,18 @@ rocrate_report.list <- function(
 
   report_contents <- c(report_contents, "\n<hr />\n")
 
-  # ## append input RO-Crate
-  # # save the input into intermediate JSON file
-  # tmp_file <- tempfile(fileext = ".json")
-  # # delete temporary file
-  # on.exit(unlink(tmp_file, recursive = TRUE, force = TRUE))
-  # # store RO-Crate in JSON format
-  # jsonlite::write_json(x, path = tmp_file, pretty = TRUE, auto_unbox = TRUE)
-  # # load formatted RO-Crate as text
-  # rocrate_txt <- readLines(tmp_file)
-  # report_contents <- c(
-  #   report_contents,
-  #   "\n\\newpage\n",
-  #   "## RO-Crate \n```json",
-  #   # display formatted RO-Crate
-  #   rocrate_txt,
-  #   "\n```"
-  # )
+  ## append RO-Crates ----
+  for (i in seq_along(x)) {
+    report_contents <- .markdown_report_rocrate(
+      report_contents = report_contents,
+      rocrate = x[i],
+      section_txt = ifelse(
+        i == 1,
+        paste0("## RO-Crates\n### '", names(x)[i], "' server"),
+        paste0("### '", names(x)[i], "' server")
+      )
+    )
+  }
 
   ## write contents inside file
   ### delete previous version
@@ -575,22 +570,11 @@ rocrate_report.rocrate <- function(
 
   report_contents <- c(report_contents, "\n<hr />\n")
 
-  ## append input RO-Crate
-  # save the input into intermediate JSON file
-  tmp_file <- tempfile(fileext = ".json")
-  # delete temporary file
-  on.exit(unlink(tmp_file, recursive = TRUE, force = TRUE))
-  # store RO-Crate in JSON format
-  jsonlite::write_json(x, path = tmp_file, pretty = TRUE, auto_unbox = TRUE)
-  # load formatted RO-Crate as text
-  rocrate_txt <- readLines(tmp_file)
-  report_contents <- c(
-    report_contents,
-    "\n\\newpage\n",
-    "## RO-Crate \n```json",
-    # display formatted RO-Crate
-    rocrate_txt,
-    "\n```"
+  # append input RO-Crate ----
+  report_contents <- .markdown_report_rocrate(
+    report_contents = report_contents,
+    rocrate = x,
+    section_txt = "## RO-Crate"
   )
 
   ## write contents inside file
@@ -1008,4 +992,38 @@ rocrate_report.rocrate <- function(
   }
 
   return(report_contents)
+}
+
+#' Embed RO-Crate in Markdown report
+#'
+#' @inheritParams .markdown_report_body
+#' @param rocrate RO-Crate object (see [rocrateR::rocrate]).
+#' @param section_txt String with to be used as the section header
+#'     (e.g., RO-Crate).
+#'
+#' @returns String with update Markdown report.
+#' @keywords internal
+.markdown_report_rocrate <- function(report_contents, rocrate, section_txt) {
+  # save the input into intermediate JSON file
+  tmp_file <- tempfile(fileext = ".json")
+  # delete temporary file
+  on.exit(unlink(tmp_file, recursive = TRUE, force = TRUE))
+  # store RO-Crate in JSON format
+  jsonlite::write_json(
+    rocrate,
+    path = tmp_file,
+    pretty = TRUE,
+    auto_unbox = TRUE
+  )
+  # load formatted RO-Crate as text
+  rocrate_txt <- readLines(tmp_file)
+  report_contents <- c(
+    report_contents,
+    "\n\\newpage\n",
+    section_txt,
+    "\n```json",
+    # display formatted RO-Crate
+    rocrate_txt,
+    "\n```"
+  )
 }
