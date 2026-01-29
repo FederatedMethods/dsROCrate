@@ -841,6 +841,13 @@ rocrate_report.rocrate <- function(
 #' @returns String with report's header
 #' @keywords internal
 .markdown_report_header <- function(title, overview_tbl, diagram_filepath) {
+  # initialise variables for the report header
+  unique_users_vct <- unique(c(
+    getElement(overview_tbl, "name"),
+    getElement(overview_tbl, "user")
+  ))
+  unique_project_vct <- unique(overview_tbl$project)
+  unique_servers_vct <- unique(overview_tbl$server)
   ## initialise markdown header (see https://rmarkdown.rstudio.com/lesson-9.html)
   paste0(
     "---\n",
@@ -869,16 +876,28 @@ rocrate_report.rocrate <- function(
     "\n---\n",
     paste0(
       "This report contains details for ",
-      length(unique(overview_tbl$name)),
+      length(unique_users_vct),
       " user",
-      ifelse(length(unique(overview_tbl$name)) > 1, "s", ""),
+      ifelse(length(unique_users_vct) > 1, "s", ""),
       " and ",
-      length(unique(overview_tbl$project)),
+      length(unique_project_vct),
       " project",
-      ifelse(length(unique(overview_tbl$project)) > 1, "s", ""),
+      ifelse(length(unique_project_vct) > 1, "s", ""),
       ". In addition, the tables they have access to within",
-      ifelse(length(unique(overview_tbl$project)) > 1, " a ", " the "),
-      "project.\n\n"
+      ifelse(length(unique_project_vct) > 1, " a ", " the "),
+      "project. \n",
+      ifelse(
+        "server" %in% colnames(overview_tbl),
+        paste0(
+          "\n⚠️ Note that the data shown in this report was extracted from ",
+          length(unique_servers_vct),
+          " server",
+          ifelse(length(unique_servers_vct) > 1, "s", ""),
+          "."
+        ),
+        ""
+      ),
+      "\n\n"
     ),
     "## Overview\n\n",
     "<div style=\"margin:0;\">\n",
