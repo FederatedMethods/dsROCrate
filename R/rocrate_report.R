@@ -221,7 +221,7 @@ rocrate_report.list <- function(
   ## create tidy overview table ----
   tidy_overview_tbl <- overview_data_all |>
     dplyr::rename(name = user) |>
-    .tidy_overview()
+    .tidy_overview(include_user_perm = include_user_perm)
 
   ## create markdown report ----
   ## header and overview table
@@ -544,7 +544,7 @@ rocrate_report.rocrate <- function(
   )
 
   # create tidy overview table ----
-  tidy_overview_tbl <- .tidy_overview(overview_tbl)
+  tidy_overview_tbl <- .tidy_overview(overview_tbl, include_user_perm)
 
   # create markdown report ----
   ## header and overview table
@@ -777,57 +777,74 @@ rocrate_report.rocrate <- function(
 #'
 #' @returns Data frame with tidy overview table.
 #' @keywords internal
-.tidy_overview <- function(overview_tbl) {
-  ## check if `overview_tbl` has `permission` field
+.tidy_overview <- function(overview_tbl, include_user_perm) {
+  # local bindings
+
+  ## initialise `vars` and `varslab`
+  vars <- c("project", "table")
+  varslab <- c("Project" = "project", "Data" = "table")
+
+  # check if `overview_tbl` has `permission` field AND include_user_perm = TRUE
+  if ("permission" %in% colnames(overview_tbl) && include_user_perm) {
+    vars <- c(vars, "permission")
+    varslab <- c(varslab, "Access Level" = "permission")
+  }
+
+  # attach name/user and label it 'People'
+  vars <- c(vars, "name")
+  varslab <- c(varslab, "People" = "name")
+
+  # check if `overview_tbl` has a `ds_function` field
+  if ("ds_function" %in% colnames(overview_tbl)) {
+    vars <- c(vars, "ds_function", "timestamp")
+    varslab <- c(
+      varslab,
+      "DataSHIELD Function" = "ds_function",
+      "Timestamp" = "timestamp"
+    )
+
+    # replace 'NA' with empty string for `ds_function` and `timestamp`
+    overview_tbl <- overview_tbl |>
+      dplyr::mutate(
+        ds_function = ifelse(is.na(ds_function), "", ds_function),
+        timestamp = ifelse(is.na(timestamp), "", timestamp)
+      )
+  }
+
+  # attach 'server' if found in `overview_tbl`
+  if ("server" %in% colnames(overview_tbl)) {
+    vars <- c("server", vars)
+    varslab <- c("Server" = "server", varslab)
+  }
+
+  # create tidy data frame
+  tidy_overview_tbl <- overview_tbl |>
+    dplyr::distinct(dplyr::pick(vars))
+
   if ("permission" %in% colnames(overview_tbl)) {
     if ("ds_function" %in% colnames(overview_tbl)) {
-      tidy_overview_tbl <- overview_tbl |>
-        dplyr::distinct(
-          project,
-          table,
-          permission,
-          name,
-          ds_function,
-          timestamp
-        ) |>
-        dplyr::group_by(project, table, name) |>
+      vars_agg <- vars[!vars %in% c("permission", "ds_function", "timestamp")]
+      tidy_overview_tbl <- tidy_overview_tbl |>
+        dplyr::group_by(dplyr::pick(vars_agg)) |>
         dplyr::reframe(
           permission = paste0(unique(permission), collapse = " & "),
           ds_function = ds_function,
           timestamp = timestamp,
           .groups = "drop"
-        ) |>
-        dplyr::select(
-          `Project` = project,
-          `Data` = table,
-          `Access Level` = permission,
-          `People` = name,
-          `DataSHIELD Function` = ds_function,
-          `Timestamp` = timestamp
-        ) |>
-        dplyr::distinct()
+        )
     } else {
-      tidy_overview_tbl <- overview_tbl |>
-        dplyr::select(project, table, name, permission) |>
-        dplyr::group_by(project, table, name) |>
+      tidy_overview_tbl <- tidy_overview_tbl |>
+        dplyr::group_by(dplyr::pick(vars[vars != "permission"])) |>
         dplyr::reframe(
           permission = paste0(unique(permission), collapse = " & ")
-        ) |>
-        dplyr::select(
-          `Project` = project,
-          `Data` = table,
-          `Access Level` = permission,
-          `People` = name
         )
     }
-  } else {
-    tidy_overview_tbl <- overview_tbl |>
-      dplyr::select(
-        `Project` = project,
-        `Data` = table,
-        `People` = name
-      )
   }
+
+  tidy_overview_tbl <- tidy_overview_tbl |>
+    dplyr::select(varslab) |>
+    dplyr::distinct()
+
   return(tidy_overview_tbl)
 }
 
