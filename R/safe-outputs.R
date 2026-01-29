@@ -154,9 +154,19 @@ safe_output.opal <- function(
   userlogs <- NULL
   if (nrow(userlogs_tbl) > 0) {
     userlogs <- userlogs_tbl |>
-      glue::glue_data(
-        "[{level}][{format(`@timestamp`, '%Y-%m-%dT%H:%M:%S')}]{sprintf('%-12s', paste0('[', ds_action, ']'))}{message}"
+      with(
+        sprintf(
+          "[%s][%s]%-12s%s",
+          level,
+          format(`@timestamp`, "%Y-%m-%dT%H:%M:%S"),
+          paste0("[", ds_action, "]"),
+          message
+        )
       )
+    # userlogs <- userlogs_tbl |>
+    #   glue::glue_data(
+    #     "[{level}][{format(`@timestamp`, '%Y-%m-%dT%H:%M:%S')}]{sprintf('%-12s', paste0('[', ds_action, ']'))}{message}"
+    #   )
   }
 
   # check if any logs were found in the given time frame
