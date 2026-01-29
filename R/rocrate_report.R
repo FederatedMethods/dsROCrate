@@ -223,10 +223,112 @@ rocrate_report.list <- function(
     dplyr::rename(name = user) |>
     .tidy_overview()
 
-  # return combined outputs
-  # TODO
+  # create markdown report ----
+  ## header and overview table
+  report_contents <- c(
+    .markdown_report_header(title, overview_data_all, overview_lst$diag_path),
+    tidy_overview_tbl |>
+      # tidy up duplicated values in `project` and `table`
+      dplyr::mutate(
+        Project = unfill_vec(Project),
+        Data = unfill_vec(Data)
+      ) |>
+      dplyr::distinct() |>
+      knitr::kable() |>
+      paste0(collapse = "\n")
+  )
 
-  # render diagram
+  # ## attach entities for 5 safes
+  # report_contents <- .markdown_report_body(
+  #   report_contents,
+  #   overview_data_all,
+  #   safe_people_rocrate,
+  #   safe_project_rocrate,
+  #   safe_data_rocrate,
+  #   user_perm_entity_lst,
+  #   safe_setting_rocrate,
+  #   safe_output_tbl_v2
+  # )
+
+  report_contents <- c(report_contents, "\n<hr />\n")
+
+  # ## append input RO-Crate
+  # # save the input into intermediate JSON file
+  # tmp_file <- tempfile(fileext = ".json")
+  # # delete temporary file
+  # on.exit(unlink(tmp_file, recursive = TRUE, force = TRUE))
+  # # store RO-Crate in JSON format
+  # jsonlite::write_json(x, path = tmp_file, pretty = TRUE, auto_unbox = TRUE)
+  # # load formatted RO-Crate as text
+  # rocrate_txt <- readLines(tmp_file)
+  # report_contents <- c(
+  #   report_contents,
+  #   "\n\\newpage\n",
+  #   "## RO-Crate \n```json",
+  #   # display formatted RO-Crate
+  #   rocrate_txt,
+  #   "\n```"
+  # )
+
+  ## write contents inside file
+  ### delete previous version
+  if (overwrite) {
+    unlink(filepath, recursive = TRUE, force = TRUE)
+  }
+  writeLines(report_contents, filepath)
+
+  ## render document
+  if (render) {
+    if (tolower(doc_format) %in% c("html", "html_document")) {
+      suppressWarnings({
+        rmarkdown::render(
+          filepath,
+          "html_document",
+          sub(".md", ".html", filepath)
+        )
+        utils::browseURL(paste0("file://", sub(".md", ".html", filepath)))
+      })
+    } else if (tolower(doc_format) %in% c("pdf", "pdf_document")) {
+      suppressWarnings({
+        rmarkdown::render(
+          filepath,
+          "pdf_document",
+          sub(".md", ".pdf", filepath)
+        )
+        utils::browseURL(paste0("file://", sub(".md", ".pdf", filepath)))
+      })
+    } else {
+      stop("The format `", doc_format, "` is not valid! Try 'html' or 'pdf'.")
+    }
+  } else {
+    print(overview_lst$diag_lst)
+    return(invisible(
+      list(
+        overview_diagram = overview_lst$diag_lst,
+        overview_data = tidy_overview_tbl #,
+        # safe_people = flatten_safe_people(safe_people_rocrate),
+        # safe_data = flatten_safe_data(safe_data_rocrate),
+        # safe_data_permissions = flatten_user_perm_entity(user_perm_entity_lst),
+        # safe_project = flatten_safe_project(safe_project_rocrate),
+        # safe_setting = flatten_safe_setting(safe_setting_rocrate),
+        # safe_output = safe_output_tbl_v2
+      )
+    ))
+  }
+
+  message("A report has been written to:\n ", filepath)
+
+  # # return list of data frames with Safe People, Data Projects
+  # invisible(
+  #   list(
+  #     safe_people = flatten_safe_people(safe_people_rocrate),
+  #     safe_data = flatten_safe_data(safe_data_rocrate),
+  #     safe_data_permissions = flatten_user_perm_entity(user_perm_entity_lst),
+  #     safe_project = flatten_safe_project(safe_project_rocrate),
+  #     safe_setting = flatten_safe_setting(safe_setting_rocrate),
+  #     safe_output = safe_output_tbl_v2
+  #   )
+  # )
 
   # PLACEHOLDER OUTPUT
   return(report_outputs)
