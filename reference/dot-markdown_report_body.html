@@ -57,12 +57,13 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.markdown_report_body</span><span class="op">(</span></span>
 <span>  <span class="va">report_contents</span>,</span>
 <span>  <span class="va">overview_tbl</span>,</span>
-<span>  <span class="va">safe_people_rocrate</span>,</span>
-<span>  <span class="va">safe_project_rocrate</span>,</span>
-<span>  <span class="va">safe_data_rocrate</span>,</span>
-<span>  <span class="va">user_perm_entity_lst</span>,</span>
-<span>  <span class="va">safe_setting_rocrate</span>,</span>
-<span>  <span class="va">safe_output_tbl_v2</span></span>
+<span>  <span class="va">safe_people_tbl</span>,</span>
+<span>  <span class="va">safe_project_tbl</span>,</span>
+<span>  <span class="va">safe_data_tbl</span>,</span>
+<span>  <span class="va">safe_user_perm_tbl</span>,</span>
+<span>  <span class="va">safe_setting_tbl</span>,</span>
+<span>  <span class="va">safe_output_tbl</span>,</span>
+<span>  break_by <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -78,33 +79,39 @@
 <dd><p>Data frame with overview details for the RO-Crate.</p></dd>
 
 
-<dt id="arg-safe-people-rocrate">safe_people_rocrate<a class="anchor" aria-label="anchor" href="#arg-safe-people-rocrate"></a></dt>
-<dd><p>RO-Crate object with Safe People details.</p></dd>
+<dt id="arg-safe-people-tbl">safe_people_tbl<a class="anchor" aria-label="anchor" href="#arg-safe-people-tbl"></a></dt>
+<dd><p>Data frame with Safe People details.</p></dd>
 
 
-<dt id="arg-safe-project-rocrate">safe_project_rocrate<a class="anchor" aria-label="anchor" href="#arg-safe-project-rocrate"></a></dt>
-<dd><p>RO-Crate object with Safe Project details.</p></dd>
+<dt id="arg-safe-project-tbl">safe_project_tbl<a class="anchor" aria-label="anchor" href="#arg-safe-project-tbl"></a></dt>
+<dd><p>Data frame with Safe Project details.</p></dd>
 
 
-<dt id="arg-safe-data-rocrate">safe_data_rocrate<a class="anchor" aria-label="anchor" href="#arg-safe-data-rocrate"></a></dt>
-<dd><p>RO-Crate object with Safe Data details.</p></dd>
+<dt id="arg-safe-data-tbl">safe_data_tbl<a class="anchor" aria-label="anchor" href="#arg-safe-data-tbl"></a></dt>
+<dd><p>Data frame with Safe Data details.</p></dd>
 
 
-<dt id="arg-user-perm-entity-lst">user_perm_entity_lst<a class="anchor" aria-label="anchor" href="#arg-user-perm-entity-lst"></a></dt>
-<dd><p>List with Safe Data user permissions.</p></dd>
+<dt id="arg-safe-user-perm-tbl">safe_user_perm_tbl<a class="anchor" aria-label="anchor" href="#arg-safe-user-perm-tbl"></a></dt>
+<dd><p>Data frame with Safe Data user permissions.</p></dd>
 
 
-<dt id="arg-safe-setting-rocrate">safe_setting_rocrate<a class="anchor" aria-label="anchor" href="#arg-safe-setting-rocrate"></a></dt>
-<dd><p>RO-Crate object with Safe Setting details.</p></dd>
+<dt id="arg-safe-setting-tbl">safe_setting_tbl<a class="anchor" aria-label="anchor" href="#arg-safe-setting-tbl"></a></dt>
+<dd><p>Data frame with Safe Setting details.</p></dd>
 
 
-<dt id="arg-safe-output-tbl-v-">safe_output_tbl_v2<a class="anchor" aria-label="anchor" href="#arg-safe-output-tbl-v-"></a></dt>
+<dt id="arg-safe-output-tbl">safe_output_tbl<a class="anchor" aria-label="anchor" href="#arg-safe-output-tbl"></a></dt>
 <dd><p>Data frame with Safe Output details.</p></dd>
+
+
+<dt id="arg-break-by">break_by<a class="anchor" aria-label="anchor" href="#arg-break-by"></a></dt>
+<dd><p>Optional string with variable to be used for breaking down
+each table (e.g., server), as opposed to display all the results in a
+single table.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>String with updated Markdown report</p>
+    <p>String with updated Markdown report.</p>
     </div>
 
   </div>
