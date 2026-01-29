@@ -240,14 +240,14 @@ rocrate_report.list <- function(
 
   # ## attach entities for 5 safes
   # report_contents <- .markdown_report_body(
-  #   report_contents,
-  #   overview_data_all,
-  #   safe_people_rocrate,
-  #   safe_project_rocrate,
-  #   safe_data_rocrate,
-  #   user_perm_entity_lst,
-  #   safe_setting_rocrate,
-  #   safe_output_tbl_v2
+  #   report_contents = report_contents,
+  #   overview_tbl = overview_data_all,
+  #   safe_people_tbl = flatten_safe_people(safe_people_rocrate),
+  #   safe_project_tbl = flatten_safe_project(safe_project_rocrate),
+  #   safe_data_tbl = flatten_safe_data(safe_data_rocrate),
+  #   safe_user_perm_tbl = flatten_user_perm_entity(user_perm_entity_lst),
+  #   safe_setting_tbl = flatten_safe_setting(safe_setting_rocrate),
+  #   safe_output_tbl = safe_output_tbl_v2
   # )
 
   report_contents <- c(report_contents, "\n<hr />\n")
@@ -563,14 +563,14 @@ rocrate_report.rocrate <- function(
 
   ## attach entities for 5 safes
   report_contents <- .markdown_report_body(
-    report_contents,
-    overview_tbl,
-    safe_people_rocrate,
-    safe_project_rocrate,
-    safe_data_rocrate,
-    user_perm_entity_lst,
-    safe_setting_rocrate,
-    safe_output_tbl_v2
+    report_contents = report_contents,
+    overview_tbl = overview_tbl,
+    safe_people_tbl = flatten_safe_people(safe_people_rocrate),
+    safe_project_tbl = flatten_safe_project(safe_project_rocrate),
+    safe_data_tbl = flatten_safe_data(safe_data_rocrate),
+    safe_user_perm_tbl = flatten_user_perm_entity(user_perm_entity_lst),
+    safe_setting_tbl = flatten_safe_setting(safe_setting_rocrate),
+    safe_output_tbl = safe_output_tbl_v2
   )
 
   report_contents <- c(report_contents, "\n<hr />\n")
@@ -909,24 +909,24 @@ rocrate_report.rocrate <- function(
 #'
 #' @inheritParams .overview_diagram
 #' @param report_contents String with Markdown report (e.g., header).
-#' @param safe_people_rocrate RO-Crate object with Safe People details.
-#' @param safe_project_rocrate RO-Crate object with Safe Project details.
-#' @param safe_data_rocrate RO-Crate object with Safe Data details.
-#' @param user_perm_entity_lst List with Safe Data user permissions.
-#' @param safe_setting_rocrate RO-Crate object with Safe Setting details.
+#' @param safe_people_tbl Data frame with Safe People details.
+#' @param safe_project_tbl Data frame with Safe Project details.
+#' @param safe_data_tbl Data frame with Safe Data details.
+#' @param safe_user_perm_tbl Data frame with Safe Data user permissions.
+#' @param safe_setting_tbl Data frame with Safe Setting details.
 #' @param safe_output_tbl_v2 Data frame with Safe Output details.
 #'
-#' @returns String with updated Markdown report
+#' @returns String with updated Markdown report.
 #' @keywords internal
 .markdown_report_body <- function(
   report_contents,
   overview_tbl,
-  safe_people_rocrate,
-  safe_project_rocrate,
-  safe_data_rocrate,
-  user_perm_entity_lst,
-  safe_setting_rocrate,
-  safe_output_tbl_v2
+  safe_people_tbl,
+  safe_project_tbl,
+  safe_data_tbl,
+  safe_user_perm_tbl,
+  safe_setting_tbl,
+  safe_output_tbl
 ) {
   report_contents <- c(report_contents, "\n<hr />\n", "## Entities")
 
@@ -934,7 +934,7 @@ rocrate_report.rocrate <- function(
   report_contents <- c(
     report_contents,
     "\n### People\n",
-    flatten_safe_people(safe_people_rocrate) |>
+    safe_people_tbl |>
       knitr::kable() |>
       paste0(collapse = "\n")
   )
@@ -943,7 +943,7 @@ rocrate_report.rocrate <- function(
   report_contents <- c(
     report_contents,
     "### Project(s)\n",
-    flatten_safe_project(safe_project_rocrate) |>
+    safe_project_tbl |>
       knitr::kable() |>
       paste0(collapse = "\n")
   )
@@ -952,7 +952,7 @@ rocrate_report.rocrate <- function(
   report_contents <- c(
     report_contents,
     "### Data\n",
-    flatten_safe_data(safe_data_rocrate) |>
+    safe_data_tbl |>
       knitr::kable() |>
       paste0(collapse = "\n")
   )
@@ -963,7 +963,7 @@ rocrate_report.rocrate <- function(
     report_contents <- c(
       report_contents,
       "#### Data permissions\n",
-      flatten_user_perm_entity(user_perm_entity_lst) |>
+      safe_user_perm_tbl |>
         dplyr::select(-actionStatus, -description, -permission) |>
         knitr::kable() |>
         paste0(collapse = "\n")
@@ -974,17 +974,17 @@ rocrate_report.rocrate <- function(
   report_contents <- c(
     report_contents,
     "### Settings\n",
-    flatten_safe_setting(safe_setting_rocrate) |>
+    safe_setting_tbl |>
       knitr::kable() |>
       paste0(collapse = "\n")
   )
 
-  if (!is.null(safe_output_tbl_v2) && nrow(safe_output_tbl_v2) > 0) {
+  if (!is.null(safe_output_tbl) && nrow(safe_output_tbl) > 0) {
     ## append Safe Outputs details
     report_contents <- c(
       report_contents,
       "### Outputs\n",
-      safe_output_tbl_v2 |>
+      safe_output_tbl |>
         knitr::kable() |>
         paste0(collapse = "\n")
     )
