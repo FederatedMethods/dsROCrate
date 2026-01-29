@@ -218,12 +218,12 @@ rocrate_report.list <- function(
       diag_height
     )
 
-  ## Create tidy overview table ----
+  ## create tidy overview table ----
   tidy_overview_tbl <- overview_data_all |>
     dplyr::rename(name = user) |>
     .tidy_overview()
 
-  # create markdown report ----
+  ## create markdown report ----
   ## header and overview table
   report_contents <- c(
     .markdown_report_header(title, overview_data_all, overview_lst$diag_path),
@@ -238,17 +238,17 @@ rocrate_report.list <- function(
       paste0(collapse = "\n")
   )
 
-  # ## attach entities for 5 safes
-  # report_contents <- .markdown_report_body(
-  #   report_contents = report_contents,
-  #   overview_tbl = overview_data_all,
-  #   safe_people_tbl = flatten_safe_people(safe_people_rocrate),
-  #   safe_project_tbl = flatten_safe_project(safe_project_rocrate),
-  #   safe_data_tbl = flatten_safe_data(safe_data_rocrate),
-  #   safe_user_perm_tbl = flatten_user_perm_entity(user_perm_entity_lst),
-  #   safe_setting_tbl = flatten_safe_setting(safe_setting_rocrate),
-  #   safe_output_tbl = safe_output_tbl_v2
-  # )
+  ## attach entities for 5 safes
+  report_contents <- .markdown_report_body(
+    report_contents = report_contents,
+    overview_tbl = overview_data_all,
+    safe_people_tbl = safe_people_all,
+    safe_project_tbl = safe_project_all,
+    safe_data_tbl = safe_data_all,
+    safe_user_perm_tbl = safe_data_permissions_all,
+    safe_setting_tbl = safe_setting_all,
+    safe_output_tbl = safe_output_all
+  )
 
   report_contents <- c(report_contents, "\n<hr />\n")
 
