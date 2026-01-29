@@ -301,33 +301,30 @@ rocrate_report.list <- function(
     return(invisible(
       list(
         overview_diagram = overview_lst$diag_lst,
-        overview_data = tidy_overview_tbl #,
-        # safe_people = flatten_safe_people(safe_people_rocrate),
-        # safe_data = flatten_safe_data(safe_data_rocrate),
-        # safe_data_permissions = flatten_user_perm_entity(user_perm_entity_lst),
-        # safe_project = flatten_safe_project(safe_project_rocrate),
-        # safe_setting = flatten_safe_setting(safe_setting_rocrate),
-        # safe_output = safe_output_tbl_v2
+        overview_data = tidy_overview_tbl,
+        safe_people = safe_people_all,
+        safe_project_tbl = safe_project_all,
+        safe_data = safe_data_all,
+        safe_data_permissions = safe_data_permissions_all,
+        safe_setting = safe_setting_all,
+        safe_output = safe_output_all
       )
     ))
   }
 
   message("A report has been written to:\n ", filepath)
 
-  # # return list of data frames with Safe People, Data Projects
-  # invisible(
-  #   list(
-  #     safe_people = flatten_safe_people(safe_people_rocrate),
-  #     safe_data = flatten_safe_data(safe_data_rocrate),
-  #     safe_data_permissions = flatten_user_perm_entity(user_perm_entity_lst),
-  #     safe_project = flatten_safe_project(safe_project_rocrate),
-  #     safe_setting = flatten_safe_setting(safe_setting_rocrate),
-  #     safe_output = safe_output_tbl_v2
-  #   )
-  # )
-
-  # PLACEHOLDER OUTPUT
-  return(report_outputs)
+  # return list of data frames with Safe People, Projects, Data, etc.
+  invisible(
+    list(
+      safe_people = safe_people_all,
+      safe_project_tbl = safe_project_all,
+      safe_data = safe_data_all,
+      safe_data_permissions = safe_data_permissions_all,
+      safe_setting = safe_setting_all,
+      safe_output = safe_output_all
+    )
+  )
 }
 
 #' @param title String with title for the report (default: 'DataSHIELD Report').
@@ -615,9 +612,9 @@ rocrate_report.rocrate <- function(
         overview_diagram = overview_lst$diag_lst,
         overview_data = tidy_overview_tbl,
         safe_people = flatten_safe_people(safe_people_rocrate),
+        safe_project = flatten_safe_project(safe_project_rocrate),
         safe_data = flatten_safe_data(safe_data_rocrate),
         safe_data_permissions = flatten_user_perm_entity(user_perm_entity_lst),
-        safe_project = flatten_safe_project(safe_project_rocrate),
         safe_setting = flatten_safe_setting(safe_setting_rocrate),
         safe_output = safe_output_tbl_v2
       )
@@ -626,13 +623,13 @@ rocrate_report.rocrate <- function(
 
   message("A report has been written to:\n ", filepath)
 
-  # return list of data frames with Safe People, Data Projects
+  # return list of data frames with Safe People, Projects, Data, etc.
   invisible(
     list(
       safe_people = flatten_safe_people(safe_people_rocrate),
+      safe_project = flatten_safe_project(safe_project_rocrate),
       safe_data = flatten_safe_data(safe_data_rocrate),
       safe_data_permissions = flatten_user_perm_entity(user_perm_entity_lst),
-      safe_project = flatten_safe_project(safe_project_rocrate),
       safe_setting = flatten_safe_setting(safe_setting_rocrate),
       safe_output = safe_output_tbl_v2
     )
