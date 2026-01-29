@@ -12,7 +12,8 @@
   safe_data_tbl,
   safe_user_perm_tbl,
   safe_setting_tbl,
-  safe_output_tbl
+  safe_output_tbl,
+  break_by = NULL
 )
 }
 \arguments{
@@ -30,7 +31,11 @@
 
 \item{safe_setting_tbl}{Data frame with Safe Setting details.}
 
-\item{safe_output_tbl_v2}{Data frame with Safe Output details.}
+\item{safe_output_tbl}{Data frame with Safe Output details.}
+
+\item{break_by}{Optional string with variable to be used for breaking down
+each table (e.g., server), as opposed to display all the results in a
+single table.}
 }
 \value{
 String with updated Markdown report.
