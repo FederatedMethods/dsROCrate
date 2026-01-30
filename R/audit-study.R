@@ -39,7 +39,7 @@ audit_study.list <- function(
   # local bindings
   name <- principal <- project_tables_all <- subject <- table <- type <- NULL
 
-  capture.output(
+  utils::capture.output(
     suppressMessages(suppressWarnings({
       safe_project_reports <- x |>
         purrr::map(function(conn) {
