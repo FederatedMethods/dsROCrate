@@ -16,7 +16,7 @@ load_content <- function(rocrate, roc_path) {
     content <- tryCatch(
       {
         if (getElement(ent, "encodingFormat") == "text/csv") {
-          read.csv(file.path(dirname(roc_path), getElement(ent, "@id")))
+          utils::read.csv(file.path(dirname(roc_path), getElement(ent, "@id")))
         } else {
           readLines(file.path(dirname(roc_path), getElement(ent, "@id")))
         }
