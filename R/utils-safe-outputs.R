@@ -127,7 +127,9 @@ flatten_safe_output.rocrate <- function(x, ..., id = NULL) {
           )
         }) |>
         # combine all rows
-        dplyr::bind_rows()
+        purrr::list_flatten() |>
+        purrr::map(tibble::as_tibble) |>
+        purrr::list_rbind()
 
       # if `id` is provided, then only keep those entities
       if (!is.null(id)) {
