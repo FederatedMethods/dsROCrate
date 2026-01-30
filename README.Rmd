@@ -385,7 +385,7 @@ unlink("./rocrates", recursive = TRUE, force = TRUE)
 
 ## 3. Auditing RO-Crates and servers
 
-### 3.1. Safe People
+### 3.1. Audit People
 
 ##### List accessible tables within a project for an user
 ```{r, warning=FALSE}
@@ -452,7 +452,7 @@ safe_people_crate_contents_v2$overview_data |>
   knitr::kable()
 ```
 
-### 3.2. Safe Project
+### 3.2. Audit Project
 
 ##### List users and dataset/table level permissions within a project
 ```{r, warning=FALSE}
@@ -499,6 +499,61 @@ safe_project_crate_v1 |>
 
 <br />
 
+### 3.3. Audit Study
+
+##### List users and dataset/table level permissions within a study (i.e., multiple servers)
+```{r, warning=FALSE}
+study_crate_v1 <- 
+  list(
+    "opal_test" = opalr::opal.login(
+      username = USERNAME,
+      password = USERPASS,
+      url = "https://opal-test.obiba.org"
+    ),
+    "opal_demo" = opalr::opal.login(
+      username = USERNAME,
+      password = USERPASS,
+      url = "https://opal-demo.obiba.org"
+    )
+  ) |>
+  dsROCrate::audit_study(project = "CNSIM")
+
+print(study_crate_v1)
+```
+
+###### Markdown report
+
+A markdown report can be created with an overview and details for an RO-Crate,
+using the `dsROCrate::rocrate_report`:
+
+**Only generate .Rmd file**
+
+```{r study_crate_audit_v1}
+study_crate_v1_rmd <- tempfile(fileext = ".Rmd") # temporary file
+
+safe_project_crate_contents <- study_crate_v1 |>
+  dsROCrate::rocrate_report(filepath = study_crate_v1_rmd, render = FALSE)
+
+# display Overview diagram
+safe_project_crate_contents$overview_diagram
+
+# display Overview data (Safe People, Safe Projects and Safe Data)
+safe_project_crate_contents$overview_data |>
+  knitr::kable()
+```
+
+**Render and display report (HTML)**
+
+```{r, eval = FALSE}
+study_crate_v1 |>
+  dsROCrate::rocrate_report(filepath = study_crate_v1_rmd, 
+                            title = "DataSHIELD Study audit",
+                            render = TRUE, 
+                            overwrite = TRUE)
+```
+
+<br />
+
 ## 4. Identity
 
 You are welcome to use any of the following hex codes when referencing `{dsROCrate}`:
@@ -511,4 +566,5 @@ You are welcome to use any of the following hex codes when referencing `{dsROCra
 unlink(safe_people_crate_v1_rmd, TRUE, TRUE)
 unlink(safe_people_crate_v2_rmd, TRUE, TRUE)
 unlink(safe_project_crate_v1_rmd, TRUE, TRUE)
+unlink(study_crate_v1_rmd, TRUE, TRUE)
 ```
