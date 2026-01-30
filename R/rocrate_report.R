@@ -31,8 +31,8 @@ rocrate_report.character <- function(
     stop("The given file:\n  `", x, "`\nis not a valid path!", call. = FALSE)
   }
 
-  # initialise empty RO-Crate
-  rocrate <- NULL
+  # initialise local variables
+  roc_path <- rocrate <- NULL
 
   # check if the given path points to an RO-Crate bag (zip file)
   if (grepl("zip$", tolower(x))) {
@@ -40,24 +40,32 @@ rocrate_report.character <- function(
     tempdir_name <- tempdir()
     on.exit(unlink(tempdir_name, force = TRUE, recursive = TRUE))
 
-    # load the RO-Crate
-    rocrate <- tryCatch(
+    # unbag RO-Crate
+    roc_path <- tryCatch(
       {
-        rocrateR::unbag_rocrate(x, output = tempdir_name, quiet = TRUE) |>
-          rocrateR::read_rocrate()
+        rocrateR::unbag_rocrate(x, output = tempdir_name, quiet = TRUE)
       },
       error = function(e) {
-        NULL
+        x
       }
     )
   } else {
-    rocrate <- tryCatch(rocrateR::read_rocrate(x), error = function(e) NULL)
+    roc_path <- x
   }
+
+  # load RO-Crate
+  rocrate <- tryCatch(rocrateR::read_rocrate(roc_path), error = function(e) {
+    NULL
+  })
 
   # check if the RO-Crate was loaded correctly
   if (is.null(rocrate)) {
     stop("Unable to load an RO-Crate from the given file:\n  `", x, "`")
   }
+
+  # check if any of the entities with `@type = 'File'` have empty `content`
+  rocrate <- rocrate |>
+    load_content(roc_path = roc_path)
 
   # call the next generic method
   rocrate |>
