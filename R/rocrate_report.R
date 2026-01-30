@@ -458,6 +458,24 @@ rocrate_report.rocrate <- function(
     }
   )
 
+  # verify contents of RO-Crate ----
+  has_project_ents <- !is.null(safe_project_rocrate)
+  has_data_ents <- !is.null(safe_data_rocrate)
+  has_people_ents <- !is.null(safe_people_rocrate)
+
+  # if not all these flags are `TRUE`, return error message
+  if (!all(has_project_ents, has_data_ents, has_people_ents)) {
+    stop(
+      paste0(
+        "The given RO-Crate is missing the following:\n",
+        ifelse(has_project_ents, "", " - Project entity (`@type = 'Project'`)"),
+        ifelse(has_data_ents, "", " - Data entity (`@type = 'Dataset'`)"),
+        ifelse(has_people_ents, "", " - People entity (`type = 'Person'`)")
+      ),
+      call. = FALSE
+    )
+  }
+
   # create overview ----
   overview_tbl <- tibble::tibble()
   ### extract (if available) table with user permissions
