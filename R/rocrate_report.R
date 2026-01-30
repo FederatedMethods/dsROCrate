@@ -228,11 +228,11 @@ rocrate_report.list <- function(
   report_contents <- c(
     .markdown_report_header(title, overview_data_all, overview_lst$diag_path),
     tidy_overview_tbl |>
-      # tidy up duplicated values in `project` and `table`
-      dplyr::mutate(
-        Project = unfill_vec(Project),
-        Data = unfill_vec(Data)
-      ) |>
+      # # tidy up duplicated values in `project` and `table`
+      # dplyr::mutate(
+      #   Project = unfill_vec(Project),
+      #   Data = unfill_vec(Data)
+      # ) |>
       dplyr::distinct() |>
       knitr::kable() |>
       paste0(collapse = "\n")
@@ -544,11 +544,11 @@ rocrate_report.rocrate <- function(
   report_contents <- c(
     .markdown_report_header(title, overview_tbl, overview_lst$diag_path),
     tidy_overview_tbl |>
-      # tidy up duplicated values in `project` and `table`
-      dplyr::mutate(
-        Project = unfill_vec(Project),
-        Data = unfill_vec(Data)
-      ) |>
+      # # tidy up duplicated values in `project` and `table`
+      # dplyr::mutate(
+      #   Project = unfill_vec(Project),
+      #   Data = unfill_vec(Data)
+      # ) |>
       dplyr::distinct() |>
       knitr::kable() |>
       paste0(collapse = "\n")
@@ -1073,6 +1073,8 @@ rocrate_report.rocrate <- function(
         dplyr::rename(temp = !!varname) |>
         dplyr::filter(temp == v) |>
         dplyr::select(-temp) |>
+        # drop out empty columns, equivalent to `janitor::remove_empty`
+        Filter(f = function(x) any(!is.na(x))) |>
         knitr::kable()
     ) |>
       paste0(collapse = "\n")
