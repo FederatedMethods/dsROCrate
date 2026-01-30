@@ -43,6 +43,9 @@ rocrate_report.list <- function(
   diag_width = NULL,
   diag_height = NULL
 ) {
+  # local bindings
+  id <- name <- permission <- project <- server <- user <- NULL
+
   # validate that all the objects in the list, `x`, are valid RO-Crates
   sapply(x, rocrateR::is_rocrate)
 
@@ -61,7 +64,7 @@ rocrate_report.list <- function(
     diag_height = diag_height
   )
 
-  # Combine reports ----
+  # combine reports ----
   ## Safe People -----
   safe_people_all <- tryCatch(
     {
@@ -152,7 +155,8 @@ rocrate_report.list <- function(
       NULL
     }
   )
-  ## Overview table ----
+
+  ## overview table ----
   overview_data_all <- tibble::tibble()
   ## combine aggregated data to generate new overview table
   safe_project_data_all <- safe_project_all |>
@@ -206,7 +210,7 @@ rocrate_report.list <- function(
     )
   }
 
-  ## Overview diagram ----
+  ## overview diagram ----
   overview_lst <- overview_data_all |>
     dplyr::rename(name = user) |>
     .overview_diagram(
@@ -358,9 +362,9 @@ rocrate_report.rocrate <- function(
   diag_height = NULL
 ) {
   # local bindings ----
-  id <- name <- project <- table_id <- table_name <- username <- user_id <- NULL
-  actionStatus <- description <- ds_function <- ds_table <- type <- NULL
-  encodingFormat <- permission <- timestamp <- NULL
+  actionStatus <- description <- ds_function <- ds_table <- NULL
+  encodingFormat <- id <- name <- project <- table_id <- table_name <- NULL
+  timestamp <- type <- user_id <- username <- NULL
 
   # validate RO-Crate ----
   rocrateR::is_rocrate(x)
@@ -779,6 +783,7 @@ rocrate_report.rocrate <- function(
 #' @keywords internal
 .tidy_overview <- function(overview_tbl, include_user_perm) {
   # local bindings
+  ds_function <- permission <- timestamp <- NULL
 
   ## initialise `vars` and `varslab`
   vars <- c("project", "table")
@@ -968,6 +973,9 @@ rocrate_report.rocrate <- function(
   safe_output_tbl,
   break_by = NULL
 ) {
+  # local bindings
+  actionStatus <- description <- permission <- NULL
+
   report_contents <- c(report_contents, "\n<hr />\n", "## Entities")
 
   ## append Safe People details
@@ -1075,6 +1083,9 @@ rocrate_report.rocrate <- function(
 #' @returns String with data frame rendered with `kable`.
 #' @keywords internal
 .break_tibble <- function(df, varname) {
+  # local bindings
+  temp <- NULL
+
   # if `varname` is NULL or not a column in `df`, render all the data
   if (is.null(varname) || !(varname %in% colnames(df))) {
     return(knitr::kable(df))
