@@ -13,8 +13,65 @@ rocrate_report <- function(x, ...) {
 
 #' @rdname rocrate_report
 #' @export
-rocrate_report.character <- function(x, ...) {
-  message("TODO: This generic method hasn't been implemented yet!")
+rocrate_report.character <- function(
+  x,
+  ...,
+  title = "DataSHIELD Report",
+  filepath = tempfile(fileext = ".md"),
+  render = TRUE,
+  doc_format = "html",
+  overwrite = FALSE,
+  include_user_perm = TRUE,
+  diag_title = "DataSHIELD server",
+  diag_width = NULL,
+  diag_height = NULL
+) {
+  # check if the given file, `x`, exists
+  if (!file.exists(x)) {
+    stop("The given file:\n  `", x, "`\nis not a valid path!", call. = FALSE)
+  }
+
+  # initialise empty RO-Crate
+  rocrate <- NULL
+
+  # check if the given path points to an RO-Crate bag (zip file)
+  if (grepl("zip$", tolower(x))) {
+    # create temp directory to extract contents of RO-Crate
+    tempdir_name <- tempdir()
+    on.exit(unlink(tempdir_name, force = TRUE, recursive = TRUE))
+
+    # load the RO-Crate
+    rocrate <- tryCatch(
+      {
+        rocrateR::unbag_rocrate(x, output = tempdir_name, quiet = TRUE) |>
+          rocrateR::read_rocrate()
+      },
+      error = function(e) {
+        NULL
+      }
+    )
+  } else {
+    rocrate <- tryCatch(rocrateR::read_rocrate(x), error = function(e) NULL)
+  }
+
+  # check if the RO-Crate was loaded correctly
+  if (is.null(rocrate)) {
+    stop("Unable to load an RO-Crate from the given file:\n  `", x, "`")
+  }
+
+  # call the next generic method
+  rocrate |>
+    rocrate_report(
+      title = title,
+      filepath = filepath,
+      render = render,
+      doc_format = doc_format,
+      overwrite = overwrite,
+      include_user_perm = include_user_perm,
+      diag_title = diag_title,
+      diag_width = diag_width,
+      diag_height = diag_height
+    )
 }
 
 #' @rdname rocrate_report
@@ -520,7 +577,9 @@ rocrate_report.rocrate <- function(
     dplyr::filter(encodingFormat == "text/csv") |>
     # extract content
     purrr::pluck("content", .default = list()) |>
-    purrr::list_c()
+    purrr::list_flatten() |>
+    purrr::map(tibble::as_tibble) |>
+    purrr::list_rbind()
 
   # initialise safe_output_tbl_v2, to be included in the returned outputs
   safe_output_tbl_v2 <- tibble::tibble()
@@ -867,8 +926,8 @@ rocrate_report.rocrate <- function(
     getElement(overview_tbl, "name"),
     getElement(overview_tbl, "user")
   ))
-  unique_project_vct <- unique(overview_tbl$project)
-  unique_servers_vct <- unique(overview_tbl$server)
+  unique_project_vct <- unique(getElement(overview_tbl, "project"))
+  unique_servers_vct <- unique(getElement(overview_tbl, "server"))
   ## initialise markdown header (see https://rmarkdown.rstudio.com/lesson-9.html)
   paste0(
     "---\n",
