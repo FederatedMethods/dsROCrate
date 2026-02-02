@@ -254,7 +254,7 @@ rocrate_report.list <- function(
       overview_data_all <- overview_data_all |>
         dplyr::left_join(
           safe_output_all,
-          by = c("server", "project", "table", "user" = "username")
+          by = c("server", "project", "table", "user")
         )
     }
   } else {
@@ -427,9 +427,9 @@ rocrate_report.rocrate <- function(
   diag_height = NULL
 ) {
   # local bindings ----
-  actionStatus <- description <- ds_function <- ds_table <- NULL
+  actionStatus <- description <- fx <- table <- NULL
   encodingFormat <- id <- name <- project <- table_id <- table_name <- NULL
-  timestamp <- type <- user_id <- username <- NULL
+  timestamp <- type <- user_id <- user <- NULL
 
   # validate RO-Crate ----
   rocrateR::is_rocrate(x)
@@ -593,24 +593,24 @@ rocrate_report.rocrate <- function(
   safe_output_tbl_v2 <- tibble::tibble()
 
   if (!is.null(safe_output_tbl) && nrow(safe_output_tbl) > 0) {
-    # split `ds_table` into `project` and `table`
+    # split `table` into `project` and `table`
     safe_output_tbl_v2 <- safe_output_tbl |>
       dplyr::mutate(
-        project = gsub("(?=\\.).*$", "", ds_table, perl = TRUE),
-        table = gsub("^.*(?<=\\.)", "", ds_table, perl = TRUE)
+        project = gsub("(?=\\.).*$", "", table, perl = TRUE),
+        table = gsub("^.*(?<=\\.)", "", table, perl = TRUE)
       ) |>
-      dplyr::distinct(project, table, username, ds_function, timestamp)
+      dplyr::distinct(project, table, user, fx, timestamp)
 
     # append the list of functions to the overview table
     overview_tbl <- overview_tbl |>
       dplyr::left_join(
         safe_output_tbl_v2,
-        by = c("project" = "project", "table" = "table", "name" = "username")
+        by = c("project" = "project", "table" = "table", "name" = "user")
       ) |>
-      # replace 'NA' in ds_function & timestamp with empty string
+      # replace 'NA' in fx & timestamp with empty string
       dplyr::mutate(
         timestamp = dplyr::case_when(is.na(timestamp) ~ "", T ~ timestamp),
-        ds_function = dplyr::case_when(is.na(ds_function) ~ "", T ~ ds_function)
+        fx = dplyr::case_when(is.na(fx) ~ "", T ~ fx)
       )
   }
 
@@ -742,7 +742,7 @@ rocrate_report.rocrate <- function(
   diag_height
 ) {
   # local bindings
-  ds_function <- name <- permission <- project <- table <- NULL
+  fx <- name <- permission <- project <- table <- NULL
 
   ## initialise `vars` and `labelvar`
   vars <- c("project", "table")
@@ -758,14 +758,14 @@ rocrate_report.rocrate <- function(
   vars <- c(vars, "name")
   labelvar <- c(labelvar, name = "People")
 
-  # check if `overview_tbl` has a `ds_function` field
-  if ("ds_function" %in% colnames(overview_tbl)) {
-    vars <- c(vars, "ds_function")
-    labelvar <- c(labelvar, ds_function = "DataSHIELD Function")
+  # check if `overview_tbl` has a `fx` field
+  if ("fx" %in% colnames(overview_tbl)) {
+    vars <- c(vars, "fx")
+    labelvar <- c(labelvar, fx = "DataSHIELD Function")
 
-    # replace 'NA' with empty string for `ds_function`
+    # replace 'NA' with empty string for `fx`
     overview_tbl <- overview_tbl |>
-      dplyr::mutate(ds_function = ifelse(is.na(ds_function), "", ds_function))
+      dplyr::mutate(fx = ifelse(is.na(fx), "", fx))
   }
 
   # attach 'server' if found in `overview_tbl`
@@ -802,7 +802,7 @@ rocrate_report.rocrate <- function(
       pngknit = render,
       # pxheight = min(80 * nrow(overview_tbl), 500),
       # pxwidth = 200 * nrow(overview_tbl),
-      prune = list(ds_function = "")
+      prune = list(fx = "")
     )
 
   ## if `render = TRUE`, then render diagram as PNG
@@ -850,7 +850,7 @@ rocrate_report.rocrate <- function(
 #' @keywords internal
 .tidy_overview <- function(overview_tbl, include_user_perm) {
   # local bindings
-  ds_function <- permission <- timestamp <- NULL
+  fx <- permission <- timestamp <- NULL
 
   ## initialise `vars` and `varslab`
   vars <- c("project", "table")
@@ -866,19 +866,19 @@ rocrate_report.rocrate <- function(
   vars <- c(vars, "name")
   varslab <- c(varslab, "People" = "name")
 
-  # check if `overview_tbl` has a `ds_function` field
-  if ("ds_function" %in% colnames(overview_tbl)) {
-    vars <- c(vars, "ds_function", "timestamp")
+  # check if `overview_tbl` has a `fx` field
+  if ("fx" %in% colnames(overview_tbl)) {
+    vars <- c(vars, "fx", "timestamp")
     varslab <- c(
       varslab,
-      "DataSHIELD Function" = "ds_function",
+      "DataSHIELD Function" = "fx",
       "Timestamp" = "timestamp"
     )
 
-    # replace 'NA' with empty string for `ds_function` and `timestamp`
+    # replace 'NA' with empty string for `fx` and `timestamp`
     overview_tbl <- overview_tbl |>
       dplyr::mutate(
-        ds_function = ifelse(is.na(ds_function), "", ds_function),
+        fx = ifelse(is.na(fx), "", fx),
         timestamp = ifelse(is.na(timestamp), "", timestamp)
       )
   }
@@ -894,13 +894,13 @@ rocrate_report.rocrate <- function(
     dplyr::distinct(dplyr::pick(vars))
 
   if ("permission" %in% colnames(overview_tbl)) {
-    if ("ds_function" %in% colnames(overview_tbl)) {
-      vars_agg <- vars[!vars %in% c("permission", "ds_function", "timestamp")]
+    if ("fx" %in% colnames(overview_tbl)) {
+      vars_agg <- vars[!vars %in% c("permission", "fx", "timestamp")]
       tidy_overview_tbl <- tidy_overview_tbl |>
         dplyr::group_by(dplyr::pick(vars_agg)) |>
         dplyr::reframe(
           permission = paste0(unique(permission), collapse = " & "),
-          ds_function = ds_function,
+          fx = fx,
           timestamp = timestamp,
           .groups = "drop"
         )

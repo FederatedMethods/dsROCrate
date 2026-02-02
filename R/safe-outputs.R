@@ -163,10 +163,6 @@ safe_output.opal <- function(
           message
         )
       )
-    # userlogs <- userlogs_tbl |>
-    #   glue::glue_data(
-    #     "[{level}][{format(`@timestamp`, '%Y-%m-%dT%H:%M:%S')}]{sprintf('%-12s', paste0('[', ds_action, ']'))}{message}"
-    #   )
   }
 
   # check if any logs were found in the given time frame
@@ -245,16 +241,19 @@ safe_output.opal <- function(
       # autofill `ds_function` when `ds_action` = 'ASSIGN'
       ds_function = ifelse(ds_symbol == ds_eval, "base::assign", ds_function),
       ds_symbol = ifelse(ds_symbol == ds_eval, NA, ds_symbol),
+      # add column with backend
+      backend = "OBiBa's Opal",
       .before = 1
     ) |>
     dplyr::select(
       timestamp = `@timestamp`,
-      ds_action,
-      username,
-      ds_eval,
-      ds_function,
-      ds_symbol,
-      ds_table
+      action = ds_action,
+      user = username,
+      r_cmd = ds_eval,
+      fx = ds_function,
+      symbol = ds_symbol,
+      table = ds_table,
+      backend
     )
 
   log_maps_filename <- paste0(Sys.Date(), "-dslogs-", user, "_mappings.csv")
