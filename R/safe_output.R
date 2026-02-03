@@ -63,7 +63,7 @@ safe_output.opal <- function(
   logs_from = logs_to - 24 * 60^2
 ) {
   # local bindings
-  `@timestamp` <- logger_name <- safe_people_id <- username <- NULL
+  `@timestamp` <- backend <- logger_name <- safe_people_id <- username <- NULL
   ds_action <- ds_eval <- ds_id <- ds_function <- ds_symbol <- ds_table <- NULL
 
   # create formatted versions of input dates
