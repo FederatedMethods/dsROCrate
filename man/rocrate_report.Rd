@@ -21,7 +21,8 @@ rocrate_report(x, ...)
   include_user_perm = TRUE,
   diag_title = "DataSHIELD server",
   diag_width = NULL,
-  diag_height = NULL
+  diag_height = NULL,
+  max_line_length = 200
 )
 
 \method{rocrate_report}{default}(x, ...)
@@ -38,7 +39,8 @@ rocrate_report(x, ...)
   include_user_perm = TRUE,
   diag_title = "DataSHIELD server",
   diag_width = NULL,
-  diag_height = NULL
+  diag_height = NULL,
+  max_line_length = 200
 )
 
 \method{rocrate_report}{rocrate}(
@@ -52,7 +54,8 @@ rocrate_report(x, ...)
   include_user_perm = TRUE,
   diag_title = "DataSHIELD server",
   diag_width = NULL,
-  diag_height = NULL
+  diag_height = NULL,
+  max_line_length = 200
 )
 }
 \arguments{
@@ -85,6 +88,9 @@ overview's diagram (default: \code{NULL}, estimated based on number of nodes).}
 
 \item{diag_height}{Numeric value with height (in inches) for the report
 overview's diagram (default: \code{NULL}, estimated based on number of nodes).}
+
+\item{max_line_length}{Integer with the maximum number of characters per line
+in the RO-Crate to be printed in the report.}
 
 \item{study_name}{String with the study name.}
 }

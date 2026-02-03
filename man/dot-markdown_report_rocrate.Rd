@@ -4,7 +4,12 @@
 \alias{.markdown_report_rocrate}
 \title{Embed RO-Crate in Markdown report}
 \usage{
-.markdown_report_rocrate(report_contents, rocrate, section_txt)
+.markdown_report_rocrate(
+  report_contents,
+  rocrate,
+  section_txt,
+  max_line_length = 200
+)
 }
 \arguments{
 \item{report_contents}{String with Markdown report (e.g., header).}
