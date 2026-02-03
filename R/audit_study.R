@@ -50,6 +50,11 @@ audit_study.list <- function(
     file = nullfile()
   )
 
+  # attach input args as attributes to the RO-Crate
+  attr(safe_project_reports, "audit_type") <- "Study"
+  attr(safe_project_reports, "path") <- path
+  attr(safe_project_reports, "project") <- project
+
   # return list with new RO-Crates (one per connection given)
   return(safe_project_reports)
 }

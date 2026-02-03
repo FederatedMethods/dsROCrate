@@ -206,6 +206,11 @@ audit_safe_project.opal <- function(
     # })
   }
 
+  # attach input args as attributes to the RO-Crate
+  attr(safe_project_crate, "audit_type") <- "Safe Project"
+  attr(safe_project_crate, "path") <- path
+  attr(safe_project_crate, "project") <- project
+
   # return new RO-Crate
   return(safe_project_crate)
 }

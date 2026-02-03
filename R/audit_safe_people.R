@@ -193,6 +193,12 @@ audit_safe_people.opal <- function(
       rocrate = safe_people_crate
     )
 
+  # attach input args as attributes to the RO-Crate
+  attr(safe_people_crate, "audit_type") <- "Safe People"
+  attr(safe_people_crate, "path") <- path
+  attr(safe_people_crate, "project") <- project
+  attr(safe_people_crate, "user") <- user
+
   # return new RO-Crate
   return(safe_people_crate)
 }
