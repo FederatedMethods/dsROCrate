@@ -24,7 +24,8 @@ rocrate_report.character <- function(
   include_user_perm = TRUE,
   diag_title = "DataSHIELD server",
   diag_width = NULL,
-  diag_height = NULL
+  diag_height = NULL,
+  max_line_length = 200
 ) {
   # check if the given file, `x`, exists
   if (!file.exists(x)) {
@@ -106,7 +107,8 @@ rocrate_report.list <- function(
   include_user_perm = TRUE,
   diag_title = "DataSHIELD server",
   diag_width = NULL,
-  diag_height = NULL
+  diag_height = NULL,
+  max_line_length = 200
 ) {
   # local bindings
   id <- name <- permission <- project <- server <- user <- NULL
@@ -331,7 +333,8 @@ rocrate_report.list <- function(
         i == 1,
         paste0("## RO-Crates\n### '", names(x)[i], "' server"),
         paste0("### '", names(x)[i], "' server")
-      )
+      ),
+      max_line_length = max_line_length
     )
   }
 
@@ -411,6 +414,8 @@ rocrate_report.list <- function(
 #'     overview's diagram (default: `NULL`, estimated based on number of nodes).
 #' @param diag_height Numeric value with height (in inches) for the report
 #'     overview's diagram (default: `NULL`, estimated based on number of nodes).
+#' @param max_line_length Integer with the maximum number of characters per line
+#'     in the RO-Crate to be printed in the report.
 #' @rdname rocrate_report
 #' @export
 rocrate_report.rocrate <- function(
@@ -424,7 +429,8 @@ rocrate_report.rocrate <- function(
   include_user_perm = TRUE,
   diag_title = "DataSHIELD server",
   diag_width = NULL,
-  diag_height = NULL
+  diag_height = NULL,
+  max_line_length = 200
 ) {
   # local bindings ----
   actionStatus <- description <- fx <- table <- NULL
@@ -661,7 +667,8 @@ rocrate_report.rocrate <- function(
   report_contents <- .markdown_report_rocrate(
     report_contents = report_contents,
     rocrate = x,
-    section_txt = "## RO-Crate"
+    section_txt = "## RO-Crate",
+    max_line_length = max_line_length
   )
 
   ## write contents inside file
@@ -1117,7 +1124,12 @@ rocrate_report.rocrate <- function(
 #'
 #' @returns String with update Markdown report.
 #' @keywords internal
-.markdown_report_rocrate <- function(report_contents, rocrate, section_txt) {
+.markdown_report_rocrate <- function(
+  report_contents,
+  rocrate,
+  section_txt,
+  max_line_length = 200
+) {
   # save the input into intermediate JSON file
   tmp_file <- tempfile(fileext = ".json")
   # delete temporary file
@@ -1130,7 +1142,18 @@ rocrate_report.rocrate <- function(
     auto_unbox = TRUE
   )
   # load formatted RO-Crate as text
-  rocrate_txt <- readLines(tmp_file)
+  rocrate_txt <- readLines(tmp_file) |>
+    # shorten long lines, beyond `max_line_length`
+    sapply(function(x) {
+      if (nchar(x) > max_line_length && max_line_length > 10) {
+        return(paste0(
+          substr(x, 1, max_line_length - 10),
+          "... <line truncated> ...",
+          substr(x, nchar(x) - 10, nchar(x))
+        ))
+      }
+      return(x)
+    })
   report_contents <- c(
     report_contents,
     "\n\\newpage\n",
