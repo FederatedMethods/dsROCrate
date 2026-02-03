@@ -66,7 +66,7 @@ rocrate_report.character <- function(
 
   # check if any of the entities with `@type = 'File'` have empty `content`
   rocrate <- rocrate |>
-    load_content(roc_path = roc_path)
+    load_content(roc_path = dirname(roc_path))
 
   # call the next generic method
   rocrate |>
@@ -460,6 +460,13 @@ rocrate_report.rocrate <- function(
         call. = FALSE
       )
     }
+  }
+
+  # check if the input object has a `path` attribute
+  if (!is.null(attr(x, "path"))) {
+    # check if any of the entities with `@type = 'File'` have empty `content`
+    x <- x |>
+      load_content(roc_path = attr(x, "path"))
   }
 
   # pre-processing ----
