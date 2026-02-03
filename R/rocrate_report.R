@@ -352,18 +352,18 @@ rocrate_report.list <- function(
         rmarkdown::render(
           filepath,
           "html_document",
-          sub(".md", ".html", filepath)
+          sub(".md$", ".html", filepath)
         )
-        utils::browseURL(paste0("file://", sub(".md", ".html", filepath)))
+        utils::browseURL(paste0("file://", sub(".md$", ".html", filepath)))
       })
     } else if (tolower(doc_format) %in% c("pdf", "pdf_document")) {
       suppressWarnings({
         rmarkdown::render(
           filepath,
           "pdf_document",
-          sub(".md", ".pdf", filepath)
+          sub(".md$", ".pdf", filepath)
         )
-        utils::browseURL(paste0("file://", sub(".md", ".pdf", filepath)))
+        utils::browseURL(paste0("file://", sub(".md$", ".pdf", filepath)))
       })
     } else {
       stop("The format `", doc_format, "` is not valid! Try 'html' or 'pdf'.")
@@ -685,18 +685,18 @@ rocrate_report.rocrate <- function(
         rmarkdown::render(
           filepath,
           "html_document",
-          sub(".md", ".html", filepath)
+          sub(".md$", ".html", filepath)
         )
-        utils::browseURL(paste0("file://", sub(".md", ".html", filepath)))
+        utils::browseURL(paste0("file://", sub(".md$", ".html", filepath)))
       })
     } else if (tolower(doc_format) %in% c("pdf", "pdf_document")) {
       suppressWarnings({
         rmarkdown::render(
           filepath,
           "pdf_document",
-          sub(".md", ".pdf", filepath)
+          sub(".md$", ".pdf", filepath)
         )
-        utils::browseURL(paste0("file://", sub(".md", ".pdf", filepath)))
+        utils::browseURL(paste0("file://", sub(".md$", ".pdf", filepath)))
       })
     } else {
       stop("The format `", doc_format, "` is not valid! Try 'html' or 'pdf'.")
