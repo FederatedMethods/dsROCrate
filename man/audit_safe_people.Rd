@@ -20,7 +20,8 @@ audit_safe_people(x, ...)
   user,
   project = NULL,
   logs_from = -Inf,
-  logs_to = Inf
+  logs_to = Inf,
+  path = NULL
 )
 
 \method{audit_safe_people}{rocrate}(x, ...)
@@ -44,6 +45,10 @@ details.}
 
 \item{logs_to}{Upper limit timestamp to filter out the outputs generated
 (default: \code{Inf}, everything from \code{logs_from} onwards).}
+
+\item{path}{String with path pointing to the root of the RO-Crate. This will
+be used to store log files. If not provided, logs will be stored within
+the RO-Crate returned by this function.}
 }
 \value{
 Updated RO-Crate object with Safe People information.

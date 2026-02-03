@@ -14,7 +14,14 @@ audit_safe_project(x, ...)
 
 \method{audit_safe_project}{default}(x, ...)
 
-\method{audit_safe_project}{opal}(x, ..., project = NULL, logs_from = -Inf, logs_to = Inf)
+\method{audit_safe_project}{opal}(
+  x,
+  ...,
+  project = NULL,
+  logs_from = -Inf,
+  logs_to = Inf,
+  path = NULL
+)
 
 \method{audit_safe_project}{rocrate}(x, ...)
 }
@@ -26,7 +33,7 @@ RO-Crate.}
 
 \item{...}{Other optional arguments, see full documentation for details.}
 
-\item{project}{String with project name from which to extra Safe Project
+\item{project}{String with project name(s) from which to extra Safe People
 details.}
 
 \item{logs_from}{Lower limit timestamp to filter out the outputs generated
@@ -34,6 +41,10 @@ details.}
 
 \item{logs_to}{Upper limit timestamp to filter out the outputs generated
 (default: \code{Inf}, everything from \code{logs_from} onwards).}
+
+\item{path}{String with path pointing to the root of the RO-Crate. This will
+be used to store log files. If not provided, logs will be stored within
+the RO-Crate returned by this function.}
 }
 \value{
 Updated RO-Crate object with Safe Project information.

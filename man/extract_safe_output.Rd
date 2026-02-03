@@ -11,6 +11,7 @@ extract_safe_output(x, ...)
 \method{extract_safe_output}{opal}(
   x,
   ...,
+  path = NULL,
   user = NULL,
   logs_to = Sys.time(),
   logs_from = logs_to - 24 * 60^2,
@@ -32,6 +33,10 @@ the \code{opal} class, see \code{\link[opalr:opal.login]{opalr::opal.login()}}),
 RO-Crate.}
 
 \item{...}{Other optional arguments. See the full documentation}
+
+\item{path}{String with path pointing to the root of the RO-Crate. This will
+be used to store log files. If not provided, logs will be stored within
+the RO-Crate returned by this function.}
 
 \item{user}{String with the name of the user for which outputs will be
 extracted. Optional, if no user is provided, then this will be extracted

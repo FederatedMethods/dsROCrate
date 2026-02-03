@@ -47,9 +47,9 @@ RO-Crate.}
 object or a path to a valid RO-Crate. If so, then \code{connection} is
 required (default: \code{rocrateR::rocrate_5s()}).}
 
-\item{path}{String to path pointing to the root of the RO-Crate. This will
+\item{path}{String with path pointing to the root of the RO-Crate. This will
 be used to store log files. If not provided, logs will be stored within
-the updated RO-Crate returned by this function.}
+the RO-Crate returned by this function.}
 
 \item{user}{String with the name of the user for which outputs will be
 extracted. Optional, if no user is provided, then this will be extracted
