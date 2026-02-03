@@ -16,9 +16,9 @@
 #' @inheritParams safe_data
 #' @param ... Other optional arguments. See the full documentation,
 #'     [`?dsROCrate::safe_output`][safe_output()].
-#' @param path String to path pointing to the root of the RO-Crate. This will
+#' @param path String with path pointing to the root of the RO-Crate. This will
 #'     be used to store log files. If not provided, logs will be stored within
-#'     the updated RO-Crate returned by this function.
+#'     the RO-Crate returned by this function.
 #' @param user String with the name of the user for which outputs will be
 #'     extracted. Optional, if no user is provided, then this will be extracted
 #'     from the `author` in the root (`./`) entity of the RO-Crate.
