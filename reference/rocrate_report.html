@@ -68,7 +68,8 @@
 <span>  include_user_perm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  diag_title <span class="op">=</span> <span class="st">"DataSHIELD server"</span>,</span>
 <span>  diag_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  diag_height <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  diag_height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max_line_length <span class="op">=</span> <span class="fl">200</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
@@ -87,7 +88,8 @@
 <span>  include_user_perm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  diag_title <span class="op">=</span> <span class="st">"DataSHIELD server"</span>,</span>
 <span>  diag_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  diag_height <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  diag_height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max_line_length <span class="op">=</span> <span class="fl">200</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'rocrate'</span></span>
@@ -102,7 +104,8 @@
 <span>  include_user_perm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  diag_title <span class="op">=</span> <span class="st">"DataSHIELD server"</span>,</span>
 <span>  diag_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  diag_height <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  diag_height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  max_line_length <span class="op">=</span> <span class="fl">200</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -160,6 +163,11 @@ overview's diagram (default: <code>NULL</code>, estimated based on number of nod
 <dt id="arg-diag-height">diag_height<a class="anchor" aria-label="anchor" href="#arg-diag-height"></a></dt>
 <dd><p>Numeric value with height (in inches) for the report
 overview's diagram (default: <code>NULL</code>, estimated based on number of nodes).</p></dd>
+
+
+<dt id="arg-max-line-length">max_line_length<a class="anchor" aria-label="anchor" href="#arg-max-line-length"></a></dt>
+<dd><p>Integer with the maximum number of characters per line
+in the RO-Crate to be printed in the report.</p></dd>
 
 
 <dt id="arg-study-name">study_name<a class="anchor" aria-label="anchor" href="#arg-study-name"></a></dt>
