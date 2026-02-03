@@ -768,7 +768,7 @@ rocrate_report.rocrate <- function(
   # check if `overview_tbl` has a `fx` field
   if ("fx" %in% colnames(overview_tbl)) {
     vars <- c(vars, "fx")
-    labelvar <- c(labelvar, fx = "DataSHIELD Function")
+    labelvar <- c(labelvar, fx = "Function")
 
     # replace 'NA' with empty string for `fx`
     overview_tbl <- overview_tbl |>
@@ -878,7 +878,7 @@ rocrate_report.rocrate <- function(
     vars <- c(vars, "fx", "timestamp")
     varslab <- c(
       varslab,
-      "DataSHIELD Function" = "fx",
+      "Function" = "fx",
       "Timestamp" = "timestamp"
     )
 
