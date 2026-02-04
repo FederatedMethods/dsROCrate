@@ -182,7 +182,12 @@ safe_output.opal <- function(
     return(rocrate)
   }
 
-  log_filename <- paste0(Sys.Date(), "-dslogs-", user, ".log")
+  log_filename <- paste0(
+    format(Sys.time(), "%Y%m%dT%H%M%S"),
+    "-dslogs-",
+    user,
+    ".log"
+  )
 
   # create new data entity for log file
   log_entity <- rocrateR::entity(
@@ -256,7 +261,12 @@ safe_output.opal <- function(
       backend
     )
 
-  log_maps_filename <- paste0(Sys.Date(), "-dslogs-", user, "_mappings.csv")
+  log_maps_filename <- paste0(
+    format(Sys.time(), "%Y%m%dT%H%M%S"),
+    "-dslogs-",
+    user,
+    "_mappings.csv"
+  )
 
   # create new data entity for log file
   log_maps_entity <- rocrateR::entity(
