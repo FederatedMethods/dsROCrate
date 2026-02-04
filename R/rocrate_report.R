@@ -326,9 +326,18 @@ rocrate_report.list <- function(
 
   ## append RO-Crates ----
   for (i in seq_along(x)) {
+    # extract current RO-Crate
+    rocrate <- x[i][[1]]
+    # check if the input object has a `path` attribute
+    if (!is.null(attr(rocrate, "path"))) {
+      # check if any of the entities with `@type = 'File'` have empty `content`
+      rocrate <- rocrate |>
+        load_content(roc_path = attr(rocrate, "path"))
+    }
+
     report_contents <- .markdown_report_rocrate(
       report_contents = report_contents,
-      rocrate = x[i],
+      rocrate = rocrate,
       section_txt = ifelse(
         i == 1,
         paste0("## RO-Crates\n### '", names(x)[i], "' server"),
