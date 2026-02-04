@@ -29,7 +29,7 @@ safe_data(x, ...)
   project = NULL,
   tables = NULL,
   dataset_id_suffix = "#dataset:",
-  connection = NULL
+  connection = attr(x, "conn")
 )
 }
 \arguments{

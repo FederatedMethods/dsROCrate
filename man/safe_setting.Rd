@@ -16,7 +16,7 @@ safe_setting(x, ...)
 
 \method{safe_setting}{opal}(x, ..., rocrate = rocrateR::rocrate_5s())
 
-\method{safe_setting}{rocrate}(x, ..., connection = NULL)
+\method{safe_setting}{rocrate}(x, ..., connection = attr(x, "conn"))
 }
 \arguments{
 \item{x}{This can be a connection to a 'DataSHIELD' server (e.g., object with

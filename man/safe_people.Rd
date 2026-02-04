@@ -31,7 +31,7 @@ safe_people(x, ...)
   user_id_suffix = "#person:",
   set_author = TRUE,
   set_project = TRUE,
-  connection = NULL
+  connection = attr(x, "conn")
 )
 }
 \arguments{

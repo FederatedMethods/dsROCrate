@@ -31,7 +31,7 @@ safe_output(x, ...)
   user = NULL,
   logs_to = Sys.time(),
   logs_from = logs_to - 24 * 60^2,
-  connection = NULL
+  connection = attr(x, "conn")
 )
 }
 \arguments{

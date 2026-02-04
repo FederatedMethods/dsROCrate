@@ -37,7 +37,7 @@
   project,
   dataset_id_suffix = "#dataset:",
   project_id_suffix = "#project:",
-  connection = NULL
+  connection = attr(x, "conn")
 )
 }
 \arguments{
