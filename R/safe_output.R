@@ -324,6 +324,9 @@ safe_output.opal <- function(
       )
     )
 
+  # attach input connection as attribute
+  attr(rocrate, "conn") <- x
+
   # return RO-Crate with the new entity
   return(rocrate)
 }
@@ -337,7 +340,7 @@ safe_output.rocrate <- function(
   user = NULL,
   logs_to = Sys.time(),
   logs_from = logs_to - 24 * 60^2,
-  connection = NULL
+  connection = attr(x, "conn")
 ) {
   # check if the connection was given
   if (is.null(connection)) {

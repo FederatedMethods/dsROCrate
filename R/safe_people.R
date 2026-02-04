@@ -130,6 +130,9 @@ safe_people.opal <- function(
       )
   }
 
+  # attach input connection as attribute
+  attr(rocrate, "conn") <- x
+
   # return RO-Crate with the new entity
   return(rocrate)
 }
@@ -143,7 +146,7 @@ safe_people.rocrate <- function(
   user_id_suffix = "#person:",
   set_author = TRUE,
   set_project = TRUE,
-  connection = NULL
+  connection = attr(x, "conn")
 ) {
   # check if the connection was given
   if (is.null(connection)) {

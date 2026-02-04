@@ -128,6 +128,9 @@ safe_project.opal <- function(
   rocrate <- rocrate |>
     rocrateR::add_entity(project_entity, overwrite = TRUE)
 
+  # attach input connection as attribute
+  attr(rocrate, "conn") <- x
+
   # return RO-Crate with the new entity
   return(rocrate)
 }
@@ -141,7 +144,7 @@ safe_project.rocrate <- function(
   project,
   dataset_id_suffix = "#dataset:",
   project_id_suffix = "#project:",
-  connection = NULL
+  connection = attr(x, "conn")
 ) {
   # check if the connection was given
   if (is.null(connection)) {

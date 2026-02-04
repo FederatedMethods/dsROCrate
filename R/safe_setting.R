@@ -96,13 +96,16 @@ safe_setting.opal <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {
       rocrateR::add_entity(inst_packages_entities[[i]], overwrite = TRUE)
   }
 
+  # attach input connection as attribute
+  attr(rocrate, "conn") <- x
+
   # return RO-Crate with the new entity
   return(rocrate)
 }
 
 #' @rdname safe_setting
 #' @export
-safe_setting.rocrate <- function(x, ..., connection = NULL) {
+safe_setting.rocrate <- function(x, ..., connection = attr(x, "conn")) {
   # check if the connection was given
   if (is.null(connection)) {
     stop("A `connection` object is required!", call. = FALSE)
