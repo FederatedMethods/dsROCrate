@@ -99,9 +99,9 @@ the RO-Crate returned by this function.</p></dd>
 
 
 <dt id="arg-user">user<a class="anchor" aria-label="anchor" href="#arg-user"></a></dt>
-<dd><p>String with the name of the user for which outputs will be
-extracted. Optional, if no user is provided, then this will be extracted
-from the <code>author</code> in the root (<code>./</code>) entity of the RO-Crate.</p></dd>
+<dd><p>List (or <a href="https://rdrr.io/pkg/rocrateR/man/entity.html" class="external-link">entity</a> object) with details for
+the Safe People, it must include <code>@id</code> and <code>name</code> entries. Alternatively,
+this can be a string with the <code>name</code> of the current user.</p></dd>
 
 
 <dt id="arg-logs-to">logs_to<a class="anchor" aria-label="anchor" href="#arg-logs-to"></a></dt>
@@ -111,7 +111,7 @@ from the <code>author</code> in the root (<code>./</code>) entity of the RO-Crat
 
 <dt id="arg-logs-from">logs_from<a class="anchor" aria-label="anchor" href="#arg-logs-from"></a></dt>
 <dd><p>Lower limit timestamp to filter out the outputs generated
-(default: <code>Sys.time() - 24 * 60 ^ 2</code>, last 24 hours)</p></dd>
+(default: <code>Sys.time() - 24 * 60 ^ 2</code>, last 24 hours).</p></dd>
 
 
 <dt id="arg-rocrate">rocrate<a class="anchor" aria-label="anchor" href="#arg-rocrate"></a></dt>

@@ -64,18 +64,22 @@
 <span>  path <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  user <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  logs_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  logs_from <span class="op">=</span> <span class="va">logs_to</span> <span class="op">-</span> <span class="fl">24</span> <span class="op">*</span> <span class="fl">60</span><span class="op">^</span><span class="fl">2</span></span>
+<span>  logs_from <span class="op">=</span> <span class="va">logs_to</span> <span class="op">-</span> <span class="fl">24</span> <span class="op">*</span> <span class="fl">60</span><span class="op">^</span><span class="fl">2</span>,</span>
+<span>  project <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tables <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'rocrate'</span></span>
 <span><span class="fu">safe_output</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
 <span>  <span class="va">...</span>,</span>
-<span>  path <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  user <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"path"</span><span class="op">)</span>,</span>
+<span>  user <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"user"</span><span class="op">)</span>,</span>
 <span>  logs_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  logs_from <span class="op">=</span> <span class="va">logs_to</span> <span class="op">-</span> <span class="fl">24</span> <span class="op">*</span> <span class="fl">60</span><span class="op">^</span><span class="fl">2</span>,</span>
-<span>  connection <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"conn"</span><span class="op">)</span></span>
+<span>  connection <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"connection"</span><span class="op">)</span>,</span>
+<span>  project <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"project"</span><span class="op">)</span>,</span>
+<span>  tables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"tables"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -114,9 +118,9 @@ the RO-Crate returned by this function.</p></dd>
 
 
 <dt id="arg-user">user<a class="anchor" aria-label="anchor" href="#arg-user"></a></dt>
-<dd><p>String with the name of the user for which outputs will be
-extracted. Optional, if no user is provided, then this will be extracted
-from the <code>author</code> in the root (<code>./</code>) entity of the RO-Crate.</p></dd>
+<dd><p>List (or <a href="https://rdrr.io/pkg/rocrateR/man/entity.html" class="external-link">entity</a> object) with details for
+the Safe People, it must include <code>@id</code> and <code>name</code> entries. Alternatively,
+this can be a string with the <code>name</code> of the current user.</p></dd>
 
 
 <dt id="arg-logs-to">logs_to<a class="anchor" aria-label="anchor" href="#arg-logs-to"></a></dt>
@@ -126,7 +130,17 @@ from the <code>author</code> in the root (<code>./</code>) entity of the RO-Crat
 
 <dt id="arg-logs-from">logs_from<a class="anchor" aria-label="anchor" href="#arg-logs-from"></a></dt>
 <dd><p>Lower limit timestamp to filter out the outputs generated
-(default: <code>Sys.time() - 24 * 60 ^ 2</code>, last 24 hours)</p></dd>
+(default: <code>Sys.time() - 24 * 60 ^ 2</code>, last 24 hours).</p></dd>
+
+
+<dt id="arg-project">project<a class="anchor" aria-label="anchor" href="#arg-project"></a></dt>
+<dd><p>String with the name of the <a href="safe_project.html">Safe Project</a>.</p></dd>
+
+
+<dt id="arg-tables">tables<a class="anchor" aria-label="anchor" href="#arg-tables"></a></dt>
+<dd><p>Vector of strings with the names of the tables/datasets, part
+of <code>project</code>. Optional, if not provided, all the tables/datasets
+associated to <code>project</code> will be included in the RO-Crate.</p></dd>
 
 
 <dt id="arg-connection">connection<a class="anchor" aria-label="anchor" href="#arg-connection"></a></dt>
