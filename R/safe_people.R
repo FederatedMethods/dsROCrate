@@ -53,7 +53,10 @@ safe_people.opal <- function(
   user = NULL,
   user_id_suffix = "#person:",
   set_author = TRUE,
-  set_project = TRUE
+  set_project = TRUE,
+  path = NULL,
+  project = NULL,
+  tables = NULL
 ) {
   # x is a valid opal connection object
   validate_opal_con(x)
@@ -130,8 +133,12 @@ safe_people.opal <- function(
       )
   }
 
-  # attach input connection as attribute
-  attr(rocrate, "conn") <- x
+  # attach input arguments as attributes
+  attr(rocrate, "connection") <- x
+  attr(rocrate, "path") <- path
+  attr(rocrate, "project") <- project
+  attr(rocrate, "tables") <- tables
+  attr(rocrate, "user") <- user
 
   # return RO-Crate with the new entity
   return(rocrate)
@@ -142,11 +149,14 @@ safe_people.opal <- function(
 safe_people.rocrate <- function(
   x,
   ...,
-  user = NULL,
+  user = attr(x, "user"),
   user_id_suffix = "#person:",
   set_author = TRUE,
   set_project = TRUE,
-  connection = attr(x, "conn")
+  connection = attr(x, "connection"),
+  path = attr(x, "path"),
+  project = attr(x, "project"),
+  tables = attr(x, "tables")
 ) {
   # check if the connection was given
   if (is.null(connection)) {
@@ -160,6 +170,9 @@ safe_people.rocrate <- function(
     user = user,
     user_id_suffix = user_id_suffix,
     set_author = set_author,
-    set_project = set_project
+    set_project = set_project,
+    path = path,
+    project = project,
+    tables = tables
   )
 }

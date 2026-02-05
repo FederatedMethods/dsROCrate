@@ -32,6 +32,7 @@
 #' @param connection Connection object for the 'DataSHIELD' server where the
 #'     values will be extracted from (e.g., OBiBa's Opal). Optional, if `x` is
 #'     set to a connection object. If so, then `rocrate` is required.
+#' @inheritParams safe_output
 #'
 #' @returns Updated RO-Crate object with Safe Data information.
 #' @export
@@ -64,7 +65,9 @@ safe_data.opal <- function(
   rocrate = rocrateR::rocrate_5s(),
   project = NULL,
   tables = NULL,
-  dataset_id_suffix = "#dataset:"
+  dataset_id_suffix = "#dataset:",
+  path = NULL,
+  user = NULL
 ) {
   # declare local bindings
   created <- lastUpdate <- name <- new_dataset_entity <- NULL
@@ -129,8 +132,12 @@ safe_data.opal <- function(
       rocrateR::add_entity(project_dataset_entities[[i]], overwrite = TRUE)
   }
 
-  # attach input connection as attribute
-  attr(rocrate, "conn") <- x
+  # attach input arguments as attributes
+  attr(rocrate, "connection") <- x
+  attr(rocrate, "path") <- path
+  attr(rocrate, "project") <- project
+  attr(rocrate, "tables") <- tables
+  attr(rocrate, "user") <- user
 
   # return RO-Crate with the new entity
   return(rocrate)
@@ -141,10 +148,12 @@ safe_data.opal <- function(
 safe_data.rocrate <- function(
   x,
   ...,
-  project = NULL,
-  tables = NULL,
+  project = attr(x, "project"),
+  tables = attr(x, "tables"),
   dataset_id_suffix = "#dataset:",
-  connection = attr(x, "conn")
+  connection = attr(x, "connection"),
+  path = attr(x, "path"),
+  user = attr(x, "user")
 ) {
   # check if the connection was given
   if (is.null(connection)) {
@@ -157,6 +166,8 @@ safe_data.rocrate <- function(
     rocrate = x,
     project = project,
     tables = tables,
-    dataset_id_suffix = dataset_id_suffix
+    dataset_id_suffix = dataset_id_suffix,
+    path = path,
+    user = user
   )
 }

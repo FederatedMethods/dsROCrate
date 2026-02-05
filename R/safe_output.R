@@ -26,6 +26,7 @@
 #'     (default: `Sys.time()`, current system time).
 #' @param logs_from Lower limit timestamp to filter out the outputs generated
 #'     (default: `Sys.time() - 24 * 60 ^ 2`, last 24 hours)
+#' @inheritParams safe_data
 #'
 #' @returns Updated RO-Crate object with Safe Outputs information.
 #' @export
@@ -60,7 +61,9 @@ safe_output.opal <- function(
   path = NULL,
   user = NULL,
   logs_to = Sys.time(),
-  logs_from = logs_to - 24 * 60^2
+  logs_from = logs_to - 24 * 60^2,
+  project = NULL,
+  tables = NULL
 ) {
   # local bindings
   `@timestamp` <- backend <- logger_name <- safe_people_id <- username <- NULL
@@ -324,8 +327,12 @@ safe_output.opal <- function(
       )
     )
 
-  # attach input connection as attribute
-  attr(rocrate, "conn") <- x
+  # attach input arguments as attributes
+  attr(rocrate, "connection") <- x
+  attr(rocrate, "path") <- path
+  attr(rocrate, "project") <- project
+  attr(rocrate, "tables") <- tables
+  attr(rocrate, "user") <- user
 
   # return RO-Crate with the new entity
   return(rocrate)
@@ -336,11 +343,13 @@ safe_output.opal <- function(
 safe_output.rocrate <- function(
   x,
   ...,
-  path = NULL,
-  user = NULL,
+  path = attr(x, "path"),
+  user = attr(x, "user"),
   logs_to = Sys.time(),
   logs_from = logs_to - 24 * 60^2,
-  connection = attr(x, "conn")
+  connection = attr(x, "connection"),
+  project = attr(x, "project"),
+  tables = attr(x, "tables")
 ) {
   # check if the connection was given
   if (is.null(connection)) {
@@ -354,6 +363,8 @@ safe_output.rocrate <- function(
     path = path,
     user = user,
     logs_to = logs_to,
-    logs_from = logs_from
+    logs_from = logs_from,
+    project = project,
+    tables = tables
   )
 }

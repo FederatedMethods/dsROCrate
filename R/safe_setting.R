@@ -48,7 +48,15 @@ safe_setting.character <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {}
 
 #' @rdname safe_setting
 #' @export
-safe_setting.opal <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {
+safe_setting.opal <- function(
+  x,
+  ...,
+  rocrate = rocrateR::rocrate_5s(),
+  path = NULL,
+  project = NULL,
+  tables = NULL,
+  user = NULL
+) {
   # x is a valid opal connection object
   validate_opal_con(x)
 
@@ -96,8 +104,12 @@ safe_setting.opal <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {
       rocrateR::add_entity(inst_packages_entities[[i]], overwrite = TRUE)
   }
 
-  # attach input connection as attribute
-  attr(rocrate, "conn") <- x
+  # attach input arguments as attributes
+  attr(rocrate, "connection") <- x
+  attr(rocrate, "path") <- path
+  attr(rocrate, "project") <- project
+  attr(rocrate, "tables") <- tables
+  attr(rocrate, "user") <- user
 
   # return RO-Crate with the new entity
   return(rocrate)
@@ -105,12 +117,27 @@ safe_setting.opal <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {
 
 #' @rdname safe_setting
 #' @export
-safe_setting.rocrate <- function(x, ..., connection = attr(x, "conn")) {
+safe_setting.rocrate <- function(
+  x,
+  ...,
+  connection = attr(x, "connection"),
+  path = attr(x, "path"),
+  project = attr(x, "project"),
+  tables = attr(x, "tables"),
+  user = attr(x, "user")
+) {
   # check if the connection was given
   if (is.null(connection)) {
     stop("A `connection` object is required!", call. = FALSE)
   }
 
   # call method with given `connection` object:
-  safe_setting(connection, rocrate = x)
+  safe_setting(
+    connection,
+    rocrate = x,
+    path = path,
+    project = project,
+    tables = tables,
+    user = user
+  )
 }

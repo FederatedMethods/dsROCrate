@@ -30,10 +30,13 @@
 #' \S4method{safe_project}{armadillo}(
 #'   x,
 #'   ...,
-#'   project,
+#'   project = NULL,
 #'   rocrate = rocrateR::rocrate_5s(),
 #'   dataset_id_suffix = "#dataset:",
-#'   project_id_suffix = "#project:"
+#'   project_id_suffix = "#project:",
+#'   path = NULL,
+#'   tables = NULL,
+#'   user = NULL
 #' )
 safe_project <- function(x, ...) {
   UseMethod("safe_project", x)
@@ -59,10 +62,13 @@ safe_project.character <- function(x, ...) {}
 safe_project.opal <- function(
   x,
   ...,
-  project,
+  project = NULL,
   rocrate = rocrateR::rocrate_5s(),
   dataset_id_suffix = "#dataset:",
-  project_id_suffix = "#project:"
+  project_id_suffix = "#project:",
+  path = NULL,
+  tables = NULL,
+  user = NULL
 ) {
   # declare local bindings
   created <- lastUpdate <- NULL
@@ -128,8 +134,12 @@ safe_project.opal <- function(
   rocrate <- rocrate |>
     rocrateR::add_entity(project_entity, overwrite = TRUE)
 
-  # attach input connection as attribute
-  attr(rocrate, "conn") <- x
+  # attach input arguments as attributes
+  attr(rocrate, "connection") <- x
+  attr(rocrate, "path") <- path
+  attr(rocrate, "project") <- project
+  attr(rocrate, "tables") <- tables
+  attr(rocrate, "user") <- user
 
   # return RO-Crate with the new entity
   return(rocrate)
@@ -141,10 +151,13 @@ safe_project.opal <- function(
 safe_project.rocrate <- function(
   x,
   ...,
-  project,
+  project = attr(x, "project"),
   dataset_id_suffix = "#dataset:",
   project_id_suffix = "#project:",
-  connection = attr(x, "conn")
+  connection = attr(x, "connection"),
+  path = attr(x, "path"),
+  tables = attr(x, "tables"),
+  user = attr(x, "user")
 ) {
   # check if the connection was given
   if (is.null(connection)) {
@@ -157,7 +170,10 @@ safe_project.rocrate <- function(
     rocrate = x,
     project = project,
     dataset_id_suffix = dataset_id_suffix,
-    project_id_suffix = project_id_suffix
+    project_id_suffix = project_id_suffix,
+    path = path,
+    tables = tables,
+    user = user
   )
 }
 
@@ -170,10 +186,13 @@ setMethod(
   function(
     x,
     ...,
-    project,
+    project = NULL,
     rocrate = rocrateR::rocrate_5s(),
     dataset_id_suffix = "#dataset:",
-    project_id_suffix = "#project:"
+    project_id_suffix = "#project:",
+    path = NULL,
+    tables = NULL,
+    user = NULL
   ) {
     # check if the given `project` exists
     project_exists(x, project = project)
