@@ -16,28 +16,37 @@
 \S4method{safe_project}{armadillo}(
   x,
   ...,
-  project,
+  project = NULL,
   rocrate = rocrateR::rocrate_5s(),
   dataset_id_suffix = "#dataset:",
-  project_id_suffix = "#project:"
+  project_id_suffix = "#project:",
+  path = NULL,
+  tables = NULL,
+  user = NULL
 )
 
 \method{safe_project}{opal}(
   x,
   ...,
-  project,
+  project = NULL,
   rocrate = rocrateR::rocrate_5s(),
   dataset_id_suffix = "#dataset:",
-  project_id_suffix = "#project:"
+  project_id_suffix = "#project:",
+  path = NULL,
+  tables = NULL,
+  user = NULL
 )
 
 \method{safe_project}{rocrate}(
   x,
   ...,
-  project,
+  project = attr(x, "project"),
   dataset_id_suffix = "#dataset:",
   project_id_suffix = "#project:",
-  connection = attr(x, "conn")
+  connection = attr(x, "connection"),
+  path = attr(x, "path"),
+  tables = attr(x, "tables"),
+  user = attr(x, "user")
 )
 }
 \arguments{
@@ -60,6 +69,18 @@ entities in the RO-Crate (default: \code{"#dataset:"}).}
 
 \item{project_id_suffix}{String with ID suffix for the project entities
 in the RO-Crate (default: \code{"#project:"}).}
+
+\item{path}{String with path pointing to the root of the RO-Crate. This will
+be used to store log files. If not provided, logs will be stored within
+the RO-Crate returned by this function.}
+
+\item{tables}{Vector of strings with the names of the tables/datasets, part
+of \code{project}. Optional, if not provided, all the tables/datasets
+associated to \code{project} will be included in the RO-Crate.}
+
+\item{user}{String with the name of the user for which outputs will be
+extracted. Optional, if no user is provided, then this will be extracted
+from the \code{author} in the root (\verb{./}) entity of the RO-Crate.}
 
 \item{connection}{Connection object for the 'DataSHIELD' server where the
 values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is

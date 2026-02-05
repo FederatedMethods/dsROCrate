@@ -20,16 +20,20 @@ safe_data(x, ...)
   rocrate = rocrateR::rocrate_5s(),
   project = NULL,
   tables = NULL,
-  dataset_id_suffix = "#dataset:"
+  dataset_id_suffix = "#dataset:",
+  path = NULL,
+  user = NULL
 )
 
 \method{safe_data}{rocrate}(
   x,
   ...,
-  project = NULL,
-  tables = NULL,
+  project = attr(x, "project"),
+  tables = attr(x, "tables"),
   dataset_id_suffix = "#dataset:",
-  connection = attr(x, "conn")
+  connection = attr(x, "connection"),
+  path = attr(x, "path"),
+  user = attr(x, "user")
 )
 }
 \arguments{
@@ -53,6 +57,14 @@ associated to \code{project} will be included in the RO-Crate.}
 
 \item{dataset_id_suffix}{String with ID suffix for the tables/datasets
 entities in the RO-Crate (default: \code{"#dataset:"}).}
+
+\item{path}{String with path pointing to the root of the RO-Crate. This will
+be used to store log files. If not provided, logs will be stored within
+the RO-Crate returned by this function.}
+
+\item{user}{String with the name of the user for which outputs will be
+extracted. Optional, if no user is provided, then this will be extracted
+from the \code{author} in the root (\verb{./}) entity of the RO-Crate.}
 
 \item{connection}{Connection object for the 'DataSHIELD' server where the
 values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is

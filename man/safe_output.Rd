@@ -21,17 +21,21 @@ safe_output(x, ...)
   path = NULL,
   user = NULL,
   logs_to = Sys.time(),
-  logs_from = logs_to - 24 * 60^2
+  logs_from = logs_to - 24 * 60^2,
+  project = NULL,
+  tables = NULL
 )
 
 \method{safe_output}{rocrate}(
   x,
   ...,
-  path = NULL,
-  user = NULL,
+  path = attr(x, "path"),
+  user = attr(x, "user"),
   logs_to = Sys.time(),
   logs_from = logs_to - 24 * 60^2,
-  connection = attr(x, "conn")
+  connection = attr(x, "connection"),
+  project = attr(x, "project"),
+  tables = attr(x, "tables")
 )
 }
 \arguments{
@@ -60,6 +64,12 @@ from the \code{author} in the root (\verb{./}) entity of the RO-Crate.}
 
 \item{logs_from}{Lower limit timestamp to filter out the outputs generated
 (default: \code{Sys.time() - 24 * 60 ^ 2}, last 24 hours)}
+
+\item{project}{String with the name of the \link[=safe_project]{Safe Project}.}
+
+\item{tables}{Vector of strings with the names of the tables/datasets, part
+of \code{project}. Optional, if not provided, all the tables/datasets
+associated to \code{project} will be included in the RO-Crate.}
 
 \item{connection}{Connection object for the 'DataSHIELD' server where the
 values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is

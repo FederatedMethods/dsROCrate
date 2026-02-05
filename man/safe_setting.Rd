@@ -14,9 +14,25 @@
 \usage{
 safe_setting(x, ...)
 
-\method{safe_setting}{opal}(x, ..., rocrate = rocrateR::rocrate_5s())
+\method{safe_setting}{opal}(
+  x,
+  ...,
+  rocrate = rocrateR::rocrate_5s(),
+  path = NULL,
+  project = NULL,
+  tables = NULL,
+  user = NULL
+)
 
-\method{safe_setting}{rocrate}(x, ..., connection = attr(x, "conn"))
+\method{safe_setting}{rocrate}(
+  x,
+  ...,
+  connection = attr(x, "connection"),
+  path = attr(x, "path"),
+  project = attr(x, "project"),
+  tables = attr(x, "tables"),
+  user = attr(x, "user")
+)
 }
 \arguments{
 \item{x}{This can be a connection to a 'DataSHIELD' server (e.g., object with
@@ -30,6 +46,20 @@ RO-Crate.}
 \item{rocrate}{RO-Crate object. Optional, if \code{x} is either an RO-Crate
 object or a path to a valid RO-Crate. If so, then \code{connection} is
 required (default: \code{rocrateR::rocrate_5s()}).}
+
+\item{path}{String with path pointing to the root of the RO-Crate. This will
+be used to store log files. If not provided, logs will be stored within
+the RO-Crate returned by this function.}
+
+\item{project}{String with the name of the \link[=safe_project]{Safe Project}.}
+
+\item{tables}{Vector of strings with the names of the tables/datasets, part
+of \code{project}. Optional, if not provided, all the tables/datasets
+associated to \code{project} will be included in the RO-Crate.}
+
+\item{user}{String with the name of the user for which outputs will be
+extracted. Optional, if no user is provided, then this will be extracted
+from the \code{author} in the root (\verb{./}) entity of the RO-Crate.}
 
 \item{connection}{Connection object for the 'DataSHIELD' server where the
 values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is

@@ -21,17 +21,23 @@ safe_people(x, ...)
   user = NULL,
   user_id_suffix = "#person:",
   set_author = TRUE,
-  set_project = TRUE
+  set_project = TRUE,
+  path = NULL,
+  project = NULL,
+  tables = NULL
 )
 
 \method{safe_people}{rocrate}(
   x,
   ...,
-  user = NULL,
+  user = attr(x, "user"),
   user_id_suffix = "#person:",
   set_author = TRUE,
   set_project = TRUE,
-  connection = attr(x, "conn")
+  connection = attr(x, "connection"),
+  path = attr(x, "path"),
+  project = attr(x, "project"),
+  tables = attr(x, "tables")
 )
 }
 \arguments{
@@ -59,6 +65,16 @@ set as the author of the RO-Crate.}
 
 \item{set_project}{Boolean flag to indicate if any \code{Project} entities found
 in \code{x} should be linked to the Safe People entity.}
+
+\item{path}{String with path pointing to the root of the RO-Crate. This will
+be used to store log files. If not provided, logs will be stored within
+the RO-Crate returned by this function.}
+
+\item{project}{String with the name of the \link[=safe_project]{Safe Project}.}
+
+\item{tables}{Vector of strings with the names of the tables/datasets, part
+of \code{project}. Optional, if not provided, all the tables/datasets
+associated to \code{project} will be included in the RO-Crate.}
 
 \item{connection}{Connection object for the 'DataSHIELD' server where the
 values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is
