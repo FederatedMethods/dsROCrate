@@ -57,9 +57,9 @@ the RO-Crate returned by this function.}
 of \code{project}. Optional, if not provided, all the tables/datasets
 associated to \code{project} will be included in the RO-Crate.}
 
-\item{user}{String with the name of the user for which outputs will be
-extracted. Optional, if no user is provided, then this will be extracted
-from the \code{author} in the root (\verb{./}) entity of the RO-Crate.}
+\item{user}{List (or \link[rocrateR:entity]{entity} object) with details for
+the Safe People, it must include \verb{@id} and \code{name} entries. Alternatively,
+this can be a string with the \code{name} of the current user.}
 
 \item{connection}{Connection object for the 'DataSHIELD' server where the
 values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is

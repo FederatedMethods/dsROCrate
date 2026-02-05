@@ -55,15 +55,15 @@ required (default: \code{rocrateR::rocrate_5s()}).}
 be used to store log files. If not provided, logs will be stored within
 the RO-Crate returned by this function.}
 
-\item{user}{String with the name of the user for which outputs will be
-extracted. Optional, if no user is provided, then this will be extracted
-from the \code{author} in the root (\verb{./}) entity of the RO-Crate.}
+\item{user}{List (or \link[rocrateR:entity]{entity} object) with details for
+the Safe People, it must include \verb{@id} and \code{name} entries. Alternatively,
+this can be a string with the \code{name} of the current user.}
 
 \item{logs_to}{Upper limit timestamp to filter out the outputs generated
 (default: \code{Sys.time()}, current system time).}
 
 \item{logs_from}{Lower limit timestamp to filter out the outputs generated
-(default: \code{Sys.time() - 24 * 60 ^ 2}, last 24 hours)}
+(default: \code{Sys.time() - 24 * 60 ^ 2}, last 24 hours).}
 
 \item{project}{String with the name of the \link[=safe_project]{Safe Project}.}
 
