@@ -13,20 +13,13 @@
 #' methods and standards for output checking that are accredited by the UK
 #' Statistics Authority.
 #'
-#' @inheritParams safe_data
 #' @param ... Other optional arguments. See the full documentation,
 #'     [`?dsROCrate::safe_output`][safe_output()].
-#' @param path String with path pointing to the root of the RO-Crate. This will
-#'     be used to store log files. If not provided, logs will be stored within
-#'     the RO-Crate returned by this function.
-#' @param user String with the name of the user for which outputs will be
-#'     extracted. Optional, if no user is provided, then this will be extracted
-#'     from the `author` in the root (`./`) entity of the RO-Crate.
 #' @param logs_to Upper limit timestamp to filter out the outputs generated
 #'     (default: `Sys.time()`, current system time).
 #' @param logs_from Lower limit timestamp to filter out the outputs generated
-#'     (default: `Sys.time() - 24 * 60 ^ 2`, last 24 hours)
-#' @inheritParams safe_data
+#'     (default: `Sys.time() - 24 * 60 ^ 2`, last 24 hours).
+#' @inheritParams init
 #'
 #' @returns Updated RO-Crate object with Safe Outputs information.
 #' @export
@@ -127,21 +120,28 @@ safe_output.opal <- function(
     user <- safe_people_information |>
       sapply(getElement, name = "name") |>
       unique()
+  }
 
-    # check if for any reason multiple users were found
-    if (length(user) != 1) {
-      warning(
-        "Error when retrieving the Safe People section in the given ",
-        "RO-Crate. ",
-        length(user),
-        " entries in the 'author' ",
-        "section of root (./) entity were found!",
-        call. = FALSE
-      )
+  # check if the given value for `user` is a list
+  if ("list" %in% class(user)) {
+    user <- user |>
+      purrr::pluck("name") |>
+      unique()
+  }
 
-      # return the input RO-Crate
-      return(rocrate)
-    }
+  # check if for any reason multiple users were found
+  if (length(user) != 1) {
+    warning(
+      "Error when retrieving the Safe People section in the given ",
+      "RO-Crate. ",
+      length(user),
+      " entries in the 'author' ",
+      "section of root (./) entity were found!",
+      call. = FALSE
+    )
+
+    # return the input RO-Crate
+    return(rocrate)
   }
 
   # parse logs

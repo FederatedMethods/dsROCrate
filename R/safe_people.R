@@ -8,18 +8,15 @@
 #' The access service provider may require the researcher to sign a statement
 #' that they know and understand the regulations of the TRE.
 #'
-#' @inheritParams safe_data
 #' @param ... Other optional arguments. See the full documentation,
 #'     [`?dsROCrate::safe_people`][safe_people()].
-#' @param user List (or [entity][rocrateR::entity()] object) with details for
-#'     the Safe People, it must include `@id` and `name` entries. Alternatively,
-#'     this can be a string with the `name` of the current user.
 #' @param user_id_suffix String with ID suffix for the tables/datasets
 #'     entities in the RO-Crate (default: `"#dataset:"`).
 #' @param set_author Boolean flag to indicate if the current user should be
 #'     set as the author of the RO-Crate.
 #' @param set_project Boolean flag to indicate if any `Project` entities found
 #'     in `x` should be linked to the Safe People entity.
+#' @inheritParams init
 #'
 #' @returns Updated RO-Crate object with Safe People information.
 #' @export

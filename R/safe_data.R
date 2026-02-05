@@ -20,19 +20,9 @@
 #'     RO-Crate.
 #' @param ... Other optional arguments. See the full documentation,
 #'     [`?dsROCrate::safe_data`][safe_data()].
-#' @param rocrate RO-Crate object. Optional, if `x` is either an RO-Crate
-#'     object or a path to a valid RO-Crate. If so, then `connection` is
-#'     required (default: `rocrateR::rocrate_5s()`).
-#' @param project String with the name of the [Safe Project][safe_project()].
-#' @param tables Vector of strings with the names of the tables/datasets, part
-#'     of `project`. Optional, if not provided, all the tables/datasets
-#'     associated to `project` will be included in the RO-Crate.
 #' @param dataset_id_suffix String with ID suffix for the tables/datasets
 #'     entities in the RO-Crate (default: `"#dataset:"`).
-#' @param connection Connection object for the 'DataSHIELD' server where the
-#'     values will be extracted from (e.g., OBiBa's Opal). Optional, if `x` is
-#'     set to a connection object. If so, then `rocrate` is required.
-#' @inheritParams safe_output
+#' @inheritParams init
 #'
 #' @returns Updated RO-Crate object with Safe Data information.
 #' @export
