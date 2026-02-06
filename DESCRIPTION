@@ -14,8 +14,11 @@ License: MIT + file LICENSE
 Suggests: 
     dsBaseClient,
     DSI,
+    DSMolgenisArmadillo,
     DSOpal,
     knitr,
+    MolgenisArmadillo,
+    opalr,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Encoding: UTF-8
@@ -25,11 +28,8 @@ RoxygenNote: 7.3.3
 Imports: 
     digest,
     dplyr,
-    DSMolgenisArmadillo,
     jsonlite,
     methods,
-    MolgenisArmadillo,
-    opalr,
     purrr,
     rmarkdown,
     rocrateR (>= 0.0.1),
