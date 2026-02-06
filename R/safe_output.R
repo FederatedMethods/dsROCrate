@@ -212,12 +212,18 @@ safe_output.opal <- function(
   # extract list of functions executed
   ## evaluated functions and tables/symbols mapped
   userlogs_tbl_maps_evals <- userlogs_tbl |>
-    dplyr::filter(ds_action %in% c("ASSIGN", "AGGREGATE")) |>
+    dplyr::filter(ds_action %in% c("ASSIGN", "AGGREGATE", "OPEN")) |>
     # create derived `ds_eval` when `ds_action` = 'ASSIGN'
     dplyr::mutate(
       ds_eval = dplyr::coalesce(
         ds_eval,
         paste0(ds_symbol, " <- opal[", ds_table, "]")
+      ),
+      # attach session ID, `ds_id`, if `ds_eval` if `ds_action == 'OPEN'`
+      ds_eval = ifelse(
+        ds_action == "OPEN",
+        paste0("Open session: ", ds_id),
+        ds_eval
       )
     ) |>
     dplyr::distinct(
@@ -248,6 +254,12 @@ safe_output.opal <- function(
         gsub(pattern = "(?=\\$).*", replacement = "", perl = TRUE),
       # autofill `ds_function` when `ds_action` = 'ASSIGN'
       ds_function = ifelse(ds_symbol == ds_eval, "base::assign", ds_function),
+      # set `ds_function = 'DSI::datashield.login'` if `ds_action == 'OPEN'`
+      ds_function = ifelse(
+        ds_action == "OPEN",
+        "DSI::datashield.login",
+        ds_function
+      ),
       ds_symbol = ifelse(ds_symbol == ds_eval, NA, ds_symbol),
       # add column with backend
       backend = "OBiBa's Opal",
@@ -261,6 +273,7 @@ safe_output.opal <- function(
       fx = ds_function,
       symbol = ds_symbol,
       table = ds_table,
+      session = ds_id,
       backend
     )
 
