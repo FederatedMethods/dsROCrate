@@ -1,3 +1,75 @@
+#' Get project details (including tables)
+#'
+#' @inheritParams get_table_permissions
+#'
+#' @returns Data frame with project and tables associated
+#' @keywords internal
+#'
+#' @family Opal
+get_project_details <- function(x, project) {
+  project |>
+    lapply(function(p) {
+      tryCatch(
+        {
+          # check if the given project exists
+          project_exists(x, project = p)
+
+          # retrieve tables for the given project
+          project_tables <- get_project_tables(x, p)
+          # check if any tables were found attached to the project
+          if (length(project_tables) < 1) {
+            return(tibble::tibble(project = p, table = NA))
+          }
+          tibble::tibble(
+            project = p,
+            table = project_tables
+          )
+        },
+        error = function(e) {
+          return(tibble::tibble(project = p, table = NA))
+        }
+      )
+    }) |>
+    dplyr::bind_rows() |>
+    dplyr::filter(!is.na(table))
+}
+
+#' Get project resources
+#'
+#' Wrapper for [opalr::opal.project()].
+#'
+#' @inheritParams get_table_permissions
+#'
+#' @returns List of project resources
+#' @keywords internal
+#'
+#' @family Opal
+get_project_resources <- function(x, project) {
+  # verify if project exists
+  project_exists(x, project = project)
+
+  # extract table names associated to `project`
+  project_resources <- x |>
+    opalr::opal.get("project", project, "resources") |>
+    getElement("resource") |>
+    # getElement("table") |>
+    unlist()
+
+  # if `project_resources` is missing or NULL, then print warning message
+  if (all(is.na(project_resources)) || all(is.null(project_resources))) {
+    warning(
+      "The given `project`, does not have any resources associated!",
+      call. = FALSE
+    )
+
+    # return empty list, invisibly
+    return(invisible(list()))
+  }
+
+  # return project resources
+  return(project_resources)
+}
+
 #' Get project tables
 #'
 #' Wrapper for [opalr::opal.project()].
