@@ -3,8 +3,7 @@
 #' Audit Safe People details from a 'DataSHIELD' server, an RO-Crate object or
 #' a file path pointing to an RO-Crate.
 #'
-#' @inheritParams safe_people
-#' @inheritParams safe_output
+#' @inheritParams init
 #' @param x This can be a connection to a 'DataSHIELD' server (e.g., object with
 #'     the `opal` class, see [opalr::opal.login()]), an RO-Crate
 #'     ([rocrate][rocrateR::rocrate()] class) or a string with the path to an
