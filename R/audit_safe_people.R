@@ -58,44 +58,18 @@ audit_safe_people.opal <- function(
   # validate Opal connection
   is_opal_admin_con(x)
 
-  # if `project` is given, then extract tables associated to that project
-  if (!is.null(project)) {
-    # check if the given project(s) can be found in the given server
-    sapply(project, \(p) project_exists(x, project = p))
-
-    # retrieve tables for the given project(s)
-    project_tables_all <- project |>
-      lapply(function(p) {
-        tibble::tibble(
-          project = p,
-          table = get_project_tables(x, p)
-        )
-      }) |>
-      dplyr::bind_rows()
-  } else {
+  # if `project` is missing, then extract all project names
+  if (is.null(project)) {
     # extract all data sources
     ds <- opalr::opal.datasources(x)
 
-    # cycle through the data sources and extract project and table names
-    project_tables_all <- seq_len(nrow(ds)) |>
-      lapply(function(i) {
-        tryCatch(
-          {
-            project_name <- ds[i, "name"]
-            project_tables <- get_project_tables(x, project_name)
-            tibble::tibble(
-              project = project_name,
-              table = unlist(project_tables)
-            )
-          },
-          error = function(e) {
-            return(tibble::tibble(project = project_name))
-          }
-        )
-      }) |>
-      dplyr::bind_rows() |>
-      dplyr::filter(!is.na(table))
+    project <- ds[, "name"]
   }
+
+  suppressWarnings({
+    project_tables_all <- x |>
+      get_project_details(project)
+  })
 
   # get permissions for each table in the project
   # get table permissions
