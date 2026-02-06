@@ -44,55 +44,18 @@ audit_safe_project.opal <- function(
   is_opal_admin_con(x)
   # validate_opal_con(x)
 
-  # if `project` is given, then extract tables associated to that project
-  if (!is.null(project)) {
-    project_tables_all <- project |>
-      lapply(function(p) {
-        tryCatch(
-          {
-            # check if the given project exists
-            project_exists(x, project = p)
-
-            # retrieve tables for the given project
-            project_tables <- get_project_tables(x, p)
-            tibble::tibble(
-              project = p,
-              table = project_tables
-            )
-          },
-          error = function(e) {
-            return(tibble::tibble(project = p, table = NA))
-          }
-        )
-      }) |>
-      dplyr::bind_rows() |>
-      dplyr::filter(!is.na(table))
-  } else {
+  # if `project` is missing, then extract all project names
+  if (is.null(project)) {
     # extract all data sources
     ds <- opalr::opal.datasources(x)
 
-    # cycle through the data sources and extract project and table names
-    suppressWarnings({
-      project_tables_all <- seq_len(nrow(ds)) |>
-        lapply(function(i) {
-          tryCatch(
-            {
-              project_name <- ds[i, "name"]
-              project_tables <- get_project_tables(x, project_name)
-              tibble::tibble(
-                project = project_name,
-                table = unlist(project_tables)
-              )
-            },
-            error = function(e) {
-              return(tibble::tibble(project = project_name))
-            }
-          )
-        }) |>
-        dplyr::bind_rows() |>
-        dplyr::filter(!is.na(table))
-    })
+    project <- ds[, "name"]
   }
+
+  suppressWarnings({
+    project_tables_all <- x |>
+      get_project_details(project)
+  })
 
   # add check to determine if project information was found:
   if (nrow(project_tables_all) == 0) {
