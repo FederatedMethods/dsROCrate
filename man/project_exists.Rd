@@ -34,6 +34,8 @@ Other Armadillo:
 \code{\link{parse_user_profiles}()}
 
 Other Opal: 
+\code{\link{get_project_details}()},
+\code{\link{get_project_resources}()},
 \code{\link{get_project_tables}()},
 \code{\link{get_table_permissions}()},
 \code{\link{parse_user_profiles}()}
