@@ -186,12 +186,16 @@ safe_data.opal <- function(
       rocrateR::add_entity_value(
         id = project_ents[[1]]["@id"],
         key = "hasPart",
-        value = list(unique(c(
+        value = c(
           has_part,
           project_dataset_entities |>
             sapply("[[", "@id") |>
             unlist()
-        ))),
+        ) |>
+          unique() |>
+          lapply(function(id) {
+            list(`@id` = id)
+          }),
         overwrite = TRUE
       )
   }
