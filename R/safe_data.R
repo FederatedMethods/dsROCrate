@@ -60,7 +60,7 @@ safe_data.opal <- function(
   user = NULL
 ) {
   # declare local bindings
-  created <- lastUpdate <- name <- new_dataset_entity <- NULL
+  created <- lastUpdate <- name <- new_dataset_entity <- subject <- NULL
 
   # x is a valid opal connection object
   validate_opal_con(x)
@@ -123,10 +123,61 @@ safe_data.opal <- function(
       return(new_dataset_entity)
     })
 
+  # initialise empty list with entities for user level permissions
+  user_perm_entity_lst <- NULL
+
+  # extract user permissions, if `user` is not NULL
+  if (!is.null(user)) {
+    ## get permissions for each table in the project
+    ## get table permissions
+    project_table_permissions_tbl <- seq_along(project_tables) |>
+      lapply(\(i) get_table_permissions(x, project, project_tables[i])) |>
+      dplyr::bind_rows() |>
+      dplyr::filter(subject == !!user)
+
+    ## create a safe data entities data frame
+    safe_data_entities_tbl <- tibble::tibble(
+      table_id = paste0(project, "_", project_tables),
+      name = project_tables
+    ) |>
+      dplyr::mutate(
+        table_id = paste0(dataset_id_suffix, sapply(table_id, digest::digest))
+      )
+
+    safe_people_entities_tbl <- x |>
+      safe_people(user = user) |>
+      flatten_safe_people() |>
+      dplyr::rename("user_id" = "id")
+
+    ## combine the table permissions with Dataset & People entities' @ids
+    project_table_permissions_tbl_v2 <- project_table_permissions_tbl |>
+      dplyr::left_join(safe_data_entities_tbl, by = c("table" = "name")) |>
+      dplyr::left_join(safe_people_entities_tbl, by = c("subject" = "name")) |>
+      dplyr::rename(user = subject)
+
+    ## generate user permission entities and add to the RO-Crate
+    user_perm_entity_lst <- project_table_permissions_tbl_v2 |>
+      purrr::pmap(user_perm_entity) |>
+      purrr::list_c()
+  }
+
   # add table entities to the `rocrate` object
   for (i in seq_along(project_dataset_entities)) {
     rocrate <- rocrate |>
       rocrateR::add_entity(project_dataset_entities[[i]], overwrite = TRUE)
+
+    # add user permissions associated to the current table (if any)
+    table_id <- getElement(project_dataset_entities[[i]], "@id")
+    usr_pr_idx <- sapply(user_perm_entity_lst, getElement, "object") == table_id
+
+    # add entity (if any) to the RO-Crate
+    if (any(usr_pr_idx)) {
+      rocrate <- rocrate |>
+        rocrateR::add_entity(
+          user_perm_entity_lst[usr_pr_idx][[1]],
+          overwrite = TRUE
+        )
+    }
   }
 
   # attach input arguments as attributes
