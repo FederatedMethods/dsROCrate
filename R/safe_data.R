@@ -144,10 +144,14 @@ safe_data.opal <- function(
         table_id = paste0(dataset_id_suffix, sapply(table_id, digest::digest))
       )
 
-    safe_people_entities_tbl <- x |>
-      safe_people(user = user) |>
-      flatten_safe_people() |>
-      dplyr::rename("user_id" = "id")
+    # a warning regarding overwriting user entity is likely to trigger, which
+    # can be safely ignored.
+    suppressWarnings({
+      safe_people_entities_tbl <- x |>
+        safe_people(user = user, rocrate = rocrate) |>
+        flatten_safe_people() |>
+        dplyr::rename("user_id" = "id")
+    })
 
     ## combine the table permissions with Dataset & People entities' @ids
     project_table_permissions_tbl_v2 <- project_table_permissions_tbl |>
