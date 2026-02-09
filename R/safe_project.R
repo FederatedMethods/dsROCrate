@@ -79,6 +79,13 @@ safe_project.opal <- function(
   # validate that connection user has administrative rights
   is_opal_admin_con(x)
 
+  # enforce that `project` is a single value
+  if (is.null(project)) {
+    stop("A value for `project` is required!", call. = FALSE)
+  } else if (length(project) != 1) {
+    stop("`project` must be a single value!", call. = FALSE)
+  }
+
   # check if the given `project` exists
   project_exists(x, project = project)
 

@@ -65,17 +65,24 @@ safe_data.opal <- function(
   # x is a valid opal connection object
   validate_opal_con(x)
 
+  # enforce that `project` is a single value
+  if (is.null(project)) {
+    stop("A value for `project` is required!", call. = FALSE)
+  } else if (length(project) != 1) {
+    stop("`project` must be a single value!", call. = FALSE)
+  }
+
   # check if the given `project` exists, every dataset should be associated
   # with a project.
   project_exists(x, project = project)
 
   # retrieve details associated to `project`
-  project_details_tbl <- opalr::opal.project(x, project)
+  project_details_lst <- opalr::opal.project(x, project)
 
   # table names, update times etc.
   project_tables <- tryCatch(
     {
-      project_details_tbl |>
+      project_details_lst |>
         purrr::pluck("datasource") |>
         purrr::pluck("table") |>
         purrr::list_c()
