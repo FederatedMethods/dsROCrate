@@ -149,7 +149,11 @@ flatten_safe_project.rocrate <- function(x, ..., y = x) {
               table = table_names
             ))
           }
-          return(tibble::tibble(id = project_id, project = project_name))
+          return(tibble::tibble(
+            id = project_id,
+            project = project_name,
+            table = NA
+          ))
         }) |>
         dplyr::bind_rows()
     },
