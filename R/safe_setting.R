@@ -90,7 +90,7 @@ safe_setting.opal <- function(
     purrr::pmap(function(Package, Version, Description, Author, ...) {
       # create new entity
       rocrateR::entity(
-        x = digest::digest(paste0(Package, "_", Version)),
+        x = paste0("_:localid:", digest::digest(paste0(Package, "_", Version))),
         type = "SoftwareApplication",
         name = Package,
         version = Version,
