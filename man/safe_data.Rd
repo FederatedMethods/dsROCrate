@@ -21,6 +21,7 @@ safe_data(x, ...)
   project = NULL,
   tables = NULL,
   dataset_id_suffix = "#dataset:",
+  project_id_suffix = "#project:",
   path = NULL,
   user = NULL
 )
@@ -57,6 +58,9 @@ associated to \code{project} will be included in the RO-Crate.}
 
 \item{dataset_id_suffix}{String with ID suffix for the tables/datasets
 entities in the RO-Crate (default: \code{"#dataset:"}).}
+
+\item{project_id_suffix}{String with ID suffix for the project entities
+in the RO-Crate (default: \code{"#project:"}).}
 
 \item{path}{String with path pointing to the root of the RO-Crate. This will
 be used to store log files. If not provided, logs will be stored within
