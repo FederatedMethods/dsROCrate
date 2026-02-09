@@ -12,8 +12,6 @@
 #'
 #' @param ... Other optional arguments. See the full documentation,
 #'     [`?dsROCrate::safe_project`][safe_project()].
-#' @param project_id_suffix String with ID suffix for the project entities
-#'     in the RO-Crate (default: `"#project:"`).
 #' @inheritParams safe_data
 #'
 #' @returns Updated RO-Crate object with Safe Projects information.

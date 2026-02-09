@@ -22,6 +22,8 @@
 #'     [`?dsROCrate::safe_data`][safe_data()].
 #' @param dataset_id_suffix String with ID suffix for the tables/datasets
 #'     entities in the RO-Crate (default: `"#dataset:"`).
+#' @param project_id_suffix String with ID suffix for the project entities
+#'     in the RO-Crate (default: `"#project:"`).
 #' @inheritParams init
 #'
 #' @returns Updated RO-Crate object with Safe Data information.
@@ -56,6 +58,7 @@ safe_data.opal <- function(
   project = NULL,
   tables = NULL,
   dataset_id_suffix = "#dataset:",
+  project_id_suffix = "#project:",
   path = NULL,
   user = NULL
 ) {
@@ -163,6 +166,34 @@ safe_data.opal <- function(
     user_perm_entity_lst <- project_table_permissions_tbl_v2 |>
       purrr::pmap(user_perm_entity) |>
       purrr::list_c()
+  }
+
+  # attempt to retrieve the project entities to link up the IDs to the project
+  # this only valid if safe_project is called before safe_data
+  project_ents <- rocrate |>
+    rocrateR::get_entity(type = "Project")
+
+  # if any entity was found, then filter to keep those for which their @id
+  # starts with `project_id_suffix` as set by `safe_project()`:
+  if (length(project_ents) == 1 && !is.null(project)) {
+    # extract the `hasPart` section
+    has_part <- project_ents |>
+      sapply("[[", "hasPart") |>
+      unlist()
+
+    # update the `hasPart` section
+    rocrate <- rocrate |>
+      rocrateR::add_entity_value(
+        id = project_ents[[1]]["@id"],
+        key = "hasPart",
+        value = list(unique(c(
+          has_part,
+          project_dataset_entities |>
+            sapply("[[", "@id") |>
+            unlist()
+        ))),
+        overwrite = TRUE
+      )
   }
 
   # add table entities to the `rocrate` object
