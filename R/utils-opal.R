@@ -226,6 +226,49 @@ is_opal_admin_con <- function(x) {
   }
 }
 
+#' Update datasets linked to a project
+#'
+#' Update datasets linked to a project (`hasPart`)
+#'
+#' @inheritParams safe_data
+#' @param ds_ids Vector with `@id`s of the datasets to be linked to `project`
+#'
+#' @returns Update RO-Crate with updated project entity
+#' @keywords internal
+update_project_datasets <- function(rocrate, project, ds_ids) {
+  # attempt to retrieve the project entities to link up the IDs to the project
+  # this only valid if safe_project is called before safe_data
+  suppressWarnings({
+    project_ents <- rocrate |>
+      rocrateR::get_entity(type = "Project") |>
+      # only keep entity for `project`
+      Filter(f = \(x) getElement(x, "name") == project)
+  })
+
+  # if any entity was found, then filter to keep those for which their @id
+  # starts with `project_id_suffix` as set by `safe_project()`:
+  if (length(project_ents) == 1 && !is.null(project)) {
+    # extract the `hasPart` section
+    has_part <- project_ents |>
+      sapply("[[", "hasPart") |>
+      unlist()
+
+    # update the `hasPart` section
+    rocrate <- rocrate |>
+      rocrateR::add_entity_value(
+        id = project_ents[[1]]["@id"],
+        key = "hasPart",
+        value = c(has_part, ds_ids) |>
+          unique() |>
+          lapply(\(id) list(`@id` = id)),
+        overwrite = TRUE
+      )
+  }
+
+  # return update RO-Crate
+  return(rocrate)
+}
+
 #' Create user permission entities
 #'
 #' @param user String with user name.

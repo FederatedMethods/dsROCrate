@@ -154,39 +154,14 @@ safe_data.opal <- function(
       purrr::list_c()
   }
 
-  # attempt to retrieve the project entities to link up the IDs to the project
-  # this only valid if safe_project is called before safe_data
-  suppressWarnings({
-    project_ents <- rocrate |>
-      rocrateR::get_entity(type = "Project")
-  })
-
-  # if any entity was found, then filter to keep those for which their @id
-  # starts with `project_id_suffix` as set by `safe_project()`:
-  if (length(project_ents) == 1 && !is.null(project)) {
-    # extract the `hasPart` section
-    has_part <- project_ents |>
-      sapply("[[", "hasPart") |>
-      unlist()
-
-    # update the `hasPart` section
-    rocrate <- rocrate |>
-      rocrateR::add_entity_value(
-        id = project_ents[[1]]["@id"],
-        key = "hasPart",
-        value = c(
-          has_part,
-          prj_ds_ents |>
-            sapply("[[", "@id") |>
-            unlist()
-        ) |>
-          unique() |>
-          lapply(function(id) {
-            list(`@id` = id)
-          }),
-        overwrite = TRUE
-      )
-  }
+  # update datasets linked to `project`
+  rocrate <- rocrate |>
+    update_project_datasets(
+      project = project,
+      ds_ids = prj_ds_ents |>
+        sapply("[[", "@id") |>
+        unlist()
+    )
 
   # add table entities to the `rocrate` object
   for (i in seq_along(prj_ds_ents)) {
