@@ -76,45 +76,32 @@ safe_data.opal <- function(
   }
 
   # check if the given `project` exists, every dataset should be associated
-  # with a project.
-  project_exists(x, project = project)
+  # with a project and retrieve details associated to `project`
+  prj_dets_tbl <- get_project_details(x, project)
 
-  # retrieve details associated to `project`
-  project_details_lst <- opalr::opal.project(x, project)
-
-  # table names, update times etc.
-  project_tables <- tryCatch(
-    {
-      project_details_lst |>
-        purrr::pluck("datasource") |>
-        purrr::pluck("table") |>
-        purrr::list_c()
-    },
-    error = function(e) {
-      list()
-    }
-  )
+  # check that project details were found
+  err_msg <- sprintf("No details were found for `project = '%s'!", project)
+  if (is.null(prj_dets_tbl) || nrow(prj_dets_tbl) == 0) {
+    stop(err_msg, call. = FALSE)
+  }
 
   # verify if `tables` is NULL, if so, then add all data tables associated
   # to the given `project`
   if (is.null(tables)) {
-    tables <- unlist(project_tables)
+    tables <- prj_dets_tbl$table
   }
 
   # create entity objects for each dataset/table in the project
-  project_dataset_entities <- tibble::tibble(
-    datasource = project,
-    table = project_tables
-  ) |>
+  prj_ds_ents <- prj_dets_tbl |>
     dplyr::filter(table %in% tables) |> # filter specific tables, `tables`
-    purrr::pmap(function(datasource, table) {
-      table_details <- opalr::opal.table(x, datasource, table)
+    purrr::pmap(function(project, table) {
+      table_details <- opalr::opal.table(x, project, table)
       timestamps <- getElement(table_details, "timestamps")
       # create entity object
       new_dataset_entity <- rocrateR::entity(
         x = paste0(
           dataset_id_suffix,
-          digest::digest(paste0(datasource, "_", table))
+          digest::digest(paste0(project, "_", table))
         ),
         type = "Dataset",
         name = table,
@@ -133,19 +120,18 @@ safe_data.opal <- function(
   if (!is.null(user)) {
     ## get permissions for each table in the project
     ## get table permissions
-    project_table_permissions_tbl <- seq_along(project_tables) |>
-      lapply(\(i) get_table_permissions(x, project, project_tables[i])) |>
+    prj_data_perms_tbl <- seq_len(nrow(prj_dets_tbl)) |>
+      lapply(\(i) get_table_permissions(x, project, prj_dets_tbl$table[i])) |>
       dplyr::bind_rows() |>
       dplyr::filter(subject == !!user)
 
     ## create a safe data entities data frame
-    safe_data_entities_tbl <- tibble::tibble(
-      table_id = paste0(project, "_", project_tables),
-      name = project_tables
-    ) |>
+    safe_data_entities_tbl <- prj_dets_tbl |>
       dplyr::mutate(
+        table_id = paste0(project, "_", table),
         table_id = paste0(dataset_id_suffix, sapply(table_id, digest::digest))
-      )
+      ) |>
+      dplyr::select(table_id, table)
 
     # a warning regarding overwriting user entity is likely to trigger, which
     # can be safely ignored.
@@ -157,21 +143,23 @@ safe_data.opal <- function(
     })
 
     ## combine the table permissions with Dataset & People entities' @ids
-    project_table_permissions_tbl_v2 <- project_table_permissions_tbl |>
-      dplyr::left_join(safe_data_entities_tbl, by = c("table" = "name")) |>
+    prj_data_perms_tbl_v2 <- prj_data_perms_tbl |>
+      dplyr::left_join(safe_data_entities_tbl, by = c("table" = "table")) |>
       dplyr::left_join(safe_people_entities_tbl, by = c("subject" = "name")) |>
       dplyr::rename(user = subject)
 
     ## generate user permission entities and add to the RO-Crate
-    user_perm_entity_lst <- project_table_permissions_tbl_v2 |>
+    user_perm_entity_lst <- prj_data_perms_tbl_v2 |>
       purrr::pmap(user_perm_entity) |>
       purrr::list_c()
   }
 
   # attempt to retrieve the project entities to link up the IDs to the project
   # this only valid if safe_project is called before safe_data
-  project_ents <- rocrate |>
-    rocrateR::get_entity(type = "Project")
+  suppressWarnings({
+    project_ents <- rocrate |>
+      rocrateR::get_entity(type = "Project")
+  })
 
   # if any entity was found, then filter to keep those for which their @id
   # starts with `project_id_suffix` as set by `safe_project()`:
@@ -188,7 +176,7 @@ safe_data.opal <- function(
         key = "hasPart",
         value = c(
           has_part,
-          project_dataset_entities |>
+          prj_ds_ents |>
             sapply("[[", "@id") |>
             unlist()
         ) |>
@@ -201,12 +189,12 @@ safe_data.opal <- function(
   }
 
   # add table entities to the `rocrate` object
-  for (i in seq_along(project_dataset_entities)) {
+  for (i in seq_along(prj_ds_ents)) {
     rocrate <- rocrate |>
-      rocrateR::add_entity(project_dataset_entities[[i]], overwrite = TRUE)
+      rocrateR::add_entity(prj_ds_ents[[i]], overwrite = TRUE)
 
     # add user permissions associated to the current table (if any)
-    table_id <- getElement(project_dataset_entities[[i]], "@id")
+    table_id <- getElement(prj_ds_ents[[i]], "@id")
     usr_pr_idx <- sapply(user_perm_entity_lst, getElement, "object") == table_id
 
     # add entity (if any) to the RO-Crate
