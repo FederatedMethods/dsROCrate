@@ -4,6 +4,9 @@ test_that("safe_project works", {
 
   basic_rocrate <- rocrateR::rocrate_5s()
 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+  # - - - - - - - - - - - - - - - - - ERRORS - - - - - - - - - - - - - - - - - #
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
   # attempt calling function with invalid class
   expect_error(
     dsROCrate::safe_project(
@@ -27,6 +30,27 @@ test_that("safe_project works", {
       )
   )
 
+  # attempt calling without a project
+  expect_error(
+    basic_rocrate |>
+      dsROCrate::safe_project(connection = opal_con)
+  )
+
+  # attempt calling with project = NULL
+  expect_error(
+    basic_rocrate |>
+      dsROCrate::safe_project(connection = opal_con, project = NULL)
+  )
+
+  # attempt calling with multiple projects
+  expect_error(
+    basic_rocrate |>
+      dsROCrate::safe_project(connection = opal_con, project = c("A", "B"))
+  )
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+  # - - - - - - - - - - - - - - - - - VALID  - - - - - - - - - - - - - - - - - #
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
   # add details for Project without Dataset entities
   basic_rocrate_2 <- basic_rocrate |>
     dsROCrate::safe_project(project = PROJECT, connection = opal_con)

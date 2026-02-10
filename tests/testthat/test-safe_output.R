@@ -4,6 +4,9 @@ test_that("safe_output works", {
 
   basic_rocrate <- rocrateR::rocrate_5s()
 
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+  # - - - - - - - - - - - - - - - - - ERRORS - - - - - - - - - - - - - - - - - #
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
   # attempt calling function with invalid class
   expect_error(
     dsROCrate::safe_output(structure(list(), class = "InvalidClass"))
@@ -21,6 +24,29 @@ test_that("safe_output works", {
       dsROCrate::safe_output(connection = opal_con)
   )
 
+  # attempt setting multiple users as the RO-Crate authors
+  expect_warning(
+    basic_rocrate |>
+      dsROCrate::safe_project(connection = opal_con, project = "CNSIM") |>
+      dsROCrate::safe_people(user = 1) |>
+      dsROCrate::safe_people(user = 2) |>
+      rocrateR::add_entity_value(
+        id = "./",
+        key = "author",
+        value = lapply(
+          c(
+            "#person:6717f2823d3202449301145073ab8719",
+            "#person:db8e490a925a60e62212cefc7674ca02"
+          ),
+          \(x) list(`@id` = x)
+        )
+      ) |>
+      dsROCrate::safe_output(connection = opal_con, user = NULL)
+  )
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+  # - - - - - - - - - - - - - - - - - VALID  - - - - - - - - - - - - - - - - - #
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
   # add Safe People details
   ## add project entity to the RO-Crate
   basic_rocrate_2 <- basic_rocrate |>
