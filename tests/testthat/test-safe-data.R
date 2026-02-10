@@ -1,10 +1,6 @@
 test_that("safe_data works", {
-  describe("safe_data", {
-    it(
-      "open connection to OBiBa's Opal demo server",
-      source("opal-demo-server.R")
-    )
-  })
+  # open connection to OBiBa's Opal demo server
+  source("opal-demo-server.R")
 
   basic_rocrate <- rocrateR::rocrate_5s()
 
