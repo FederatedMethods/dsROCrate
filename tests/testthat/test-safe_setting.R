@@ -1,6 +1,6 @@
 test_that("safe_setting works", {
   # open connection to OBiBa's Opal demo server
-  source("opal-demo-server.R")
+  opal_con <- opal_demo_con()
 
   basic_rocrate <- rocrateR::rocrate_5s()
 

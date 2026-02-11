@@ -1,6 +1,6 @@
 test_that("safe_people works", {
   # open connection to OBiBa's Opal demo server
-  source("opal-demo-server.R")
+  opal_con <- opal_demo_con()
 
   basic_rocrate <- rocrateR::rocrate_5s()
 
@@ -12,13 +12,16 @@ test_that("safe_people works", {
   # attempt adding user to RO-Crate without project entity, `@type = 'Project`
   expect_warning(
     basic_rocrate_1 <- opal_con |>
-      dsROCrate::safe_people(rocrate = basic_rocrate, user = PEOPLE)
+      dsROCrate::safe_people(
+        rocrate = basic_rocrate,
+        user = attr(opal_con, "PEOPLE")
+      )
   )
 
   # attempt calling with invalid connection
   expect_error(
     basic_rocrate |>
-      dsROCrate::safe_people(user = PEOPLE, connection = NULL)
+      dsROCrate::safe_people(user = attr(opal_con, "PEOPLE"), connection = NULL)
   )
 
   # add project entity to the RO-Crate

@@ -1,6 +1,6 @@
 test_that("safe_output works", {
   # open connection to OBiBa's Opal demo server
-  source("opal-demo-server.R")
+  opal_con <- opal_demo_con()
 
   basic_rocrate <- rocrateR::rocrate_5s()
 
@@ -27,7 +27,10 @@ test_that("safe_output works", {
   # attempt setting multiple users as the RO-Crate authors
   expect_warning(
     basic_rocrate |>
-      dsROCrate::safe_project(connection = opal_con, project = "CNSIM") |>
+      dsROCrate::safe_project(
+        connection = opal_con,
+        project = attr(opal_con, "PROJECT")
+      ) |>
       dsROCrate::safe_people(user = 1) |>
       dsROCrate::safe_people(user = 2) |>
       rocrateR::add_entity_value(
@@ -54,7 +57,10 @@ test_that("safe_output works", {
 
   ## add Safe People details for
   basic_rocrate_3 <- basic_rocrate_2 |>
-    dsROCrate::safe_people(connection = opal_con, user = PEOPLE)
+    dsROCrate::safe_people(
+      connection = opal_con,
+      user = attr(opal_con, "PEOPLE")
+    )
 
   # call the function with an RO-Crate with multiple users
   basic_rocrate_4 <- basic_rocrate_3 |>
@@ -90,9 +96,9 @@ test_that("safe_output works", {
   builder <- DSI::newDSLoginBuilder()
   builder$append(
     server = "study1",
-    url = SERVER,
+    url = attr(opal_con, "SERVER"),
     user = "dsuser",
-    password = DSUSERPASS,
+    password = attr(opal_con, "DSUSERPASS"),
     driver = "OpalDriver"
   )
   logindata <- builder$build()
@@ -102,14 +108,14 @@ test_that("safe_output works", {
   DSI::datashield.assign.table(
     conns["study1"],
     symbol = "dsROCrate_test",
-    table = paste0(PROJECT, ".", TABLES[1]),
+    table = paste0(attr(opal_con, "PROJECT"), ".", attr(opal_con, "TABLES")[1]),
     errors.print = TRUE
   )
 
   dsBaseClient::ds.ls(datasources = conns["study1"])
 
   ## open connection to OBiBa's Opal demo server
-  source("opal-demo-server.R")
+  opal_con <- opal_demo_con()
 
   expect_warning(
     basic_rocrate_5 <- basic_rocrate_3 |>

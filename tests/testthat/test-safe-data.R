@@ -1,6 +1,6 @@
 test_that("safe_data works", {
   # open connection to OBiBa's Opal demo server
-  source("opal-demo-server.R")
+  opal_con <- opal_demo_con()
 
   basic_rocrate <- rocrateR::rocrate_5s()
 
@@ -47,7 +47,10 @@ test_that("safe_data works", {
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
   # add all datasets for a valid project
   basic_rocrate_2 <- basic_rocrate |>
-    dsROCrate::safe_data(project = PROJECT, connection = opal_con)
+    dsROCrate::safe_data(
+      project = attr(opal_con, "PROJECT"),
+      connection = opal_con
+    )
   ## extract datasets
   basic_rocrate_2_sd <- basic_rocrate_2 |>
     rocrateR::get_entity(type = "Dataset")
@@ -62,8 +65,8 @@ test_that("safe_data works", {
   # add specific datasets for a valid project
   basic_rocrate_3 <- basic_rocrate |>
     dsROCrate::safe_data(
-      project = PROJECT,
-      tables = TABLES,
+      project = attr(opal_con, "PROJECT"),
+      tables = attr(opal_con, "TABLES"),
       connection = opal_con
     )
   ## extract datasets
@@ -74,7 +77,7 @@ test_that("safe_data works", {
 
   basic_rocrate_4 <- basic_rocrate |>
     dsROCrate::safe_data(
-      project = PROJECT,
+      project = attr(opal_con, "PROJECT"),
       connection = opal_con,
       user = "dsuser"
     )
