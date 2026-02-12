@@ -23,6 +23,9 @@ load_content <- function(rocrate, roc_path) {
       },
       error = function(e) {
         NULL
+      },
+      warning = function(e) {
+        NULL
       }
     )
 
