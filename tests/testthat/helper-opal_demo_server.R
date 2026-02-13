@@ -1,7 +1,7 @@
 skip_on_cran()
 skip_if_offline()
 
-opal_demo_con <- function() {
+opal_demo_con <- function(admin = TRUE) {
   ## Opal server access
   USERNAME <- "administrator"
   USERPASS <- "password"
@@ -16,11 +16,21 @@ opal_demo_con <- function() {
   TABLES <- c("CNSIM1")
 
   # login to local server with `USERNAME` and `USERPASS`.
-  opal_con <- opalr::opal.login(
-    username = USERNAME,
-    password = USERPASS,
-    url = SERVER
-  )
+  ## as administrator
+  if (admin) {
+    opal_con <- opalr::opal.login(
+      username = USERNAME,
+      password = USERPASS,
+      url = SERVER
+    )
+  } else {
+    # as non-admin user
+    opal_con <- opalr::opal.login(
+      username = PEOPLE,
+      password = DSUSERPASS,
+      url = SERVER
+    )
+  }
 
   attr(opal_con, "USERNAME") <- USERNAME
   attr(opal_con, "USERPASS") <- USERPASS
