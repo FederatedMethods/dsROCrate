@@ -967,7 +967,7 @@ rocrate_report.rocrate <- function(
   }
 
   tidy_overview_tbl <- tidy_overview_tbl |>
-    dplyr::select(varslab) |>
+    dplyr::select(dplyr::all_of(varslab)) |>
     dplyr::distinct()
 
   return(tidy_overview_tbl)
