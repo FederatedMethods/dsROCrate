@@ -944,7 +944,7 @@ rocrate_report.rocrate <- function(
 
   # create tidy data frame
   tidy_overview_tbl <- overview_tbl |>
-    dplyr::distinct(dplyr::pick(vars))
+    dplyr::distinct(dplyr::pick(dplyr::all_of(vars)))
 
   if ("permission" %in% colnames(overview_tbl)) {
     if ("fx" %in% colnames(overview_tbl)) {
