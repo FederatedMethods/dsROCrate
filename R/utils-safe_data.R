@@ -105,6 +105,12 @@ flatten_safe_data <- function(x, ...) {
 
 #' @rdname flatten_safe_data
 #' @export
+flatten_safe_data.default <- function(x, ...) {
+  return(tibble::tibble())
+}
+
+#' @rdname flatten_safe_data
+#' @export
 flatten_safe_data.rocrate <- function(x, ..., id = NULL) {
   tryCatch(
     {

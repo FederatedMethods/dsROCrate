@@ -121,6 +121,12 @@ flatten_safe_project <- function(x, ...) {
 
 #' @rdname flatten_safe_project
 #' @export
+flatten_safe_project.default <- function(x, ...) {
+  return(tibble::tibble())
+}
+
+#' @rdname flatten_safe_project
+#' @export
 flatten_safe_project.rocrate <- function(x, ..., y = x) {
   tryCatch(
     {

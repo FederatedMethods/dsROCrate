@@ -118,6 +118,12 @@ flatten_safe_people <- function(x, ...) {
 
 #' @rdname flatten_safe_people
 #' @export
+flatten_safe_people.default <- function(x, ...) {
+  return(tibble::tibble())
+}
+
+#' @rdname flatten_safe_people
+#' @export
 flatten_safe_people.rocrate <- function(x, ..., id = NULL) {
   tryCatch(
     {
