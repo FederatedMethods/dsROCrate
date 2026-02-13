@@ -2,10 +2,13 @@
 % Please edit documentation in R/utils-safe_project.R
 \name{flatten_safe_project}
 \alias{flatten_safe_project}
+\alias{flatten_safe_project.default}
 \alias{flatten_safe_project.rocrate}
 \title{Flatten object with Safe Project details}
 \usage{
 flatten_safe_project(x, ...)
+
+\method{flatten_safe_project}{default}(x, ...)
 
 \method{flatten_safe_project}{rocrate}(x, ..., y = x)
 }

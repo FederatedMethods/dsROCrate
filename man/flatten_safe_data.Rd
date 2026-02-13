@@ -2,10 +2,13 @@
 % Please edit documentation in R/utils-safe_data.R
 \name{flatten_safe_data}
 \alias{flatten_safe_data}
+\alias{flatten_safe_data.default}
 \alias{flatten_safe_data.rocrate}
 \title{Flatten object with Safe Data details}
 \usage{
 flatten_safe_data(x, ...)
+
+\method{flatten_safe_data}{default}(x, ...)
 
 \method{flatten_safe_data}{rocrate}(x, ..., id = NULL)
 }

@@ -2,10 +2,13 @@
 % Please edit documentation in R/utils-safe_people.R
 \name{flatten_safe_people}
 \alias{flatten_safe_people}
+\alias{flatten_safe_people.default}
 \alias{flatten_safe_people.rocrate}
 \title{Flatten object with Safe People details}
 \usage{
 flatten_safe_people(x, ...)
+
+\method{flatten_safe_people}{default}(x, ...)
 
 \method{flatten_safe_people}{rocrate}(x, ..., id = NULL)
 }
