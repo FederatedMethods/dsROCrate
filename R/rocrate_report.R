@@ -534,10 +534,17 @@ rocrate_report.rocrate <- function(
   )
 
   # extract project IDs from the Safe People RO-Crate
-  member_of <- safe_people_rocrate |>
-    rocrateR::get_entity(type = "Person") |>
-    sapply(\(x) getElement(x, "memberOf")) |>
-    unlist()
+  member_of <- tryCatch(
+    {
+      safe_people_rocrate |>
+        rocrateR::get_entity(type = "Person") |>
+        sapply(\(x) getElement(x, "memberOf")) |>
+        unlist()
+    },
+    error = function(e) {
+      NULL
+    }
+  )
 
   # attempt to extract Safe Project details
   safe_project_rocrate <- tryCatch(
