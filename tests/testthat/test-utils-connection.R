@@ -45,3 +45,81 @@ test_that("project_exists() works for armadillo objects", {
     "was not found in the given Armadillo connection!"
   )
 })
+
+test_that("parse_user_profiles() dispatches to opal method", {
+  opal_con <- structure(list(), class = "opal")
+
+  local_mocked_bindings(
+    `opal.get` = function(...) {
+      list(data.frame(principal = "user1", stringsAsFactors = FALSE))
+    },
+    .package = "opalr"
+  )
+
+  res <- parse_user_profiles(opal_con, user = "user1")
+
+  expect_s3_class(res, "data.frame")
+  expect_equal(res$principal, "user1")
+})
+
+test_that("parse_user_profiles.opal() returns empty tibble when no matching users", {
+  opal_con <- structure(list(), class = "opal")
+
+  local_mocked_bindings(
+    `opal.get` = function(...) {
+      list(data.frame(principal = "other_user", stringsAsFactors = FALSE))
+    },
+    .package = "opalr"
+  )
+
+  res <- parse_user_profiles(opal_con, user = "user1")
+
+  expect_equal(nrow(res), 0)
+})
+
+test_that("parse_user_profiles.opal() handles missing userInfo column", {
+  opal_con <- structure(list(), class = "opal")
+
+  local_mocked_bindings(
+    `opal.get` = function(...) {
+      list(
+        data.frame(
+          principal = c("user1", "user2"),
+          stringsAsFactors = FALSE
+        )
+      )
+    },
+    .package = "opalr"
+  )
+
+  res <- parse_user_profiles(opal_con, user = "user1")
+
+  expect_equal(nrow(res), 1)
+  expect_false("userInfo" %in% colnames(res) && is.list(res$userInfo))
+})
+
+test_that("parse_user_profiles.opal() parses JSON userInfo and NA correctly", {
+  opal_con <- structure(list(), class = "opal")
+
+  json <- '{"firstName":"John","lastName":"Doe"}'
+
+  local_mocked_bindings(
+    `opal.get` = function(...) {
+      list(
+        data.frame(
+          principal = c("user1", "user1"),
+          userInfo = c(json, NA_character_),
+          stringsAsFactors = FALSE
+        )
+      )
+    },
+    .package = "opalr"
+  )
+
+  res <- parse_user_profiles(opal_con, user = "user1")
+
+  expect_equal(nrow(res), 2)
+  expect_true(is.list(res$userInfo))
+  expect_s3_class(res$userInfo[[1]], "tbl_df")
+  expect_equal(nrow(res$userInfo[[2]]), 0)
+})
