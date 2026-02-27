@@ -80,7 +80,7 @@ The goal of dsROCrate is to provide functions to wrap elements from a
 
 ## 1. Installation
 
-You can install the development version of dsROCrate from [GitHub](https://github.com/DataSHIELD-5S/dsROCrate) with:
+You can install the development version of dsROCrate from [GitHub](https://github.com/DataSHIELD-5S/dsROCrate/) with:
 
 ``` r
 # install.packages("pak")
