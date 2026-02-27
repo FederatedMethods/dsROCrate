@@ -76,7 +76,6 @@ audit_study.opal <- function(
     suppressMessages(suppressWarnings({
       safe_project_reports <- x |>
         audit_safe_project(
-          conn,
           project = project,
           logs_from = logs_from,
           logs_to = logs_to,
