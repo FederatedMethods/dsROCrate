@@ -2,6 +2,7 @@
 % Please edit documentation in R/safe_output.R
 \name{safe_output}
 \alias{safe_output}
+\alias{safe_output.character}
 \alias{safe_output.opal}
 \alias{safe_output.rocrate}
 \title{Safe outputs details}
@@ -13,6 +14,18 @@
 }
 \usage{
 safe_output(x, ...)
+
+\method{safe_output}{character}(
+  x,
+  ...,
+  path = attr(x, "path"),
+  user = attr(x, "user"),
+  logs_to = Sys.time(),
+  logs_from = logs_to - 24 * 60^2,
+  connection = attr(x, "connection"),
+  project = attr(x, "project"),
+  tables = attr(x, "tables")
+)
 
 \method{safe_output}{opal}(
   x,
@@ -47,10 +60,6 @@ RO-Crate.}
 \item{...}{Other optional arguments. See the full documentation,
 \code{\link[=safe_output]{?dsROCrate::safe_output}}.}
 
-\item{rocrate}{RO-Crate object. Optional, if \code{x} is either an RO-Crate
-object or a path to a valid RO-Crate. If so, then \code{connection} is
-required (default: \code{rocrateR::rocrate_5s()}).}
-
 \item{path}{String with path pointing to the root of the RO-Crate. This will
 be used to store log files. If not provided, logs will be stored within
 the RO-Crate returned by this function.}
@@ -65,15 +74,19 @@ this can be a string with the \code{name} of the current user.}
 \item{logs_from}{Lower limit timestamp to filter out the outputs generated
 (default: \code{Sys.time() - 24 * 60 ^ 2}, last 24 hours).}
 
+\item{connection}{Connection object for the 'DataSHIELD' server where the
+values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is
+set to a connection object. If so, then \code{rocrate} is required.}
+
 \item{project}{String with the name of the \link[=safe_project]{Safe Project}.}
 
 \item{tables}{Vector of strings with the names of the tables/datasets, part
 of \code{project}. Optional, if not provided, all the tables/datasets
 associated to \code{project} will be included in the RO-Crate.}
 
-\item{connection}{Connection object for the 'DataSHIELD' server where the
-values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is
-set to a connection object. If so, then \code{rocrate} is required.}
+\item{rocrate}{RO-Crate object. Optional, if \code{x} is either an RO-Crate
+object or a path to a valid RO-Crate. If so, then \code{connection} is
+required (default: \code{rocrateR::rocrate_5s()}).}
 }
 \value{
 Updated RO-Crate object with Safe Outputs information.

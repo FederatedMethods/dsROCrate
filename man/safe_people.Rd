@@ -2,6 +2,7 @@
 % Please edit documentation in R/safe_people.R
 \name{safe_people}
 \alias{safe_people}
+\alias{safe_people.character}
 \alias{safe_people.opal}
 \alias{safe_people.rocrate}
 \title{Safe people details}
@@ -13,6 +14,19 @@
 }
 \usage{
 safe_people(x, ...)
+
+\method{safe_people}{character}(
+  x,
+  ...,
+  user = attr(x, "user"),
+  user_id_suffix = "#person:",
+  set_author = TRUE,
+  set_project = TRUE,
+  connection = attr(x, "connection"),
+  path = attr(x, "path"),
+  project = attr(x, "project"),
+  tables = attr(x, "tables")
+)
 
 \method{safe_people}{opal}(
   x,
@@ -49,10 +63,6 @@ RO-Crate.}
 \item{...}{Other optional arguments. See the full documentation,
 \code{\link[=safe_people]{?dsROCrate::safe_people}}.}
 
-\item{rocrate}{RO-Crate object. Optional, if \code{x} is either an RO-Crate
-object or a path to a valid RO-Crate. If so, then \code{connection} is
-required (default: \code{rocrateR::rocrate_5s()}).}
-
 \item{user}{List (or \link[rocrateR:entity]{entity} object) with details for
 the Safe People, it must include \verb{@id} and \code{name} entries. Alternatively,
 this can be a string with the \code{name} of the current user.}
@@ -66,6 +76,10 @@ set as the author of the RO-Crate.}
 \item{set_project}{Boolean flag to indicate if any \code{Project} entities found
 in \code{x} should be linked to the Safe People entity.}
 
+\item{connection}{Connection object for the 'DataSHIELD' server where the
+values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is
+set to a connection object. If so, then \code{rocrate} is required.}
+
 \item{path}{String with path pointing to the root of the RO-Crate. This will
 be used to store log files. If not provided, logs will be stored within
 the RO-Crate returned by this function.}
@@ -76,9 +90,9 @@ the RO-Crate returned by this function.}
 of \code{project}. Optional, if not provided, all the tables/datasets
 associated to \code{project} will be included in the RO-Crate.}
 
-\item{connection}{Connection object for the 'DataSHIELD' server where the
-values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is
-set to a connection object. If so, then \code{rocrate} is required.}
+\item{rocrate}{RO-Crate object. Optional, if \code{x} is either an RO-Crate
+object or a path to a valid RO-Crate. If so, then \code{connection} is
+required (default: \code{rocrateR::rocrate_5s()}).}
 }
 \value{
 Updated RO-Crate object with Safe People information.

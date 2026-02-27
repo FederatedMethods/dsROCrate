@@ -2,6 +2,7 @@
 % Please edit documentation in R/safe_setting.R
 \name{safe_setting}
 \alias{safe_setting}
+\alias{safe_setting.character}
 \alias{safe_setting.opal}
 \alias{safe_setting.rocrate}
 \title{Safe settings details}
@@ -13,6 +14,16 @@
 }
 \usage{
 safe_setting(x, ...)
+
+\method{safe_setting}{character}(
+  x,
+  ...,
+  connection = attr(x, "connection"),
+  path = attr(x, "path"),
+  project = attr(x, "project"),
+  tables = attr(x, "tables"),
+  user = attr(x, "user")
+)
 
 \method{safe_setting}{opal}(
   x,
@@ -43,9 +54,9 @@ RO-Crate.}
 \item{...}{Other optional arguments. See the full documentation,
 \code{\link[=safe_setting]{?dsROCrate::safe_setting}}.}
 
-\item{rocrate}{RO-Crate object. Optional, if \code{x} is either an RO-Crate
-object or a path to a valid RO-Crate. If so, then \code{connection} is
-required (default: \code{rocrateR::rocrate_5s()}).}
+\item{connection}{Connection object for the 'DataSHIELD' server where the
+values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is
+set to a connection object. If so, then \code{rocrate} is required.}
 
 \item{path}{String with path pointing to the root of the RO-Crate. This will
 be used to store log files. If not provided, logs will be stored within
@@ -61,9 +72,9 @@ associated to \code{project} will be included in the RO-Crate.}
 the Safe People, it must include \verb{@id} and \code{name} entries. Alternatively,
 this can be a string with the \code{name} of the current user.}
 
-\item{connection}{Connection object for the 'DataSHIELD' server where the
-values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is
-set to a connection object. If so, then \code{rocrate} is required.}
+\item{rocrate}{RO-Crate object. Optional, if \code{x} is either an RO-Crate
+object or a path to a valid RO-Crate. If so, then \code{connection} is
+required (default: \code{rocrateR::rocrate_5s()}).}
 }
 \value{
 Updated RO-Crate object with Safe Settings information.

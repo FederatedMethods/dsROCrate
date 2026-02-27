@@ -3,6 +3,7 @@
 \name{safe_project}
 \alias{safe_project}
 \alias{safe_project,armadillo-method}
+\alias{safe_project.character}
 \alias{safe_project.opal}
 \alias{safe_project.rocrate}
 \title{Safe projects details}
@@ -23,6 +24,18 @@
   path = NULL,
   tables = NULL,
   user = NULL
+)
+
+\method{safe_project}{character}(
+  x,
+  ...,
+  project = attr(x, "project"),
+  dataset_id_suffix = "#dataset:",
+  project_id_suffix = "#project:",
+  connection = attr(x, "connection"),
+  path = attr(x, "path"),
+  tables = attr(x, "tables"),
+  user = attr(x, "user")
 )
 
 \method{safe_project}{opal}(
@@ -60,15 +73,15 @@ RO-Crate.}
 
 \item{project}{String with the name of the \link[=safe_project]{Safe Project}.}
 
-\item{rocrate}{RO-Crate object. Optional, if \code{x} is either an RO-Crate
-object or a path to a valid RO-Crate. If so, then \code{connection} is
-required (default: \code{rocrateR::rocrate_5s()}).}
-
 \item{dataset_id_suffix}{String with ID suffix for the tables/datasets
 entities in the RO-Crate (default: \code{"#dataset:"}).}
 
 \item{project_id_suffix}{String with ID suffix for the project entities
 in the RO-Crate (default: \code{"#project:"}).}
+
+\item{connection}{Connection object for the 'DataSHIELD' server where the
+values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is
+set to a connection object. If so, then \code{rocrate} is required.}
 
 \item{path}{String with path pointing to the root of the RO-Crate. This will
 be used to store log files. If not provided, logs will be stored within
@@ -82,9 +95,9 @@ associated to \code{project} will be included in the RO-Crate.}
 the Safe People, it must include \verb{@id} and \code{name} entries. Alternatively,
 this can be a string with the \code{name} of the current user.}
 
-\item{connection}{Connection object for the 'DataSHIELD' server where the
-values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is
-set to a connection object. If so, then \code{rocrate} is required.}
+\item{rocrate}{RO-Crate object. Optional, if \code{x} is either an RO-Crate
+object or a path to a valid RO-Crate. If so, then \code{connection} is
+required (default: \code{rocrateR::rocrate_5s()}).}
 }
 \value{
 Updated RO-Crate object with Safe Projects information.
