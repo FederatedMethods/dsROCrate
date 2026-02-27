@@ -2,15 +2,11 @@
 % Please edit documentation in R/audit_safe_project.R
 \name{audit_safe_project}
 \alias{audit_safe_project}
-\alias{audit_safe_project.character}
 \alias{audit_safe_project.default}
 \alias{audit_safe_project.opal}
-\alias{audit_safe_project.rocrate}
 \title{Audit Safe Project details}
 \usage{
 audit_safe_project(x, ...)
-
-\method{audit_safe_project}{character}(x, ...)
 
 \method{audit_safe_project}{default}(x, ...)
 
@@ -22,14 +18,10 @@ audit_safe_project(x, ...)
   logs_to = Inf,
   path = NULL
 )
-
-\method{audit_safe_project}{rocrate}(x, ...)
 }
 \arguments{
 \item{x}{This can be a connection to a 'DataSHIELD' server (e.g., object with
-the \code{opal} class, see \code{\link[opalr:opal.login]{opalr::opal.login()}}), an RO-Crate
-(\link[rocrateR:rocrate]{rocrate} class) or a string with the path to an
-RO-Crate.}
+the \code{opal} class, see \code{\link[opalr:opal.login]{opalr::opal.login()}}).}
 
 \item{...}{Other optional arguments, see full documentation for details.}
 

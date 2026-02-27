@@ -4,6 +4,7 @@
 \alias{audit_study}
 \alias{audit_study.default}
 \alias{audit_study.list}
+\alias{audit_study.opal}
 \title{Audit Study details}
 \usage{
 audit_study(x, ...)
@@ -18,12 +19,19 @@ audit_study(x, ...)
   logs_to = Inf,
   path = NULL
 )
+
+\method{audit_study}{opal}(
+  x,
+  ...,
+  project = NULL,
+  logs_from = -Inf,
+  logs_to = Inf,
+  path = NULL
+)
 }
 \arguments{
 \item{x}{This can be a connection to a 'DataSHIELD' server (e.g., object with
-the \code{opal} class, see \code{\link[opalr:opal.login]{opalr::opal.login()}}), an RO-Crate
-(\link[rocrateR:rocrate]{rocrate} class) or a string with the path to an
-RO-Crate.}
+the \code{opal} class, see \code{\link[opalr:opal.login]{opalr::opal.login()}}).}
 
 \item{...}{Other optional arguments, see full documentation for details.}
 
