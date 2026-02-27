@@ -42,3 +42,72 @@ load_content <- function(rocrate, roc_path) {
 
   return(rocrate)
 }
+
+#' Load RO-Crate from file
+#'
+#' @param x String with path to RO-Crate
+#'
+#' @returns RO-Crate object.
+#' @keywords internal
+load_rocrate <- function(x) {
+  # check if the given file, `x`, exists
+  if (!file.exists(x)) {
+    stop("The given file:\n  `", x, "`\nis not a valid path!", call. = FALSE)
+  }
+
+  # initialise local variables
+  roc_path <- rocrate <- NULL
+
+  # check if the given path points to an RO-Crate bag (zip file)
+  if (grepl("zip$", tolower(x))) {
+    # create temp directory to extract contents of RO-Crate
+    tempdir_name <- file.path(tempdir(), digest::digest(Sys.time()))
+    dir.create(tempdir_name, recursive = TRUE)
+    on.exit(unlink(tempdir_name, force = TRUE, recursive = TRUE))
+
+    # unbag RO-Crate
+    roc_path <- tryCatch(
+      {
+        rocrateR::unbag_rocrate(x, output = tempdir_name, quiet = TRUE)
+      },
+      error = function(e) {
+        x
+      }
+    )
+  } else {
+    roc_path <- x
+  }
+
+  # load RO-Crate
+  rocrate <- tryCatch(
+    {
+      # list JSON files, if roc_path points to a directory
+      if (dir.exists(roc_path)) {
+        roc_path_files <- list.files(
+          roc_path,
+          pattern = "[json|JSON]$",
+          recursive = TRUE,
+          full.names = TRUE
+        )
+        roc_path_files <- roc_path_files[1]
+        roc_path <- dirname(roc_path_files)
+      } else {
+        roc_path_files <- roc_path
+        roc_path <- dirname(roc_path)
+      }
+      rocrateR::read_rocrate(roc_path_files)
+    },
+    error = function(e) {
+      NULL
+    }
+  )
+
+  # check if the RO-Crate was loaded correctly
+  if (is.null(rocrate)) {
+    stop("Unable to load an RO-Crate from the given file:\n  `", x, "`")
+  }
+
+  # check if any of the entities with `@type = 'File'` have empty `content`
+  rocrate <- rocrate |>
+    load_content(roc_path = roc_path)
+}
