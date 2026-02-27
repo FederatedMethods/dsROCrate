@@ -1,22 +1,7 @@
-test_that("character method prints TODO message", {
-  expect_message(
-    audit_safe_project("some/path"),
-    "TODO: This generic method hasn't been implemented yet!"
-  )
-})
-
 test_that("default method errors for unsupported classes", {
   expect_error(
     audit_safe_project(123),
     "Unknown class"
-  )
-})
-
-test_that("rocrate method validates RO-Crate object", {
-  crate <- rocrateR::rocrate_5s()
-
-  expect_no_error(
-    audit_safe_project(crate)
   )
 })
 

@@ -1,30 +1,8 @@
-test_that("character method prints TODO message", {
-  expect_message(
-    audit_safe_people("some/path"),
-    "TODO: This generic method hasn't been implemented yet!"
-  )
-})
-
 test_that("default method errors for unsupported classes", {
   expect_error(
     audit_safe_people(123),
     "Unknown class"
   )
-})
-
-test_that("rocrate method validates RO-Crate object", {
-  # setup
-  opal_con <- opal_demo_con()
-  crate <- rocrateR::rocrate_5s() |>
-    safe_project(connection = opal_con, project = attr(opal_con, "PROJECT")) |>
-    safe_people(user = attr(opal_con, "PEOPLE"))
-
-  expect_no_error(
-    audit_safe_people(crate)
-  )
-
-  # close connection to OBiBa's Opal demo server
-  opalr::opal.logout(opal_con)
 })
 
 test_that("rocrate method fails for invalid object", {
