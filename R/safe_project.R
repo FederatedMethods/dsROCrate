@@ -51,8 +51,34 @@ safe_project.default <- function(x, ...) {
 }
 
 #' @method safe_project character
+#' @rdname safe_project
 #' @export
-safe_project.character <- function(x, ...) {}
+safe_project.character <- function(
+  x,
+  ...,
+  project = attr(x, "project"),
+  dataset_id_suffix = "#dataset:",
+  project_id_suffix = "#project:",
+  connection = attr(x, "connection"),
+  path = attr(x, "path"),
+  tables = attr(x, "tables"),
+  user = attr(x, "user")
+) {
+  # attempt loading the RO-Crate
+  rocrate <- load_rocrate(x)
+
+  # call method with given `rocrate` object:
+  safe_project(
+    rocrate,
+    connection = connection,
+    project = project,
+    dataset_id_suffix = dataset_id_suffix,
+    project_id_suffix = project_id_suffix,
+    path = path,
+    tables = tables,
+    user = user
+  )
+}
 
 #' @method safe_project opal
 #' @rdname safe_project

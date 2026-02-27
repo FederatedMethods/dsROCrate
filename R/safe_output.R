@@ -41,8 +41,34 @@ safe_output.default <- function(x, ...) {
   )
 }
 
+#' @rdname safe_output
 #' @export
-safe_output.character <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {}
+safe_output.character <- function(
+  x,
+  ...,
+  path = attr(x, "path"),
+  user = attr(x, "user"),
+  logs_to = Sys.time(),
+  logs_from = logs_to - 24 * 60^2,
+  connection = attr(x, "connection"),
+  project = attr(x, "project"),
+  tables = attr(x, "tables")
+) {
+  # attempt loading the RO-Crate
+  rocrate <- load_rocrate(x)
+
+  # call method with given `rocrate` object:
+  safe_output(
+    rocrate,
+    connection = connection,
+    path = path,
+    user = user,
+    logs_to = logs_to,
+    logs_from = logs_from,
+    project = project,
+    tables = tables
+  )
+}
 
 #' @importFrom utils write.csv
 #' @rdname safe_output

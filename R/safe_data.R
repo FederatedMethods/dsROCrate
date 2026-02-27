@@ -46,8 +46,32 @@ safe_data.default <- function(x, ...) {
   )
 }
 
+#' @rdname safe_data
 #' @export
-safe_data.character <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {}
+safe_data.character <- function(
+  x,
+  ...,
+  project = attr(x, "project"),
+  tables = attr(x, "tables"),
+  dataset_id_suffix = "#dataset:",
+  connection = attr(x, "connection"),
+  path = attr(x, "path"),
+  user = attr(x, "user")
+) {
+  # attempt loading the RO-Crate
+  rocrate <- load_rocrate(x)
+
+  # call method with given `rocrate` object:
+  safe_data(
+    rocrate,
+    connection = connection,
+    project = project,
+    tables = tables,
+    dataset_id_suffix = dataset_id_suffix,
+    path = path,
+    user = user
+  )
+}
 
 #' @rdname safe_data
 #' @export

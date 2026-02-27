@@ -43,8 +43,30 @@ safe_setting.default <- function(x, ...) {
   )
 }
 
+#' @rdname safe_setting
 #' @export
-safe_setting.character <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {}
+safe_setting.character <- function(
+  x,
+  ...,
+  connection = attr(x, "connection"),
+  path = attr(x, "path"),
+  project = attr(x, "project"),
+  tables = attr(x, "tables"),
+  user = attr(x, "user")
+) {
+  # attempt loading the RO-Crate
+  rocrate <- load_rocrate(x)
+
+  # call method with given `rocrate` object:
+  safe_setting(
+    rocrate,
+    connection = connection,
+    path = path,
+    project = project,
+    tables = tables,
+    user = user
+  )
+}
 
 #' @rdname safe_setting
 #' @export

@@ -38,8 +38,36 @@ safe_people.default <- function(x, ...) {
   )
 }
 
+#' @rdname safe_people
 #' @export
-safe_people.character <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {}
+safe_people.character <- function(
+  x,
+  ...,
+  user = attr(x, "user"),
+  user_id_suffix = "#person:",
+  set_author = TRUE,
+  set_project = TRUE,
+  connection = attr(x, "connection"),
+  path = attr(x, "path"),
+  project = attr(x, "project"),
+  tables = attr(x, "tables")
+) {
+  # attempt loading the RO-Crate
+  rocrate <- load_rocrate(x)
+
+  # call method with given `rocrate` object:
+  safe_people(
+    rocrate,
+    connection = connection,
+    user = user,
+    user_id_suffix = user_id_suffix,
+    set_author = set_author,
+    set_project = set_project,
+    path = path,
+    project = project,
+    tables = tables
+  )
+}
 
 #' @rdname safe_people
 #' @export
