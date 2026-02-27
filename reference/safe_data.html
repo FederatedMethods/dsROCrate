@@ -56,6 +56,18 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">safe_data</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># S3 method for class 'character'</span></span>
+<span><span class="fu">safe_data</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  project <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"project"</span><span class="op">)</span>,</span>
+<span>  tables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"tables"</span><span class="op">)</span>,</span>
+<span>  dataset_id_suffix <span class="op">=</span> <span class="st">"#dataset:"</span>,</span>
+<span>  connection <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"connection"</span><span class="op">)</span>,</span>
+<span>  path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"path"</span><span class="op">)</span>,</span>
+<span>  user <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"user"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># S3 method for class 'opal'</span></span>
 <span><span class="fu">safe_data</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
@@ -104,12 +116,6 @@ RO-Crate.</p></dd>
 <code>?dsROCrate::safe_data</code>.</p></dd>
 
 
-<dt id="arg-rocrate">rocrate<a class="anchor" aria-label="anchor" href="#arg-rocrate"></a></dt>
-<dd><p>RO-Crate object. Optional, if <code>x</code> is either an RO-Crate
-object or a path to a valid RO-Crate. If so, then <code>connection</code> is
-required (default: <code><a href="https://rdrr.io/pkg/rocrateR/man/rocrate_5s.html" class="external-link">rocrateR::rocrate_5s()</a></code>).</p></dd>
-
-
 <dt id="arg-project">project<a class="anchor" aria-label="anchor" href="#arg-project"></a></dt>
 <dd><p>String with the name of the <a href="safe_project.html">Safe Project</a>.</p></dd>
 
@@ -125,9 +131,10 @@ associated to <code>project</code> will be included in the RO-Crate.</p></dd>
 entities in the RO-Crate (default: <code>"#dataset:"</code>).</p></dd>
 
 
-<dt id="arg-project-id-suffix">project_id_suffix<a class="anchor" aria-label="anchor" href="#arg-project-id-suffix"></a></dt>
-<dd><p>String with ID suffix for the project entities
-in the RO-Crate (default: <code>"#project:"</code>).</p></dd>
+<dt id="arg-connection">connection<a class="anchor" aria-label="anchor" href="#arg-connection"></a></dt>
+<dd><p>Connection object for the 'DataSHIELD' server where the
+values will be extracted from (e.g., OBiBa's Opal). Optional, if <code>x</code> is
+set to a connection object. If so, then <code>rocrate</code> is required.</p></dd>
 
 
 <dt id="arg-path">path<a class="anchor" aria-label="anchor" href="#arg-path"></a></dt>
@@ -142,10 +149,15 @@ the Safe People, it must include <code>@id</code> and <code>name</code> entries.
 this can be a string with the <code>name</code> of the current user.</p></dd>
 
 
-<dt id="arg-connection">connection<a class="anchor" aria-label="anchor" href="#arg-connection"></a></dt>
-<dd><p>Connection object for the 'DataSHIELD' server where the
-values will be extracted from (e.g., OBiBa's Opal). Optional, if <code>x</code> is
-set to a connection object. If so, then <code>rocrate</code> is required.</p></dd>
+<dt id="arg-rocrate">rocrate<a class="anchor" aria-label="anchor" href="#arg-rocrate"></a></dt>
+<dd><p>RO-Crate object. Optional, if <code>x</code> is either an RO-Crate
+object or a path to a valid RO-Crate. If so, then <code>connection</code> is
+required (default: <code><a href="https://rdrr.io/pkg/rocrateR/man/rocrate_5s.html" class="external-link">rocrateR::rocrate_5s()</a></code>).</p></dd>
+
+
+<dt id="arg-project-id-suffix">project_id_suffix<a class="anchor" aria-label="anchor" href="#arg-project-id-suffix"></a></dt>
+<dd><p>String with ID suffix for the project entities
+in the RO-Crate (default: <code>"#project:"</code>).</p></dd>
 
 </dl></div>
     <div id="value">
