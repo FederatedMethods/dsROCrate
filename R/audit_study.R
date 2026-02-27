@@ -16,8 +16,8 @@ audit_study <- function(x, ...) {
 #' @export
 audit_study.default <- function(x, ...) {
   stop(
-    "Unknown class, please try either a file path or",
-    " an object with `rocrate` class!"
+    "Unknown class, please try a named list of connections (e.g., OBiBa's Opal)",
+    " or a single connection object!"
   )
 }
 
@@ -38,7 +38,7 @@ audit_study.list <- function(
     suppressMessages(suppressWarnings({
       safe_project_reports <- x |>
         purrr::map(function(conn) {
-          audit_safe_project(
+          audit_study(
             conn,
             project = project,
             logs_from = logs_from,
@@ -46,6 +46,42 @@ audit_study.list <- function(
             path = path
           )
         })
+    })),
+    file = nullfile()
+  )
+
+  # attach input args as attributes to the RO-Crate
+  attr(safe_project_reports, "audit_type") <- "Study"
+  attr(safe_project_reports, "path") <- path
+  attr(safe_project_reports, "project") <- project
+
+  # return list with new RO-Crates (one per connection given)
+  return(safe_project_reports)
+}
+
+#' @rdname audit_study
+#' @export
+audit_study.opal <- function(
+  x,
+  ...,
+  project = NULL,
+  logs_from = -Inf,
+  logs_to = Inf,
+  path = NULL
+) {
+  # local bindings
+  name <- principal <- project_tables_all <- subject <- table <- type <- NULL
+
+  utils::capture.output(
+    suppressMessages(suppressWarnings({
+      safe_project_reports <- x |>
+        audit_safe_project(
+          conn,
+          project = project,
+          logs_from = logs_from,
+          logs_to = logs_to,
+          path = path
+        )
     })),
     file = nullfile()
   )
