@@ -1,15 +1,19 @@
-test_that("safe_people works", {
-  # open connection to OBiBa's Opal demo server
-  opal_con <- opal_demo_con()
-
-  basic_rocrate <- rocrateR::rocrate_5s()
-
-  # attempt calling function with invalid class
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+# - - - - - - - - - - - - - - - - - ERRORS - - - - - - - - - - - - - - - - - #
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+test_that("safe_people fails when attempt calling function with invalid class", {
   expect_error(
     dsROCrate::safe_people(structure(list(), class = "InvalidClass"))
   )
+})
 
-  # attempt adding user to RO-Crate without project entity, `@type = 'Project`
+test_that("safe_people fails when attempt adding user to RO-Crate without project entity, `@type = 'Project`", {
+  # setup
+  ## open connection to OBiBa's Opal demo server
+  opal_con <- opal_demo_con()
+  ## create basic RO-Crate
+  basic_rocrate <- rocrateR::rocrate_5s()
+
   expect_warning(
     basic_rocrate_1 <- opal_con |>
       dsROCrate::safe_people(
@@ -18,11 +22,35 @@ test_that("safe_people works", {
       )
   )
 
-  # attempt calling with invalid connection
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
+})
+
+test_that("safe_people fails when attempt calling with invalid connection", {
+  # setup
+  ## open connection to OBiBa's Opal demo server
+  opal_con <- opal_demo_con()
+  ## create basic RO-Crate
+  basic_rocrate <- rocrateR::rocrate_5s()
+
   expect_error(
     basic_rocrate |>
       dsROCrate::safe_people(user = attr(opal_con, "PEOPLE"), connection = NULL)
   )
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
+})
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+# - - - - - - - - - - - - - - - - - VALID  - - - - - - - - - - - - - - - - - #
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+test_that("safe_people works", {
+  # setup
+  ## open connection to OBiBa's Opal demo server
+  opal_con <- opal_demo_con()
+  ## create basic RO-Crate
+  basic_rocrate <- rocrateR::rocrate_5s()
 
   # add project entity to the RO-Crate
   basic_rocrate_2 <- basic_rocrate |>

@@ -3,6 +3,9 @@ test_that("validate_opal_con works with real Opal connection", {
   opal_con <- opal_demo_con()
 
   expect_no_error(validate_opal_con(opal_con))
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("is_opal_admin_con detects admin group correctly", {
@@ -13,6 +16,9 @@ test_that("is_opal_admin_con detects admin group correctly", {
 
   expect_type(res, "logical")
   expect_true(res)
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("get_project_tables retrieves real tables from demo server", {
@@ -25,6 +31,9 @@ test_that("get_project_tables retrieves real tables from demo server", {
   expect_type(tables, "character")
   expect_true(length(tables) >= 1)
   expect_true(all(nzchar(tables)))
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("get_project_resources returns resources list from Opal", {
@@ -38,6 +47,9 @@ test_that("get_project_resources returns resources list from Opal", {
   )
 
   expect_true(is.list(res) || is.character(res))
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("get_project_details works end-to-end with demo Opal project", {
@@ -52,6 +64,9 @@ test_that("get_project_details works end-to-end with demo Opal project", {
   expect_true("table" %in% names(res))
   expect_true(nrow(res) >= 1)
   expect_true(all(res$project == project))
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("get_table_permissions errors for non-admin connection", {
@@ -64,6 +79,9 @@ test_that("get_table_permissions errors for non-admin connection", {
     get_table_permissions(opal_con, project, tables),
     "The provided connection does not have access to retrieve table permissions!"
   )
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("get_table_permissions throws a warning for an invalid project", {
@@ -75,6 +93,9 @@ test_that("get_table_permissions throws a warning for an invalid project", {
     get_table_permissions(opal_con, "INVALID PROJECT", tables),
     "404"
   )
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("get_table_permissions retrieves real permissions", {
@@ -89,6 +110,9 @@ test_that("get_table_permissions retrieves real permissions", {
   expect_true(all(c("project", "table") %in% names(res)))
   expect_equal(unique(res$project), project)
   expect_equal(unique(res$table), tables)
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("get_project_details handles non-existent project gracefully", {
@@ -98,6 +122,9 @@ test_that("get_project_details handles non-existent project gracefully", {
 
   expect_s3_class(res, "data.frame")
   expect_equal(nrow(res), 0)
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("validate_opal_con errors on invalid connection object", {
@@ -136,6 +163,9 @@ test_that("update_project_datasets updates project entities of an RO-Crate", {
 
   expect_equal(length(has_part), 5)
   expect_equal(has_part, 1:5)
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("user_perm_entity works for all values of 'permission'", {

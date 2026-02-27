@@ -25,6 +25,9 @@ test_that("extract_safe_data.opal returns a valid RO-Crate with datasets", {
 
   expect_type(datasets, "list")
   expect_true(length(datasets) >= 1)
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("extract_safe_data.opal updates an existing RO-Crate", {
@@ -53,6 +56,9 @@ test_that("extract_safe_data.opal updates an existing RO-Crate", {
 
   datasets <- rocrateR::get_entity(roc, type = "Dataset")
   expect_true(length(datasets) >= 1)
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("extract_safe_data.rocrate copies Dataset entities", {

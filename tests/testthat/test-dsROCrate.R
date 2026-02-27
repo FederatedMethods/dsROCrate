@@ -13,6 +13,9 @@ test_that("init() dispatches to init.opal() with real Opal connection", {
 
   expect_s3_class(res, "rocrate")
   expect_identical(attr(res, "connection"), opal_con)
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("init.opal() attaches metadata using demo Opal server", {
@@ -34,6 +37,9 @@ test_that("init.opal() attaches metadata using demo Opal server", {
   expect_identical(attr(res, "tables"), attr(opal_con, "TABLES"))
   expect_identical(attr(res, "user"), attr(opal_con, "PEOPLE"))
   expect_true(dir.exists(attr(res, "path")))
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("init.rocrate() reuses stored attributes with demo Opal server", {
@@ -54,6 +60,9 @@ test_that("init.rocrate() reuses stored attributes with demo Opal server", {
   expect_identical(attr(res, "tables"), attr(opal_con, "TABLES"))
   expect_identical(attr(res, "user"), attr(opal_con, "PEOPLE"))
   expect_identical(attr(res, "path"), attr(crate, "path"))
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("init.opal() errors on invalid connection object", {

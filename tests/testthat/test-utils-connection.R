@@ -5,6 +5,9 @@ test_that("project_exists.opal() succeeds when project exists", {
   expect_silent(
     project_exists(opal_con, project = attr(opal_con, "PROJECT"))
   )
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("project_exists.opal() errors when project does not exist", {
@@ -15,6 +18,9 @@ test_that("project_exists.opal() errors when project does not exist", {
     project_exists(opal_con, project = "THIS_PROJECT_DOES_NOT_EXIST"),
     "was not found in the given Opal connection!"
   )
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("project_exists() dispatches to opal method", {
@@ -24,6 +30,9 @@ test_that("project_exists() dispatches to opal method", {
   expect_silent(
     project_exists(opal_con, project = attr(opal_con, "PROJECT"))
   )
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("project_exists() works for armadillo objects", {

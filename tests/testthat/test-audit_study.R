@@ -33,6 +33,9 @@ test_that("list method returns list with expected attributes", {
   expect_equal(attr(crate, "audit_type"), "Study")
   expect_true("demo" %in% names(crate))
   expect_true(length(crate) == 1)
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("list method works with specific project", {
@@ -48,6 +51,9 @@ test_that("list method works with specific project", {
   )
 
   expect_equal(attr(crate, "project"), attr(opal_con, "PROJECT"))
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("list method errors for unknown project", {
@@ -59,6 +65,9 @@ test_that("list method errors for unknown project", {
     "No data details were found",
     fixed = TRUE
   )
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("path argument is stored as attribute", {
@@ -74,4 +83,7 @@ test_that("path argument is stored as attribute", {
   )
 
   expect_equal(attr(crate, "path"), tempdir())
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })

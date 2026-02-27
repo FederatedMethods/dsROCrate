@@ -1,30 +1,46 @@
-test_that("safe_output works", {
-  # open connection to OBiBa's Opal demo server
-  opal_con <- opal_demo_con()
-
-  basic_rocrate <- rocrateR::rocrate_5s()
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
-  # - - - - - - - - - - - - - - - - - ERRORS - - - - - - - - - - - - - - - - - #
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
-  # attempt calling function with invalid class
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+# - - - - - - - - - - - - - - - - - ERRORS - - - - - - - - - - - - - - - - - #
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+test_that("safe_output fails when calling with invalid object", {
   expect_error(
     dsROCrate::safe_output(structure(list(), class = "InvalidClass"))
   )
+})
 
-  # attempt calling with invalid connection
+test_that("safe_output fails when attempt calling with invalid connection", {
+  # setup
+  ## create basic RO-Crate
+  basic_rocrate <- rocrateR::rocrate_5s()
+
   expect_error(
     basic_rocrate |>
       dsROCrate::safe_output(connection = NULL)
   )
+})
 
-  # attempt extracting outputs from an RO-Crate without Safe People details
+test_that("safe_output warns when calling with RO-Crate without Safe People details", {
+  # setup
+  ## open connection to OBiBa's Opal demo server
+  opal_con <- opal_demo_con()
+  ## create basic RO-Crate
+  basic_rocrate <- rocrateR::rocrate_5s()
+
   expect_warning(
     basic_rocrate |>
       dsROCrate::safe_output(connection = opal_con)
   )
 
-  # attempt setting multiple users as the RO-Crate authors
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
+})
+
+test_that("safe_output warns when attempt setting multiple users as the RO-Crate authors", {
+  # setup
+  ## open connection to OBiBa's Opal demo server
+  opal_con <- opal_demo_con()
+  ## create basic RO-Crate
+  basic_rocrate <- rocrateR::rocrate_5s()
+
   expect_warning(
     basic_rocrate |>
       dsROCrate::safe_project(
@@ -47,9 +63,20 @@ test_that("safe_output works", {
       dsROCrate::safe_output(connection = opal_con, user = NULL)
   )
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
-  # - - - - - - - - - - - - - - - - - VALID  - - - - - - - - - - - - - - - - - #
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
+})
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+# - - - - - - - - - - - - - - - - - VALID  - - - - - - - - - - - - - - - - - #
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+test_that("safe_output works", {
+  # setup
+  ## open connection to OBiBa's Opal demo server
+  opal_con <- opal_demo_con()
+  ## create basic RO-Crate
+  basic_rocrate <- rocrateR::rocrate_5s()
+
   # add Safe People details
   ## add project entity to the RO-Crate
   basic_rocrate_2 <- basic_rocrate |>

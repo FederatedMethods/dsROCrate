@@ -1,27 +1,33 @@
-test_that("safe_project works", {
-  # open connection to OBiBa's Opal demo server
-  opal_con <- opal_demo_con()
-
-  basic_rocrate <- rocrateR::rocrate_5s()
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
-  # - - - - - - - - - - - - - - - - - ERRORS - - - - - - - - - - - - - - - - - #
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
-  # attempt calling function with invalid class
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+# - - - - - - - - - - - - - - - - - ERRORS - - - - - - - - - - - - - - - - - #
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+test_that("safe_project fails when attempt calling function with invalid class", {
   expect_error(
     dsROCrate::safe_project(
       structure(list(), class = "InvalidClass"),
       project = NULL
     )
   )
+})
 
-  # attempt calling with invalid connection
+test_that("safe_project fails when attempt calling with invalid connection", {
+  # setup
+  ## create basic RO-Crate
+  basic_rocrate <- rocrateR::rocrate_5s()
+
   expect_error(
     basic_rocrate |>
       dsROCrate::safe_project(connection = NULL, project = NULL)
   )
+})
 
-  # attempt adding invalid project
+test_that("safe_project fails when attempt adding invalid project", {
+  # setup
+  ## open connection to OBiBa's Opal demo server
+  opal_con <- opal_demo_con()
+  ## create basic RO-Crate
+  basic_rocrate <- rocrateR::rocrate_5s()
+
   expect_error(
     basic_rocrate |>
       dsROCrate::safe_project(
@@ -30,27 +36,68 @@ test_that("safe_project works", {
       )
   )
 
-  # attempt calling without a project
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
+})
+
+test_that("safe_project fails when attempt calling without a project", {
+  # setup
+  ## open connection to OBiBa's Opal demo server
+  opal_con <- opal_demo_con()
+  ## create basic RO-Crate
+  basic_rocrate <- rocrateR::rocrate_5s()
+
   expect_error(
     basic_rocrate |>
       dsROCrate::safe_project(connection = opal_con)
   )
 
-  # attempt calling with project = NULL
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
+})
+
+test_that("safe_project fails when attempt calling with project = NULL", {
+  # setup
+  ## open connection to OBiBa's Opal demo server
+  opal_con <- opal_demo_con()
+  ## create basic RO-Crate
+  basic_rocrate <- rocrateR::rocrate_5s()
+
   expect_error(
     basic_rocrate |>
       dsROCrate::safe_project(connection = opal_con, project = NULL)
   )
 
-  # attempt calling with multiple projects
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
+})
+
+test_that("safe_project fails when attempt calling with multiple projects", {
+  # setup
+  ## open connection to OBiBa's Opal demo server
+  opal_con <- opal_demo_con()
+  ## create basic RO-Crate
+  basic_rocrate <- rocrateR::rocrate_5s()
+
   expect_error(
     basic_rocrate |>
       dsROCrate::safe_project(connection = opal_con, project = c("A", "B"))
   )
 
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
-  # - - - - - - - - - - - - - - - - - VALID  - - - - - - - - - - - - - - - - - #
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
+})
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+# - - - - - - - - - - - - - - - - - VALID  - - - - - - - - - - - - - - - - - #
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
+test_that("safe_project works", {
+  # setup
+  ## open connection to OBiBa's Opal demo server
+  opal_con <- opal_demo_con()
+  ## create basic RO-Crate
+  basic_rocrate <- rocrateR::rocrate_5s()
+
   # add details for Project without Dataset entities
   basic_rocrate_2 <- basic_rocrate |>
     dsROCrate::safe_project(

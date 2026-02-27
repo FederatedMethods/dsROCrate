@@ -13,6 +13,9 @@ test_that("extract_safe_people.opal returns a valid RO-Crate with Person entitie
 
   expect_type(people, "list")
   expect_true(length(people) >= 1)
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("extract_safe_people.opal updates an existing RO-Crate", {
@@ -30,6 +33,9 @@ test_that("extract_safe_people.opal updates an existing RO-Crate", {
 
   people <- rocrateR::get_entity(roc, type = "Person")
   expect_true(length(people) >= 1)
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("extract_safe_people.opal excludes admin and administrator accounts", {
@@ -44,6 +50,9 @@ test_that("extract_safe_people.opal excludes admin and administrator accounts", 
   ids <- vapply(people, function(e) getElement(e, "name")[[1]], character(1))
 
   expect_false(any(tolower(ids) %in% c("admin", "administrator")))
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("extract_safe_people.opal iterates over all returned subject profiles", {
@@ -61,6 +70,9 @@ test_that("extract_safe_people.opal iterates over all returned subject profiles"
 
   # validate rocrate structure
   expect_no_error(rocrateR::is_rocrate(roc))
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("extract_safe_people.rocrate copies Person entities", {

@@ -295,6 +295,9 @@ test_that("rocrate_report works end-to-end with real dsROCrate audit outputs", {
   expect_true("safe_people" %in% names(result))
   expect_true("safe_project" %in% names(result))
   expect_true("safe_data" %in% names(result))
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("rocrate_report.character loads crate from disk", {
@@ -331,6 +334,9 @@ test_that("rocrate_report.character loads crate from disk", {
   # ---- assertions ----
   expect_true(file.exists(out_file))
   expect_type(result, "list")
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("rocrate_report.list aggregates outputs from a study audit", {
@@ -365,6 +371,9 @@ test_that("rocrate_report.list aggregates outputs from a study audit", {
   # ---- assertions ----
   expect_true(file.exists(out_file))
   expect_type(result, "list")
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("rocrate_report.list handles missing outputs from a study audit", {

@@ -40,6 +40,9 @@ test_that("opal method returns RO-Crate with expected attributes", {
 
   expect_equal(attr(crate, "audit_type"), "Safe Project")
   expect_true("project" %in% names(attributes(crate)))
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("opal method works with specific project", {
@@ -56,6 +59,9 @@ test_that("opal method works with specific project", {
 
   expect_s3_class(crate, "rocrate")
   expect_equal(attr(crate, "project"), attr(opal_con, "PROJECT"))
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("opal method errors for unknown project", {
@@ -67,6 +73,9 @@ test_that("opal method errors for unknown project", {
     "No data details were found",
     fixed = TRUE
   )
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
 
 test_that("path argument is stored as attribute", {
@@ -82,4 +91,7 @@ test_that("path argument is stored as attribute", {
   )
 
   expect_equal(attr(crate, "path"), tempdir())
+
+  # close connection to OBiBa's Opal demo server
+  opalr::opal.logout(opal_con)
 })
