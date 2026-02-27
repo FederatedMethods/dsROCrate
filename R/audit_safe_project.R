@@ -14,16 +14,9 @@ audit_safe_project <- function(x, ...) {
 
 #' @rdname audit_safe_project
 #' @export
-audit_safe_project.character <- function(x, ...) {
-  message("TODO: This generic method hasn't been implemented yet!")
-}
-
-#' @rdname audit_safe_project
-#' @export
 audit_safe_project.default <- function(x, ...) {
   stop(
-    "Unknown class, please try either a file path or",
-    " an object with `rocrate` class!"
+    "Unknown class, please try with a connection object (e.g., OBiBa's Opal)!"
   )
 }
 
@@ -176,11 +169,4 @@ audit_safe_project.opal <- function(
 
   # return new RO-Crate
   return(safe_project_crate)
-}
-
-#' @rdname audit_safe_project
-#' @export
-audit_safe_project.rocrate <- function(x, ...) {
-  # validate RO-Crate object
-  rocrateR::is_rocrate(x)
 }

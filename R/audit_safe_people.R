@@ -5,9 +5,7 @@
 #'
 #' @inheritParams init
 #' @param x This can be a connection to a 'DataSHIELD' server (e.g., object with
-#'     the `opal` class, see [opalr::opal.login()]), an RO-Crate
-#'     ([rocrate][rocrateR::rocrate()] class) or a string with the path to an
-#'     RO-Crate.
+#'     the `opal` class, see [opalr::opal.login()]).
 #' @param ... Other optional arguments, see full documentation for details.
 #' @param user String with the user name for which to extract Safe People
 #'     details.
@@ -28,16 +26,9 @@ audit_safe_people <- function(x, ...) {
 
 #' @rdname audit_safe_people
 #' @export
-audit_safe_people.character <- function(x, ...) {
-  message("TODO: This generic method hasn't been implemented yet!")
-}
-
-#' @rdname audit_safe_people
-#' @export
 audit_safe_people.default <- function(x, ...) {
   stop(
-    "Unknown class, please try either a file path or",
-    " an object with `rocrate` class!"
+    "Unknown class, please try with a connection object (e.g., OBiBa's Opal)!"
   )
 }
 
@@ -174,17 +165,4 @@ audit_safe_people.opal <- function(
 
   # return new RO-Crate
   return(safe_people_crate)
-}
-
-#' @rdname audit_safe_people
-#' @export
-audit_safe_people.rocrate <- function(x, ...) {
-  # validate RO-Crate object
-  rocrateR::is_rocrate(x)
-
-  # extract Safe People entities
-  safe_people_ents <- extract_safe_people(x)
-
-  # return invisibly
-  return(safe_people_ents)
 }
