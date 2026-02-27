@@ -1,7 +1,14 @@
-skip_on_cran()
-skip_if_offline()
-
+#' Open connection to OBiBa's Opal demo server
+#'
+#' @param admin Boolean flag to indicate if the connection should be with admin
+#'     rights (default behaviour).
+#'
+#' @returns Connection object to OBiBa's Opal demo server with extra attributes.
 opal_demo_con <- function(admin = TRUE) {
+  # Skip tests if offline or on CRAN
+  skip_on_cran()
+  skip_if_offline()
+
   ## Opal server access
   USERNAME <- "administrator"
   USERPASS <- "password"
