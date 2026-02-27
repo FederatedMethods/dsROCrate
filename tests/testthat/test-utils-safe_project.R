@@ -302,9 +302,6 @@ test_that("flatten_safe_project.rocrate returns empty tibble on error", {
 # -------------------------------------------------------------------------
 
 test_that("extract_safe_project.opal works with demo Opal server", {
-  skip_on_cran()
-  skip_if_not_installed("opalr")
-
   # Skip if demo server is unreachable
   con <- try(opal_demo_con(), silent = TRUE)
   skip_if(inherits(con, "try-error"), "Opal demo server not available")

@@ -163,10 +163,6 @@ test_that("armadillo_login propagates credential retrieval errors", {
 # Integration-style test (optional, only if real server configured)
 # -------------------------------------------------------------------------
 test_that("armadillo_login works with real Armadillo server (optional)", {
-  skip_on_cran()
-  skip_if_not_installed("DSMolgenisArmadillo")
-  skip_if_not_installed("MolgenisArmadillo")
-
   server <- Sys.getenv("ARMADILLO_SERVER")
   skip_if(server == "", "No ARMADILLO_SERVER env var set")
 
