@@ -27,10 +27,7 @@ rocrate_report.character <- function(
   diag_height = NULL,
   max_line_length = 200
 ) {
-  # initialise local variables
-  rocrate <- NULL
-
-  # attemp loading the RO-Crate
+  # attempt loading the RO-Crate
   rocrate <- load_rocrate(x)
 
   # call the next generic method
