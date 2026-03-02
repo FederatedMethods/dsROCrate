@@ -89,6 +89,34 @@ safe_output.opal <- function(
   ds_action <- ds_eval <- ds_id <- ds_function <- ds_symbol <- ds_table <- NULL
 
   # create formatted versions of input dates
+  logs_from_is_valid <- FALSE
+  if (!is.infinite(logs_from)) {
+    logs_from_is_valid <- is_valid_posixct(logs_from)
+  } else {
+    # assumes that a value of `Inf` is a valid date
+    logs_from_is_valid <- TRUE
+  }
+
+  logs_to_is_valid <- FALSE
+  if (!is.infinite(logs_to)) {
+    logs_to_is_valid <- is_valid_posixct(logs_to)
+  } else {
+    # assumes that a value of `Inf` is a valid date
+    logs_to_is_valid <- TRUE
+  }
+
+  # display error message if either date is invalid
+  if (!all(logs_from_is_valid, logs_to_is_valid)) {
+    stop(
+      paste0(
+        "Invalid date string identified for: ",
+        ifelse(logs_from_is_valid, "", "\n  - logs_from"),
+        ifelse(logs_to_is_valid, "", "\n  - logs_to")
+      ),
+      call. = FALSE
+    )
+  }
+
   logs_from_formatted <- ifelse(
     is.infinite(logs_from),
     "ALL",
@@ -105,8 +133,6 @@ safe_output.opal <- function(
 
   # validate that connection user has administrative rights
   is_opal_admin_con(x)
-
-  # TODO: validate that `logs_to` and `logs_from` have the class 'POSIXct'
 
   # verify if `user` is NULL, if so, retrieve information from the RO-crate
   if (is.null(user)) {
