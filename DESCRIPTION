@@ -67,6 +67,7 @@ Collate:
     'safe_setting.R'
     'utils-armadillo.R'
     'utils-connection.R'
+    'utils-date.R'
     'utils-opal.R'
     'utils-rocrate.R'
     'utils-safe_data.R'
