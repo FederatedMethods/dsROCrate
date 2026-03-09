@@ -89,7 +89,7 @@ extract_safe_people.rocrate <- function(
 
   # add entities to the RO-Crate
   rocrate <- rocrate |>
-    rocrateR::add_entities(entities_lst_v2, overwrite = TRUE, quiet = TRUE) #|>
+    rocrateR::add_entity(entities_lst_v2, overwrite = TRUE, verbose = FALSE)
   # # link new user entity @id to the root (./) author property
   # rocrateR::add_entity_value(
   #   id = "./",

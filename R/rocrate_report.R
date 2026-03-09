@@ -464,11 +464,10 @@ rocrate_report.rocrate <- function(
   # attempt to extract user permission entities
   user_perm_entity_lst <- tryCatch(
     {
-      # TODO: Update the following to single call, once this issue has been
-      # resolved: https://github.com/ResearchObject/ro-crate-r/issues/5
-      c("ReadAction", "WriteAction", "ControlAction") |>
-        sapply(\(t) rocrateR::get_entity(x, type = t)) |>
-        purrr::list_c()
+      rocrateR::get_entity(
+        x,
+        type = c("ReadAction", "WriteAction", "ControlAction")
+      )
     },
     error = function(e) {
       NULL
@@ -527,10 +526,11 @@ rocrate_report.rocrate <- function(
   if (!all(has_project_ents, has_data_ents, has_people_ents)) {
     stop(
       paste0(
-        "The given RO-Crate is missing the following:\n",
+        "The given RO-Crate is missing the following:",
         ifelse(has_project_ents, "", " - Project entity (`@type = 'Project'`)"),
         ifelse(has_data_ents, "", " - Data entity (`@type = 'Dataset'`)"),
-        ifelse(has_people_ents, "", " - People entity (`type = 'Person'`)")
+        ifelse(has_people_ents, "", " - People entity (`type = 'Person'`)"),
+        collapse = "\n"
       ),
       call. = FALSE
     )

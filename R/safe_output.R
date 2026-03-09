@@ -246,7 +246,7 @@ safe_output.opal <- function(
 
   # create new data entity for log file
   log_entity <- rocrateR::entity(
-    x = basename(log_filename),
+    id = basename(log_filename),
     type = "File",
     dateModified = Sys.time(),
     name = basename(log_filename),
@@ -338,7 +338,7 @@ safe_output.opal <- function(
 
   # create new data entity for log file
   log_maps_entity <- rocrateR::entity(
-    x = basename(log_maps_filename),
+    id = basename(log_maps_filename),
     type = "File",
     dateModified = Sys.time(),
     name = basename(log_maps_filename),

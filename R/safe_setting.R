@@ -90,7 +90,7 @@ safe_setting.opal <- function(
     tibble::as_tibble() |>
     purrr::pmap(function(name, value, ...) {
       rocrateR::entity(
-        x = paste0("_:localid:", name, ":", value),
+        id = paste0("_:localid:", name, ":", value),
         type = "PropertyValue",
         name = name,
         value = value
@@ -112,7 +112,10 @@ safe_setting.opal <- function(
     purrr::pmap(function(Package, Version, Description, Author, ...) {
       # create new entity
       rocrateR::entity(
-        x = paste0("_:localid:", digest::digest(paste0(Package, "_", Version))),
+        id = paste0(
+          "_:localid:",
+          digest::digest(paste0(Package, "_", Version))
+        ),
         type = "SoftwareApplication",
         name = Package,
         version = Version,

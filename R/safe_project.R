@@ -144,7 +144,7 @@ safe_project.opal <- function(
   # create project entity
   timestamps <- getElement(project_details_tbl, "timestamps")
   project_entity <- rocrateR::entity(
-    x = paste0(project_id_suffix, digest::digest(project)),
+    id = paste0(project_id_suffix, digest::digest(project)),
     type = "Project",
     name = getElement(project_details_tbl, "name"),
     dateCreated = getElement(timestamps, "created"),

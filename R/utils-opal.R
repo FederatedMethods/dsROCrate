@@ -324,7 +324,7 @@ user_perm_entity <- function(user, user_id, table, table_id, permission, ...) {
 
   # create entity objects
   permission_entities_tbl <- tibble::tibble(
-    x = comb_id,
+    id = comb_id,
     type = type,
     agent = agent,
     object = object,

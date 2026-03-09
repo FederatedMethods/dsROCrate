@@ -123,7 +123,7 @@ safe_data.opal <- function(
       timestamps <- getElement(table_details, "timestamps")
       # create entity object
       new_dataset_entity <- rocrateR::entity(
-        x = paste0(
+        id = paste0(
           dataset_id_suffix,
           digest::digest(paste0(project, "_", table))
         ),

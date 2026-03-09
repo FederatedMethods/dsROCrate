@@ -87,11 +87,7 @@ extract_safe_project.rocrate <- function(
       proj_data_ents_lst <- data_entities_lst[idx]
       if (length(proj_data_ents_lst) > 0) {
         rocrate <- rocrate |>
-          rocrateR::add_entities(
-            proj_data_ents_lst,
-            quiet = TRUE,
-            overwrite = TRUE
-          )
+          rocrateR::add_entity(proj_data_ents_lst, overwrite = TRUE)
       }
       # add current project entity
       rocrate <- rocrate |>

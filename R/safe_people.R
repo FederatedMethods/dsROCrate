@@ -99,14 +99,14 @@ safe_people.opal <- function(
     # the user_entity
     if ("list" %in% class(user)) {
       user_entity <- rocrateR::entity(
-        x = c(getElement(user, "@id"), getElement(user, "id")),
+        id = c(getElement(user, "@id"), getElement(user, "id")),
         type = "Person",
         name = c(getElement(user, "name"), getElement(user, "username")),
         affiliation = list(`@id` = c(getElement(user, "affiliation")))
       )
     } else {
       user_entity <- rocrateR::entity(
-        x = paste0(user_id_suffix, digest::digest(user)),
+        id = paste0(user_id_suffix, digest::digest(user)),
         type = "Person",
         name = user
       )
@@ -114,7 +114,7 @@ safe_people.opal <- function(
   } else {
     # create basic user entity
     user_entity <- rocrateR::entity(
-      x = paste0(user_id_suffix, digest::digest(x$username)),
+      id = paste0(user_id_suffix, digest::digest(x$username)),
       type = "Person",
       name = x$username
     )

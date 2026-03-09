@@ -84,7 +84,7 @@ extract_safe_output.rocrate <- function(
   # add entities to the RO-Crate
   suppressWarnings({
     rocrate <- rocrate |>
-      rocrateR::add_entities(entities_lst, quiet = TRUE)
+      rocrateR::add_entity(entities_lst, verbose = FALSE)
   })
 
   # return RO-Crate with the Safe Output details
