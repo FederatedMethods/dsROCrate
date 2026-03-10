@@ -53,7 +53,7 @@ extract_safe_data.rocrate <- function(
   rocrateR::is_rocrate(x)
 
   # extract Dataset entities
-  entities_lst <- rocrateR::get_entity(x, type = "Dataset")
+  entities_lst <- .get_entity(x, type = "Dataset")
 
   # if `id` was provided, then filter out only those entities
   if (!is.null(id)) {
@@ -116,7 +116,7 @@ flatten_safe_data.rocrate <- function(x, ..., id = NULL) {
     {
       # extract Dataset entities
       entities_tbl <- x |>
-        rocrateR::get_entity(type = "Dataset") |>
+        .get_entity(type = "Dataset") |>
         # extract @id and name for each entity
         lapply(function(ent) {
           tibble::tibble(

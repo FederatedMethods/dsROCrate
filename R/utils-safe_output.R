@@ -53,7 +53,7 @@ extract_safe_output.rocrate <- function(
   rocrateR::is_rocrate(x)
 
   # extract File entities
-  entities_lst <- rocrateR::get_entity(x, type = "File")
+  entities_lst <- .get_entity(x, type = "File")
 
   # if `id` was provided, then filter out only those entities
   if (!is.null(id)) {
@@ -117,7 +117,7 @@ flatten_safe_output.rocrate <- function(x, ..., id = NULL) {
   tryCatch(
     {
       # extract entities
-      entities_tbl <- rocrateR::get_entity(x, type = "File") |>
+      entities_tbl <- .get_entity(x, type = "File") |>
         # extract @id, name, description, encodingFormat  and content for each entity
         lapply(function(ent) {
           tibble::tibble(

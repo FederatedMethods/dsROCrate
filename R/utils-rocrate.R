@@ -8,7 +8,7 @@
 load_content <- function(rocrate, roc_path) {
   # get 'File' entities with missing `content` (if any)
   file_ents <- rocrate |>
-    rocrateR::get_entity(type = "File") |>
+    .get_entity(type = "File") |>
     Filter(f = function(x) is.null(getElement(x, "content")))
   ## attempt loading contents, if any entities were found
   for (ent in file_ents) {

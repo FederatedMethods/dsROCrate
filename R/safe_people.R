@@ -88,7 +88,7 @@ safe_people.opal <- function(
 
   # attempt to retrieve project entity
   safe_project_entity <- rocrate |>
-    rocrateR::get_entity(type = "Project")
+    .get_entity(type = "Project")
 
   # initialise empty user entity
   user_entity <- NULL

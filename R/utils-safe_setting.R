@@ -39,10 +39,8 @@ extract_safe_setting.rocrate <- function(
   rocrateR::is_rocrate(x)
 
   # extract PropertyValue & SoftwareApplication entities
-  entities_lst <- c(
-    rocrateR::get_entity(x, type = "PropertyValue"),
-    rocrateR::get_entity(x, type = "SoftwareApplication")
-  )
+  entities_lst <- x |>
+    .get_entity(type = c("PropertyValue", "SoftwareApplication"))
 
   # if `id` was provided, then filter out only those entities
   if (!is.null(id)) {
@@ -100,10 +98,8 @@ flatten_safe_setting.rocrate <- function(x, ..., id = NULL) {
   tryCatch(
     {
       # extract entities
-      entities_tbl <- c(
-        rocrateR::get_entity(x, type = "PropertyValue"),
-        rocrateR::get_entity(x, type = "SoftwareApplication")
-      ) |>
+      entities_tbl <- x |>
+        .get_entity(type = c("PropertyValue", "SoftwareApplication")) |>
         # extract @id, name, value and version for each entity
         lapply(function(ent) {
           tibble::tibble(

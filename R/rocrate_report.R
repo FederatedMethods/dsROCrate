@@ -464,7 +464,7 @@ rocrate_report.rocrate <- function(
   # attempt to extract user permission entities
   user_perm_entity_lst <- tryCatch(
     {
-      rocrateR::get_entity(
+      .get_entity(
         x,
         type = c("ReadAction", "WriteAction", "ControlAction")
       )
@@ -478,7 +478,7 @@ rocrate_report.rocrate <- function(
   member_of <- tryCatch(
     {
       safe_people_rocrate |>
-        rocrateR::get_entity(type = "Person") |>
+        .get_entity(type = "Person") |>
         sapply(\(x) getElement(x, "memberOf")) |>
         unlist()
     },

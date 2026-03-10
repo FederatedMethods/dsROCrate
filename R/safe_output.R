@@ -138,7 +138,7 @@ safe_output.opal <- function(
   if (is.null(user)) {
     # get `author` section from the root (./) entity
     rocrate_author <- rocrate |>
-      rocrateR::get_entity(id = "./") |>
+      .get_entity(id = "./") |>
       lapply(getElement, name = "author") |>
       sapply(\(x) x)
 
@@ -166,7 +166,7 @@ safe_output.opal <- function(
 
     # retrieve Safe People entity for the current user
     safe_people_information <- safe_people_id |>
-      sapply(\(x) rocrateR::get_entity(rocrate, id = x))
+      sapply(\(x) .get_entity(rocrate, id = x))
 
     # update user
     user <- safe_people_information |>
@@ -384,7 +384,7 @@ safe_output.opal <- function(
       id = "./",
       key = "hasPart",
       value = c(
-        getElement(rocrateR::get_entity(rocrate, id = "./"), "hasPart"),
+        getElement(.get_entity(rocrate, id = "./"), "hasPart"),
         list(
           list(`@id` = log_entity$`@id`),
           list(`@id` = log_maps_entity$`@id`)

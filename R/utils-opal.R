@@ -240,7 +240,7 @@ update_project_datasets <- function(rocrate, project, ds_ids) {
   # this only valid if safe_project is called before safe_data
   suppressWarnings({
     project_ents <- rocrate |>
-      rocrateR::get_entity(type = "Project") |>
+      .get_entity(type = "Project") |>
       # only keep entity for `project`
       Filter(f = \(x) getElement(x, "name") == project)
   })

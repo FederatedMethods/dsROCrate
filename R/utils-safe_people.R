@@ -52,14 +52,14 @@ extract_safe_people.rocrate <- function(
   # if `id` wasn't provided, then extract from root (./) entity of the RO-Crate
   if (is.null(id)) {
     # extract author `@id`s from the root directory
-    id <- rocrateR::get_entity(x, id = "./", type = "Dataset") |>
+    id <- .get_entity(x, id = "./", type = "Dataset") |>
       lapply(\(x) getElement(x, "author")) |>
       sapply(\(x) getElement(x, "@id")) |>
       unlist()
   }
 
   # extract entities with type = 'Person'
-  entities_lst <- rocrateR::get_entity(x, type = "Person")
+  entities_lst <- .get_entity(x, type = "Person")
 
   # filter out person-entities in the `id`, if `id` is not NULL
   if (length(id) && !is.null(id)) {
@@ -129,7 +129,7 @@ flatten_safe_people.rocrate <- function(x, ..., id = NULL) {
     {
       # extract Person entities
       entities_tbl <- x |>
-        rocrateR::get_entity(type = "Person") |>
+        .get_entity(type = "Person") |>
         # extract @id and name for each entity
         lapply(function(ent) {
           tibble::tibble(

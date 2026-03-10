@@ -118,7 +118,7 @@ safe_project.opal <- function(
 
   # attempt to retrieve the dataset entities to link up the IDs to the project
   project_dataset_entities <- rocrate |>
-    rocrateR::get_entity(type = "Dataset")
+    .get_entity(type = "Dataset")
 
   # if any entity was found, then filter to keep those for which their @id
   # starts with `dataset_id_suffix` as set by `safe_data()` and that are

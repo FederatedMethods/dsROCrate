@@ -51,10 +51,10 @@ extract_safe_project.rocrate <- function(
   rocrateR::is_rocrate(x)
 
   # extract Project entities
-  entities_lst <- rocrateR::get_entity(x, type = "Project")
+  entities_lst <- .get_entity(x, type = "Project")
 
   # extract Dataset entities
-  data_entities_lst <- rocrateR::get_entity(x, type = "Dataset")
+  data_entities_lst <- .get_entity(x, type = "Dataset")
 
   # if `id` was provided, then filter out only those entities
   if (!is.null(id)) {
@@ -128,7 +128,7 @@ flatten_safe_project.rocrate <- function(x, ..., y = x) {
     {
       x |>
         # extract project entities
-        rocrateR::get_entity(type = "Project") |>
+        .get_entity(type = "Project") |>
         # extract datasets/tables associated with the project
         lapply(function(ent) {
           # extract IDs for datasets
