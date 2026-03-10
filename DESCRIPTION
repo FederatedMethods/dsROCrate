@@ -44,16 +44,19 @@ Imports:
     jsonlite,
     methods,
     purrr,
+    RcppTOML,
     rmarkdown,
     rocrateR (>= 0.0.1),
     tibble,
     vtree,
-    xptr
+    xptr,
+    yaml
 Depends: 
     R (>= 4.1.0)
 VignetteBuilder: knitr
 Collate: 
     'ArmadilloCredentials-class.R'
+    'audit_cr8tor.R'
     'audit_safe_people.R'
     'audit_safe_project.R'
     'audit_study.R'
@@ -67,9 +70,11 @@ Collate:
     'safe_setting.R'
     'utils-armadillo.R'
     'utils-connection.R'
+    'utils-cr8tor.R'
     'utils-date.R'
     'utils-opal.R'
     'utils-rocrate.R'
+    'utils-rocrateR.R'
     'utils-safe_data.R'
     'utils-safe_output.R'
     'utils-safe_people.R'
