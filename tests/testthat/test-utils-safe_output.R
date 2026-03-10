@@ -5,9 +5,9 @@ test_that("extract_safe_output dispatch works for rocrate", {
   # create an RO-Crate with File entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "outputs/user1/report.csv",
-        `@type` = "File",
+      entity = rocrateR::entity(
+        id = "outputs/user1/report.csv",
+        type = "File",
         name = "report.csv",
         description = "User 1 report",
         encodingFormat = "text/csv",
@@ -15,9 +15,9 @@ test_that("extract_safe_output dispatch works for rocrate", {
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "outputs/user2/summary.txt",
-        `@type` = "File",
+      entity = rocrateR::entity(
+        id = "outputs/user2/summary.txt",
+        type = "File",
         name = "summary.txt",
         description = "User 2 summary",
         encodingFormat = "text/plain",
@@ -57,9 +57,9 @@ test_that("extract_safe_output.rocrate extracts all File entities", {
   # create an RO-Crate with File entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "outputs/user1/report.csv",
-        `@type` = "File",
+      entity = rocrateR::entity(
+        id = "outputs/user1/report.csv",
+        type = "File",
         name = "report.csv",
         description = "User 1 report",
         encodingFormat = "text/csv",
@@ -67,9 +67,9 @@ test_that("extract_safe_output.rocrate extracts all File entities", {
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "outputs/user2/summary.txt",
-        `@type` = "File",
+      entity = rocrateR::entity(
+        id = "outputs/user2/summary.txt",
+        type = "File",
         name = "summary.txt",
         description = "User 2 summary",
         encodingFormat = "text/plain",
@@ -81,7 +81,7 @@ test_that("extract_safe_output.rocrate extracts all File entities", {
 
   expect_s3_class(out, "rocrate")
 
-  files <- rocrateR::get_entity(out, type = "File")
+  files <- .get_entity(out, type = "File")
   expect_equal(length(files), 2)
 })
 
@@ -89,9 +89,9 @@ test_that("extract_safe_output.rocrate filters by id correctly", {
   # create an RO-Crate with File entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "outputs/user1/report.csv",
-        `@type` = "File",
+      entity = rocrateR::entity(
+        id = "outputs/user1/report.csv",
+        type = "File",
         name = "report.csv",
         description = "User 1 report",
         encodingFormat = "text/csv",
@@ -99,9 +99,9 @@ test_that("extract_safe_output.rocrate filters by id correctly", {
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "outputs/user2/summary.txt",
-        `@type` = "File",
+      entity = rocrateR::entity(
+        id = "outputs/user2/summary.txt",
+        type = "File",
         name = "summary.txt",
         description = "User 2 summary",
         encodingFormat = "text/plain",
@@ -111,7 +111,7 @@ test_that("extract_safe_output.rocrate filters by id correctly", {
 
   out <- extract_safe_output(rocrate, id = "outputs/user1/report.csv")
 
-  files <- rocrateR::get_entity(out, type = "File")
+  files <- .get_entity(out, type = "File")
   ids <- vapply(files, function(x) getElement(x, "@id"), character(1))
 
   expect_true("outputs/user1/report.csv" %in% ids)
@@ -121,9 +121,9 @@ test_that("extract_safe_output.rocrate filters by user string in @id", {
   # create an RO-Crate with File entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "outputs/user1/report.csv",
-        `@type` = "File",
+      entity = rocrateR::entity(
+        id = "outputs/user1/report.csv",
+        type = "File",
         name = "report.csv",
         description = "User 1 report",
         encodingFormat = "text/csv",
@@ -131,9 +131,9 @@ test_that("extract_safe_output.rocrate filters by user string in @id", {
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "outputs/user2/summary.txt",
-        `@type` = "File",
+      entity = rocrateR::entity(
+        id = "outputs/user2/summary.txt",
+        type = "File",
         name = "summary.txt",
         description = "User 2 summary",
         encodingFormat = "text/plain",
@@ -143,7 +143,7 @@ test_that("extract_safe_output.rocrate filters by user string in @id", {
 
   out <- extract_safe_output(rocrate, user = "user1")
 
-  files <- rocrateR::get_entity(out, type = "File")
+  files <- .get_entity(out, type = "File")
   ids <- vapply(files, function(x) getElement(x, "@id"), character(1))
 
   expect_true(all(grepl("user1", ids)))
@@ -154,9 +154,9 @@ test_that("extract_safe_output.rocrate filters by both id and user", {
   # create an RO-Crate with File entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "outputs/user1/report.csv",
-        `@type` = "File",
+      entity = rocrateR::entity(
+        id = "outputs/user1/report.csv",
+        type = "File",
         name = "report.csv",
         description = "User 1 report",
         encodingFormat = "text/csv",
@@ -164,9 +164,9 @@ test_that("extract_safe_output.rocrate filters by both id and user", {
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "outputs/user2/summary.txt",
-        `@type` = "File",
+      entity = rocrateR::entity(
+        id = "outputs/user2/summary.txt",
+        type = "File",
         name = "summary.txt",
         description = "User 2 summary",
         encodingFormat = "text/plain",
@@ -180,7 +180,7 @@ test_that("extract_safe_output.rocrate filters by both id and user", {
     user = "user1"
   )
 
-  files <- rocrateR::get_entity(out, type = "File")
+  files <- .get_entity(out, type = "File")
   expect_equal(length(files), 1)
   expect_equal(getElement(files[[1]], "@id"), "outputs/user1/report.csv")
 })
@@ -189,9 +189,9 @@ test_that("extract_safe_output.rocrate errors when filters remove all entities",
   # create an RO-Crate with File entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "outputs/user1/report.csv",
-        `@type` = "File",
+      entity = rocrateR::entity(
+        id = "outputs/user1/report.csv",
+        type = "File",
         name = "report.csv",
         description = "User 1 report",
         encodingFormat = "text/csv",
@@ -199,9 +199,9 @@ test_that("extract_safe_output.rocrate errors when filters remove all entities",
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "outputs/user2/summary.txt",
-        `@type` = "File",
+      entity = rocrateR::entity(
+        id = "outputs/user2/summary.txt",
+        type = "File",
         name = "summary.txt",
         description = "User 2 summary",
         encodingFormat = "text/plain",
@@ -219,9 +219,9 @@ test_that("extract_safe_output.rocrate emits informative message", {
   # create an RO-Crate with File entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "outputs/user1/report.csv",
-        `@type` = "File",
+      entity = rocrateR::entity(
+        id = "outputs/user1/report.csv",
+        type = "File",
         name = "report.csv",
         description = "User 1 report",
         encodingFormat = "text/csv",
@@ -229,9 +229,9 @@ test_that("extract_safe_output.rocrate emits informative message", {
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "outputs/user2/summary.txt",
-        `@type` = "File",
+      entity = rocrateR::entity(
+        id = "outputs/user2/summary.txt",
+        type = "File",
         name = "summary.txt",
         description = "User 2 summary",
         encodingFormat = "text/plain",
@@ -258,9 +258,9 @@ test_that("flatten_safe_output.rocrate returns tibble with correct columns", {
   # create an RO-Crate with File entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "outputs/user1/report.csv",
-        `@type` = "File",
+      entity = rocrateR::entity(
+        id = "outputs/user1/report.csv",
+        type = "File",
         name = "report.csv",
         description = "User 1 report",
         encodingFormat = "text/csv",
@@ -268,9 +268,9 @@ test_that("flatten_safe_output.rocrate returns tibble with correct columns", {
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "outputs/user2/summary.txt",
-        `@type` = "File",
+      entity = rocrateR::entity(
+        id = "outputs/user2/summary.txt",
+        type = "File",
         name = "summary.txt",
         description = "User 2 summary",
         encodingFormat = "text/plain",
@@ -290,9 +290,9 @@ test_that("flatten_safe_output.rocrate extracts correct values", {
   # create an RO-Crate with File entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "outputs/user1/report.csv",
-        `@type` = "File",
+      entity = rocrateR::entity(
+        id = "outputs/user1/report.csv",
+        type = "File",
         name = "report.csv",
         description = "User 1 report",
         encodingFormat = "text/csv",
@@ -300,9 +300,9 @@ test_that("flatten_safe_output.rocrate extracts correct values", {
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "outputs/user2/summary.txt",
-        `@type` = "File",
+      entity = rocrateR::entity(
+        id = "outputs/user2/summary.txt",
+        type = "File",
         name = "summary.txt",
         description = "User 2 summary",
         encodingFormat = "text/plain",
@@ -321,9 +321,9 @@ test_that("flatten_safe_output.rocrate filters by id", {
   # create an RO-Crate with File entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "outputs/user1/report.csv",
-        `@type` = "File",
+      entity = rocrateR::entity(
+        id = "outputs/user1/report.csv",
+        type = "File",
         name = "report.csv",
         description = "User 1 report",
         encodingFormat = "text/csv",
@@ -331,9 +331,9 @@ test_that("flatten_safe_output.rocrate filters by id", {
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "outputs/user2/summary.txt",
-        `@type` = "File",
+      entity = rocrateR::entity(
+        id = "outputs/user2/summary.txt",
+        type = "File",
         name = "summary.txt",
         description = "User 2 summary",
         encodingFormat = "text/plain",
@@ -366,9 +366,9 @@ test_that("extract_safe_output.opal calls safe_output and returns rocrate", {
 
   # Mock safe_output to avoid real server dependency
   mock_safe_output <- function(x, ..., rocrate) {
-    file <- list(
-      `@id` = "outputs/mock/user/file.txt",
-      `@type` = "File",
+    file <- rocrateR::entity(
+      id = "outputs/mock/user/file.txt",
+      type = "File",
       name = "file.txt"
     )
     rocrateR::add_entity(rocrate, file)
@@ -383,7 +383,7 @@ test_that("extract_safe_output.opal calls safe_output and returns rocrate", {
 
   expect_s3_class(out, "rocrate")
 
-  files <- rocrateR::get_entity(out, type = "File")
+  files <- .get_entity(out, type = "File")
   expect_true(length(files) >= 1)
 })
 

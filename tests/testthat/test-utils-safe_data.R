@@ -67,18 +67,18 @@ test_that("extract_safe_data.rocrate copies Dataset entities", {
 
   src <- rocrateR::add_entity(
     src,
-    entity = list(
-      "@id" = "#ds1",
-      "@type" = "Dataset",
+    entity = rocrateR::entity(
+      id = "#ds1",
+      type = "Dataset",
       name = "Dataset 1"
     )
   )
 
   src <- rocrateR::add_entity(
     src,
-    entity = list(
-      "@id" = "#ds2",
-      "@type" = "Dataset",
+    entity = rocrateR::entity(
+      id = "#ds2",
+      type = "Dataset",
       name = "Dataset 2"
     )
   )
@@ -101,18 +101,18 @@ test_that("extract_safe_data.rocrate filters Dataset entities by id", {
 
   src <- rocrateR::add_entity(
     src,
-    entity = list(
-      "@id" = "#keep_me",
-      "@type" = "Dataset",
+    entity = rocrateR::entity(
+      id = "#keep_me",
+      type = "Dataset",
       name = "Keep"
     )
   )
 
   src <- rocrateR::add_entity(
     src,
-    entity = list(
-      "@id" = "#drop_me",
-      "@type" = "Dataset",
+    entity = rocrateR::entity(
+      id = "#drop_me",
+      type = "Dataset",
       name = "Drop"
     )
   )
@@ -150,18 +150,18 @@ test_that("flatten_safe_data.rocrate extracts id and name correctly", {
 
   roc <- rocrateR::add_entity(
     roc,
-    entity = list(
-      "@id" = "#ds1",
-      "@type" = "Dataset",
+    entity = rocrateR::entity(
+      id = "#ds1",
+      type = "Dataset",
       name = "Dataset One"
     )
   )
 
   roc <- rocrateR::add_entity(
     roc,
-    entity = list(
-      "@id" = "#ds2",
-      "@type" = "Dataset",
+    entity = rocrateR::entity(
+      id = "#ds2",
+      type = "Dataset",
       name = "Dataset Two"
     )
   )
@@ -178,18 +178,18 @@ test_that("flatten_safe_data.rocrate filters by id argument", {
 
   roc <- rocrateR::add_entity(
     roc,
-    entity = list(
-      "@id" = "#dsA",
-      "@type" = "Dataset",
+    entity = rocrateR::entity(
+      id = "#dsA",
+      type = "Dataset",
       name = "A"
     )
   )
 
   roc <- rocrateR::add_entity(
     roc,
-    entity = list(
-      "@id" = "#dsB",
-      "@type" = "Dataset",
+    entity = rocrateR::entity(
+      id = "#dsB",
+      type = "Dataset",
       name = "B"
     )
   )

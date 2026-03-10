@@ -80,18 +80,18 @@ test_that("extract_safe_people.rocrate copies Person entities", {
 
   src <- rocrateR::add_entity(
     src,
-    entity = list(
-      "@id" = "#user1",
-      "@type" = "Person",
+    entity = rocrateR::entity(
+      id = "#user1",
+      type = "Person",
       name = "Alice"
     )
   )
 
   src <- rocrateR::add_entity(
     src,
-    entity = list(
-      "@id" = "#user2",
-      "@type" = "Person",
+    entity = rocrateR::entity(
+      id = "#user2",
+      type = "Person",
       name = "Bob"
     )
   )
@@ -110,18 +110,18 @@ test_that("extract_safe_people.rocrate filters Person entities by id", {
 
   src <- rocrateR::add_entity(
     src,
-    entity = list(
-      "@id" = "#keep",
-      "@type" = "Person",
+    entity = rocrateR::entity(
+      id = "#keep",
+      type = "Person",
       name = "Keep Me"
     )
   )
 
   src <- rocrateR::add_entity(
     src,
-    entity = list(
-      "@id" = "#drop",
-      "@type" = "Person",
+    entity = rocrateR::entity(
+      id = "#drop",
+      type = "Person",
       name = "Drop Me"
     )
   )
@@ -140,9 +140,9 @@ test_that("extract_safe_people.rocrate infers ids from root Dataset author", {
   # create person entity
   src <- rocrateR::add_entity(
     src,
-    entity = list(
-      "@id" = "#author1",
-      "@type" = "Person",
+    entity = rocrateR::entity(
+      id = "#author1",
+      type = "Person",
       name = "Author One"
     )
   )
@@ -186,9 +186,9 @@ test_that("flatten_safe_people.rocrate extracts person metadata correctly", {
 
   roc <- rocrateR::add_entity(
     roc,
-    entity = list(
-      "@id" = "#p1",
-      "@type" = "Person",
+    entity = rocrateR::entity(
+      id = "#p1",
+      type = "Person",
       name = "Jane Doe",
       givenName = "Jane",
       familyName = "Doe",
@@ -211,12 +211,12 @@ test_that("flatten_safe_people.rocrate filters by id argument", {
 
   roc <- rocrateR::add_entity(
     roc,
-    entity = list("@id" = "#p1", "@type" = "Person", name = "A")
+    entity = rocrateR::entity(id = "#p1", type = "Person", name = "A")
   )
 
   roc <- rocrateR::add_entity(
     roc,
-    entity = list("@id" = "#p2", "@type" = "Person", name = "B")
+    entity = rocrateR::entity(id = "#p2", type = "Person", name = "B")
   )
 
   res <- flatten_safe_people(roc, id = "#p2")

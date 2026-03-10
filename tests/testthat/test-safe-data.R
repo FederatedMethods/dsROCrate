@@ -99,7 +99,7 @@ test_that("safe_data works", {
     )
   ## extract datasets
   basic_rocrate_2_sd <- basic_rocrate_2 |>
-    rocrateR::get_entity(type = "Dataset")
+    .get_entity(type = "Dataset")
   ## extract datasets' names
   basic_rocrate_2_sd_names <- basic_rocrate_2_sd |>
     sapply(getElement, name = "name")
@@ -117,7 +117,7 @@ test_that("safe_data works", {
     )
   ## extract datasets
   basic_rocrate_3_sd <- basic_rocrate_3 |>
-    rocrateR::get_entity(type = "Dataset")
+    .get_entity(type = "Dataset")
   ## verify the length of the datasets is equal to 1 + 1 (root directory)
   expect_equal(length(basic_rocrate_3_sd), 2)
 
@@ -129,7 +129,7 @@ test_that("safe_data works", {
     )
   ## extract datasets
   basic_rocrate_4_sd <- basic_rocrate_4 |>
-    rocrateR::get_entity(type = "Dataset")
+    .get_entity(type = "Dataset")
   ## extract datasets' names
   basic_rocrate_4_sd_names <- basic_rocrate_4_sd |>
     sapply(getElement, name = "name")

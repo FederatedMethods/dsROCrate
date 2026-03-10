@@ -40,16 +40,16 @@ test_that("extract_safe_project.rocrate returns rocrate with project entities", 
   # create an RO-Crate with Project entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        "@id" = "#project1",
-        "@type" = "Project",
+      entity = rocrateR::entity(
+        id = "#project1",
+        type = "Project",
         name = "Project 1"
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        "@id" = "#project2",
-        "@type" = "Project",
+      entity = rocrateR::entity(
+        id = "#project2",
+        type = "Project",
         name = "Project 2"
       )
     )
@@ -66,16 +66,16 @@ test_that("extract_safe_project.rocrate filters by id correctly", {
   # create an RO-Crate with Project entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        "@id" = "#project1",
-        "@type" = "Project",
+      entity = rocrateR::entity(
+        id = "#project1",
+        type = "Project",
         name = "Project 1"
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        "@id" = "#project2",
-        "@type" = "Project",
+      entity = rocrateR::entity(
+        id = "#project2",
+        type = "Project",
         name = "Project 2"
       )
     )
@@ -96,16 +96,16 @@ test_that("extract_safe_project.rocrate throws error for non-matching id", {
   # create an RO-Crate with Project entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        "@id" = "#project1",
-        "@type" = "Project",
+      entity = rocrateR::entity(
+        id = "#project1",
+        type = "Project",
         name = "Project 1"
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        "@id" = "#project2",
-        "@type" = "Project",
+      entity = rocrateR::entity(
+        id = "#project2",
+        type = "Project",
         name = "Project 2"
       )
     )
@@ -120,16 +120,16 @@ test_that("extract_safe_project.rocrate emits informative message", {
   # create an RO-Crate with Project entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        "@id" = "#project1",
-        "@type" = "Project",
+      entity = rocrateR::entity(
+        id = "#project1",
+        type = "Project",
         name = "Project 1"
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        "@id" = "#project2",
-        "@type" = "Project",
+      entity = rocrateR::entity(
+        id = "#project2",
+        type = "Project",
         name = "Project 2"
       )
     )
@@ -144,9 +144,9 @@ test_that("extract_safe_project.rocrate adds linked dataset entities", {
   # create an RO-Crate with a Project and two Dataset entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        "@id" = "#project1",
-        "@type" = "Project",
+      entity = rocrateR::entity(
+        id = "#project1",
+        type = "Project",
         name = "Project 1",
         hasPart = list(
           sapply(c("#ds1", "#ds2"), \(x) list(`id` = x))
@@ -154,16 +154,16 @@ test_that("extract_safe_project.rocrate adds linked dataset entities", {
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        "@id" = "#ds1",
-        "@type" = "Dataset",
+      entity = rocrateR::entity(
+        id = "#ds1",
+        type = "Dataset",
         name = "Dataset 1"
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        "@id" = "#ds2",
-        "@type" = "Dataset",
+      entity = rocrateR::entity(
+        id = "#ds2",
+        type = "Dataset",
         name = "Dataset 2"
       )
     )
@@ -188,9 +188,9 @@ test_that("flatten_safe_project.rocrate returns tibble", {
   # create an RO-Crate with a Project and two Dataset entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        "@id" = "#project1",
-        "@type" = "Project",
+      entity = rocrateR::entity(
+        id = "#project1",
+        type = "Project",
         name = "Project 1",
         hasPart = list(
           sapply(c("#ds1", "#ds2"), \(x) list(`id` = x))
@@ -198,16 +198,16 @@ test_that("flatten_safe_project.rocrate returns tibble", {
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        "@id" = "#ds1",
-        "@type" = "Dataset",
+      entity = rocrateR::entity(
+        id = "#ds1",
+        type = "Dataset",
         name = "Dataset 1"
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        "@id" = "#ds2",
-        "@type" = "Dataset",
+      entity = rocrateR::entity(
+        id = "#ds2",
+        type = "Dataset",
         name = "Dataset 2"
       )
     )
@@ -232,9 +232,9 @@ test_that("flatten_safe_project.rocrate extracts project metadata correctly", {
   # create an RO-Crate with a Project and two Dataset entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        "@id" = "#project1",
-        "@type" = "Project",
+      entity = rocrateR::entity(
+        id = "#project1",
+        type = "Project",
         name = "Project 1",
         hasPart = list(
           sapply(c("#ds1", "#ds2"), \(x) list(`id` = x))
@@ -242,16 +242,16 @@ test_that("flatten_safe_project.rocrate extracts project metadata correctly", {
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        "@id" = "#ds1",
-        "@type" = "Dataset",
+      entity = rocrateR::entity(
+        id = "#ds1",
+        type = "Dataset",
         name = "Dataset 1"
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        "@id" = "#ds2",
-        "@type" = "Dataset",
+      entity = rocrateR::entity(
+        id = "#ds2",
+        type = "Dataset",
         name = "Dataset 2"
       )
     )
@@ -274,9 +274,9 @@ test_that("flatten_safe_project.rocrate extracts project metadata correctly", {
 test_that("flatten_safe_project.rocrate handles project without hasPart", {
   rocrate <- rocrateR::rocrate_5s()
 
-  project <- list(
-    `@id` = "project_no_part",
-    `@type` = "Project",
+  project <- rocrateR::entity(
+    id = "project_no_part",
+    type = "Project",
     name = "Lonely Project"
   )
 

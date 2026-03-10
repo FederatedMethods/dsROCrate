@@ -41,7 +41,7 @@ test_that("safe_output warns when attempt setting multiple users as the RO-Crate
   ## create basic RO-Crate
   basic_rocrate <- rocrateR::rocrate_5s()
 
-  expect_warning(
+  expect_error(
     basic_rocrate |>
       dsROCrate::safe_project(
         connection = opal_con,
@@ -94,7 +94,8 @@ test_that("safe_output works", {
     # add another username
     dsROCrate::safe_people(
       connection = opal_con,
-      user = list(id = "extra_username", name = "Extra username")
+      user = list(id = "extra_username", name = "Extra username"),
+      set_author = FALSE
     ) |>
     # set multiple users as the author
     rocrateR::add_entity_value(
@@ -103,7 +104,8 @@ test_that("safe_output works", {
       value = list(
         list(`@id` = "extra_username"),
         list(`@id` = paste0("#person:", digest::digest("dsuser")))
-      )
+      ),
+      overwrite = TRUE
     )
 
   # test for warning about multiple authors in the root entity

@@ -16,9 +16,9 @@ test_that("CSV file content is loaded correctly", {
   # Add File entity without content
   roc <- rocrateR::add_entity(
     roc,
-    entity = list(
-      "@id" = "data.csv",
-      "@type" = "File",
+    entity = rocrateR::entity(
+      id = "data.csv",
+      type = "File",
       encodingFormat = "text/csv"
     )
   )
@@ -51,9 +51,9 @@ test_that("Text file content is loaded correctly", {
 
   roc <- rocrateR::add_entity(
     roc,
-    entity = list(
-      "@id" = "notes.txt",
-      "@type" = "File",
+    entity = rocrateR::entity(
+      id = "notes.txt",
+      type = "File",
       encodingFormat = "text/plain"
     )
   )
@@ -79,9 +79,9 @@ test_that("Entities with existing content are not modified", {
 
   roc <- rocrateR::add_entity(
     roc,
-    entity = list(
-      "@id" = "existing.txt",
-      "@type" = "File",
+    entity = rocrateR::entity(
+      id = "existing.txt",
+      type = "File",
       encodingFormat = "text/plain",
       content = list("already here")
     )
@@ -107,9 +107,9 @@ test_that("Missing files do not break function and are skipped", {
 
   roc <- rocrateR::add_entity(
     roc,
-    entity = list(
-      "@id" = "missing.txt",
-      "@type" = "File",
+    entity = rocrateR::entity(
+      id = "missing.txt",
+      type = "File",
       encodingFormat = "text/plain"
     )
   )
@@ -145,18 +145,18 @@ test_that("load_content works end-to-end with real RO-Crate structure", {
   # add both files as entities
   roc <- rocrateR::add_entity(
     roc,
-    entity = list(
-      "@id" = "file1.txt",
-      "@type" = "File",
+    entity = rocrateR::entity(
+      id = "file1.txt",
+      type = "File",
       encodingFormat = "text/plain"
     )
   )
 
   roc <- rocrateR::add_entity(
     roc,
-    entity = list(
-      "@id" = "file2.csv",
-      "@type" = "File",
+    entity = rocrateR::entity(
+      id = "file2.csv",
+      type = "File",
       encodingFormat = "text/csv"
     )
   )

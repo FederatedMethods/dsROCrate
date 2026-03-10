@@ -5,17 +5,17 @@ test_that("extract_safe_setting dispatch works for rocrate", {
   # create an RO-Crate with setting entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "#setting-1",
-        `@type` = "PropertyValue",
+      entity = rocrateR::entity(
+        id = "#setting-1",
+        type = "PropertyValue",
         name = "analysis.threshold",
         value = "0.05"
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "#software-1",
-        `@type` = "SoftwareApplication",
+      entity = rocrateR::entity(
+        id = "#software-1",
+        type = "SoftwareApplication",
         name = "DataSHIELD",
         version = "6.2.0"
       )
@@ -52,17 +52,17 @@ test_that("extract_safe_setting.rocrate extracts PropertyValue and SoftwareAppli
   # create an RO-Crate with setting entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "#setting-1",
-        `@type` = "PropertyValue",
+      entity = rocrateR::entity(
+        id = "#setting-1",
+        type = "PropertyValue",
         name = "analysis.threshold",
         value = "0.05"
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "#software-1",
-        `@type` = "SoftwareApplication",
+      entity = rocrateR::entity(
+        id = "#software-1",
+        type = "SoftwareApplication",
         name = "DataSHIELD",
         version = "6.2.0"
       )
@@ -72,8 +72,8 @@ test_that("extract_safe_setting.rocrate extracts PropertyValue and SoftwareAppli
 
   expect_s3_class(out, "rocrate")
 
-  pv <- rocrateR::get_entity(out, type = "PropertyValue")
-  sa <- rocrateR::get_entity(out, type = "SoftwareApplication")
+  pv <- .get_entity(out, type = "PropertyValue")
+  sa <- .get_entity(out, type = "SoftwareApplication")
 
   expect_equal(length(pv), 1)
   expect_equal(length(sa), 1)
@@ -83,17 +83,17 @@ test_that("extract_safe_setting.rocrate filters correctly by id", {
   # create an RO-Crate with setting entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "#setting-1",
-        `@type` = "PropertyValue",
+      entity = rocrateR::entity(
+        id = "#setting-1",
+        type = "PropertyValue",
         name = "analysis.threshold",
         value = "0.05"
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "#software-1",
-        `@type` = "SoftwareApplication",
+      entity = rocrateR::entity(
+        id = "#software-1",
+        type = "SoftwareApplication",
         name = "DataSHIELD",
         version = "6.2.0"
       )
@@ -101,10 +101,10 @@ test_that("extract_safe_setting.rocrate filters correctly by id", {
 
   out <- extract_safe_setting(rocrate, id = "#setting-1")
 
-  pv <- rocrateR::get_entity(out, type = "PropertyValue")
+  pv <- .get_entity(out, type = "PropertyValue")
   # ignore warning about missing entity of @type = 'SoftwareApplication'!
   suppressWarnings(
-    sa <- rocrateR::get_entity(out, type = "SoftwareApplication")
+    sa <- .get_entity(out, type = "SoftwareApplication")
   )
 
   expect_equal(length(pv), 1)
@@ -117,17 +117,17 @@ test_that("extract_safe_setting.rocrate emits informative message", {
   # create an RO-Crate with setting entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "#setting-1",
-        `@type` = "PropertyValue",
+      entity = rocrateR::entity(
+        id = "#setting-1",
+        type = "PropertyValue",
         name = "analysis.threshold",
         value = "0.05"
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "#software-1",
-        `@type` = "SoftwareApplication",
+      entity = rocrateR::entity(
+        id = "#software-1",
+        type = "SoftwareApplication",
         name = "DataSHIELD",
         version = "6.2.0"
       )
@@ -143,17 +143,17 @@ test_that("extract_safe_setting.rocrate errors when id filter removes all", {
   # create an RO-Crate with setting entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "#setting-1",
-        `@type` = "PropertyValue",
+      entity = rocrateR::entity(
+        id = "#setting-1",
+        type = "PropertyValue",
         name = "analysis.threshold",
         value = "0.05"
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "#software-1",
-        `@type` = "SoftwareApplication",
+      entity = rocrateR::entity(
+        id = "#software-1",
+        type = "SoftwareApplication",
         name = "DataSHIELD",
         version = "6.2.0"
       )
@@ -180,17 +180,17 @@ test_that("flatten_safe_setting.rocrate returns tibble with correct columns", {
   # create an RO-Crate with setting entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "#setting-1",
-        `@type` = "PropertyValue",
+      entity = rocrateR::entity(
+        id = "#setting-1",
+        type = "PropertyValue",
         name = "analysis.threshold",
         value = "0.05"
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "#software-1",
-        `@type` = "SoftwareApplication",
+      entity = rocrateR::entity(
+        id = "#software-1",
+        type = "SoftwareApplication",
         name = "DataSHIELD",
         version = "6.2.0"
       )
@@ -206,17 +206,17 @@ test_that("flatten_safe_setting.rocrate extracts PropertyValue fields", {
   # create an RO-Crate with setting entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "#setting-1",
-        `@type` = "PropertyValue",
+      entity = rocrateR::entity(
+        id = "#setting-1",
+        type = "PropertyValue",
         name = "analysis.threshold",
         value = "0.05"
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "#software-1",
-        `@type` = "SoftwareApplication",
+      entity = rocrateR::entity(
+        id = "#software-1",
+        type = "SoftwareApplication",
         name = "DataSHIELD",
         version = "6.2.0"
       )
@@ -233,17 +233,17 @@ test_that("flatten_safe_setting.rocrate extracts SoftwareApplication version", {
   # create an RO-Crate with setting entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "#setting-1",
-        `@type` = "PropertyValue",
+      entity = rocrateR::entity(
+        id = "#setting-1",
+        type = "PropertyValue",
         name = "analysis.threshold",
         value = "0.05"
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "#software-1",
-        `@type` = "SoftwareApplication",
+      entity = rocrateR::entity(
+        id = "#software-1",
+        type = "SoftwareApplication",
         name = "DataSHIELD",
         version = "6.2.0"
       )
@@ -261,17 +261,17 @@ test_that("flatten_safe_setting.rocrate filters by id correctly", {
   # create an RO-Crate with setting entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "#setting-1",
-        `@type` = "PropertyValue",
+      entity = rocrateR::entity(
+        id = "#setting-1",
+        type = "PropertyValue",
         name = "analysis.threshold",
         value = "0.05"
       )
     ) |>
     rocrateR::add_entity(
-      entity = list(
-        `@id` = "#software-1",
-        `@type` = "SoftwareApplication",
+      entity = rocrateR::entity(
+        id = "#software-1",
+        type = "SoftwareApplication",
         name = "DataSHIELD",
         version = "6.2.0"
       )
@@ -303,9 +303,9 @@ test_that("extract_safe_setting.opal calls safe_setting and returns rocrate", {
 
   # mock safe_setting to avoid real server dependency
   mock_safe_setting <- function(x, rocrate) {
-    setting <- list(
-      `@id` = "#mock-setting",
-      `@type` = "PropertyValue",
+    setting <- rocrateR::entity(
+      id = "#mock-setting",
+      type = "PropertyValue",
       name = "mock.option",
       value = "TRUE"
     )
@@ -321,7 +321,7 @@ test_that("extract_safe_setting.opal calls safe_setting and returns rocrate", {
 
   expect_s3_class(out, "rocrate")
 
-  pv <- rocrateR::get_entity(out, type = "PropertyValue")
+  pv <- .get_entity(out, type = "PropertyValue")
   expect_true(length(pv) >= 1)
 })
 
