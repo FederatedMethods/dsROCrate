@@ -7,6 +7,7 @@
 <url><loc>/authors.html</loc></url>
 <url><loc>/index.html</loc></url>
 <url><loc>/reference/armadillo_login.html</loc></url>
+<url><loc>/reference/audit_cr8tor.html</loc></url>
 <url><loc>/reference/audit_safe_people.html</loc></url>
 <url><loc>/reference/audit_safe_project.html</loc></url>
 <url><loc>/reference/audit_study.html</loc></url>
@@ -35,6 +36,7 @@
 <url><loc>/reference/index.html</loc></url>
 <url><loc>/reference/init.html</loc></url>
 <url><loc>/reference/is_opal_admin_con.html</loc></url>
+<url><loc>/reference/is_valid_posixct.html</loc></url>
 <url><loc>/reference/load_content.html</loc></url>
 <url><loc>/reference/load_rocrate.html</loc></url>
 <url><loc>/reference/parse_user_profiles.html</loc></url>
