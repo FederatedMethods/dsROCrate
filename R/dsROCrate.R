@@ -22,9 +22,6 @@
 #' @param user List (or [entity][rocrateR::entity()] object) with details for
 #'     the Safe People, it must include `@id` and `name` entries. Alternatively,
 #'     this can be a string with the `name` of the current user.
-# @param user List (or [entity][rocrateR::entity()] object) with details for
-#     the Safe People, it must include `@id` and `name` entries. Alternatively,
-#     this can be a string with the `name` of the current user.
 #'
 #' @returns Five Safes RO-Crate.
 #' @export

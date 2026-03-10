@@ -120,12 +120,12 @@ safe_output.opal <- function(
   logs_from_formatted <- ifelse(
     is.infinite(logs_from),
     "ALL",
-    format(logs_from, '%Y-%m-%d %H:%M:%S')
+    format(as.POSIXct(logs_from), '%Y-%m-%d %H:%M:%S')
   )
   logs_to_formatted <- ifelse(
     is.infinite(logs_to),
     "ALL",
-    format(logs_to, '%Y-%m-%d %H:%M:%S')
+    format(as.POSIXct(logs_to), '%Y-%m-%d %H:%M:%S')
   )
 
   # x is a valid opal connection object

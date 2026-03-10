@@ -154,7 +154,8 @@ safe_people.opal <- function(
       rocrateR::add_entity_value(
         id = "./",
         key = "author",
-        value = list(`@id` = getElement(user_entity, "@id"))
+        value = list(`@id` = getElement(user_entity, "@id")),
+        overwrite = TRUE
       )
   }
 
