@@ -115,10 +115,16 @@ safe_data.opal <- function(
     tables <- prj_dets_tbl$table
   }
 
+  # attach project @ids
+  prj_dets_tbl <- prj_dets_tbl |>
+    dplyr::mutate(
+      project_id = paste0(project_id_suffix, digest::digest(!!project))
+    )
+
   # create entity objects for each dataset/table in the project
   prj_ds_ents <- prj_dets_tbl |>
     dplyr::filter(table %in% tables) |> # filter specific tables, `tables`
-    purrr::pmap(function(project, table) {
+    purrr::pmap(function(project, table, project_id) {
       table_details <- opalr::opal.table(x, project, table)
       timestamps <- getElement(table_details, "timestamps")
       # create entity object
@@ -131,7 +137,8 @@ safe_data.opal <- function(
         name = table,
         dateCreated = getElement(timestamps, "created"),
         dateModified = getElement(timestamps, "lastUpdate"),
-        path = getElement(table_details, "link")
+        path = getElement(table_details, "link"),
+        isPartOf = list(`@id` = project_id)
       )
       # return new entity object
       return(new_dataset_entity)
