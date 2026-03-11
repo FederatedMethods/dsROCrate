@@ -81,7 +81,9 @@ safe_data.opal <- function(
   rocrate = rocrateR::rocrate_5s(),
   project = NULL,
   tables = NULL,
-  dataset_id_suffix = "#dataset:",
+  resources = NULL,
+  include = c("tables", "resources"),
+  asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
   path = NULL,
   user = NULL
@@ -92,6 +94,9 @@ safe_data.opal <- function(
   # x is a valid opal connection object
   validate_opal_con(x)
 
+  # match the assets to be included
+  include <- match.arg(include, several.ok = TRUE)
+
   # enforce that `project` is a single value
   if (is.null(project)) {
     stop("A value for `project` is required!", call. = FALSE)
@@ -99,119 +104,201 @@ safe_data.opal <- function(
     stop("`project` must be a single value!", call. = FALSE)
   }
 
-  # check if the given `project` exists, every dataset should be associated
-  # with a project and retrieve details associated to `project`
-  prj_dets_tbl <- get_project_details(x, project)
+  project_id <- id_hash(project_id_suffix, project)
 
-  # check that project details were found
+  # extract assets for the given project
+  all_assets <- list()
+
+  # ---- tables ----
+  if ("tables" %in% include) {
+    tbl_assets <- get_project_assets(x, project, "tables")
+    if (!is.null(tbl_assets)) {
+      if (!is.null(tables)) {
+        tbl_assets <- dplyr::filter(tbl_assets, name %in% tables)
+      }
+      all_assets$tables <- tbl_assets
+    }
+  }
+
+  # ---- resources ----
+  if ("resources" %in% include) {
+    res_assets <- get_project_assets(x, project, "resources")
+    if (!is.null(res_assets)) {
+      if (!is.null(resources)) {
+        res_assets <- dplyr::filter(res_assets, name %in% resources)
+      }
+      all_assets$resources <- res_assets
+    }
+  }
+
+  # combine assets
+  assets_tbl <- dplyr::bind_rows(all_assets)
+
+  # check that project assets were found
   err_msg <- sprintf("No details were found for `project = '%s'!", project)
-  if (is.null(prj_dets_tbl) || nrow(prj_dets_tbl) == 0) {
+  if (is.null(assets_tbl) || nrow(assets_tbl) == 0) {
     stop(err_msg, call. = FALSE)
   }
 
-  # verify if `tables` is NULL, if so, then add all data tables associated
-  # to the given `project`
-  if (is.null(tables)) {
-    tables <- prj_dets_tbl$table
-  }
+  # build asset entities ----
+  asset_entities <- build_asset_entities(
+    assets_tbl,
+    project_id = project_id,
+    asset_id_suffix = asset_id_suffix
+  )
 
-  # attach project @ids
-  prj_dets_tbl <- prj_dets_tbl |>
-    dplyr::mutate(
-      project_id = paste0(project_id_suffix, digest::digest(!!project))
-    )
+  # link asset entities with project entity
+  rocrate <- link_assets_to_project(
+    rocrate,
+    project_id,
+    vapply(asset_entities, `[[`, "", "@id")
+  )
 
-  # create entity objects for each dataset/table in the project
-  prj_ds_ents <- prj_dets_tbl |>
-    dplyr::filter(table %in% tables) |> # filter specific tables, `tables`
-    purrr::pmap(function(project, table, project_id) {
-      table_details <- opalr::opal.table(x, project, table)
-      timestamps <- getElement(table_details, "timestamps")
-      # create entity object
-      new_dataset_entity <- rocrateR::entity(
-        id = paste0(
-          dataset_id_suffix,
-          digest::digest(paste0(project, "_", table))
-        ),
-        type = "Dataset",
-        name = table,
-        dateCreated = getElement(timestamps, "created"),
-        dateModified = getElement(timestamps, "lastUpdate"),
-        path = getElement(table_details, "link"),
-        isPartOf = list(`@id` = project_id)
-      )
-      # return new entity object
-      return(new_dataset_entity)
-    })
+  # build ID lookup ----
+  id_lookup <- setNames(
+    vapply(asset_entities, `[[`, "", "@id"),
+    assets_tbl$name
+  )
 
-  # initialise empty list with entities for user level permissions
-  user_perm_entity_lst <- NULL
+  # lineage ----
+  lineage_df <- infer_table_resource_lineage(assets_tbl)
 
-  # extract user permissions, if `user` is not NULL
-  if (!is.null(user)) {
-    ## get permissions for each table in the project
-    ## get table permissions
-    prj_data_perms_tbl <- seq_len(nrow(prj_dets_tbl)) |>
-      lapply(\(i) get_table_permissions(x, project, prj_dets_tbl$table[i])) |>
-      dplyr::bind_rows() |>
-      dplyr::filter(subject == !!user)
+  rocrate <- add_lineage_relations(
+    rocrate,
+    lineage_df,
+    id_lookup
+  )
 
-    ## create a safe data entities data frame
-    safe_data_entities_tbl <- prj_dets_tbl |>
-      dplyr::mutate(
-        table_id = paste0(project, "_", table),
-        table_id = paste0(dataset_id_suffix, sapply(table_id, digest::digest))
-      ) |>
-      dplyr::select(table_id, table)
+  # permissions ----
+  rocrate <- add_asset_permissions_to_crate(
+    rocrate,
+    x,
+    project,
+    assets_tbl,
+    id_lookup
+  )
 
-    # a warning regarding overwriting user entity is likely to trigger, which
-    # can be safely ignored.
-    suppressWarnings({
-      safe_people_entities_tbl <- x |>
-        safe_people(user = user, rocrate = rocrate) |>
-        flatten_safe_people() |>
-        dplyr::rename("user_id" = "id")
-    })
+  # add asset entities to the RO-Crate
+  rocrate <- purrr::reduce(
+    asset_entities,
+    rocrateR::add_entity,
+    .init = rocrate,
+    overwrite = TRUE
+  )
 
-    ## combine the table permissions with Dataset & People entities' @ids
-    prj_data_perms_tbl_v2 <- prj_data_perms_tbl |>
-      dplyr::left_join(safe_data_entities_tbl, by = c("table" = "table")) |>
-      dplyr::left_join(safe_people_entities_tbl, by = c("subject" = "name")) |>
-      dplyr::rename(user = subject)
-
-    ## generate user permission entities and add to the RO-Crate
-    user_perm_entity_lst <- prj_data_perms_tbl_v2 |>
-      purrr::pmap(user_perm_entity) |>
-      purrr::list_c()
-  }
-
-  # update datasets linked to `project`
-  rocrate <- rocrate |>
-    update_project_datasets(
-      project = project,
-      ds_ids = prj_ds_ents |>
-        sapply("[[", "@id") |>
-        unlist()
-    )
-
-  # add table entities to the `rocrate` object
-  for (i in seq_along(prj_ds_ents)) {
-    rocrate <- rocrate |>
-      rocrateR::add_entity(prj_ds_ents[[i]], overwrite = TRUE)
-
-    # add user permissions associated to the current table (if any)
-    table_id <- getElement(prj_ds_ents[[i]], "@id")
-    usr_pr_idx <- sapply(user_perm_entity_lst, getElement, "object") == table_id
-
-    # add entity (if any) to the RO-Crate
-    if (any(usr_pr_idx)) {
-      rocrate <- rocrate |>
-        rocrateR::add_entity(
-          user_perm_entity_lst[usr_pr_idx][[1]],
-          overwrite = TRUE
-        )
-    }
-  }
+  # # check if the given `project` exists, every dataset should be associated
+  # # with a project and retrieve details associated to `project`
+  # prj_dets_tbl <- get_project_details(x, project)
+  #
+  # # check that project details were found
+  # err_msg <- sprintf("No details were found for `project = '%s'!", project)
+  # if (is.null(prj_dets_tbl) || nrow(prj_dets_tbl) == 0) {
+  #   stop(err_msg, call. = FALSE)
+  # }
+  #
+  # # verify if `tables` is NULL, if so, then add all data tables associated
+  # # to the given `project`
+  # if (is.null(tables)) {
+  #   tables <- prj_dets_tbl$table
+  # }
+  #
+  # # attach project @ids
+  # prj_dets_tbl <- prj_dets_tbl |>
+  #   dplyr::mutate(
+  #     project_id = paste0(project_id_suffix, digest::digest(!!project))
+  #   )
+  #
+  # # create entity objects for each dataset/table in the project
+  # prj_ds_ents <- prj_dets_tbl |>
+  #   dplyr::filter(table %in% tables) |> # filter specific tables, `tables`
+  #   purrr::pmap(function(project, table, project_id) {
+  #     table_details <- opalr::opal.table(x, project, table)
+  #     timestamps <- getElement(table_details, "timestamps")
+  #     # create entity object
+  #     new_dataset_entity <- rocrateR::entity(
+  #       id = paste0(
+  #         dataset_id_suffix,
+  #         digest::digest(paste0(project, "_", table))
+  #       ),
+  #       type = "Dataset",
+  #       name = table,
+  #       dateCreated = getElement(timestamps, "created"),
+  #       dateModified = getElement(timestamps, "lastUpdate"),
+  #       path = getElement(table_details, "link"),
+  #       isPartOf = list(`@id` = project_id)
+  #     )
+  #     # return new entity object
+  #     return(new_dataset_entity)
+  #   })
+  #
+  # # initialise empty list with entities for user level permissions
+  # user_perm_entity_lst <- NULL
+  #
+  # # extract user permissions, if `user` is not NULL
+  # if (!is.null(user)) {
+  #   ## get permissions for each table in the project
+  #   ## get table permissions
+  #   prj_data_perms_tbl <- seq_len(nrow(prj_dets_tbl)) |>
+  #     lapply(\(i) get_table_permissions(x, project, prj_dets_tbl$table[i])) |>
+  #     dplyr::bind_rows() |>
+  #     dplyr::filter(subject == !!user)
+  #
+  #   ## create a safe data entities data frame
+  #   safe_data_entities_tbl <- prj_dets_tbl |>
+  #     dplyr::mutate(
+  #       table_id = paste0(project, "_", table),
+  #       table_id = paste0(dataset_id_suffix, sapply(table_id, digest::digest))
+  #     ) |>
+  #     dplyr::select(table_id, table)
+  #
+  #   # a warning regarding overwriting user entity is likely to trigger, which
+  #   # can be safely ignored.
+  #   suppressWarnings({
+  #     safe_people_entities_tbl <- x |>
+  #       safe_people(user = user, rocrate = rocrate) |>
+  #       flatten_safe_people() |>
+  #       dplyr::rename("user_id" = "id")
+  #   })
+  #
+  #   ## combine the table permissions with Dataset & People entities' @ids
+  #   prj_data_perms_tbl_v2 <- prj_data_perms_tbl |>
+  #     dplyr::left_join(safe_data_entities_tbl, by = c("table" = "table")) |>
+  #     dplyr::left_join(safe_people_entities_tbl, by = c("subject" = "name")) |>
+  #     dplyr::rename(user = subject)
+  #
+  #   ## generate user permission entities and add to the RO-Crate
+  #   user_perm_entity_lst <- prj_data_perms_tbl_v2 |>
+  #     purrr::pmap(user_perm_entity) |>
+  #     purrr::list_c()
+  # }
+  #
+  # # update datasets linked to `project`
+  # rocrate <- rocrate |>
+  #   update_project_datasets(
+  #     project = project,
+  #     ds_ids = prj_ds_ents |>
+  #       sapply("[[", "@id") |>
+  #       unlist()
+  #   )
+  #
+  # # add table entities to the `rocrate` object
+  # for (i in seq_along(prj_ds_ents)) {
+  #   rocrate <- rocrate |>
+  #     rocrateR::add_entity(prj_ds_ents[[i]], overwrite = TRUE)
+  #
+  #   # add user permissions associated to the current table (if any)
+  #   table_id <- getElement(prj_ds_ents[[i]], "@id")
+  #   usr_pr_idx <- sapply(user_perm_entity_lst, getElement, "object") == table_id
+  #
+  #   # add entity (if any) to the RO-Crate
+  #   if (any(usr_pr_idx)) {
+  #     rocrate <- rocrate |>
+  #       rocrateR::add_entity(
+  #         user_perm_entity_lst[usr_pr_idx][[1]],
+  #         overwrite = TRUE
+  #       )
+  #   }
+  # }
 
   # attach input arguments as attributes
   attr(rocrate, "connection") <- x
