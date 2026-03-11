@@ -55,7 +55,7 @@ safe_setting.character <- function(
   user = attr(x, "user")
 ) {
   # attempt loading the RO-Crate
-  rocrate <- load_rocrate(x)
+  rocrate <- rocrateR::load_rocrate(x)
 
   # call method with given `rocrate` object:
   safe_setting(
@@ -79,55 +79,133 @@ safe_setting.opal <- function(
   tables = NULL,
   user = NULL
 ) {
+  # validate connection ----
   # x is a valid opal connection object
   validate_opal_con(x)
-
   # validate that connection user has administrative rights
   is_opal_admin_con(x)
 
+  # statistical disclosure controls ----
   # extract disclosure settings and create `PropertyValue` entities
   disc_setting_entities <- opalr::dsadmin.get_options(x) |>
     tibble::as_tibble() |>
     purrr::pmap(function(name, value, ...) {
       rocrateR::entity(
-        id = paste0("_:localid:", name, ":", value),
+        id = id_hash("#disc:", paste0(name, value)),
         type = "PropertyValue",
         name = name,
         value = value
       )
     })
 
-  # add disclosure settings' entities to the `rocrate` object
-  for (i in seq_along(disc_setting_entities)) {
-    rocrate <- rocrate |>
-      rocrateR::add_entity(disc_setting_entities[[i]], overwrite = TRUE)
-  }
-
-  # update the hasPart section of the "Safe Project" to link these entities
-  # TODO: explore whether this is needed
-
+  # computational environment ----
   # extract information about R packages installed in the environment
-  inst_packages_entities <- opalr::dsadmin.package_descriptions(x) |>
+  pkg_entities <- opalr::dsadmin.package_descriptions(x) |>
     tibble::as_tibble() |>
     purrr::pmap(function(Package, Version, Description, Author, ...) {
       # create new entity
       rocrateR::entity(
-        id = paste0(
-          "_:localid:",
-          digest::digest(paste0(Package, "_", Version))
-        ),
+        id = id_hash("#software:", paste0(Package, Version)),
         type = "SoftwareApplication",
         name = Package,
         version = Version,
-        description = Description
+        description = Description |> trimws()
       )
     })
 
-  # add installed packages' entities to the `rocrate` object
-  for (i in seq_along(inst_packages_entities)) {
-    rocrate <- rocrate |>
-      rocrateR::add_entity(inst_packages_entities[[i]], overwrite = TRUE)
-  }
+  software_env <- rocrateR::entity(
+    id = "#env:software", # id_hash("#env:", "software")
+    type = "CreativeWork",
+    name = "Approved Analytical Software Environment",
+    description = paste(
+      "Software packages installed in the controlled Opal/DataSHIELD",
+      "environment used for federated analysis."
+    ),
+    hasPart = purrr::map(pkg_entities, ~ list("@id" = .x$`@id`))
+  )
+
+  # technical controls ----
+  tech_controls <- list(
+    rocrateR::entity(
+      id = "#control:output-checking",
+      type = "CreativeWork",
+      name = "Statistical Disclosure Output Checking",
+      description = paste(
+        "Automated disclosure control prevents release of",
+        "small-cell counts and disclosive statistics."
+      )
+    ),
+    rocrateR::entity(
+      id = "#control:server-side-analysis",
+      type = "CreativeWork",
+      name = "Server-Side Analysis Enforcement",
+      description = paste(
+        "Raw data never leaves the secure server;",
+        "analysis occurs via vetted aggregate functions."
+      )
+    ),
+    rocrateR::entity(
+      id = "#control:session-logging",
+      type = "CreativeWork",
+      name = "Comprehensive Session Logging",
+      description = "All analytical actions are logged and auditable."
+    )
+  )
+
+  # physical controls ----
+  physical_controls <- list(
+    rocrateR::entity(
+      id = "#control:secure-facility",
+      type = "CreativeWork",
+      name = "Secure Data Facility",
+      description = "Access restricted to approved secure premises."
+    )
+  )
+
+  # organisational controls ----
+  org_controls <- list(
+    rocrateR::entity(
+      id = "#control:access-governance",
+      type = "CreativeWork",
+      name = "Access Governance Process",
+      description = "Data access committee review and approval required."
+    )
+  )
+
+  # root safe setting entity ----
+  safe_setting_root <- rocrateR::entity(
+    id = "#safesetting:technical",
+    type = "CreativeWork",
+    name = "Safe Setting Controls",
+    description = paste(
+      "Technical, physical and organisational safeguards applied to minimise",
+      "disclosure risk."
+    ),
+    additionalProperty = disc_setting_entities,
+    hasPart = c(
+      list(list("@id" = "#env:software")),
+      purrr::map(
+        c(tech_controls, physical_controls, org_controls),
+        \(x) list("@id" = x$`@id`)
+      )
+    )
+  )
+
+  # add entities to RO-Crate
+  all_entities <- c(
+    disc_setting_entities,
+    pkg_entities,
+    tech_controls,
+    physical_controls,
+    org_controls,
+    list(software_env, safe_setting_root)
+  )
+
+  rocrate <- purrr::reduce(
+    all_entities,
+    rocrateR::add_entity,
+    .init = rocrate
+  )
 
   # attach input arguments as attributes
   attr(rocrate, "connection") <- x
