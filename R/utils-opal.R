@@ -1,3 +1,216 @@
+#' @noRd
+add_asset_permissions_to_crate <- function(
+  rocrate,
+  x,
+  project,
+  assets_tbl,
+  id_lookup
+) {
+  for (i in seq_len(nrow(assets_tbl))) {
+    asset <- assets_tbl[i, ]
+
+    asset_id <- id_lookup[[asset$name]]
+    asset_type <- asset$asset_type
+
+    perms <- get_asset_permissions(
+      x,
+      project,
+      asset_type,
+      asset$name
+    )
+
+    if (is.null(perms)) {
+      next
+    }
+
+    for (j in seq_len(nrow(perms))) {
+      user <- perms$user[j]
+      permission <- perms$permission[j]
+
+      user_id <- id_hash("#user:", user)
+
+      # create permission entities
+      perm_ents <- user_asset_perm_entities(
+        user = user,
+        user_id = user_id,
+        asset_name = asset$name,
+        asset_id = asset_id,
+        permission = permission,
+        asset_type = asset_type
+      )
+
+      # add permission entities
+      for (ent in perm_ents) {
+        rocrate <- rocrateR::add_entity(
+          rocrate,
+          ent,
+          overwrite = TRUE
+        )
+      }
+    }
+  }
+
+  rocrate
+}
+
+#' @noRd
+add_lineage_relations <- function(rocrate, lineage_df, id_lookup) {
+  if (is.null(lineage_df) || nrow(lineage_df) == 0) {
+    return(rocrate)
+  }
+
+  for (i in seq_len(nrow(lineage_df))) {
+    tbl_id <- id_lookup[[lineage_df$table_name[i]]]
+    res_id <- id_lookup[[lineage_df$resource_name[i]]]
+
+    tbl_ent <- rocrate$graph[[tbl_id]]
+
+    tbl_ent$isBasedOn <- list(`@id` = res_id)
+
+    rocrate$graph[[tbl_id]] <- tbl_ent
+  }
+
+  rocrate
+}
+
+#' Build entities for project assets
+#'
+#' @param assets_tbl Tibble with project assets (see `get_project_assets()`).
+#' @param project_id String with project `@id`.
+#' @param asset_id_suffix String with asset `@id` suffix.
+#'
+#' @returns List with entities for the project assets.
+#' @noRd
+build_asset_entities <- function(assets_tbl, project_id, asset_id_suffix) {
+  purrr::pmap(
+    assets_tbl,
+    function(
+      asset_type,
+      project,
+      name,
+      description,
+      created,
+      updated,
+      url,
+      meta
+    ) {
+      rocrateR::entity(
+        id = id_hash(asset_id_suffix, paste0(project, name)),
+        type = map_asset_type(asset_type, meta, url),
+        name = name,
+        description = safe_desc(description, name, asset_type),
+        url = url,
+        dateCreated = safe_time(created),
+        dateModified = safe_time(updated),
+        isPartOf = list(`@id` = project_id) #,
+        # extra = list(
+        #   assetKind = asset_type,
+        #   backend = meta
+        # )
+      )
+    }
+  )
+}
+
+#' Get project's asset permissions
+#'
+#' @param x Connection to OBiBa's Opal server (see [opalr::opal.login()]).
+#' @param project String with project name.
+#' @param asset_type String with type of asset, either `tables` or `resources`.
+#' @param name String with asset name.
+#'
+#' @returns Tibble with project asset permissions
+#' @noRd
+get_asset_permissions <- function(x, project, asset_type, name) {
+  if (asset_type == "table") {
+    perms <- opalr::opal.table_perm(x, project, name)
+  } else {
+    perms <- opalr::opal.resource_perm(x, project, name)
+  }
+
+  if (is.null(perms) || length(perms$subject) == 0) {
+    return(NULL)
+  }
+
+  tibble::tibble(
+    user = perms$subject,
+    permission = perms$permission
+  )
+}
+
+#' Get project assets.
+#'
+#' @param x Connection to OBiBa's Opal server (see [opalr::opal.login()]).
+#' @param project String with project name.
+#' @param type Type of assets to extract, either `tables` or `resources`.
+#'
+#' @returns Tibble with project assets details.
+#' @noRd
+get_project_assets <- function(x, project, type = c("tables", "resources")) {
+  type <- match.arg(type)
+
+  # verify if project exists
+  project_exists(x, project = project)
+
+  if (type == "tables") {
+    prj <- opalr::opal.get(x, "datasource", project, "tables")
+
+    if (length(prj) == 0) {
+      return(NULL)
+    }
+
+    tibble::tibble(
+      asset_type = "table",
+      project = project,
+      name = vapply(prj, \(x) x$name %||% "", ""),
+      description = vapply(prj, \(x) x$description %||% "", ""),
+      created = vapply(prj, \(x) safe_time(x$timestamps$created), character(1)),
+      #   prj,
+      #   \(x) as.POSIXct(x$timestamps$created, tz = "UTC") %||% NA_real_,
+      #   character(1)
+      # ),
+      updated = vapply(
+        prj,
+        \(x) safe_time(x$timestamps$lastUpdate),
+        character(1)
+      ),
+      #   prj,
+      #   \(x) as.POSIXct(x$timestamps$lastUpdate, tz = "UTC") %||% NA_real_,
+      #   character(1)
+      # ),
+      url = vapply(prj, \(x) x$link %||% NA_character_, ""),
+      meta = vector("list", length(prj))
+    )
+  } else if (type == "resources") {
+    res <- opalr::opal.get(x, "project", project, "resources")
+
+    if (length(res) == 0) {
+      return(NULL)
+    }
+
+    tibble::tibble(
+      asset_type = "resource",
+      project = project,
+      name = vapply(res, \(x) x$name %||% "", ""),
+      description = vapply(res, \(x) x$description %||% "", ""),
+      created = vapply(res, \(x) safe_time(x$created), character(1)),
+      #   res,
+      #   \(x) as.POSIXct(x$created, tz = "UTC") %||% NA_real_,
+      #   character(1)
+      # ),
+      updated = vapply(res, \(x) safe_time(x$updated), character(1)),
+      #   res,
+      #   \(x) as.POSIXct(x$updated, tz = "UTC") %||% NA_real_,
+      #   character(1)
+      # ),
+      url = vapply(res, function(x) x$resource$url %||% NA_character_, ""),
+      meta = parse_resource_params(
+        vapply(res, `[[`, "", "parameters")
+      )
+    )
+  }
+}
+
 #' Get project details (including tables)
 #'
 #' @inheritParams get_table_permissions
@@ -36,11 +249,11 @@ get_project_details <- function(x, project) {
 
 #' Get project resources
 #'
-#' Wrapper for [opalr::opal.project()].
+#' Wrapper for [opalr::opal.resources()].
 #'
 #' @inheritParams get_table_permissions
 #'
-#' @returns List of project resources
+#' @returns Data frame with resources associated to `project`
 #' @keywords internal
 #'
 #' @family Opal
@@ -48,26 +261,25 @@ get_project_resources <- function(x, project) {
   # verify if project exists
   project_exists(x, project = project)
 
-  # extract table names associated to `project`
-  project_resources <- x |>
-    opalr::opal.get("project", project, "resources") |>
-    getElement("resource") |>
-    # getElement("table") |>
-    unlist()
+  # extract resources associated to `project`
+  res <- opalr::opal.get(x, "project", project, "resources")
 
-  # if `project_resources` is missing or NULL, then print warning message
-  if (all(is.na(project_resources)) || all(is.null(project_resources))) {
-    warning(
-      "The given `project`, does not have any resources associated!",
-      call. = FALSE
-    )
-
-    # return empty list, invisibly
-    return(invisible(list()))
+  if (length(res) == 0) {
+    return(NULL)
   }
 
-  # return project resources
-  return(project_resources)
+  tibble::tibble(
+    project = project,
+    name = vapply(res, `[[`, "", "name"),
+    description = vapply(res, `[[`, "", "description"),
+    provider = vapply(res, `[[`, "", "provider"),
+    factory = vapply(res, `[[`, "", "factory"),
+    params_json = vapply(res, `[[`, "", "parameters"),
+    created = as.POSIXct(vapply(res, `[[`, "", "created"), tz = "UTC"),
+    updated = as.POSIXct(vapply(res, `[[`, "", "updated"), tz = "UTC"),
+    url = vapply(res, function(x) x$resource$url %||% NA_character_, ""),
+    editable = vapply(res, `[[`, FALSE, "editable")
+  )
 }
 
 #' Get project tables
@@ -200,6 +412,35 @@ flatten_user_perm_entity <- function(x) {
     )
 }
 
+#' @noRd
+infer_table_resource_lineage <- function(assets_tbl) {
+  tables <- dplyr::filter(assets_tbl, asset_type == "table")
+  resources <- dplyr::filter(assets_tbl, asset_type == "resource")
+
+  if (nrow(tables) == 0 || nrow(resources) == 0) {
+    return(NULL)
+  }
+
+  purrr::map(seq_len(nrow(tables)), function(i) {
+    tbl <- tables[i, ]
+
+    matches <- purrr::map(resources$meta, function(m) {
+      !is.null(m$table) && identical(m$table, tbl$name)
+    }) |>
+      purrr::list_c()
+
+    if (!any(matches)) {
+      return(NULL)
+    }
+
+    tibble::tibble(
+      table_name = tbl$name,
+      resource_name = resources$name[matches]
+    )
+  }) |>
+    purrr::list_c()
+}
+
 #' Verify if connection was created by an administrative user
 #'
 #' @inheritParams validate_opal_con
@@ -224,6 +465,83 @@ is_opal_admin_con <- function(x) {
   } else {
     return(FALSE)
   }
+}
+
+#' @noRd
+link_assets_to_project <- function(rocrate, project_id, asset_ids) {
+  proj_entity <- .get_entity(rocrate, id = project_id)[[1]]
+
+  if (is.null(proj_entity$hasPart)) {
+    proj_entity$hasPart <- list()
+  }
+
+  rocrate |>
+    rocrateR::add_entity_value(
+      id = project_id,
+      key = "hasPart",
+      value = c(
+        proj_entity$hasPart,
+        lapply(asset_ids, function(id) list(`@id` = id))
+      ),
+      overwrite = TRUE
+    )
+}
+
+#' @noRd
+map_asset_type <- function(asset_type, meta, url) {
+  if (asset_type == "table") {
+    return("Dataset")
+  }
+
+  if (asset_type == "resource") {
+    if (!is.null(meta$driver)) {
+      return("Dataset")
+    }
+    if (grepl("^file:", url)) {
+      return("File")
+    }
+    return("Dataset")
+  }
+
+  "DigitalDocument"
+}
+
+normalise_permission <- function(p) {
+  allowed <- c("view", "view-values", "edit", "edit-values", "administrate")
+  if (p %in% allowed) {
+    return(p)
+  }
+  "view"
+}
+
+#' Parse project resources parametres
+#'
+#' @param params_json JSON object with resource params.
+#'
+#' @returns list with simplified JSON params.
+#'
+#' @noRd
+parse_resource_params <- function(params_json) {
+  purrr::map(params_json, function(p) {
+    if (is.na(p) || p == "") {
+      return(list())
+    }
+    jsonlite::fromJSON(p, simplifyVector = TRUE)
+  })
+}
+
+safe_desc <- function(desc, name, type) {
+  desc %||% paste(type, name)
+}
+
+safe_time <- function(x) {
+  if (is.null(x) || is.na(x)) {
+    return(character(1))
+  }
+  tryCatch(
+    format(as.POSIXct(x), "%Y-%m-%dT%H:%M:%SZ"),
+    error = function(e) character(1)
+  )
 }
 
 #' Update datasets linked to a project
@@ -267,6 +585,27 @@ update_project_datasets <- function(rocrate, project, ds_ids) {
 
   # return update RO-Crate
   return(rocrate)
+}
+
+#' @noRd
+user_asset_perm_entities <- function(
+  user,
+  user_id,
+  asset_name,
+  asset_id,
+  permission,
+  asset_type = c("table", "resource")
+) {
+  asset_type <- match.arg(asset_type)
+
+  # reuse existing function by aliasing "table" args
+  user_perm_entity(
+    user = user,
+    user_id = user_id,
+    table = asset_name,
+    table_id = asset_id,
+    permission = permission
+  )
 }
 
 #' Create user permission entities
