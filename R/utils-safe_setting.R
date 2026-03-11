@@ -38,9 +38,11 @@ extract_safe_setting.rocrate <- function(
   # validate RO-Crate
   rocrateR::is_rocrate(x)
 
-  # extract PropertyValue & SoftwareApplication entities
+  # extract CreativeWork, PropertyValue & SoftwareApplication entities
   entities_lst <- x |>
-    .get_entity(type = c("PropertyValue", "SoftwareApplication"))
+    .get_entity(
+      type = c("CreativeWork", "PropertyValue", "SoftwareApplication")
+    )
 
   # if `id` was provided, then filter out only those entities
   if (!is.null(id)) {
@@ -55,7 +57,7 @@ extract_safe_setting.rocrate <- function(
   } else {
     message(
       length(entities_lst),
-      " 'PropertyValue' OR 'SoftwareApplication' entit",
+      " 'CreativeWork', 'PropertyValue' OR 'SoftwareApplication' entit",
       ifelse(length(entities_lst) == 1, "y was", "ies were"),
       " found!"
     )
