@@ -32,7 +32,9 @@ safe_data(x, ...)
   rocrate = rocrateR::rocrate_5s(),
   project = NULL,
   tables = NULL,
-  dataset_id_suffix = "#dataset:",
+  resources = NULL,
+  include = c("tables", "resources"),
+  asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
   path = NULL,
   user = NULL

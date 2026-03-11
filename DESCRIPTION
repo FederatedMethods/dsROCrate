@@ -72,6 +72,7 @@ Collate:
     'utils-connection.R'
     'utils-cr8tor.R'
     'utils-date.R'
+    'utils-digest.R'
     'utils-opal.R'
     'utils-rocrate.R'
     'utils-rocrateR.R'

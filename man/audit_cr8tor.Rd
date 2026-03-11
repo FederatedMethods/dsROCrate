@@ -7,7 +7,7 @@
 audit_cr8tor(path, ...)
 }
 \arguments{
-\item{path}{Path to cr8tor archive}
+\item{path}{Path to cr8tor archive.}
 
 \item{...}{Additional arguments for \link[rocrateR:load_rocrate]{rocrateR::load_rocrate}.}
 }
@@ -15,5 +15,10 @@ audit_cr8tor(path, ...)
 RO-Crate audit object
 }
 \description{
-Audit cr8tor archive
+This audit loads a cr8tor archive and generates an RO-Crate object with
+pre-deployment governance details. This then can be rendered with
+\code{\link[=rocrate_report]{rocrate_report()}}.
+}
+\references{
+https://karectl-crates.github.io/cr8tor-metamodel/
 }

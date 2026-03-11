@@ -12,10 +12,10 @@ get_project_resources(x, project)
 \item{project}{String with project name.}
 }
 \value{
-List of project resources
+Data frame with resources associated to \code{project}
 }
 \description{
-Wrapper for \code{\link[opalr:opal.project]{opalr::opal.project()}}.
+Wrapper for \code{\link[opalr:opal.resources]{opalr::opal.resources()}}.
 }
 \seealso{
 Other Opal: 
