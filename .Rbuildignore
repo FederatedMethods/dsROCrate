@@ -9,5 +9,5 @@
 ^docs$
 ^pkgdown$
 ^\.github$
-(^|/)\.DS_Store$
+(^|/)\.DS\_Store$
 ^\.git($|/)
