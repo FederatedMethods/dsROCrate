@@ -149,7 +149,7 @@ add_group_entities_cr8tor <- function(rc, groups_tbl) {
           type = "Organization",
           name = g$group_id,
           description = g$description,
-          memberOf = list(`@id` = paste0("#project:", g$project))
+          parentOrganization = list(`@id` = paste0("#project:", g$project))
         )
       )
   }
