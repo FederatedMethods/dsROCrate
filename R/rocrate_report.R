@@ -441,6 +441,7 @@ rocrate_report.rocrate <- function(
   }
 
   # pre-processing ----
+  ## Safe People ----
   # attempt to extract Safe People details
   safe_people_rocrate <- tryCatch(
     {
@@ -451,6 +452,7 @@ rocrate_report.rocrate <- function(
     }
   )
 
+  ## Safe Data ----
   # attempt to extract Safe Data details
   safe_data_rocrate <- tryCatch(
     {
@@ -474,6 +476,7 @@ rocrate_report.rocrate <- function(
     }
   )
 
+  ## Safe Projects ----
   # extract project IDs from the Safe People RO-Crate
   member_of <- tryCatch(
     {
@@ -497,6 +500,7 @@ rocrate_report.rocrate <- function(
     }
   )
 
+  ## Safe Settings ----
   # attempt to extract Safe Setting details
   safe_setting_rocrate <- tryCatch(
     {
@@ -507,6 +511,7 @@ rocrate_report.rocrate <- function(
     }
   )
 
+  ## Safe Outputs ----
   # attempt to extract Safe Output details
   safe_outputs_rocrate <- tryCatch(
     {
