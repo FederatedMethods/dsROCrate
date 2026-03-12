@@ -247,41 +247,6 @@ get_project_details <- function(x, project) {
     dplyr::filter(!is.na(table))
 }
 
-#' Get project resources
-#'
-#' Wrapper for [opalr::opal.resources()].
-#'
-#' @inheritParams get_table_permissions
-#'
-#' @returns Data frame with resources associated to `project`
-#' @keywords internal
-#'
-#' @family Opal
-get_project_resources <- function(x, project) {
-  # verify if project exists
-  project_exists(x, project = project)
-
-  # extract resources associated to `project`
-  res <- opalr::opal.get(x, "project", project, "resources")
-
-  if (length(res) == 0) {
-    return(NULL)
-  }
-
-  tibble::tibble(
-    project = project,
-    name = vapply(res, `[[`, "", "name"),
-    description = vapply(res, `[[`, "", "description"),
-    provider = vapply(res, `[[`, "", "provider"),
-    factory = vapply(res, `[[`, "", "factory"),
-    params_json = vapply(res, `[[`, "", "parameters"),
-    created = as.POSIXct(vapply(res, `[[`, "", "created"), tz = "UTC"),
-    updated = as.POSIXct(vapply(res, `[[`, "", "updated"), tz = "UTC"),
-    url = vapply(res, function(x) x$resource$url %||% NA_character_, ""),
-    editable = vapply(res, `[[`, FALSE, "editable")
-  )
-}
-
 #' Get project tables
 #'
 #' Wrapper for [opalr::opal.project()].
@@ -414,6 +379,9 @@ flatten_user_perm_entity <- function(x) {
 
 #' @noRd
 infer_table_resource_lineage <- function(assets_tbl) {
+  # local binding
+  asset_type <- NULL
+
   tables <- dplyr::filter(assets_tbl, asset_type == "table")
   resources <- dplyr::filter(assets_tbl, asset_type == "resource")
 
@@ -471,6 +439,12 @@ is_opal_admin_con <- function(x) {
 link_assets_to_project <- function(rocrate, project_id, asset_ids) {
   proj_entity <- .get_entity(rocrate, id = project_id)[[1]]
 
+  # check if no project entity was found (safe_data called before safe_project)
+  if (is.null(proj_entity)) {
+    return(rocrate)
+  }
+
+  # if project entity was found, check if it has a `hasPart` value
   if (is.null(proj_entity$hasPart)) {
     proj_entity$hasPart <- list()
   }
