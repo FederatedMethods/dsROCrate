@@ -138,10 +138,16 @@ audit_safe_people.opal <- function(
   user_perm_entity_lst <- project_table_permissions_tbl_v3 |>
     purrr::pmap(user_perm_entity) |>
     purrr::list_c()
-  for (i in seq_along(user_perm_entity_lst)) {
-    safe_people_crate <- safe_people_crate |>
-      rocrateR::add_entity(user_perm_entity_lst[[i]])
-  }
+
+  # ignore warnings about existing permission entities
+  suppressWarnings({
+    safe_people_crate <- user_perm_entity_lst |>
+      purrr::reduce(
+        rocrateR::add_entity,
+        overwrite = TRUE,
+        .init = safe_people_crate
+      )
+  })
 
   # add Safe Setting details
   safe_people_crate <- x |>

@@ -63,10 +63,15 @@ extract_safe_setting.rocrate <- function(
     )
   }
 
-  # add entities to the RO-Crate
+  # add entities to the RO-Crate and
+  # ignore warnings about existing permission entities
   suppressWarnings({
-    rocrate <- rocrate |>
-      rocrateR::add_entity(entities_lst, verbose = FALSE)
+    rocrate <- entities_lst |>
+      purrr::reduce(
+        rocrateR::add_entity,
+        overwrite = TRUE,
+        .init = rocrate
+      )
   })
 
   # return RO-Crate with the Safe Setting details
