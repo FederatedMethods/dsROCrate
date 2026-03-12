@@ -32,7 +32,7 @@
 #'  <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/>
 #' }
 safe_setting <- function(x, ...) {
-  UseMethod("safe_setting", x)
+  UseMethod("safe_setting")
 }
 
 #' @export
@@ -52,6 +52,7 @@ safe_setting.character <- function(
   path = attr(x, "path"),
   project = attr(x, "project"),
   tables = attr(x, "tables"),
+  resources = attr(x, "resources"),
   user = attr(x, "user")
 ) {
   # attempt loading the RO-Crate
@@ -63,6 +64,7 @@ safe_setting.character <- function(
     connection = connection,
     path = path,
     project = project,
+    resources = resources,
     tables = tables,
     user = user
   )
@@ -76,6 +78,7 @@ safe_setting.opal <- function(
   rocrate = rocrateR::rocrate_5s(),
   path = NULL,
   project = NULL,
+  resources = NULL,
   tables = NULL,
   user = NULL
 ) {
@@ -211,6 +214,7 @@ safe_setting.opal <- function(
   attr(rocrate, "connection") <- x
   attr(rocrate, "path") <- path
   attr(rocrate, "project") <- project
+  attr(rocrate, "resources") <- resources
   attr(rocrate, "tables") <- tables
   attr(rocrate, "user") <- user
 
@@ -226,6 +230,7 @@ safe_setting.rocrate <- function(
   connection = attr(x, "connection"),
   path = attr(x, "path"),
   project = attr(x, "project"),
+  resources = attr(x, "resources"),
   tables = attr(x, "tables"),
   user = attr(x, "user")
 ) {
@@ -240,6 +245,7 @@ safe_setting.rocrate <- function(
     rocrate = x,
     path = path,
     project = project,
+    resources = resources,
     tables = tables,
     user = user
   )

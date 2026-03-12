@@ -30,14 +30,15 @@
 #'   ...,
 #'   project = NULL,
 #'   rocrate = rocrateR::rocrate_5s(),
-#'   dataset_id_suffix = "#dataset:",
+#'   asset_id_suffix = "#asset:",
 #'   project_id_suffix = "#project:",
 #'   path = NULL,
+#'   resources = NULL,
 #'   tables = NULL,
 #'   user = NULL
 #' )
 safe_project <- function(x, ...) {
-  UseMethod("safe_project", x)
+  UseMethod("safe_project")
 }
 
 # S3 methods ----
@@ -57,24 +58,26 @@ safe_project.character <- function(
   x,
   ...,
   project = attr(x, "project"),
-  dataset_id_suffix = "#dataset:",
+  asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
   connection = attr(x, "connection"),
   path = attr(x, "path"),
   tables = attr(x, "tables"),
+  resources = attr(x, "resources"),
   user = attr(x, "user")
 ) {
   # attempt loading the RO-Crate
-  rocrate <- load_rocrate(x)
+  rocrate <- rocrateR::load_rocrate(x)
 
   # call method with given `rocrate` object:
   safe_project(
     rocrate,
     connection = connection,
     project = project,
-    dataset_id_suffix = dataset_id_suffix,
+    asset_id_suffix = asset_id_suffix,
     project_id_suffix = project_id_suffix,
     path = path,
+    resources = resources,
     tables = tables,
     user = user
   )
@@ -88,9 +91,10 @@ safe_project.opal <- function(
   ...,
   project = NULL,
   rocrate = rocrateR::rocrate_5s(),
-  dataset_id_suffix = "#dataset:",
+  asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
   path = NULL,
+  resources = NULL,
   tables = NULL,
   user = NULL
 ) {
@@ -116,29 +120,29 @@ safe_project.opal <- function(
   # retrieve details associated to `project`
   project_details_tbl <- opalr::opal.project(x, project)
 
-  # attempt to retrieve the dataset entities to link up the IDs to the project
-  project_dataset_entities <- rocrate |>
+  # attempt to retrieve the asset entities to link up the IDs to the project
+  project_asset_entities <- rocrate |>
     .get_entity(type = "Dataset")
 
   # if any entity was found, then filter to keep those for which their @id
-  # starts with `dataset_id_suffix` as set by `safe_data()` and that are
+  # starts with `asset_id_suffix` as set by `safe_data()` and that are
   # associated to the current project:
-  if (length(project_dataset_entities) > 0) {
+  if (length(project_asset_entities) > 0) {
     # filter by @id suffix
-    idx_id <- project_dataset_entities |>
+    idx_id <- project_asset_entities |>
       sapply("[[", "@id") |>
-      sapply(grepl, pattern = paste0("^", dataset_id_suffix))
+      sapply(grepl, pattern = paste0("^", asset_id_suffix))
     # filter by name (if any are found)
     ## pull table names for the current project
     project_tables <- get_project_tables(x, project)
     idx_name <- FALSE
     if (length(project_tables) > 0) {
-      idx_name <- project_dataset_entities |>
+      idx_name <- project_asset_entities |>
         sapply("[[", "name") |>
         sapply(\(x) x[[1]] %in% project_tables)
     }
-    # drop out entries with @id not starting with `dataset_id_suffix`
-    project_dataset_entities[!(idx_id & idx_name)] <- NULL
+    # drop out entries with @id not starting with `asset_id_suffix`
+    project_asset_entities[!(idx_id & idx_name)] <- NULL
   }
 
   # create project entity
@@ -149,7 +153,7 @@ safe_project.opal <- function(
     name = getElement(project_details_tbl, "name"),
     dateCreated = getElement(timestamps, "created"),
     dateModified = getElement(timestamps, "lastUpdate"),
-    hasPart = project_dataset_entities |>
+    hasPart = project_asset_entities |>
       sapply("[[", "@id") |>
       lapply(function(id) {
         list(`@id` = id)
@@ -157,7 +161,7 @@ safe_project.opal <- function(
   )
 
   # if no tables are associated to this project, then drop `hasPart`
-  if (length(project_dataset_entities) == 0) {
+  if (length(project_asset_entities) == 0) {
     project_entity$hasPart <- NULL
   }
 
@@ -169,6 +173,7 @@ safe_project.opal <- function(
   attr(rocrate, "connection") <- x
   attr(rocrate, "path") <- path
   attr(rocrate, "project") <- project
+  attr(rocrate, "resources") <- resources
   attr(rocrate, "tables") <- tables
   attr(rocrate, "user") <- user
 
@@ -183,10 +188,11 @@ safe_project.rocrate <- function(
   x,
   ...,
   project = attr(x, "project"),
-  dataset_id_suffix = "#dataset:",
+  asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
   connection = attr(x, "connection"),
   path = attr(x, "path"),
+  resources = attr(x, "resources"),
   tables = attr(x, "tables"),
   user = attr(x, "user")
 ) {
@@ -200,9 +206,10 @@ safe_project.rocrate <- function(
     connection,
     rocrate = x,
     project = project,
-    dataset_id_suffix = dataset_id_suffix,
+    asset_id_suffix = asset_id_suffix,
     project_id_suffix = project_id_suffix,
     path = path,
+    resources = resources,
     tables = tables,
     user = user
   )
@@ -219,9 +226,10 @@ setMethod(
     ...,
     project = NULL,
     rocrate = rocrateR::rocrate_5s(),
-    dataset_id_suffix = "#dataset:",
+    asset_id_suffix = "#asset:",
     project_id_suffix = "#project:",
     path = NULL,
+    resources = NULL,
     tables = NULL,
     user = NULL
   ) {

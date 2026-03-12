@@ -16,6 +16,9 @@
 #'     be used to store log files. If not provided, logs will be stored within
 #'     the RO-Crate returned by this function.
 #' @param project String with the name of the [Safe Project][safe_project()].
+#' @param resources Vector of strings with the names of the resources, part of
+#'     `project`. Optional, if not provided, all the resources associated to
+#'     `project` will be included in the RO-Crate.
 #' @param tables Vector of strings with the names of the tables/datasets, part
 #'     of `project`. Optional, if not provided, all the tables/datasets
 #'     associated to `project` will be included in the RO-Crate.
@@ -36,6 +39,7 @@ init.opal <- function(
   ...,
   rocrate = rocrateR::rocrate_5s(),
   project = NULL,
+  resources = NULL,
   tables = NULL,
   path = NULL,
   user = NULL
@@ -47,6 +51,7 @@ init.opal <- function(
   attr(rocrate, "connection") <- x
   attr(rocrate, "path") <- path
   attr(rocrate, "project") <- project
+  attr(rocrate, "resources") <- resources
   attr(rocrate, "tables") <- tables
   attr(rocrate, "user") <- user
 
@@ -61,6 +66,7 @@ init.rocrate <- function(
   connection = attr(x, "connection"),
   path = attr(x, "path"),
   project = attr(x, "project"),
+  resources = attr(x, "resources"),
   tables = attr(x, "tables"),
   user = attr(x, "user")
 ) {
@@ -69,6 +75,7 @@ init.rocrate <- function(
     rocrate = x,
     path = path,
     project = project,
+    resources = resources,
     tables = tables,
     user = user
   )

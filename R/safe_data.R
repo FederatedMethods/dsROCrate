@@ -20,8 +20,10 @@
 #'     RO-Crate.
 #' @param ... Other optional arguments. See the full documentation,
 #'     [`?dsROCrate::safe_data`][safe_data()].
-#' @param dataset_id_suffix String with ID suffix for the tables/datasets
-#'     entities in the RO-Crate (default: `"#dataset:"`).
+#' @param include Vector of strings with types of assets to be included, either
+#'     `"resources"`, `"tables"` or both.
+#' @param asset_id_suffix String with ID suffix for the tables/datasets
+#'     entities in the RO-Crate (default: `"#asset:"`).
 #' @param project_id_suffix String with ID suffix for the project entities
 #'     in the RO-Crate (default: `"#project:"`).
 #' @inheritParams init
@@ -35,7 +37,7 @@
 #'  <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/>
 #' }
 safe_data <- function(x, ...) {
-  UseMethod("safe_data", x)
+  UseMethod("safe_data")
 }
 
 #' @export
@@ -52,22 +54,26 @@ safe_data.character <- function(
   x,
   ...,
   project = attr(x, "project"),
+  resources = attr(x, "resources"),
   tables = attr(x, "tables"),
-  dataset_id_suffix = "#dataset:",
+  asset_id_suffix = "#asset:",
+  project_id_suffix = "#project:",
   connection = attr(x, "connection"),
   path = attr(x, "path"),
   user = attr(x, "user")
 ) {
   # attempt loading the RO-Crate
-  rocrate <- load_rocrate(x)
+  rocrate <- rocrateR::load_rocrate(x)
 
   # call method with given `rocrate` object:
   safe_data(
     rocrate,
     connection = connection,
     project = project,
+    resources = resources,
     tables = tables,
-    dataset_id_suffix = dataset_id_suffix,
+    asset_id_suffix = asset_id_suffix,
+    project_id_suffix = project_id_suffix,
     path = path,
     user = user
   )
@@ -80,8 +86,8 @@ safe_data.opal <- function(
   ...,
   rocrate = rocrateR::rocrate_5s(),
   project = NULL,
-  tables = NULL,
   resources = NULL,
+  tables = NULL,
   include = c("tables", "resources"),
   asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
@@ -155,7 +161,7 @@ safe_data.opal <- function(
   )
 
   # build ID lookup ----
-  id_lookup <- setNames(
+  id_lookup <- stats::setNames(
     vapply(asset_entities, `[[`, "", "@id"),
     assets_tbl$name
   )
@@ -304,6 +310,7 @@ safe_data.opal <- function(
   attr(rocrate, "connection") <- x
   attr(rocrate, "path") <- path
   attr(rocrate, "project") <- project
+  attr(rocrate, "resources") <- resources
   attr(rocrate, "tables") <- tables
   attr(rocrate, "user") <- user
 
@@ -317,8 +324,10 @@ safe_data.rocrate <- function(
   x,
   ...,
   project = attr(x, "project"),
+  resources = attr(x, "resources"),
   tables = attr(x, "tables"),
-  dataset_id_suffix = "#dataset:",
+  asset_id_suffix = "#asset:",
+  project_id_suffix = "#project:",
   connection = attr(x, "connection"),
   path = attr(x, "path"),
   user = attr(x, "user")
@@ -333,8 +342,10 @@ safe_data.rocrate <- function(
     connection,
     rocrate = x,
     project = project,
+    resources = resources,
     tables = tables,
-    dataset_id_suffix = dataset_id_suffix,
+    asset_id_suffix = asset_id_suffix,
+    project_id_suffix = project_id_suffix,
     path = path,
     user = user
   )

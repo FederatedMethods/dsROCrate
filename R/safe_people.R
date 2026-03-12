@@ -27,7 +27,7 @@
 #'  <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/>
 #' }
 safe_people <- function(x, ...) {
-  UseMethod("safe_people", x)
+  UseMethod("safe_people")
 }
 
 #' @export
@@ -50,10 +50,11 @@ safe_people.character <- function(
   connection = attr(x, "connection"),
   path = attr(x, "path"),
   project = attr(x, "project"),
+  resources = attr(x, "resources"),
   tables = attr(x, "tables")
 ) {
   # attempt loading the RO-Crate
-  rocrate <- load_rocrate(x)
+  rocrate <- rocrateR::load_rocrate(x)
 
   # call method with given `rocrate` object:
   safe_people(
@@ -65,6 +66,7 @@ safe_people.character <- function(
     set_project = set_project,
     path = path,
     project = project,
+    resources = resources,
     tables = tables
   )
 }
@@ -81,6 +83,7 @@ safe_people.opal <- function(
   set_project = TRUE,
   path = NULL,
   project = NULL,
+  resources = NULL,
   tables = NULL
 ) {
   # x is a valid opal connection object
@@ -163,6 +166,7 @@ safe_people.opal <- function(
   attr(rocrate, "connection") <- x
   attr(rocrate, "path") <- path
   attr(rocrate, "project") <- project
+  attr(rocrate, "resources") <- resources
   attr(rocrate, "tables") <- tables
   attr(rocrate, "user") <- user
 
@@ -182,6 +186,7 @@ safe_people.rocrate <- function(
   connection = attr(x, "connection"),
   path = attr(x, "path"),
   project = attr(x, "project"),
+  resources = attr(x, "resources"),
   tables = attr(x, "tables")
 ) {
   # check if the connection was given
@@ -199,6 +204,7 @@ safe_people.rocrate <- function(
     set_project = set_project,
     path = path,
     project = project,
+    resources = resources,
     tables = tables
   )
 }

@@ -30,7 +30,7 @@
 #'  <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/>
 #' }
 safe_output <- function(x, ...) {
-  UseMethod("safe_output", x)
+  UseMethod("safe_output")
 }
 
 #' @export
@@ -52,10 +52,11 @@ safe_output.character <- function(
   logs_from = logs_to - 24 * 60^2,
   connection = attr(x, "connection"),
   project = attr(x, "project"),
+  resources = attr(x, "resources"),
   tables = attr(x, "tables")
 ) {
   # attempt loading the RO-Crate
-  rocrate <- load_rocrate(x)
+  rocrate <- rocrateR::load_rocrate(x)
 
   # call method with given `rocrate` object:
   safe_output(
@@ -66,6 +67,7 @@ safe_output.character <- function(
     logs_to = logs_to,
     logs_from = logs_from,
     project = project,
+    resources = resources,
     tables = tables
   )
 }
@@ -82,6 +84,7 @@ safe_output.opal <- function(
   logs_to = Sys.time(),
   logs_from = logs_to - 24 * 60^2,
   project = NULL,
+  resources = NULL,
   tables = NULL
 ) {
   # local bindings
@@ -396,6 +399,7 @@ safe_output.opal <- function(
   attr(rocrate, "connection") <- x
   attr(rocrate, "path") <- path
   attr(rocrate, "project") <- project
+  attr(rocrate, "resources") <- resources
   attr(rocrate, "tables") <- tables
   attr(rocrate, "user") <- user
 
@@ -414,6 +418,7 @@ safe_output.rocrate <- function(
   logs_from = logs_to - 24 * 60^2,
   connection = attr(x, "connection"),
   project = attr(x, "project"),
+  resources = attr(x, "resources"),
   tables = attr(x, "tables")
 ) {
   # check if the connection was given
@@ -430,6 +435,7 @@ safe_output.rocrate <- function(
     logs_to = logs_to,
     logs_from = logs_from,
     project = project,
+    resources = resources,
     tables = tables
   )
 }
