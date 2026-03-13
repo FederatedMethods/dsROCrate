@@ -28,6 +28,7 @@
 #' \S4method{safe_project}{armadillo}(
 #'   x,
 #'   ...,
+#'   profile = "default",
 #'   project = NULL,
 #'   rocrate = rocrateR::rocrate_5s(),
 #'   asset_id_suffix = "#asset:",
@@ -57,6 +58,7 @@ safe_project.default <- function(x, ...) {
 safe_project.character <- function(
   x,
   ...,
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
   asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
@@ -73,6 +75,7 @@ safe_project.character <- function(
   safe_project(
     rocrate,
     connection = connection,
+    profile = profile,
     project = project,
     asset_id_suffix = asset_id_suffix,
     project_id_suffix = project_id_suffix,
@@ -89,6 +92,7 @@ safe_project.character <- function(
 safe_project.opal <- function(
   x,
   ...,
+  profile = "default",
   project = NULL,
   rocrate = rocrateR::rocrate_5s(),
   asset_id_suffix = "#asset:",
@@ -172,6 +176,7 @@ safe_project.opal <- function(
   # attach input arguments as attributes
   attr(rocrate, "connection") <- x
   attr(rocrate, "path") <- path
+  attr(rocrate, "profile") <- profile
   attr(rocrate, "project") <- project
   attr(rocrate, "resources") <- resources
   attr(rocrate, "tables") <- tables
@@ -187,6 +192,7 @@ safe_project.opal <- function(
 safe_project.rocrate <- function(
   x,
   ...,
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
   asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
@@ -205,10 +211,11 @@ safe_project.rocrate <- function(
   safe_project(
     connection,
     rocrate = x,
+    path = path,
+    profile = profile,
     project = project,
     asset_id_suffix = asset_id_suffix,
     project_id_suffix = project_id_suffix,
-    path = path,
     resources = resources,
     tables = tables,
     user = user
@@ -224,6 +231,7 @@ setMethod(
   function(
     x,
     ...,
+    profile = "default",
     project = NULL,
     rocrate = rocrateR::rocrate_5s(),
     asset_id_suffix = "#asset:",

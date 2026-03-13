@@ -53,6 +53,7 @@ safe_data.default <- function(x, ...) {
 safe_data.character <- function(
   x,
   ...,
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
   resources = attr(x, "resources"),
   tables = attr(x, "tables"),
@@ -69,6 +70,7 @@ safe_data.character <- function(
   safe_data(
     rocrate,
     connection = connection,
+    profile = profile,
     project = project,
     resources = resources,
     tables = tables,
@@ -85,6 +87,7 @@ safe_data.opal <- function(
   x,
   ...,
   rocrate = rocrateR::rocrate_5s(),
+  profile = "default",
   project = NULL,
   resources = NULL,
   tables = NULL,
@@ -309,6 +312,7 @@ safe_data.opal <- function(
   # attach input arguments as attributes
   attr(rocrate, "connection") <- x
   attr(rocrate, "path") <- path
+  attr(rocrate, "profile") <- profile
   attr(rocrate, "project") <- project
   attr(rocrate, "resources") <- resources
   attr(rocrate, "tables") <- tables
@@ -323,6 +327,7 @@ safe_data.opal <- function(
 safe_data.rocrate <- function(
   x,
   ...,
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
   resources = attr(x, "resources"),
   tables = attr(x, "tables"),
@@ -341,6 +346,7 @@ safe_data.rocrate <- function(
   safe_data(
     connection,
     rocrate = x,
+    profile = profile,
     project = project,
     resources = resources,
     tables = tables,

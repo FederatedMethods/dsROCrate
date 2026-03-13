@@ -49,6 +49,7 @@ safe_people.character <- function(
   set_project = TRUE,
   connection = attr(x, "connection"),
   path = attr(x, "path"),
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
   resources = attr(x, "resources"),
   tables = attr(x, "tables")
@@ -65,6 +66,7 @@ safe_people.character <- function(
     set_author = set_author,
     set_project = set_project,
     path = path,
+    profile = profile,
     project = project,
     resources = resources,
     tables = tables
@@ -82,6 +84,7 @@ safe_people.opal <- function(
   set_author = TRUE,
   set_project = TRUE,
   path = NULL,
+  profile = "default",
   project = NULL,
   resources = NULL,
   tables = NULL
@@ -165,6 +168,7 @@ safe_people.opal <- function(
   # attach input arguments as attributes
   attr(rocrate, "connection") <- x
   attr(rocrate, "path") <- path
+  attr(rocrate, "profile") <- profile
   attr(rocrate, "project") <- project
   attr(rocrate, "resources") <- resources
   attr(rocrate, "tables") <- tables
@@ -185,6 +189,7 @@ safe_people.rocrate <- function(
   set_project = TRUE,
   connection = attr(x, "connection"),
   path = attr(x, "path"),
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
   resources = attr(x, "resources"),
   tables = attr(x, "tables")
@@ -203,6 +208,7 @@ safe_people.rocrate <- function(
     set_author = set_author,
     set_project = set_project,
     path = path,
+    profile = profile,
     project = project,
     resources = resources,
     tables = tables

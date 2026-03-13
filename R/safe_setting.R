@@ -50,6 +50,7 @@ safe_setting.character <- function(
   ...,
   connection = attr(x, "connection"),
   path = attr(x, "path"),
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
   tables = attr(x, "tables"),
   resources = attr(x, "resources"),
@@ -63,6 +64,7 @@ safe_setting.character <- function(
     rocrate,
     connection = connection,
     path = path,
+    profile = profile,
     project = project,
     resources = resources,
     tables = tables,
@@ -269,9 +271,13 @@ safe_setting.opal <- function(
 
   rocrate <- purrr::reduce(all_entities, rocrateR::add_entity, .init = rocrate)
 
+  # link Safe Settings with safe Projects
+  rocrate <- link_safe_settings_to_projects(rocrate)
+
   # attach input arguments as attributes
   attr(rocrate, "connection") <- x
   attr(rocrate, "path") <- path
+  attr(rocrate, "profile") <- profile
   attr(rocrate, "project") <- project
   attr(rocrate, "resources") <- resources
   attr(rocrate, "tables") <- tables
@@ -288,6 +294,7 @@ safe_setting.rocrate <- function(
   ...,
   connection = attr(x, "connection"),
   path = attr(x, "path"),
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
   resources = attr(x, "resources"),
   tables = attr(x, "tables"),
@@ -303,6 +310,7 @@ safe_setting.rocrate <- function(
     connection,
     rocrate = x,
     path = path,
+    profile = profile,
     project = project,
     resources = resources,
     tables = tables,

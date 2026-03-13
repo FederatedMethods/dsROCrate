@@ -15,6 +15,7 @@
 #' @param path String with path pointing to the root of the RO-Crate. This will
 #'     be used to store log files. If not provided, logs will be stored within
 #'     the RO-Crate returned by this function.
+#' @param profile String with profile name (used for OBiBa's Opal backend).
 #' @param project String with the name of the [Safe Project][safe_project()].
 #' @param resources Vector of strings with the names of the resources, part of
 #'     `project`. Optional, if not provided, all the resources associated to
@@ -29,7 +30,7 @@
 #' @returns Five Safes RO-Crate.
 #' @export
 init <- function(x, ...) {
-  UseMethod("init", x)
+  UseMethod("init")
 }
 
 #' @rdname init
@@ -38,6 +39,7 @@ init.opal <- function(
   x,
   ...,
   rocrate = rocrateR::rocrate_5s(),
+  profile = "default",
   project = NULL,
   resources = NULL,
   tables = NULL,
@@ -50,6 +52,7 @@ init.opal <- function(
   # attach input arguments as attributes
   attr(rocrate, "connection") <- x
   attr(rocrate, "path") <- path
+  attr(rocrate, "profile") <- profile
   attr(rocrate, "project") <- project
   attr(rocrate, "resources") <- resources
   attr(rocrate, "tables") <- tables
@@ -65,6 +68,7 @@ init.rocrate <- function(
   ...,
   connection = attr(x, "connection"),
   path = attr(x, "path"),
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
   resources = attr(x, "resources"),
   tables = attr(x, "tables"),
@@ -74,6 +78,7 @@ init.rocrate <- function(
     connection,
     rocrate = x,
     path = path,
+    profile = profile,
     project = project,
     resources = resources,
     tables = tables,

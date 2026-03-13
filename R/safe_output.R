@@ -51,6 +51,7 @@ safe_output.character <- function(
   logs_to = Sys.time(),
   logs_from = logs_to - 24 * 60^2,
   connection = attr(x, "connection"),
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
   resources = attr(x, "resources"),
   tables = attr(x, "tables")
@@ -66,6 +67,7 @@ safe_output.character <- function(
     user = user,
     logs_to = logs_to,
     logs_from = logs_from,
+    profile = profile,
     project = project,
     resources = resources,
     tables = tables
@@ -83,6 +85,7 @@ safe_output.opal <- function(
   user = NULL,
   logs_to = Sys.time(),
   logs_from = logs_to - 24 * 60^2,
+  profile = "default",
   project = NULL,
   resources = NULL,
   tables = NULL
@@ -398,6 +401,7 @@ safe_output.opal <- function(
   # attach input arguments as attributes
   attr(rocrate, "connection") <- x
   attr(rocrate, "path") <- path
+  attr(rocrate, "profile") <- profile
   attr(rocrate, "project") <- project
   attr(rocrate, "resources") <- resources
   attr(rocrate, "tables") <- tables
@@ -417,6 +421,7 @@ safe_output.rocrate <- function(
   logs_to = Sys.time(),
   logs_from = logs_to - 24 * 60^2,
   connection = attr(x, "connection"),
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
   resources = attr(x, "resources"),
   tables = attr(x, "tables")
@@ -434,6 +439,7 @@ safe_output.rocrate <- function(
     user = user,
     logs_to = logs_to,
     logs_from = logs_from,
+    profile = profile,
     project = project,
     resources = resources,
     tables = tables
