@@ -1,6 +1,6 @@
 Package: dsROCrate
 Title: 'DataSHIELD' RO-Crate Wrapper Functions
-Version: 0.0.1.9000
+Version: 0.0.1
 Authors@R: c(
     person(given = "Roberto",
            family = "Villegas-Diaz",
@@ -19,7 +19,7 @@ Authors@R: c(
            family = "Wheater",
            role = c("aut"),
            comment = c(ORCID = "0009-0003-2419-1964")),
-    person("DataSHIELD community", role = c("cph")))
+    person("University of Liverpool", role = c("cph")))
 Description: R package to wrap elements from 'DataSHIELD' analysis into an 
     RO-Crate.
 License: MIT + file LICENSE
