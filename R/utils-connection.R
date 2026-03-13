@@ -11,7 +11,7 @@
 #' @usage
 #' \S4method{parse_user_profiles}{armadillo}(x, ..., user)
 parse_user_profiles <- function(x, ...) {
-  UseMethod("parse_user_profiles", x)
+  UseMethod("parse_user_profiles")
 }
 
 # S3 methods ----
@@ -77,7 +77,7 @@ setMethod(
 #'   project
 #' )
 project_exists <- function(x, ...) {
-  UseMethod("project_exists", x)
+  UseMethod("project_exists")
 }
 
 # S3 methods ----

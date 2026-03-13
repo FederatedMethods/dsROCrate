@@ -9,7 +9,7 @@
 #' @returns Updated RO-Crate object with Safe Project information.
 #' @export
 audit_safe_project <- function(x, ...) {
-  UseMethod("audit_safe_project", x)
+  UseMethod("audit_safe_project")
 }
 
 #' @rdname audit_safe_project

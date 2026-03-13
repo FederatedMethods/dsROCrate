@@ -7,7 +7,7 @@
 #' @rdname extract_safe_project
 #' @keywords internal
 extract_safe_project <- function(x, ...) {
-  UseMethod("extract_safe_project", x)
+  UseMethod("extract_safe_project")
 }
 
 #' @param rocrate (Optional) RO-Crate object to update with Safe Project
@@ -112,7 +112,7 @@ extract_safe_project.rocrate <- function(
 #' @keywords internal
 #' @rdname flatten_safe_project
 flatten_safe_project <- function(x, ...) {
-  UseMethod("flatten_safe_project", x)
+  UseMethod("flatten_safe_project")
 }
 
 #' @rdname flatten_safe_project

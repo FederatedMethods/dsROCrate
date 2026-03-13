@@ -8,7 +8,7 @@
 #' @returns RO-Crate report as markdown (.md) file and/or HTML.
 #' @export
 rocrate_report <- function(x, ...) {
-  UseMethod("rocrate_report", x)
+  UseMethod("rocrate_report")
 }
 
 #' @rdname rocrate_report

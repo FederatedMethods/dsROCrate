@@ -7,7 +7,7 @@
 #' @rdname extract_safe_output
 #' @keywords internal
 extract_safe_output <- function(x, ...) {
-  UseMethod("extract_safe_output", x)
+  UseMethod("extract_safe_output")
 }
 
 #' @param rocrate (Optional) RO-Crate object to update with Safe Output details.
@@ -102,7 +102,7 @@ extract_safe_output.rocrate <- function(
 #' @rdname flatten_safe_output
 #' @keywords internal
 flatten_safe_output <- function(x, ...) {
-  UseMethod("flatten_safe_output", x)
+  UseMethod("flatten_safe_output")
 }
 
 #' @rdname flatten_safe_output

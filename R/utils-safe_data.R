@@ -7,7 +7,7 @@
 #' @rdname extract_safe_data
 #' @keywords internal
 extract_safe_data <- function(x, ...) {
-  UseMethod("extract_safe_data", x)
+  UseMethod("extract_safe_data")
 }
 
 #' @param rocrate (Optional) RO-Crate object to update with Safe Data details.
@@ -100,7 +100,7 @@ extract_safe_data.rocrate <- function(
 #' @rdname flatten_safe_data
 #' @keywords internal
 flatten_safe_data <- function(x, ...) {
-  UseMethod("flatten_safe_data", x)
+  UseMethod("flatten_safe_data")
 }
 
 #' @rdname flatten_safe_data

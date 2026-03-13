@@ -7,7 +7,7 @@
 #' @rdname extract_safe_people
 #' @keywords internal
 extract_safe_people <- function(x, ...) {
-  UseMethod("extract_safe_people", x)
+  UseMethod("extract_safe_people")
 }
 
 #' @param rocrate (Optional) RO-Crate object to update with Safe People details.
@@ -113,7 +113,7 @@ extract_safe_people.rocrate <- function(
 #' @rdname flatten_safe_people
 #' @keywords internal
 flatten_safe_people <- function(x, ...) {
-  UseMethod("flatten_safe_people", x)
+  UseMethod("flatten_safe_people")
 }
 
 #' @rdname flatten_safe_people

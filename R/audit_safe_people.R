@@ -21,7 +21,7 @@
 #'
 # @examples
 audit_safe_people <- function(x, ...) {
-  UseMethod("audit_safe_people", x)
+  UseMethod("audit_safe_people")
 }
 
 #' @rdname audit_safe_people

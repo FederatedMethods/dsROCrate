@@ -9,7 +9,7 @@
 #' @returns Updated RO-Crate object with Study information.
 #' @export
 audit_study <- function(x, ...) {
-  UseMethod("audit_study", x)
+  UseMethod("audit_study")
 }
 
 #' @rdname audit_study
