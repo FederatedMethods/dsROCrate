@@ -77,34 +77,61 @@ safe_setting.opal <- function(
   ...,
   rocrate = rocrateR::rocrate_5s(),
   path = NULL,
+  profile = "default",
   project = NULL,
   resources = NULL,
   tables = NULL,
   user = NULL
 ) {
+  # local binding
+  Package <- NULL
+
   # validate connection ----
   # x is a valid opal connection object
   validate_opal_con(x)
   # validate that connection user has administrative rights
   is_opal_admin_con(x)
 
+  # validate profile ----
+  if (!opalr::dsadmin.profile_exists(x, profile)) {
+    stop(
+      sprintf("The given profile name, `%s`, does not exist!", profile),
+      call. = FALSE
+    )
+  }
+
   # statistical disclosure controls ----
   # extract disclosure settings and create `PropertyValue` entities
-  disc_setting_entities <- opalr::dsadmin.get_options(x) |>
+  disc_setting_entities <- opalr::dsadmin.get_options(x, profile = profile) |>
     tibble::as_tibble() |>
     purrr::pmap(function(name, value, ...) {
       rocrateR::entity(
         id = id_hash("#disc:", paste0(name, value)),
         type = "PropertyValue",
         name = name,
-        value = value
+        value = as.character(value)
       )
     })
 
+  disclosure_env <- rocrateR::entity(
+    id = id_hash("#env:disclosure_settings:", profile),
+    type = "CreativeWork",
+    name = "Disclosure Control Environment",
+    description = sprintf(
+      paste(
+        "Disclosure control settings extract from the OBiBa Opal server",
+        "connection provided, using the profile: '%s'."
+      ),
+      profile
+    ),
+    hasPart = purrr::map(disc_setting_entities, ~ list("@id" = .x$`@id`))
+  )
+
   # computational environment ----
   # extract information about R packages installed in the environment
-  pkg_entities <- opalr::dsadmin.package_descriptions(x) |>
-    tibble::as_tibble() |>
+  pkg_tbl <- opalr::dsadmin.package_descriptions(x) |>
+    tibble::as_tibble()
+  pkg_entities <- pkg_tbl |>
     purrr::pmap(function(Package, Version, Description, Author, ...) {
       # create new entity
       rocrateR::entity(
@@ -112,19 +139,53 @@ safe_setting.opal <- function(
         type = "SoftwareApplication",
         name = Package,
         version = Version,
-        description = Description |> trimws()
+        description = Description |>
+          trimws()
       )
     })
 
+  # Opal server version
+  opal_version <- tryCatch(
+    {
+      x$version
+    },
+    error = function(e) NA_character_
+  )
+
+  opal_entity <- rocrateR::entity(
+    id = id_hash("#software:", paste0("opal", opal_version)),
+    type = "SoftwareApplication",
+    name = "Opal",
+    version = opal_version,
+    description = paste(
+      "Opal is OBiBa's (https://www.obiba.org/) core database application for",
+      "epidemiological studies. Participant data, collected by questionnaires,",
+      "medical instruments, sensors, administrative databases etc. can be",
+      "integrated and stored in a central data repository under a",
+      "uniform model."
+    )
+  )
+
+  # extract version of dsBase / DataSHIELD server
+  dsBase_version <- tryCatch(
+    pkg_tbl |>
+      dplyr::filter(Package == "dsBase") |>
+      (\(x) x$Version)(),
+    error = function(e) NA_character_
+  )
+
   software_env <- rocrateR::entity(
-    id = "#env:software", # id_hash("#env:", "software")
+    id = id_hash("#env:software_stack:", paste0(opal_version, dsBase_version)),
     type = "CreativeWork",
     name = "Approved Analytical Software Environment",
     description = paste(
       "Software packages installed in the controlled Opal/DataSHIELD",
       "environment used for federated analysis."
     ),
-    hasPart = purrr::map(pkg_entities, ~ list("@id" = .x$`@id`))
+    hasPart = purrr::map(
+      c(pkg_entities, list(opal_entity)),
+      ~ list("@id" = .x$`@id`)
+    )
   )
 
   # technical controls ----
@@ -177,38 +238,36 @@ safe_setting.opal <- function(
 
   # root safe setting entity ----
   safe_setting_root <- rocrateR::entity(
-    id = "#safesetting:technical",
+    id = id_hash("#safesetting:", "opal"),
     type = "CreativeWork",
-    name = "Safe Setting Controls",
+    name = "Safe Setting Controls (Opal)",
     description = paste(
       "Technical, physical and organisational safeguards applied to minimise",
       "disclosure risk."
     ),
-    additionalProperty = disc_setting_entities,
     hasPart = c(
-      list(list("@id" = "#env:software")),
-      purrr::map(
-        c(tech_controls, physical_controls, org_controls),
-        \(x) list("@id" = x$`@id`)
-      )
-    )
+      list(disclosure_env, software_env),
+      tech_controls,
+      physical_controls,
+      org_controls
+    ) |>
+      purrr::map(\(x) list("@id" = x$`@id`))
   )
 
   # add entities to RO-Crate
-  all_entities <- c(
+  all_entities <- list(
     disc_setting_entities,
+    disclosure_env,
     pkg_entities,
+    opal_entity,
+    software_env,
     tech_controls,
     physical_controls,
     org_controls,
-    list(software_env, safe_setting_root)
+    safe_setting_root
   )
 
-  rocrate <- purrr::reduce(
-    all_entities,
-    rocrateR::add_entity,
-    .init = rocrate
-  )
+  rocrate <- purrr::reduce(all_entities, rocrateR::add_entity, .init = rocrate)
 
   # attach input arguments as attributes
   attr(rocrate, "connection") <- x
