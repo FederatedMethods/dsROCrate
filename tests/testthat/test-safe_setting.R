@@ -32,7 +32,7 @@ test_that("safe_setting works", {
 
   # get settings for current server
   basic_rocrate_2 <- basic_rocrate |>
-    dsROCrate::safe_setting(connection = opal_con)
+    dsROCrate::safe_setting(connection = opal_con, profile = "default")
   ## extract list of all settings
   basic_rocrate_2_ss <- basic_rocrate_2 |>
     rocrateR::get_entity(type = "PropertyValue")

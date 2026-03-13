@@ -3,25 +3,33 @@
 # -------------------------------------------------------------------------
 test_that("extract_safe_setting dispatch works for rocrate", {
   # create an RO-Crate with setting entities
-  rocrate <- rocrateR::rocrate_5s() |>
-    rocrateR::add_entity(
-      entity = rocrateR::entity(
-        id = "#setting-1",
-        type = "PropertyValue",
-        name = "analysis.threshold",
-        value = "0.05"
-      )
-    ) |>
-    rocrateR::add_entity(
-      entity = rocrateR::entity(
-        id = "#software-1",
-        type = "SoftwareApplication",
-        name = "DataSHIELD",
-        version = "6.2.0"
-      )
-    )
+  disc_setting <- rocrateR::entity(
+    id = "#setting-1",
+    type = "PropertyValue",
+    name = "analysis.threshold",
+    value = "0.05"
+  )
+  disc_env <- rocrateR::entity(
+    id = paste0("#env:disclosure_settings:", "default"),
+    type = "CreativeWork",
+    name = "Disclosure Control Environment",
+    hasPart = purrr::map(list(disc_setting), ~ list("@id" = .x$`@id`))
+  )
+  safe_setting_root <- rocrateR::entity(
+    id = paste0("#safesetting:", "opal"),
+    type = "CreativeWork",
+    name = "Safe Setting Controls (Opal)",
+    description = paste(
+      "Technical, physical and organisational safeguards applied to minimise",
+      "disclosure risk."
+    ),
+    hasPart = list(disc_env) |>
+      purrr::map(\(x) list("@id" = x$`@id`))
+  )
+  rocrate <- list(disc_setting, disc_env, safe_setting_root) |>
+    purrr::reduce(rocrateR::add_entity, .init = rocrateR::rocrate_5s())
 
-  out <- extract_safe_setting(rocrate)
+  out <- dsROCrate:::extract_safe_setting(rocrate)
 
   expect_s3_class(out, "rocrate")
 })
@@ -43,30 +51,44 @@ test_that("extract_safe_setting.rocrate errors when no matching entities", {
   suppressWarnings(
     expect_error(
       extract_safe_setting(rocrate),
-      "No matching entities were found!"
+      "The Safe Setting root entity has no entities linked!"
     )
   )
 })
 
 test_that("extract_safe_setting.rocrate extracts PropertyValue and SoftwareApplication", {
   # create an RO-Crate with setting entities
-  rocrate <- rocrateR::rocrate_5s() |>
-    rocrateR::add_entity(
-      entity = rocrateR::entity(
-        id = "#setting-1",
-        type = "PropertyValue",
-        name = "analysis.threshold",
-        value = "0.05"
-      )
-    ) |>
-    rocrateR::add_entity(
-      entity = rocrateR::entity(
-        id = "#software-1",
-        type = "SoftwareApplication",
-        name = "DataSHIELD",
-        version = "6.2.0"
-      )
-    )
+  software_ent <- rocrateR::entity(
+    id = "#software-1",
+    type = "SoftwareApplication",
+    name = "DataSHIELD",
+    version = "6.2.0"
+  )
+  disc_setting <- rocrateR::entity(
+    id = "#setting-1",
+    type = "PropertyValue",
+    name = "analysis.threshold",
+    value = "0.05"
+  )
+  disc_env <- rocrateR::entity(
+    id = paste0("#env:disclosure_settings:", "default"),
+    type = "CreativeWork",
+    name = "Disclosure Control Environment",
+    hasPart = purrr::map(list(disc_setting), ~ list("@id" = .x$`@id`))
+  )
+  safe_setting_root <- rocrateR::entity(
+    id = paste0("#safesetting:", "opal"),
+    type = "CreativeWork",
+    name = "Safe Setting Controls (Opal)",
+    description = paste(
+      "Technical, physical and organisational safeguards applied to minimise",
+      "disclosure risk."
+    ),
+    hasPart = list(disc_env, software_ent) |>
+      purrr::map(\(x) list("@id" = x$`@id`))
+  )
+  rocrate <- list(disc_setting, disc_env, software_ent, safe_setting_root) |>
+    purrr::reduce(rocrateR::add_entity, .init = rocrateR::rocrate_5s())
 
   out <- extract_safe_setting(rocrate)
 
@@ -81,23 +103,31 @@ test_that("extract_safe_setting.rocrate extracts PropertyValue and SoftwareAppli
 
 test_that("extract_safe_setting.rocrate filters correctly by id", {
   # create an RO-Crate with setting entities
-  rocrate <- rocrateR::rocrate_5s() |>
-    rocrateR::add_entity(
-      entity = rocrateR::entity(
-        id = "#setting-1",
-        type = "PropertyValue",
-        name = "analysis.threshold",
-        value = "0.05"
-      )
-    ) |>
-    rocrateR::add_entity(
-      entity = rocrateR::entity(
-        id = "#software-1",
-        type = "SoftwareApplication",
-        name = "DataSHIELD",
-        version = "6.2.0"
-      )
-    )
+  disc_setting <- rocrateR::entity(
+    id = "#setting-1",
+    type = "PropertyValue",
+    name = "analysis.threshold",
+    value = "0.05"
+  )
+  disc_env <- rocrateR::entity(
+    id = paste0("#env:disclosure_settings:", "default"),
+    type = "CreativeWork",
+    name = "Disclosure Control Environment",
+    hasPart = purrr::map(list(disc_setting), ~ list("@id" = .x$`@id`))
+  )
+  safe_setting_root <- rocrateR::entity(
+    id = paste0("#safesetting:", "opal"),
+    type = "CreativeWork",
+    name = "Safe Setting Controls (Opal)",
+    description = paste(
+      "Technical, physical and organisational safeguards applied to minimise",
+      "disclosure risk."
+    ),
+    hasPart = list(disc_env) |>
+      purrr::map(\(x) list("@id" = x$`@id`))
+  )
+  rocrate <- list(disc_setting, disc_env, safe_setting_root) |>
+    purrr::reduce(rocrateR::add_entity, .init = rocrateR::rocrate_5s())
 
   out <- extract_safe_setting(rocrate, id = "#setting-1")
 
@@ -115,23 +145,31 @@ test_that("extract_safe_setting.rocrate filters correctly by id", {
 
 test_that("extract_safe_setting.rocrate emits informative message", {
   # create an RO-Crate with setting entities
-  rocrate <- rocrateR::rocrate_5s() |>
-    rocrateR::add_entity(
-      entity = rocrateR::entity(
-        id = "#setting-1",
-        type = "PropertyValue",
-        name = "analysis.threshold",
-        value = "0.05"
-      )
-    ) |>
-    rocrateR::add_entity(
-      entity = rocrateR::entity(
-        id = "#software-1",
-        type = "SoftwareApplication",
-        name = "DataSHIELD",
-        version = "6.2.0"
-      )
-    )
+  disc_setting <- rocrateR::entity(
+    id = "#setting-1",
+    type = "PropertyValue",
+    name = "analysis.threshold",
+    value = "0.05"
+  )
+  disc_env <- rocrateR::entity(
+    id = paste0("#env:disclosure_settings:", "default"),
+    type = "CreativeWork",
+    name = "Disclosure Control Environment",
+    hasPart = purrr::map(list(disc_setting), ~ list("@id" = .x$`@id`))
+  )
+  safe_setting_root <- rocrateR::entity(
+    id = paste0("#safesetting:", "opal"),
+    type = "CreativeWork",
+    name = "Safe Setting Controls (Opal)",
+    description = paste(
+      "Technical, physical and organisational safeguards applied to minimise",
+      "disclosure risk."
+    ),
+    hasPart = list(disc_env) |>
+      purrr::map(\(x) list("@id" = x$`@id`))
+  )
+  rocrate <- list(disc_setting, disc_env, safe_setting_root) |>
+    purrr::reduce(rocrateR::add_entity, .init = rocrateR::rocrate_5s())
 
   expect_message(
     extract_safe_setting(rocrate),
@@ -141,23 +179,31 @@ test_that("extract_safe_setting.rocrate emits informative message", {
 
 test_that("extract_safe_setting.rocrate errors when id filter removes all", {
   # create an RO-Crate with setting entities
-  rocrate <- rocrateR::rocrate_5s() |>
-    rocrateR::add_entity(
-      entity = rocrateR::entity(
-        id = "#setting-1",
-        type = "PropertyValue",
-        name = "analysis.threshold",
-        value = "0.05"
-      )
-    ) |>
-    rocrateR::add_entity(
-      entity = rocrateR::entity(
-        id = "#software-1",
-        type = "SoftwareApplication",
-        name = "DataSHIELD",
-        version = "6.2.0"
-      )
-    )
+  disc_setting <- rocrateR::entity(
+    id = "#setting-1",
+    type = "PropertyValue",
+    name = "analysis.threshold",
+    value = "0.05"
+  )
+  disc_env <- rocrateR::entity(
+    id = paste0("#env:disclosure_settings:", "default"),
+    type = "CreativeWork",
+    name = "Disclosure Control Environment",
+    hasPart = purrr::map(list(disc_setting), ~ list("@id" = .x$`@id`))
+  )
+  safe_setting_root <- rocrateR::entity(
+    id = paste0("#safesetting:", "opal"),
+    type = "CreativeWork",
+    name = "Safe Setting Controls (Opal)",
+    description = paste(
+      "Technical, physical and organisational safeguards applied to minimise",
+      "disclosure risk."
+    ),
+    hasPart = list(disc_env) |>
+      purrr::map(\(x) list("@id" = x$`@id`))
+  )
+  rocrate <- list(disc_setting, disc_env, safe_setting_root) |>
+    purrr::reduce(rocrateR::add_entity, .init = rocrateR::rocrate_5s())
 
   expect_error(
     extract_safe_setting(rocrate, id = "#nonexistent"),
