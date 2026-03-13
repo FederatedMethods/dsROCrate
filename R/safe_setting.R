@@ -72,6 +72,68 @@ safe_setting.character <- function(
   )
 }
 
+#' @export
+#' @rdname safe_setting
+safe_setting.cr8tor <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {
+  # x: parsed CR8TOR resources list
+
+  # technical infrastructure controls ----
+  tech_controls <- list(
+    rocrateR::entity(
+      id = "#control:containerised-runtime",
+      type = "CreativeWork",
+      name = "Containerised Execution Environment"
+    ),
+    rocrateR::entity(
+      id = "#control:network-isolation",
+      type = "CreativeWork",
+      name = "Network Isolation Policies"
+    ),
+    rocrateR::entity(
+      id = "#control:role-based-access",
+      type = "CreativeWork",
+      name = "Role-Based Access Control"
+    )
+  )
+
+  # physical controls -----
+  physical_controls <- list(
+    rocrateR::entity(
+      id = "#control:secure-hosting",
+      type = "CreativeWork",
+      name = "Secure Data Centre Hosting"
+    )
+  )
+
+  # organisational controls ----
+  org_controls <- list(
+    rocrateR::entity(
+      id = "#control:project-governance",
+      type = "CreativeWork",
+      name = "Project-Level Governance Model"
+    )
+  )
+
+  safe_root <- rocrateR::entity(
+    id = id_hash("#safesetting:", "cr8tor"),
+    type = "CreativeWork",
+    name = "Safe Setting Controls (CR8TOR Deployment)",
+    hasPart = purrr::map(
+      c(tech_controls, physical_controls, org_controls) |> purrr::list_c(),
+      ~ list("@id" = .x$`@id`)
+    )
+  )
+
+  all_entities <- purrr::list_c(
+    tech_controls,
+    physical_controls,
+    org_controls,
+    list(safe_root)
+  )
+
+  purrr::reduce(all_entities, rocrateR::add_entity, .init = rocrate)
+}
+
 #' @rdname safe_setting
 #' @export
 safe_setting.opal <- function(
