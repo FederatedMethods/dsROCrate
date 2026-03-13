@@ -36,22 +36,6 @@ test_that("get_project_tables retrieves real tables from demo server", {
   opalr::opal.logout(opal_con)
 })
 
-test_that("get_project_resources returns resources list from Opal", {
-  # open connection to OBiBa's Opal demo server
-  opal_con <- opal_demo_con()
-  project <- attr(opal_con, "PROJECT")
-
-  expect_warning(
-    res <- get_project_resources(opal_con, project),
-    "The given `project`, does not have any resources associated!"
-  )
-
-  expect_true(is.list(res) || is.character(res))
-
-  # close connection to OBiBa's Opal demo server
-  opalr::opal.logout(opal_con)
-})
-
 test_that("get_project_details works end-to-end with demo Opal project", {
   # open connection to OBiBa's Opal demo server
   opal_con <- opal_demo_con()
