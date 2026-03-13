@@ -12,7 +12,9 @@ init(x, ...)
   x,
   ...,
   rocrate = rocrateR::rocrate_5s(),
+  profile = "default",
   project = NULL,
+  resources = NULL,
   tables = NULL,
   path = NULL,
   user = NULL
@@ -23,7 +25,9 @@ init(x, ...)
   ...,
   connection = attr(x, "connection"),
   path = attr(x, "path"),
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
+  resources = attr(x, "resources"),
   tables = attr(x, "tables"),
   user = attr(x, "user")
 )
@@ -41,7 +45,13 @@ RO-Crate.}
 object or a path to a valid RO-Crate. If so, then \code{connection} is
 required (default: \code{rocrateR::rocrate_5s()}).}
 
+\item{profile}{String with profile name (used for OBiBa's Opal backend).}
+
 \item{project}{String with the name of the \link[=safe_project]{Safe Project}.}
+
+\item{resources}{Vector of strings with the names of the resources, part of
+\code{project}. Optional, if not provided, all the resources associated to
+\code{project} will be included in the RO-Crate.}
 
 \item{tables}{Vector of strings with the names of the tables/datasets, part
 of \code{project}. Optional, if not provided, all the tables/datasets

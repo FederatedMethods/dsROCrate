@@ -23,7 +23,9 @@ safe_output(x, ...)
   logs_to = Sys.time(),
   logs_from = logs_to - 24 * 60^2,
   connection = attr(x, "connection"),
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
+  resources = attr(x, "resources"),
   tables = attr(x, "tables")
 )
 
@@ -35,7 +37,9 @@ safe_output(x, ...)
   user = NULL,
   logs_to = Sys.time(),
   logs_from = logs_to - 24 * 60^2,
+  profile = "default",
   project = NULL,
+  resources = NULL,
   tables = NULL
 )
 
@@ -47,7 +51,9 @@ safe_output(x, ...)
   logs_to = Sys.time(),
   logs_from = logs_to - 24 * 60^2,
   connection = attr(x, "connection"),
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
+  resources = attr(x, "resources"),
   tables = attr(x, "tables")
 )
 }
@@ -78,7 +84,13 @@ this can be a string with the \code{name} of the current user.}
 values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is
 set to a connection object. If so, then \code{rocrate} is required.}
 
+\item{profile}{String with profile name (used for OBiBa's Opal backend).}
+
 \item{project}{String with the name of the \link[=safe_project]{Safe Project}.}
+
+\item{resources}{Vector of strings with the names of the resources, part of
+\code{project}. Optional, if not provided, all the resources associated to
+\code{project} will be included in the RO-Crate.}
 
 \item{tables}{Vector of strings with the names of the tables/datasets, part
 of \code{project}. Optional, if not provided, all the tables/datasets

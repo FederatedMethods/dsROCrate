@@ -24,7 +24,9 @@ safe_people(x, ...)
   set_project = TRUE,
   connection = attr(x, "connection"),
   path = attr(x, "path"),
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
+  resources = attr(x, "resources"),
   tables = attr(x, "tables")
 )
 
@@ -37,7 +39,9 @@ safe_people(x, ...)
   set_author = TRUE,
   set_project = TRUE,
   path = NULL,
+  profile = "default",
   project = NULL,
+  resources = NULL,
   tables = NULL
 )
 
@@ -50,7 +54,9 @@ safe_people(x, ...)
   set_project = TRUE,
   connection = attr(x, "connection"),
   path = attr(x, "path"),
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
+  resources = attr(x, "resources"),
   tables = attr(x, "tables")
 )
 }
@@ -84,7 +90,13 @@ set to a connection object. If so, then \code{rocrate} is required.}
 be used to store log files. If not provided, logs will be stored within
 the RO-Crate returned by this function.}
 
+\item{profile}{String with profile name (used for OBiBa's Opal backend).}
+
 \item{project}{String with the name of the \link[=safe_project]{Safe Project}.}
+
+\item{resources}{Vector of strings with the names of the resources, part of
+\code{project}. Optional, if not provided, all the resources associated to
+\code{project} will be included in the RO-Crate.}
 
 \item{tables}{Vector of strings with the names of the tables/datasets, part
 of \code{project}. Optional, if not provided, all the tables/datasets

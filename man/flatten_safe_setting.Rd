@@ -21,7 +21,7 @@ If not provided, extract all entities with \verb{@type = 'PropertyValue'} or
 \verb{@type = 'SoftwareApplication'}.}
 }
 \value{
-Data frame with safe settings.
+Data frame with Safe Settings.
 }
 \description{
 Flatten object with Safe Setting details

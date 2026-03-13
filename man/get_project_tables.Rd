@@ -20,7 +20,6 @@ Wrapper for \code{\link[opalr:opal.project]{opalr::opal.project()}}.
 \seealso{
 Other Opal: 
 \code{\link{get_project_details}()},
-\code{\link{get_project_resources}()},
 \code{\link{get_table_permissions}()},
 \code{\link{parse_user_profiles}()},
 \code{\link{project_exists}()}

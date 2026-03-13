@@ -22,7 +22,7 @@ Authors:
 
 Other contributors:
 \itemize{
-  \item DataSHIELD community [copyright holder]
+  \item University of Liverpool [copyright holder]
 }
 
 }

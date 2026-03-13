@@ -3,6 +3,7 @@
 \name{safe_setting}
 \alias{safe_setting}
 \alias{safe_setting.character}
+\alias{safe_setting.cr8tor}
 \alias{safe_setting.opal}
 \alias{safe_setting.rocrate}
 \title{Safe settings details}
@@ -20,17 +21,23 @@ safe_setting(x, ...)
   ...,
   connection = attr(x, "connection"),
   path = attr(x, "path"),
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
   tables = attr(x, "tables"),
+  resources = attr(x, "resources"),
   user = attr(x, "user")
 )
+
+\method{safe_setting}{cr8tor}(x, ..., rocrate = rocrateR::rocrate_5s())
 
 \method{safe_setting}{opal}(
   x,
   ...,
   rocrate = rocrateR::rocrate_5s(),
   path = NULL,
+  profile = "default",
   project = NULL,
+  resources = NULL,
   tables = NULL,
   user = NULL
 )
@@ -40,7 +47,9 @@ safe_setting(x, ...)
   ...,
   connection = attr(x, "connection"),
   path = attr(x, "path"),
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
+  resources = attr(x, "resources"),
   tables = attr(x, "tables"),
   user = attr(x, "user")
 )
@@ -62,11 +71,17 @@ set to a connection object. If so, then \code{rocrate} is required.}
 be used to store log files. If not provided, logs will be stored within
 the RO-Crate returned by this function.}
 
+\item{profile}{String with profile name (used for OBiBa's Opal backend).}
+
 \item{project}{String with the name of the \link[=safe_project]{Safe Project}.}
 
 \item{tables}{Vector of strings with the names of the tables/datasets, part
 of \code{project}. Optional, if not provided, all the tables/datasets
 associated to \code{project} will be included in the RO-Crate.}
+
+\item{resources}{Vector of strings with the names of the resources, part of
+\code{project}. Optional, if not provided, all the resources associated to
+\code{project} will be included in the RO-Crate.}
 
 \item{user}{List (or \link[rocrateR:entity]{entity} object) with details for
 the Safe People, it must include \verb{@id} and \code{name} entries. Alternatively,

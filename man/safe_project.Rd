@@ -17,11 +17,13 @@
 \S4method{safe_project}{armadillo}(
   x,
   ...,
+  profile = "default",
   project = NULL,
   rocrate = rocrateR::rocrate_5s(),
-  dataset_id_suffix = "#dataset:",
+  asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
   path = NULL,
+  resources = NULL,
   tables = NULL,
   user = NULL
 )
@@ -29,23 +31,27 @@
 \method{safe_project}{character}(
   x,
   ...,
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
-  dataset_id_suffix = "#dataset:",
+  asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
   connection = attr(x, "connection"),
   path = attr(x, "path"),
   tables = attr(x, "tables"),
+  resources = attr(x, "resources"),
   user = attr(x, "user")
 )
 
 \method{safe_project}{opal}(
   x,
   ...,
+  profile = "default",
   project = NULL,
   rocrate = rocrateR::rocrate_5s(),
-  dataset_id_suffix = "#dataset:",
+  asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
   path = NULL,
+  resources = NULL,
   tables = NULL,
   user = NULL
 )
@@ -53,11 +59,13 @@
 \method{safe_project}{rocrate}(
   x,
   ...,
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
-  dataset_id_suffix = "#dataset:",
+  asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
   connection = attr(x, "connection"),
   path = attr(x, "path"),
+  resources = attr(x, "resources"),
   tables = attr(x, "tables"),
   user = attr(x, "user")
 )
@@ -71,10 +79,12 @@ RO-Crate.}
 \item{...}{Other optional arguments. See the full documentation,
 \code{\link[=safe_project]{?dsROCrate::safe_project}}.}
 
+\item{profile}{String with profile name (used for OBiBa's Opal backend).}
+
 \item{project}{String with the name of the \link[=safe_project]{Safe Project}.}
 
-\item{dataset_id_suffix}{String with ID suffix for the tables/datasets
-entities in the RO-Crate (default: \code{"#dataset:"}).}
+\item{asset_id_suffix}{String with ID suffix for the tables/datasets
+entities in the RO-Crate (default: \code{"#asset:"}).}
 
 \item{project_id_suffix}{String with ID suffix for the project entities
 in the RO-Crate (default: \code{"#project:"}).}
@@ -90,6 +100,10 @@ the RO-Crate returned by this function.}
 \item{tables}{Vector of strings with the names of the tables/datasets, part
 of \code{project}. Optional, if not provided, all the tables/datasets
 associated to \code{project} will be included in the RO-Crate.}
+
+\item{resources}{Vector of strings with the names of the resources, part of
+\code{project}. Optional, if not provided, all the resources associated to
+\code{project} will be included in the RO-Crate.}
 
 \item{user}{List (or \link[rocrateR:entity]{entity} object) with details for
 the Safe People, it must include \verb{@id} and \code{name} entries. Alternatively,

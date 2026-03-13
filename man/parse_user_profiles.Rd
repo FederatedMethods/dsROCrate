@@ -28,7 +28,6 @@ Other Armadillo:
 
 Other Opal: 
 \code{\link{get_project_details}()},
-\code{\link{get_project_resources}()},
 \code{\link{get_project_tables}()},
 \code{\link{get_table_permissions}()},
 \code{\link{project_exists}()}

@@ -18,9 +18,12 @@ safe_data(x, ...)
 \method{safe_data}{character}(
   x,
   ...,
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
+  resources = attr(x, "resources"),
   tables = attr(x, "tables"),
-  dataset_id_suffix = "#dataset:",
+  asset_id_suffix = "#asset:",
+  project_id_suffix = "#project:",
   connection = attr(x, "connection"),
   path = attr(x, "path"),
   user = attr(x, "user")
@@ -30,9 +33,10 @@ safe_data(x, ...)
   x,
   ...,
   rocrate = rocrateR::rocrate_5s(),
+  profile = "default",
   project = NULL,
-  tables = NULL,
   resources = NULL,
+  tables = NULL,
   include = c("tables", "resources"),
   asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
@@ -43,9 +47,12 @@ safe_data(x, ...)
 \method{safe_data}{rocrate}(
   x,
   ...,
+  profile = attr(x, "profile"),
   project = attr(x, "project"),
+  resources = attr(x, "resources"),
   tables = attr(x, "tables"),
-  dataset_id_suffix = "#dataset:",
+  asset_id_suffix = "#asset:",
+  project_id_suffix = "#project:",
   connection = attr(x, "connection"),
   path = attr(x, "path"),
   user = attr(x, "user")
@@ -60,14 +67,23 @@ RO-Crate.}
 \item{...}{Other optional arguments. See the full documentation,
 \code{\link[=safe_data]{?dsROCrate::safe_data}}.}
 
+\item{profile}{String with profile name (used for OBiBa's Opal backend).}
+
 \item{project}{String with the name of the \link[=safe_project]{Safe Project}.}
+
+\item{resources}{Vector of strings with the names of the resources, part of
+\code{project}. Optional, if not provided, all the resources associated to
+\code{project} will be included in the RO-Crate.}
 
 \item{tables}{Vector of strings with the names of the tables/datasets, part
 of \code{project}. Optional, if not provided, all the tables/datasets
 associated to \code{project} will be included in the RO-Crate.}
 
-\item{dataset_id_suffix}{String with ID suffix for the tables/datasets
-entities in the RO-Crate (default: \code{"#dataset:"}).}
+\item{asset_id_suffix}{String with ID suffix for the tables/datasets
+entities in the RO-Crate (default: \code{"#asset:"}).}
+
+\item{project_id_suffix}{String with ID suffix for the project entities
+in the RO-Crate (default: \code{"#project:"}).}
 
 \item{connection}{Connection object for the 'DataSHIELD' server where the
 values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is
@@ -85,8 +101,8 @@ this can be a string with the \code{name} of the current user.}
 object or a path to a valid RO-Crate. If so, then \code{connection} is
 required (default: \code{rocrateR::rocrate_5s()}).}
 
-\item{project_id_suffix}{String with ID suffix for the project entities
-in the RO-Crate (default: \code{"#project:"}).}
+\item{include}{Vector of strings with types of assets to be included, either
+\code{"resources"}, \code{"tables"} or both.}
 }
 \value{
 Updated RO-Crate object with Safe Data information.
