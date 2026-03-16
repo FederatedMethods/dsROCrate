@@ -121,33 +121,86 @@ safe_project.opal <- function(
   # check if the given `project` exists
   project_exists(x, project = project)
 
+  # create project @id
+  project_id <- id_hash(project_id_suffix, project)
+
   # retrieve details associated to `project`
   project_details_tbl <- opalr::opal.project(x, project)
 
   # filter out asset entities associated with the project based on the
   # value for `asset_id_suffix`.
-  project_asset_entities <- rocrate$`@graph` |>
+  crate_asset_entities <- rocrate$`@graph` |>
     purrr::keep(\(x) grepl(paste0("^", asset_id_suffix), x$`@id`))
 
   # create project entity
   timestamps <- getElement(project_details_tbl, "timestamps")
   project_entity <- rocrateR::entity(
-    id = id_hash(project_id_suffix, project),
+    id = project_id,
     type = "Project",
     name = getElement(project_details_tbl, "name"),
     dateCreated = getElement(timestamps, "created"),
     dateModified = getElement(timestamps, "lastUpdate"),
-    hasPart = purrr::map(project_asset_entities, ~ list("@id" = .x$`@id`))
+    hasPart = purrr::map(crate_asset_entities, ~ list("@id" = .x$`@id`))
   )
 
   # if no tables are associated to this project, then drop `hasPart`
-  if (length(project_asset_entities) == 0) {
+  if (length(crate_asset_entities) == 0) {
     project_entity$hasPart <- NULL
   }
 
   # add new project entity to the RO-Crate
   rocrate <- rocrate |>
     rocrateR::add_entity(project_entity, overwrite = TRUE)
+
+  # Opal permissions ----
+  perms <- opalr::opal.get(x, "project", project, "permissions/project")
+
+  project_users <- perms |>
+    purrr::map_chr(
+      ~ getElement(.x$subject, "principal"),
+      .default = NA_character_
+    ) |>
+    stats::na.omit()
+
+  # link existing Person entities ----
+  people <- .get_entity(rocrate, type = "Person")
+
+  if (!is.null(people)) {
+    for (person in people) {
+      user <- person$name
+
+      if (user %in% project_users) {
+        rocrate <- append_entity_ref(
+          rocrate,
+          id = person[["@id"]],
+          key = "memberOf",
+          ref_id = project_id
+        )
+      }
+    }
+  }
+
+  # link existing asset entities ----
+  # extract assets for the given project
+  project_tbl_assets <- get_project_assets(x, project, "tables")
+  project_res_assets <- get_project_assets(x, project, "resources")
+  # combine assets
+  proj_assets_tbl <- dplyr::bind_rows(project_tbl_assets, project_res_assets)
+
+  # filter crate's assets based on the assets associated to the project
+  crate_asset_entities <- crate_asset_entities |>
+    purrr::keep(\(x) getElement(x, "name") %in% proj_assets_tbl$name)
+
+  if (!is.null(crate_asset_entities) && length(crate_asset_entities) > 0) {
+    for (ass in crate_asset_entities) {
+      rocrate <- append_entity_ref(
+        rocrate,
+        id = ass[["@id"]],
+        key = "isPartOf",
+        ref_id = project_id
+      )
+    }
+  }
 
   # attach input arguments as attributes
   attr(rocrate, "connection") <- x
