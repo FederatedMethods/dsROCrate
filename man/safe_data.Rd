@@ -5,7 +5,7 @@
 \alias{safe_data.character}
 \alias{safe_data.opal}
 \alias{safe_data.rocrate}
-\title{Safe data details}
+\title{Safe Data details}
 \source{
 \itemize{
 \item Research Data Scotland, 2025. "What is the Five Safes framework?".
@@ -108,7 +108,7 @@ required (default: \code{rocrateR::rocrate_5s()}).}
 Updated RO-Crate object with Safe Data information.
 }
 \description{
-Safe data details for the RO-Crate.
+Safe Data details for the RO-Crate.
 }
 \details{
 Researchers only use de-identified data that is relevant to their study.

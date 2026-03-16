@@ -2,7 +2,7 @@
 % Please edit documentation in R/audit_cr8tor.R
 \name{audit_cr8tor}
 \alias{audit_cr8tor}
-\title{Audit cr8tor archive}
+\title{Audit cr8tor project archive}
 \usage{
 audit_cr8tor(path, ...)
 }
@@ -15,8 +15,8 @@ audit_cr8tor(path, ...)
 RO-Crate audit object
 }
 \description{
-This audit loads a cr8tor archive and generates an RO-Crate object with
-pre-deployment governance details. This then can be rendered with
+This audit loads a cr8tor project archive and generates an RO-Crate object
+with pre-deployment governance details. This then can be rendered with
 \code{\link[=rocrate_report]{rocrate_report()}}.
 }
 \references{

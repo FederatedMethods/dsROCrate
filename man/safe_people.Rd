@@ -5,7 +5,7 @@
 \alias{safe_people.character}
 \alias{safe_people.opal}
 \alias{safe_people.rocrate}
-\title{Safe people details}
+\title{Safe People details}
 \source{
 \itemize{
 \item Research Data Scotland, 2025. "What is the Five Safes framework?".
@@ -110,7 +110,7 @@ required (default: \code{rocrateR::rocrate_5s()}).}
 Updated RO-Crate object with Safe People information.
 }
 \description{
-Safe people details for the RO-Crate.
+Safe People details for the RO-Crate.
 }
 \details{
 Researchers must be accredited and trained before accessing the data that

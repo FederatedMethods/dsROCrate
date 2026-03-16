@@ -6,7 +6,7 @@
 \alias{safe_project.character}
 \alias{safe_project.opal}
 \alias{safe_project.rocrate}
-\title{Safe projects details}
+\title{Safe Project details}
 \source{
 \itemize{
 \item Research Data Scotland, 2025. "What is the Five Safes framework?".
@@ -37,8 +37,8 @@
   project_id_suffix = "#project:",
   connection = attr(x, "connection"),
   path = attr(x, "path"),
-  tables = attr(x, "tables"),
   resources = attr(x, "resources"),
+  tables = attr(x, "tables"),
   user = attr(x, "user")
 )
 
@@ -97,13 +97,13 @@ set to a connection object. If so, then \code{rocrate} is required.}
 be used to store log files. If not provided, logs will be stored within
 the RO-Crate returned by this function.}
 
-\item{tables}{Vector of strings with the names of the tables/datasets, part
-of \code{project}. Optional, if not provided, all the tables/datasets
-associated to \code{project} will be included in the RO-Crate.}
-
 \item{resources}{Vector of strings with the names of the resources, part of
 \code{project}. Optional, if not provided, all the resources associated to
 \code{project} will be included in the RO-Crate.}
+
+\item{tables}{Vector of strings with the names of the tables/datasets, part
+of \code{project}. Optional, if not provided, all the tables/datasets
+associated to \code{project} will be included in the RO-Crate.}
 
 \item{user}{List (or \link[rocrateR:entity]{entity} object) with details for
 the Safe People, it must include \verb{@id} and \code{name} entries. Alternatively,
@@ -114,10 +114,10 @@ object or a path to a valid RO-Crate. If so, then \code{connection} is
 required (default: \code{rocrateR::rocrate_5s()}).}
 }
 \value{
-Updated RO-Crate object with Safe Projects information.
+Updated RO-Crate object with Safe Project information.
 }
 \description{
-Safe projects details for the RO-Crate.
+Safe Project details for the RO-Crate.
 }
 \details{
 Data must be used ethically, for research that delivers clear public benefit.

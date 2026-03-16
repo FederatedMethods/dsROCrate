@@ -5,7 +5,7 @@
 \alias{safe_output.character}
 \alias{safe_output.opal}
 \alias{safe_output.rocrate}
-\title{Safe outputs details}
+\title{Safe Output details}
 \source{
 \itemize{
 \item Research Data Scotland, 2025. "What is the Five Safes framework?".
@@ -104,7 +104,7 @@ required (default: \code{rocrateR::rocrate_5s()}).}
 Updated RO-Crate object with Safe Outputs information.
 }
 \description{
-Safe outputs details for the RO-Crate.
+Safe Output details for the RO-Crate.
 }
 \details{
 All research outputs are checked to ensure individuals cannot be identified

@@ -6,7 +6,7 @@
 \alias{safe_setting.cr8tor}
 \alias{safe_setting.opal}
 \alias{safe_setting.rocrate}
-\title{Safe settings details}
+\title{Safe Setting details}
 \source{
 \itemize{
 \item Research Data Scotland, 2025. "What is the Five Safes framework?".
@@ -95,7 +95,7 @@ required (default: \code{rocrateR::rocrate_5s()}).}
 Updated RO-Crate object with Safe Settings information.
 }
 \description{
-Safe settings details for the RO-Crate.
+Safe Setting details for the RO-Crate.
 }
 \details{
 The organisational and technical settings used to access data are designed
