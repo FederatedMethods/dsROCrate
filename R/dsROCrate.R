@@ -1,4 +1,6 @@
-#' Initialise Five Safes RO-Crate
+#' Initialise a Five Safes RO-Crate
+#'
+#' Creates a new RO-Crate configured for Five Safes auditing.
 #'
 #' @param x This can be a connection to a 'DataSHIELD' server (e.g., object with
 #'     the `opal` class, see [opalr::opal.login()]), an RO-Crate
@@ -27,7 +29,13 @@
 #'     the Safe People, it must include `@id` and `name` entries. Alternatively,
 #'     this can be a string with the `name` of the current user.
 #'
-#' @returns Five Safes RO-Crate.
+#' @returns Five Safes RO-Crate object.
+#'
+#' @references
+#' Wilkinson, M., Dumontier, M., Aalbersberg, I. et al. (2016) The FAIR Guiding
+#' Principles for scientific data management and stewardship. Sci Data 3,
+#' 160018. https://doi.org/10.1038/sdata.2016.18
+#'
 #' @export
 init <- function(x, ...) {
   UseMethod("init")
