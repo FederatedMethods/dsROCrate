@@ -10,7 +10,7 @@ flatten_safe_data(x, ...)
 
 \method{flatten_safe_data}{default}(x, ...)
 
-\method{flatten_safe_data}{rocrate}(x, ..., id = NULL)
+\method{flatten_safe_data}{rocrate}(x, ..., id = NULL, asset_id_suffix = "#asset:")
 }
 \arguments{
 \item{x}{Object (e.g., RO-Crate) with Safe Data details. This can be
