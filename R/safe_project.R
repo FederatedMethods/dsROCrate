@@ -1,6 +1,6 @@
-#' Safe projects details
+#' Safe Project details
 #'
-#' Safe projects details for the RO-Crate.
+#' Safe Project details for the RO-Crate.
 #'
 #' Data must be used ethically, for research that delivers clear public benefit.
 #'
@@ -14,7 +14,7 @@
 #'     [`?dsROCrate::safe_project`][safe_project()].
 #' @inheritParams safe_data
 #'
-#' @returns Updated RO-Crate object with Safe Projects information.
+#' @returns Updated RO-Crate object with Safe Project information.
 #' @export
 #'
 #' @source
@@ -64,8 +64,8 @@ safe_project.character <- function(
   project_id_suffix = "#project:",
   connection = attr(x, "connection"),
   path = attr(x, "path"),
-  tables = attr(x, "tables"),
   resources = attr(x, "resources"),
+  tables = attr(x, "tables"),
   user = attr(x, "user")
 ) {
   # attempt loading the RO-Crate
@@ -124,44 +124,20 @@ safe_project.opal <- function(
   # retrieve details associated to `project`
   project_details_tbl <- opalr::opal.project(x, project)
 
-  # attempt to retrieve the asset entities to link up the IDs to the project
-  project_asset_entities <- rocrate |>
-    .get_entity(type = "Dataset")
-
-  # if any entity was found, then filter to keep those for which their @id
-  # starts with `asset_id_suffix` as set by `safe_data()` and that are
-  # associated to the current project:
-  if (length(project_asset_entities) > 0) {
-    # filter by @id suffix
-    idx_id <- project_asset_entities |>
-      sapply("[[", "@id") |>
-      sapply(grepl, pattern = paste0("^", asset_id_suffix))
-    # filter by name (if any are found)
-    ## pull table names for the current project
-    project_tables <- get_project_tables(x, project)
-    idx_name <- FALSE
-    if (length(project_tables) > 0) {
-      idx_name <- project_asset_entities |>
-        sapply("[[", "name") |>
-        sapply(\(x) x[[1]] %in% project_tables)
-    }
-    # drop out entries with @id not starting with `asset_id_suffix`
-    project_asset_entities[!(idx_id & idx_name)] <- NULL
-  }
+  # filter out asset entities associated with the project based on the
+  # value for `asset_id_suffix`.
+  project_asset_entities <- rocrate$`@graph` |>
+    purrr::keep(\(x) grepl(paste0("^", asset_id_suffix), x$`@id`))
 
   # create project entity
   timestamps <- getElement(project_details_tbl, "timestamps")
   project_entity <- rocrateR::entity(
-    id = paste0(project_id_suffix, digest::digest(project)),
+    id = id_hash(project_id_suffix, project),
     type = "Project",
     name = getElement(project_details_tbl, "name"),
     dateCreated = getElement(timestamps, "created"),
     dateModified = getElement(timestamps, "lastUpdate"),
-    hasPart = project_asset_entities |>
-      sapply("[[", "@id") |>
-      lapply(function(id) {
-        list(`@id` = id)
-      })
+    hasPart = purrr::map(project_asset_entities, ~ list("@id" = .x$`@id`))
   )
 
   # if no tables are associated to this project, then drop `hasPart`
