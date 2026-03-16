@@ -1,7 +1,7 @@
-#' Audit cr8tor archive
+#' Audit cr8tor project archive
 #'
-#' This audit loads a cr8tor archive and generates an RO-Crate object with
-#' pre-deployment governance details. This then can be rendered with
+#' This audit loads a cr8tor project archive and generates an RO-Crate object
+#' with pre-deployment governance details. This then can be rendered with
 #' [rocrate_report()].
 #'
 #' @param path Path to cr8tor archive.

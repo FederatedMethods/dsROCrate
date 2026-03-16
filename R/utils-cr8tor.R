@@ -667,16 +667,18 @@ link_people_to_root <- function(rc, usernames) {
   )
 }
 
-#' Load cr8tor governance bundle
+#' Load cr8tor governance bundle / project archive
 #'
-#' A cr8tor archive contains:
-#' * bagit/      → RO-Crate metadata layer
-#' * resources/  → deployment & governance YAML specs
-#' * config.toml → platform configuration
+#' A cr8tor project archive contains:
+#' * bagit/      → RO-Crate metadata layer.
+#' * resources/  → deployment & governance YAML specs.
+#' * config.toml → platform configuration.
 #'
-#' @param path Path to cr8tor ZIP archive
-#' @return Object of class `cr8tor_bundle`
-#' @noRd
+#' @param path Path to cr8tor ZIP archive.
+#' @param ... Unused.
+#'
+#' @return Object of class `cr8tor`.
+#' @export
 load_cr8tor_bundle <- function(path, ...) {
   tmp <- tempfile("cr8tor_")
   dir.create(tmp, recursive = TRUE, showWarnings = FALSE)
@@ -717,7 +719,7 @@ load_cr8tor_bundle <- function(path, ...) {
       config = config,
       root = tmp_root
     ),
-    class = "cr8tor_bundle"
+    class = "cr8tor"
   )
 }
 
