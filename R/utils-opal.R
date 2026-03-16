@@ -1,3 +1,15 @@
+#' Add Asset Permissions to RO-Crate
+#'
+#' Creates a Permission entity describing dataset-level access for a user
+#' within a project and links it to the relevant assets.
+#'
+#' @param rocrate RO-Crate object, see [rocrateR::rocrate].
+#' @param project Project identifier.
+#' @param user User identifier.
+#' @param assets Vector of strings with asset identifiers.
+#'
+#' @return Updated RO-Crate.
+#'
 #' @noRd
 add_asset_permissions_to_crate <- function(
   rocrate,
