@@ -1,6 +1,6 @@
-#' Safe data details
+#' Safe Data details
 #'
-#' Safe data details for the RO-Crate.
+#' Safe Data details for the RO-Crate.
 #'
 #' Researchers only use de-identified data that is relevant to their study.
 #'

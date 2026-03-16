@@ -1,6 +1,6 @@
-#' Safe settings details
+#' Safe Setting details
 #'
-#' Safe settings details for the RO-Crate.
+#' Safe Setting details for the RO-Crate.
 #'
 #' The organisational and technical settings used to access data are designed
 #' to minimise the risk of accidental disclosure of data.

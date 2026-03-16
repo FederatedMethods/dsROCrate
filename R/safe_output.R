@@ -1,6 +1,6 @@
-#' Safe outputs details
+#' Safe Output details
 #'
-#' Safe outputs details for the RO-Crate.
+#' Safe Output details for the RO-Crate.
 #'
 #' All research outputs are checked to ensure individuals cannot be identified
 #' even in the public domain.

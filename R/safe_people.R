@@ -1,6 +1,6 @@
-#' Safe people details
+#' Safe People details
 #'
-#' Safe people details for the RO-Crate.
+#' Safe People details for the RO-Crate.
 #'
 #' Researchers must be accredited and trained before accessing the data that
 #' has been prepared for them.
