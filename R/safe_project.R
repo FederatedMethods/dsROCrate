@@ -140,13 +140,12 @@ safe_project.opal <- function(
     name = getElement(project_details_tbl, "name"),
     dateCreated = getElement(timestamps, "created"),
     dateModified = getElement(timestamps, "lastUpdate"),
-    hasPart = purrr::map(crate_asset_entities, ~ list("@id" = .x$`@id`))
+    hasPart = if (length(crate_asset_entities) > 0) {
+      purrr::map(crate_asset_entities, ~ list("@id" = .x$`@id`))
+    } else {
+      NULL
+    }
   )
-
-  # if no tables are associated to this project, then drop `hasPart`
-  if (length(crate_asset_entities) == 0) {
-    project_entity$hasPart <- NULL
-  }
 
   # add new project entity to the RO-Crate
   rocrate <- rocrate |>
