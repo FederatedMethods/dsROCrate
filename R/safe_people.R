@@ -93,8 +93,9 @@ safe_people.opal <- function(
   validate_opal_con(x)
 
   # attempt to retrieve project entity
+  project_id <- id_hash("#project:", project)
   safe_project_entity <- rocrate |>
-    .get_entity(type = "Project")
+    .get_entity(id = project_id, type = "Project")
 
   # initialise empty user entity
   user_entity <- NULL

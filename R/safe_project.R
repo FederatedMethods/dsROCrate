@@ -165,13 +165,13 @@ safe_project.opal <- function(
   people <- .get_entity(rocrate, type = "Person")
 
   if (!is.null(people)) {
-    for (person in people) {
-      user <- person$name
+    for (p in people) {
+      user <- p$name
 
       if (user %in% project_users) {
         rocrate <- append_entity_ref(
           rocrate,
-          id = person[["@id"]],
+          id = p[["@id"]],
           key = "memberOf",
           ref_id = project_id
         )

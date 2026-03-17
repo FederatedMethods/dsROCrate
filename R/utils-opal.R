@@ -39,7 +39,7 @@ add_asset_permissions_to_crate <- function(
       user <- perms$user[j]
       permission <- perms$permission[j]
 
-      user_id <- id_hash("#user:", user)
+      user_id <- id_hash("#person:", user)
 
       # create permission entities
       perm_ents <- user_asset_perm_entities(
