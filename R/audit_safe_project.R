@@ -31,7 +31,7 @@ audit_safe_project.opal <- function(
   path = NULL
 ) {
   # local bindings
-  name <- principal <- project_tables_all <- subject <- table <- type <- NULL
+  name <- principal <- NULL
 
   # create RO-Create with projects and datasets, plus information of users that
   # have access to them
@@ -73,8 +73,8 @@ audit_safe_project.opal <- function(
   # Safe Projects ----
   crate <- project |>
     purrr::reduce(
-      \(crate, project_name) {
-        safe_project(crate, connection = x, project = project_name)
+      \(crate, p) {
+        safe_project(crate, connection = x, project = p)
       },
       .init = crate
     )
@@ -82,8 +82,8 @@ audit_safe_project.opal <- function(
   # Safe Data ----
   crate <- project |>
     purrr::reduce(
-      \(crate, project_name) {
-        safe_data(crate, connection = x, project = project_name)
+      \(crate, p) {
+        safe_data(crate, connection = x, project = p)
       },
       .init = crate
     )
@@ -101,19 +101,20 @@ audit_safe_project.opal <- function(
   crate <- safe_setting(x, rocrate = crate)
 
   # Safe Outputs ----
-  for (u in safe_people_tbl$name) {
-    # # suppress warnings, as some users might not have logs in the given period
-    # suppressWarnings({
-    crate <- x |>
-      extract_safe_output(
-        path = path,
-        user = u,
-        logs_to = logs_to,
-        logs_from = logs_from,
-        rocrate = crate,
-      )
-    # })
-  }
+  crate <- safe_people_tbl$name |>
+    purrr::reduce(
+      \(crate, u) {
+        safe_output(
+          crate,
+          connection = x,
+          path = path,
+          user = u,
+          logs_to = logs_to,
+          logs_from = logs_from
+        )
+      },
+      .init = crate
+    )
 
   # attach input args as attributes to the RO-Crate
   attr(crate, "audit_type") <- "Safe Project"

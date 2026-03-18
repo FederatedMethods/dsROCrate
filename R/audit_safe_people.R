@@ -44,7 +44,11 @@ audit_safe_people.opal <- function(
   path = NULL
 ) {
   # local bindings
-  project_tables_all <- subject <- type <- NULL
+  name <- principal <- project_tables_all <- subject <- type <- NULL
+
+  # create RO-Create with projects and datasets, plus information of users that
+  # have access to them
+  crate <- rocrateR::rocrate_5s()
 
   # validate Opal connection
   is_opal_admin_con(x)
@@ -57,118 +61,91 @@ audit_safe_people.opal <- function(
     project <- ds[, "name"]
   }
 
-  suppressWarnings({
-    project_tables_all <- x |>
-      get_project_details(project)
-  })
+  # Safe People ----
+  # get users' details
+  safe_people_tbl <- opalr::opal.get(x, "/system/subject-profiles/") |>
+    dplyr::bind_rows() |>
+    dplyr::rename(name = principal) |>
+    # exclude system administrators from the report
+    dplyr::filter(!(tolower(name) %in% c("admin", "administrator"))) |>
+    dplyr::filter(tolower(name) == user)
 
-  # get permissions for each table in the project
-  # get table permissions
-  project_table_permissions_tbl <- seq_len(nrow(project_tables_all)) |>
-    lapply(function(i) {
-      get_table_permissions(
-        x,
-        project_tables_all[i, "project"][[1]],
-        project_tables_all[i, "table"][[1]]
-      )
-    }) |>
-    dplyr::bind_rows()
-
-  # filter out project permissions for the given user
-  project_table_permissions_tbl_v2 <- project_table_permissions_tbl |>
-    dplyr::filter(subject %in% user, type == "user")
-
-  # check if any permission records were found for the current project
-  if (nrow(project_table_permissions_tbl_v2) == 0) {
+  if (nrow(safe_people_tbl) == 0) {
     stop(
-      "The given `project`, does not have any permissions set for the given `user`!",
+      sprintf(
+        "No Safe People details were found for the user '%s'!",
+        user
+      ),
       call. = FALSE
     )
   }
 
-  # create RO-Create with user, projects and datasets they have access to
-  safe_people_crate <- rocrateR::rocrate_5s()
+  crate <- safe_people_tbl$name |>
+    purrr::reduce(
+      \(crate, username) {
+        safe_people(
+          crate,
+          connection = x,
+          user = username,
+          set_author = FALSE,
+          set_project = FALSE
+        )
+      },
+      .init = crate
+    )
 
-  ## add Safe Data and Safe Project details
-  for (p in unique(project_table_permissions_tbl_v2$project)) {
-    # filter out tables for the current project
-    project_tables <- project_table_permissions_tbl_v2 |>
-      dplyr::filter(project == p)
-    # add tables for the current project
-    safe_people_crate <- safe_people_crate |>
-      dsROCrate::safe_data(
-        project = p,
-        tables = project_tables$table,
-        connection = x
-      )
-    # add project details
-    safe_people_crate <- safe_people_crate |>
-      dsROCrate::safe_project(project = p, connection = x)
-  }
+  # Safe Projects ----
+  crate <- project |>
+    purrr::reduce(
+      \(crate, p) {
+        safe_project(crate, connection = x, project = p)
+      },
+      .init = crate
+    )
 
-  # add Safe People details
-  for (i in seq_len(length(user))) {
-    safe_people_crate <- safe_people_crate |>
-      dsROCrate::safe_people(
-        user = user[i],
-        connection = x,
-        set_author = FALSE,
-        set_project = FALSE
-      )
-  }
+  # Safe Data ----
+  crate <- project |>
+    purrr::reduce(
+      \(crate, p) {
+        safe_data(crate, connection = x, project = p)
+      },
+      .init = crate
+    )
 
-  # extract Dataset entities from the RO-Crate: @id & name
-  safe_data_entities_tbl <- safe_people_crate |>
-    flatten_safe_data() |>
-    dplyr::rename("table_id" = "id")
+  # remove permissions associated with admin users
+  non_admin_user_ids <- safe_people_tbl$name |>
+    purrr::map_chr(id_hash, prefix = "#person:")
+  admin_perm_ents <- crate$`@graph` |>
+    purrr::keep(\(x) grepl("^#perm:", getElement(x, "@id"))) |>
+    purrr::discard(\(x) getElement(x, "agent")[[1]] %in% non_admin_user_ids)
+  crate <- admin_perm_ents |>
+    purrr::reduce(rocrateR::remove_entity, .init = crate)
 
-  # extract Person entities from the RO-Crate: @id & name
-  safe_people_entities_tbl <- safe_people_crate |>
-    flatten_safe_people() |>
-    dplyr::rename("user_id" = "id")
+  # Safe Settings ----
+  crate <- safe_setting(x, rocrate = crate)
 
-  ## combine the table permissions with Dataset & People entities' @ids
-  project_table_permissions_tbl_v3 <- project_table_permissions_tbl |>
-    dplyr::filter(subject %in% user, type == "user") |>
-    dplyr::left_join(safe_data_entities_tbl, by = c("table" = "name")) |>
-    dplyr::left_join(safe_people_entities_tbl, by = c("subject" = "name")) |>
-    dplyr::rename(user = subject)
-
-  ## generate user permission entities and add to the RO-Crate
-  user_perm_entity_lst <- project_table_permissions_tbl_v3 |>
-    purrr::pmap(user_perm_entity) |>
-    purrr::list_c()
-
-  # ignore warnings about existing permission entities
-  suppressWarnings({
-    safe_people_crate <- user_perm_entity_lst |>
-      purrr::reduce(
-        rocrateR::add_entity,
-        overwrite = TRUE,
-        .init = safe_people_crate
-      )
-  })
-
-  # add Safe Setting details
-  safe_people_crate <- x |>
-    extract_safe_setting(rocrate = safe_people_crate)
-
-  # add Safe Output details
-  safe_people_crate <- x |>
-    extract_safe_output(
-      path = path,
-      user = safe_people_entities_tbl$name,
-      logs_to = logs_to,
-      logs_from = logs_from,
-      rocrate = safe_people_crate
+  # Safe Outputs ----
+  crate <- safe_people_tbl$name |>
+    purrr::reduce(
+      \(crate, u) {
+        safe_output(
+          crate,
+          connection = x,
+          path = path,
+          user = u,
+          logs_to = logs_to,
+          logs_from = logs_from
+        )
+      },
+      .init = crate
     )
 
   # attach input args as attributes to the RO-Crate
-  attr(safe_people_crate, "audit_type") <- "Safe People"
-  attr(safe_people_crate, "path") <- path
-  attr(safe_people_crate, "project") <- project
-  attr(safe_people_crate, "user") <- user
+  attr(crate, "audit_type") <- "Safe People"
+  attr(crate, "path") <- path
+  attr(crate, "project") <- project
+  attr(crate, "user") <- user
 
   # return new RO-Crate
-  return(safe_people_crate)
+  return(crate)
 }
