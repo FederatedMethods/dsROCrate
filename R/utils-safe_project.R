@@ -24,11 +24,11 @@ extract_safe_project.opal <- function(
 
   # cycle through the data source (x) and extract project details
   for (i in seq_len(nrow(ds))) {
-    project_name <- ds[i, "name"]
-    if (!is.na(project_name) && !is.null(project_name)) {
+    project <- ds[i, "name"]
+    if (!is.na(project) && !is.null(project)) {
       suppressWarnings({
         rocrate <- rocrate |>
-          safe_project(project = project_name, connection = x)
+          safe_project(project = project, connection = x)
       })
     }
   }
@@ -135,26 +135,27 @@ flatten_safe_project.rocrate <- function(x, ..., y = x) {
           has_part <- getElement(ent, "hasPart") |>
             unlist()
           project_id <- getElement(ent, "@id")
-          project_name <- getElement(ent, "name")
+          project <- getElement(ent, "name")
 
-          # if the current Project entity has any Datasets, extract them
+          # if the current Project entity has any assets, extract them
           if (!is.null(has_part)) {
-            # extract datasets by @id
-            table_names <- y |>
-              flatten_safe_data(id = has_part) |>
-              # extract names
-              getElement("name")
+            # extract assets by @id
+            assets_tbl <- y |>
+              flatten_safe_data(id = has_part)
 
-            return(tibble::tibble(
-              id = project_id,
-              project = project_name,
-              table = table_names
-            ))
+            proj_assets_tbl <- tibble::tibble(
+              project_id = project_id,
+              project = project
+            ) |>
+              dplyr::bind_cols(assets_tbl)
+
+            return(proj_assets_tbl)
           }
           return(tibble::tibble(
-            id = project_id,
-            project = project_name,
-            table = NA
+            project_id = project_id,
+            project = project,
+            asset_id = NA,
+            asset = NA
           ))
         }) |>
         dplyr::bind_rows()

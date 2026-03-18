@@ -70,7 +70,7 @@ add_safe_project_entities_cr8tor <- function(rc, proj_tbl, data_tbl) {
 
   for (i in seq_len(nrow(proj_tbl))) {
     project_id <- proj_tbl$id[i]
-    project_name <- proj_tbl$name[i]
+    project <- proj_tbl$name[i]
     project_eid <- paste0("#project:", project_id)
 
     ds_ids <- data_tbl |>
@@ -86,7 +86,7 @@ add_safe_project_entities_cr8tor <- function(rc, proj_tbl, data_tbl) {
         rocrateR::entity(
           id = project_eid,
           type = "Project",
-          name = project_name,
+          name = project,
           dateCreated = now,
           dateModified = now,
           hasPart = has_part
@@ -172,14 +172,14 @@ add_permission_entities_cr8tor <- function(rc, perm_expanded_tbl) {
   for (i in seq_len(nrow(perm_expanded_tbl))) {
     row <- perm_expanded_tbl[i, ]
 
-    user_id <- paste0("#person:", digest::digest(row$username))
-    table_id <- paste0("#dataset:", row$table)
+    user_id <- id_hash("#person:", row$username)
+    table_id <- id_hash("#asset:", row$table)
 
     ents <- user_perm_entity(
       user = row$username,
       user_id = user_id,
-      table = row$table,
-      table_id = table_id,
+      asset = row$table,
+      asset_id = table_id,
       permission = row$permission
     )
 
@@ -723,7 +723,7 @@ load_cr8tor_bundle <- function(path, ...) {
   )
 }
 
-map_project_name_to_id <- function(project_name, proj_tbl) {
-  idx <- which(proj_tbl$name == project_name)
-  if (length(idx)) proj_tbl$id[idx[1]] else project_name
+map_project_name_to_id <- function(project, proj_tbl) {
+  idx <- which(proj_tbl$name == project)
+  if (length(idx)) proj_tbl$id[idx[1]] else project
 }

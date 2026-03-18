@@ -125,6 +125,8 @@ flatten_safe_people.default <- function(x, ...) {
 #' @rdname flatten_safe_people
 #' @export
 flatten_safe_people.rocrate <- function(x, ..., id = NULL) {
+  # local bindings
+  person_id <- NULL
   tryCatch(
     {
       # extract Person entities
@@ -133,7 +135,7 @@ flatten_safe_people.rocrate <- function(x, ..., id = NULL) {
         # extract @id and name for each entity
         lapply(function(ent) {
           tibble::tibble(
-            id = getElement(ent, "@id"),
+            person_id = getElement(ent, "@id"),
             name = getElement(ent, "name"),
             given_name = c(
               getElement(ent, "givenName"),
@@ -152,7 +154,7 @@ flatten_safe_people.rocrate <- function(x, ..., id = NULL) {
       # if `id` is provided, then only keep those entities
       if (!is.null(id)) {
         entities_tbl <- entities_tbl |>
-          dplyr::filter(id %in% !!id)
+          dplyr::filter(person_id %in% !!id)
       }
 
       # return dataset entities

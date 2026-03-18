@@ -73,7 +73,7 @@ rocrate_report.list <- function(
   max_line_length = 200
 ) {
   # local bindings
-  id <- name <- permission <- project <- server <- user <- NULL
+  asset <- id <- name <- permission <- project <- server <- user <- NULL
 
   # validate that all the objects in the list, `x`, are valid RO-Crates
   sapply(x, rocrateR::is_rocrate)
@@ -188,27 +188,22 @@ rocrate_report.list <- function(
   ## overview table ----
   overview_data_all <- tibble::tibble()
   ## combine aggregated data to generate new overview table
-  safe_project_data_all <- safe_project_all |>
-    dplyr::rename(project_id = id) |>
-    dplyr::left_join(
-      safe_data_all |>
-        dplyr::rename(table_id = id),
-      by = c("table" = "name", "server" = "server")
-    )
+  safe_project_data_all <- safe_project_all #|>
+  # dplyr::rename(asset = asset_name)
+
   # if data permissions were found, then combine with project-data details and
   # generate new overview table
   if (!is.null(safe_data_permissions_all)) {
     overview_data_all <- safe_data_permissions_all |>
       dplyr::left_join(
-        safe_people_all |>
-          dplyr::rename(user_id = id),
-        by = c("user_id", "server")
+        safe_people_all,
+        by = c("person_id", "server")
       ) |>
-      dplyr::left_join(safe_project_data_all, by = c("table_id", "server")) |>
+      dplyr::left_join(safe_project_data_all, by = c("asset_id", "server")) |>
       dplyr::select(
         server,
         project,
-        table,
+        asset,
         permission,
         user = name
       )
@@ -218,7 +213,7 @@ rocrate_report.list <- function(
       overview_data_all <- overview_data_all |>
         dplyr::left_join(
           safe_output_all,
-          by = c("server", "project", "table", "user")
+          by = c("server", "project", "asset", "user")
         )
     }
   } else {
@@ -261,7 +256,7 @@ rocrate_report.list <- function(
   report_contents <- c(
     .markdown_report_header(title, overview_data_all, overview_lst$diag_path),
     tidy_overview_tbl |>
-      # # tidy up duplicated values in `project` and `table`
+      # # tidy up duplicated values in `project` and `asset`
       # dplyr::mutate(
       #   Project = unfill_vec(Project),
       #   Data = unfill_vec(Data)
@@ -404,9 +399,9 @@ rocrate_report.rocrate <- function(
   max_line_length = 200
 ) {
   # local bindings ----
-  actionStatus <- description <- fx <- table <- NULL
-  encodingFormat <- id <- name <- project <- table_id <- table_name <- NULL
-  timestamp <- type <- user_id <- user <- NULL
+  actionStatus <- asset <- asset_id <- description <- fx <- NULL
+  encodingFormat <- id <- name <- permission <- perm_id <- project <- NULL
+  table_name <- timestamp <- type <- person_id <- user <- NULL
 
   # validate RO-Crate ----
   rocrateR::is_rocrate(x)
@@ -546,36 +541,31 @@ rocrate_report.rocrate <- function(
   ### extract (if available) table with user permissions
   user_perm_tbl <- flatten_user_perm_entity(user_perm_entity_lst)
   ### extract table with Safe People details
-  safe_people_tbl <- flatten_safe_people(safe_people_rocrate) |>
-    dplyr::rename(user_id = id)
+  safe_people_tbl <- flatten_safe_people(safe_people_rocrate)
   ### extract table with Safe Project details
   safe_project_tbl <- flatten_safe_project(safe_project_rocrate)
   ### extract table with Safe Data details
-  safe_data_tbl <- flatten_safe_data(safe_data_rocrate) |>
-    dplyr::rename(table_id = id, table_name = name)
+  safe_data_tbl <- flatten_safe_data(safe_data_rocrate)
   if (!is.null(user_perm_tbl) && nrow(user_perm_tbl) > 0) {
     overview_tbl <- user_perm_tbl |>
       # combine with Safe People details
-      dplyr::left_join(safe_people_tbl, by = "user_id") |>
-      # drop unused columns
-      dplyr::select(-id, -actionStatus, -description) |>
+      dplyr::left_join(safe_people_tbl, by = "person_id") |>
+      # subset columns of interest
+      dplyr::select(perm_id, person_id, name, asset_id, permission) |>
       # combine with Safe Data details
-      dplyr::left_join(safe_data_tbl, by = c("table_id")) |>
+      dplyr::left_join(safe_data_tbl, by = "asset_id") |>
       # combine with Safe Project details
-      dplyr::left_join(safe_project_tbl, by = c("table_name" = "table")) |>
-      # drop unused columns
-      dplyr::select(-id, -user_id, -table_id, -type) |>
-      dplyr::rename(table = table_name)
+      dplyr::left_join(safe_project_tbl, by = c("asset_id", "asset")) #|>
+    # # drop unused columns
+    # dplyr::select(-id, -person_id, -asset_id, -type) |>
+    # dplyr::rename(asset = asset_name)
   } else {
     overview_tbl <- flatten_safe_people(safe_people_rocrate) |>
-      dplyr::select(-id) |>
-      dplyr::bind_cols(
-        flatten_safe_project(safe_project_rocrate) |>
-          dplyr::select(-id),
-        flatten_safe_data(safe_data_rocrate) |>
-          dplyr::select(-id) |>
-          dplyr::rename(table = name)
-      )
+      purrr::pmap(function(person_id, name, ...) {
+        tibble::tibble(person_id, name) |>
+          dplyr::bind_cols(flatten_safe_project(safe_project_rocrate))
+      }) |>
+      purrr::list_c()
   }
 
   # attempt extracting list of functions executed by the users from Safe Outputs
@@ -596,15 +586,15 @@ rocrate_report.rocrate <- function(
     safe_output_tbl_v2 <- safe_output_tbl |>
       dplyr::mutate(
         project = gsub("(?=\\.).*$", "", table, perl = TRUE),
-        table = gsub("^.*(?<=\\.)", "", table, perl = TRUE)
+        asset = gsub("^.*(?<=\\.)", "", table, perl = TRUE)
       ) |>
-      dplyr::distinct(project, table, user, fx, timestamp)
+      dplyr::distinct(project, asset, user, fx, timestamp)
 
     # append the list of functions to the overview table
     overview_tbl <- overview_tbl |>
       dplyr::left_join(
         safe_output_tbl_v2,
-        by = c("project" = "project", "table" = "table", "name" = "user")
+        by = c("project" = "project", "asset" = "asset", "name" = "user")
       ) |>
       # replace 'NA' in fx & timestamp with empty string
       dplyr::mutate(
@@ -742,11 +732,11 @@ rocrate_report.rocrate <- function(
   diag_height
 ) {
   # local bindings
-  fx <- name <- permission <- project <- table <- NULL
+  fx <- name <- permission <- project <- asset <- NULL
 
   ## initialise `vars` and `labelvar`
-  vars <- c("project", "table")
-  labelvar <- c(project = "Project", table = "Data")
+  vars <- c("project", "asset")
+  labelvar <- c(project = "Project", asset = "Data")
 
   # check if `overview_tbl` has `permission` field AND include_user_perm = TRUE
   if ("permission" %in% colnames(overview_tbl) && include_user_perm) {
@@ -853,8 +843,8 @@ rocrate_report.rocrate <- function(
   fx <- permission <- timestamp <- NULL
 
   ## initialise `vars` and `varslab`
-  vars <- c("project", "table")
-  varslab <- c("Project" = "project", "Data" = "table")
+  vars <- c("project", "asset")
+  varslab <- c("Project" = "project", "Data" = "asset")
 
   # check if `overview_tbl` has `permission` field AND include_user_perm = TRUE
   if ("permission" %in% colnames(overview_tbl) && include_user_perm) {

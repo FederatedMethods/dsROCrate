@@ -23,8 +23,8 @@ extract_safe_data.opal <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {
   # create RO-Crate with Safe Data details for the projects found on the server
   purrr::reduce(
     projects,
-    \(crate, project_name) {
-      safe_data(crate, connection = x, project = project_name)
+    \(crate, p) {
+      safe_data(crate, connection = x, project = p)
     },
     .init = rocrate
   )
@@ -80,7 +80,7 @@ extract_safe_data.rocrate <- function(
 #' @param id Vector of strings with the `@id`s for the datasets to be extracted.
 #'     If not provided, extract all entities with `@type = 'Dataset'`.
 #'
-#' @returns Data frame with safe data details.
+#' @returns Data frame with Safe Data details.
 #' @rdname flatten_safe_data
 #' @keywords internal
 flatten_safe_data <- function(x, ...) {
@@ -101,6 +101,9 @@ flatten_safe_data.rocrate <- function(
   id = NULL,
   asset_id_suffix = "#asset:"
 ) {
+  # local bindings
+  asset_id <- person_id <- NULL
+
   tryCatch(
     {
       # extract asset entities
@@ -109,19 +112,19 @@ flatten_safe_data.rocrate <- function(
         # extract @id and name for each entity
         lapply(function(ent) {
           tibble::tibble(
-            id = getElement(ent, "@id"),
-            name = getElement(ent, "name")
+            asset_id = getElement(ent, "@id"),
+            asset = getElement(ent, "name")
           )
         }) |>
         # combine all rows
         dplyr::bind_rows() |>
         # filter out root (./) entity
-        dplyr::filter(id != "./")
+        dplyr::filter(asset_id != "./")
 
       # if `id` is provided, then only keep those entities
       if (!is.null(id)) {
         entities_tbl <- entities_tbl |>
-          dplyr::filter(id %in% !!id)
+          dplyr::filter(asset_id %in% !!id)
       }
 
       # return dataset entities

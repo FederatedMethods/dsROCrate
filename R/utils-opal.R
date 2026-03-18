@@ -1,11 +1,11 @@
 #' Add Asset Permissions to RO-Crate
 #'
-#' Creates a Permission entity describing dataset-level access for a user
+#' Creates a Permission entity describing dataset-level access for a person
 #' within a project and links it to the relevant assets.
 #'
 #' @param rocrate RO-Crate object, see [rocrateR::rocrate].
 #' @param project Project identifier.
-#' @param user User identifier.
+#' @param person User identifier.
 #' @param assets Vector of strings with asset identifiers.
 #'
 #' @return Updated RO-Crate.
@@ -31,18 +31,18 @@ add_asset_permissions_to_crate <- function(
       next
     }
 
-    # iterate through user permissions for an asset
+    # iterate through person permissions for an asset
     for (j in seq_len(nrow(perms))) {
-      user <- perms$user[j]
+      person <- perms$person[j]
       permission <- perms$permission[j]
 
-      user_id <- id_hash("#person:", user)
+      person_id <- id_hash("#person:", person)
 
       # create permission entities
       perm_ents <- user_asset_perm_entities(
-        user = user,
-        user_id = user_id,
-        asset_name = asset$name,
+        person = person,
+        person_id = person_id,
+        asset = asset$name,
         asset_id = asset_id,
         permission = permission,
         asset_type = asset_type
@@ -162,7 +162,7 @@ get_asset_permissions <- function(x, project, asset_type, name) {
   }
 
   tibble::tibble(
-    user = perms$subject,
+    person = perms$subject,
     permission = perms$permission
   )
 }
@@ -373,7 +373,7 @@ get_table_permissions <- function(x, project, tables) {
 #' @keywords internal
 flatten_user_perm_entity <- function(x) {
   # local bindings
-  agent <- object <- table_id <- user_id <- NULL
+  agent <- object <- asset_id <- person_id <- NULL
 
   # flatten list of entities
   x_tbl <- x |>
@@ -386,14 +386,14 @@ flatten_user_perm_entity <- function(x) {
   # edit tibble with entities
   x_tbl |>
     dplyr::rename(
-      id = "@id",
+      perm_id = "@id",
       type = "@type",
-      user_id = agent,
-      table_id = object
+      person_id = agent,
+      asset_id = object
     ) |>
     dplyr::mutate(
-      user_id = unlist(user_id),
-      table_id = unlist(table_id),
+      person_id = unlist(person_id),
+      asset_id = unlist(asset_id),
     ) |>
     # add permission field, based on `type`
     dplyr::mutate(
@@ -592,9 +592,9 @@ update_project_datasets <- function(rocrate, project, ds_ids) {
 
 #' @noRd
 user_asset_perm_entities <- function(
-  user,
-  user_id,
-  asset_name,
+  person,
+  person_id,
+  asset,
   asset_id,
   permission,
   asset_type = c("table", "resource")
@@ -603,35 +603,42 @@ user_asset_perm_entities <- function(
 
   # reuse existing function by aliasing "table" args
   user_perm_entity(
-    user = user,
-    user_id = user_id,
-    table = asset_name,
-    table_id = asset_id,
+    person = person,
+    person_id = person_id,
+    asset = asset,
+    asset_id = asset_id,
     permission = permission
   )
 }
 
-#' Create user permission entities
+#' Create user/person permission entities
 #'
-#' @param user String with user name.
-#' @param user_id String with user `@id`.
-#' @param table String with dataset/table name.
-#' @param table_id String with dataset/table `@id`.
+#' @param person String with person name/username.
+#' @param person_id String with person `@id`.
+#' @param asset String with dataset/table/resource name.
+#' @param asset_id String with dataset/table `@id`.
 #' @param permission String with permission ('view', 'view-values', 'edit',
 #'     'edit-values' OR 'administrate').
 #' @param ... Other additional values.
 #'
 #' @returns List of [rocrateR::entity] objects
 #' @keywords internal
-user_perm_entity <- function(user, user_id, table, table_id, permission, ...) {
+user_perm_entity <- function(
+  person,
+  person_id,
+  asset,
+  asset_id,
+  permission,
+  ...
+) {
   # set local bindings
   description <- type <- NULL
   action_status <- "PotentialActionStatus"
-  agent <- list(list(`@id` = user_id))
-  object <- list(list(`@id` = table_id))
+  agent <- list(list(`@id` = person_id))
+  object <- list(list(`@id` = asset_id))
 
   # create combined @id
-  comb_id <- paste0("#perm:", digest::digest(paste0(user, "-", table)))
+  comb_id <- id_hash("#perm:", paste0(person, "-", asset))
 
   # update combine @id, @type and description based on permission
   if (permission == "view") {
