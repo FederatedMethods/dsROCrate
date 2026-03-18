@@ -24,17 +24,14 @@ add_asset_permissions_to_crate <- function(
     asset_id <- id_lookup[[asset$name]]
     asset_type <- asset$asset_type
 
-    perms <- get_asset_permissions(
-      x,
-      project,
-      asset_type,
-      asset$name
-    )
+    # retrieve asset permissions
+    perms <- get_asset_permissions(x, project, asset_type, asset$name)
 
     if (is.null(perms)) {
       next
     }
 
+    # iterate through user permissions for an asset
     for (j in seq_len(nrow(perms))) {
       user <- perms$user[j]
       permission <- perms$permission[j]
@@ -52,13 +49,12 @@ add_asset_permissions_to_crate <- function(
       )
 
       # add permission entities
-      for (ent in perm_ents) {
-        rocrate <- rocrateR::add_entity(
-          rocrate,
-          ent,
-          overwrite = TRUE
-        )
-      }
+      rocrate <- purrr::reduce(
+        perm_ents,
+        rocrateR::add_entity,
+        overwrite = TRUE,
+        .init = rocrate
+      )
     }
   }
 
@@ -138,6 +134,27 @@ get_asset_permissions <- function(x, project, asset_type, name) {
     perms <- opalr::opal.table_perm(x, project, name)
   } else {
     perms <- opalr::opal.resource_perm(x, project, name)
+    if (is.null(perms) || nrow(perms) == 0) {
+      # if the previous call returns NULL, then attempt a different approach
+      perms_lst <- x |>
+        opalr::opal.get("project", project, "permissions/resources")
+      # derive permissions at Project level
+      perms <- tryCatch(
+        perms_lst |>
+          purrr::map(function(p) {
+            tibble::tibble(
+              subject = p$subject$principal,
+              resource = p$resource,
+              permission = purrr::list_c(p$actions) |>
+                gsub(pattern = "RESOURCES_", replacement = "") |>
+                gsub(pattern = "ALL", replacement = "administrate") |>
+                tolower()
+            )
+          }),
+        error = function(e) NULL
+      ) |>
+        purrr::list_c()
+    }
   }
 
   if (is.null(perms) || length(perms$subject) == 0) {
