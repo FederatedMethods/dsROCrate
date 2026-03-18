@@ -20,7 +20,7 @@ generated with the \code{\link[=extract_safe_data]{extract_safe_data()}} functio
 If not provided, extract all entities with \verb{@type = 'Dataset'}.}
 }
 \value{
-Data frame with safe data details.
+Data frame with Safe Data details.
 }
 \description{
 Flatten object with Safe Data details

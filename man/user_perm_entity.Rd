@@ -2,18 +2,18 @@
 % Please edit documentation in R/utils-opal.R
 \name{user_perm_entity}
 \alias{user_perm_entity}
-\title{Create user permission entities}
+\title{Create user/person permission entities}
 \usage{
-user_perm_entity(user, user_id, table, table_id, permission, ...)
+user_perm_entity(person, person_id, asset, asset_id, permission, ...)
 }
 \arguments{
-\item{user}{String with user name.}
+\item{person}{String with person name/username.}
 
-\item{user_id}{String with user \verb{@id}.}
+\item{person_id}{String with person \verb{@id}.}
 
-\item{table}{String with dataset/table name.}
+\item{asset}{String with dataset/table/resource name.}
 
-\item{table_id}{String with dataset/table \verb{@id}.}
+\item{asset_id}{String with dataset/table \verb{@id}.}
 
 \item{permission}{String with permission ('view', 'view-values', 'edit',
 'edit-values' OR 'administrate').}
@@ -24,6 +24,6 @@ user_perm_entity(user, user_id, table, table_id, permission, ...)
 List of \link[rocrateR:entity]{rocrateR::entity} objects
 }
 \description{
-Create user permission entities
+Create user/person permission entities
 }
 \keyword{internal}
