@@ -86,10 +86,9 @@ project_exists <- function(x, ...) {
 project_exists.opal <- function(x, ..., project) {
   if (!opalr::opal.project_exists(x, project)) {
     stop(
-      paste0(
-        "The given `project = '",
-        project,
-        "'` was not found in the given Opal connection!"
+      sprintf(
+        "The `project = '%s'` was not found in the given Opal connection!",
+        project
       ),
       call. = FALSE
     )
@@ -109,10 +108,9 @@ setMethod(
   ) {
     if (!(project %in% MolgenisArmadillo::armadillo.list_projects())) {
       stop(
-        paste0(
-          "The given `project = '",
-          project,
-          "'` was not found in the given Armadillo connection!"
+        sprintf(
+          "The `project = '%s'` was not found in the given Armadillo connection!",
+          project
         ),
         call. = FALSE
       )
