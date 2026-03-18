@@ -62,7 +62,7 @@ test_that("list method errors for unknown project", {
 
   expect_error(
     audit_study(list(demo = opal_con), project = "NON_EXISTENT_PROJECT"),
-    "No data details were found",
+    "The `project = 'NON_EXISTENT_PROJECT'` was not found",
     fixed = TRUE
   )
 

@@ -169,7 +169,7 @@ test_that("flatten_safe_data.rocrate extracts id and name correctly", {
   res <- flatten_safe_data(roc)
 
   expect_s3_class(res, "data.frame")
-  expect_true(all(c("id", "name") %in% names(res)))
+  expect_true(all(c("asset_id", "asset") %in% names(res)))
   expect_equal(nrow(res), 2)
 })
 
@@ -197,7 +197,7 @@ test_that("flatten_safe_data.rocrate filters by id argument", {
   res <- flatten_safe_data(roc, id = "#asset:A")
 
   expect_equal(nrow(res), 1)
-  expect_equal(res$id, "#asset:A")
+  expect_equal(res$asset_id, "#asset:A")
 })
 
 test_that("flatten_safe_data.rocrate returns empty tibble on error", {

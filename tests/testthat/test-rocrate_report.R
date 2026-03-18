@@ -109,12 +109,19 @@ test_that("rocrate_report.rocrate returns expected structure", {
     extract_safe_setting = function(...) NULL,
     extract_safe_output = function(...) NULL,
     flatten_safe_people = function(...) {
-      tibble::tibble(id = "u1", name = "dsuser", project = "P1")
+      tibble::tibble(person_id = "u1", name = "dsuser", project = "P1")
     },
     flatten_safe_project = function(...) {
-      tibble::tibble(id = "p1", project = "P1", table = "T1")
+      tibble::tibble(
+        project_id = "p1",
+        project = "P1",
+        asset_id = "t1",
+        asset = "T1"
+      )
     },
-    flatten_safe_data = function(...) tibble::tibble(id = "t1", name = "T1"),
+    flatten_safe_data = function(...) {
+      tibble::tibble(asset_id = "t1", asset = "T1")
+    },
     flatten_safe_output = function(...) tibble::tibble(),
     flatten_user_perm_entity = function(...) NULL,
     .overview_diagram = function(...) list(diag_lst = "diag", diag_path = NULL),
@@ -180,16 +187,21 @@ test_that("rocrate_report.list aggregates multiple servers", {
   fake_rocrate <- structure(list(), class = "rocrate")
 
   server_output <- list(
-    safe_people = tibble::tibble(id = "u1", name = "dsuser"),
-    safe_project = tibble::tibble(id = "p1", table = "T1"),
-    safe_data = tibble::tibble(id = "t1", name = "T1"),
+    safe_people = tibble::tibble(id_person = "u1", name = "dsuser"),
+    safe_project = tibble::tibble(
+      id_project = "p1",
+      project = "P1",
+      asset_id = "t1",
+      asset = "T1"
+    ),
+    safe_data = tibble::tibble(asset_id = "t1", asset = "T1"),
     safe_data_permissions = NULL,
     safe_setting = tibble::tibble(),
     safe_output = tibble::tibble(),
     overview_data = tibble::tibble(
       project = "P1",
-      table = "T1",
-      user = "dsuser"
+      asset = "T1",
+      person = "dsuser"
     )
   )
 
@@ -223,7 +235,7 @@ test_that("rocrate_report.list aggregates multiple servers", {
 test_that(".tidy_overview collapses permissions correctly", {
   df <- tibble::tibble(
     project = "P1",
-    table = "T1",
+    asset = "T1",
     name = "dsuser",
     permission = c("read", "write")
   )
@@ -270,11 +282,14 @@ test_that("rocrate_report works end-to-end with real dsROCrate audit outputs", {
   opal_con <- opal_demo_con()
 
   # generate audit RO-Crate for a Safe Project
-  roc <- audit_safe_project(
-    opal_con,
-    project = "CNSIM",
-    path = tmp_dir
-  )
+  # suppress warnings about missing logs
+  suppressWarnings({
+    roc <- audit_safe_project(
+      opal_con,
+      project = "CNSIM",
+      path = tmp_dir
+    )
+  })
 
   out_file <- file.path(tmp_dir, "report.md")
 
@@ -310,11 +325,14 @@ test_that("rocrate_report.character loads crate from disk", {
   opal_con <- opal_demo_con()
 
   # generate audit RO-Crate for a Safe Project
-  roc <- audit_safe_project(
-    opal_con,
-    project = "CNSIM",
-    path = tmp_dir
-  )
+  # suppress warnings about missing logs
+  suppressWarnings({
+    roc <- audit_safe_project(
+      opal_con,
+      project = "CNSIM",
+      path = tmp_dir
+    )
+  })
 
   # write crate to disk (real metadata file)
   path_to_rocrate_bag <- rocrateR::bag_rocrate(roc, path = tmp_dir)

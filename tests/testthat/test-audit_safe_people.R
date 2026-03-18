@@ -63,7 +63,7 @@ test_that("opal method errors for unknown project", {
       project = "NON_EXISTENT_PROJECT",
       user = attr(opal_con, "PEOPLE")
     ),
-    "The given `project`, does not have any permissions set for the given `user`!",
+    "The `project = 'NON_EXISTENT_PROJECT'` was not found in the given Opal connection!",
     fixed = TRUE
   )
 })
