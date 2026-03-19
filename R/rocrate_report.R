@@ -28,7 +28,7 @@ rocrate_report.character <- function(
   max_line_length = 200
 ) {
   # attempt loading the RO-Crate
-  rocrate <- load_rocrate(x)
+  rocrate <- rocrateR::load_rocrate(x)
 
   # call the next generic method
   rocrate |>
