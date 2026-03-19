@@ -24,7 +24,7 @@ test_that("opal method returns RO-Crate with expected attributes", {
   expect_s3_class(crate, "rocrate")
 
   expect_equal(attr(crate, "audit_type"), "Safe People")
-  expect_true("project" %in% names(attributes(crate)))
+  expect_true("user" %in% names(attributes(crate)))
 
   # close connection to OBiBa's Opal demo server
   opalr::opal.logout(opal_con)

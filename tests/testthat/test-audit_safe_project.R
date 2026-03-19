@@ -18,7 +18,7 @@ test_that("opal method returns RO-Crate with expected attributes", {
 
   # ignore warning about empty logs
   suppressWarnings(
-    crate <- audit_safe_project(opal_con)
+    crate <- audit_safe_project(opal_con, project = attr(opal_con, "PROJECT"))
   )
 
   expect_s3_class(crate, "rocrate")
@@ -71,6 +71,7 @@ test_that("path argument is stored as attribute", {
   suppressWarnings(
     crate <- audit_safe_project(
       opal_con,
+      project = attr(opal_con, "PROJECT"),
       path = tempdir()
     )
   )

@@ -8,7 +8,7 @@ test_that("rocrate_report.default errors", {
 test_that("rocrate_report.character errors for invalid path", {
   expect_error(
     rocrate_report("nonexistent_path", render = FALSE),
-    "is not a valid path"
+    "The provided path does not exist"
   )
 })
 
@@ -25,7 +25,7 @@ test_that("rocrate_report.character errors if read_rocrate fails", {
     code = {
       expect_error(
         rocrate_report(tmp_file, render = FALSE),
-        "Unable to load an RO-Crate"
+        "Could not determine how to load RO-Crate from provided input"
       )
     },
     .package = "rocrateR"
