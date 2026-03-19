@@ -4,28 +4,41 @@
 #' with pre-deployment governance details. This then can be rendered with
 #' [rocrate_report()].
 #'
-#' @param path Path to cr8tor archive.
+#' @param x Path to cr8tor archive / governance bundle.
 #' @param ... Additional arguments for [rocrateR::load_rocrate].
-#' @return RO-Crate audit object
+#' @return RO-Crate audit object.
 #'
 #' @references https://karectl-crates.github.io/cr8tor-metamodel/
 #' @export
-audit_cr8tor <- function(path, ...) {
-  bundle <- load_cr8tor_bundle(path, ...)
+audit_cr8tor <- function(x, ...) {
+  UseMethod("audit_cr8tor")
+}
 
+#' @rdname audit_cr8tor
+#' @export
+audit_cr8tor.character <- function(x, ...) {
+  bundle <- load_cr8tor_bundle(x, ...)
+
+  # call next method
+  audit_cr8tor(bundle)
+}
+
+#' @rdname audit_cr8tor
+#' @export
+audit_cr8tor.cr8tor <- function(x, ...) {
   audit <- list(
-    metadata = extract_cr8tor_metadata(bundle),
-    integrity = extract_integrity_cr8tor(bundle),
-    safe_people = extract_safe_people_cr8tor(bundle),
-    safe_projects = extract_safe_projects_cr8tor(bundle),
-    safe_data = extract_safe_data_cr8tor(bundle),
-    safe_settings = extract_safe_settings_cr8tor(bundle),
-    safe_outputs = extract_safe_outputs_cr8tor(bundle),
-    user_projects = extract_user_projects_cr8tor(bundle),
-    user_groups = extract_user_groups_cr8tor(bundle),
-    groups = extract_groups_cr8tor(bundle),
-    permissions = extract_permissions_cr8tor(bundle) #,
-    # lineage = extract_lineage_cr8tor(bundle),
+    metadata = extract_cr8tor_metadata(x),
+    integrity = extract_integrity_cr8tor(x),
+    safe_people = extract_safe_people_cr8tor(x),
+    safe_projects = extract_safe_projects_cr8tor(x),
+    safe_data = extract_safe_data_cr8tor(x),
+    safe_settings = extract_safe_settings_cr8tor(x),
+    safe_outputs = extract_safe_outputs_cr8tor(x),
+    user_projects = extract_user_projects_cr8tor(x),
+    user_groups = extract_user_groups_cr8tor(x),
+    groups = extract_groups_cr8tor(x),
+    permissions = extract_permissions_cr8tor(x) #,
+    # lineage = extract_lineage_cr8tor(x),
   )
 
   as_rocrate_audit(audit)
@@ -67,12 +80,12 @@ as_rocrate_audit <- function(audit) {
   rc <- rc |>
     add_safe_project_entities_cr8tor(
       audit$safe_projects,
-      audit$safe_data$tables
+      audit$safe_data$assets
     )
 
   # ---- Safe Data ----
   rc <- rc |>
-    add_safe_data_entities_cr8tor(audit$safe_data$tables)
+    add_safe_data_entities_cr8tor(audit$safe_data$assets)
 
   # ---- Permissions ----
   rc <- rc |>
@@ -80,7 +93,7 @@ as_rocrate_audit <- function(audit) {
       expand_group_permissions_to_users(
         perm_tbl = audit$permissions,
         membership_tbl = audit$user_groups,
-        data_tbl = audit$safe_data$tables
+        data_tbl = audit$safe_data$assets
       ) |>
         dedupe_effective_permissions()
     )
