@@ -13,7 +13,8 @@ audit_safe_project(x, ...)
 \method{audit_safe_project}{opal}(
   x,
   ...,
-  project = NULL,
+  project,
+  user = NULL,
   logs_from = -Inf,
   logs_to = Inf,
   path = NULL
@@ -25,7 +26,10 @@ the \code{opal} class, see \code{\link[opalr:opal.login]{opalr::opal.login()}}).
 
 \item{...}{Other optional arguments, see full documentation for details.}
 
-\item{project}{String with project name(s) from which to extra Safe People
+\item{project}{String with project name(s) from which to extra Safe Project
+details.}
+
+\item{user}{String with the user name for which to extract Safe People
 details.}
 
 \item{logs_from}{Lower limit timestamp to filter out the outputs generated
@@ -39,7 +43,7 @@ be used to store log files. If not provided, logs will be stored within
 the RO-Crate returned by this function.}
 }
 \value{
-Updated RO-Crate object with Safe Project information.
+Audit RO-Crate with 5 Safes Components.
 }
 \description{
 Audit Safe Project details from a 'DataSHIELD' server, an RO-Crate object or

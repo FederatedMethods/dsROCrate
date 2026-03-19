@@ -35,7 +35,7 @@ the \code{opal} class, see \code{\link[opalr:opal.login]{opalr::opal.login()}}).
 
 \item{...}{Other optional arguments, see full documentation for details.}
 
-\item{project}{String with project name(s) from which to extra Safe People
+\item{project}{String with project name(s) from which to extra Safe Project
 details.}
 
 \item{logs_from}{Lower limit timestamp to filter out the outputs generated

@@ -2,17 +2,23 @@
 % Please edit documentation in R/audit_cr8tor.R
 \name{audit_cr8tor}
 \alias{audit_cr8tor}
+\alias{audit_cr8tor.character}
+\alias{audit_cr8tor.cr8tor}
 \title{Audit cr8tor project archive}
 \usage{
-audit_cr8tor(path, ...)
+audit_cr8tor(x, ...)
+
+\method{audit_cr8tor}{character}(x, ...)
+
+\method{audit_cr8tor}{cr8tor}(x, ...)
 }
 \arguments{
-\item{path}{Path to cr8tor archive.}
+\item{x}{Path to cr8tor archive / governance bundle.}
 
 \item{...}{Additional arguments for \link[rocrateR:load_rocrate]{rocrateR::load_rocrate}.}
 }
 \value{
-RO-Crate audit object
+RO-Crate audit object.
 }
 \description{
 This audit loads a cr8tor project archive and generates an RO-Crate object
