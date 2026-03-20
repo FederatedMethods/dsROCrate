@@ -109,6 +109,14 @@ safe_people.opal <- function(
         id = c(getElement(user, "@id"), getElement(user, "id")),
         type = "Person",
         name = c(getElement(user, "name"), getElement(user, "username")),
+        givenName = c(
+          getElement(user, "givenName"),
+          getElement(user, "firstname")
+        ),
+        familyName = c(
+          getElement(user, "familyName"),
+          getElement(user, "surname")
+        ),
         affiliation = list(`@id` = c(getElement(user, "affiliation")))
       )
     } else {
