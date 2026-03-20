@@ -6,7 +6,8 @@
 #'
 #' @param x Path to cr8tor archive / governance bundle.
 #' @param ... Additional arguments for [rocrateR::load_rocrate].
-#' @return RO-Crate audit object.
+#'
+#' @returns Audit RO-Crate with 5 Safes Components.
 #'
 #' @references https://karectl-crates.github.io/cr8tor-metamodel/
 #' @export
@@ -91,7 +92,11 @@ as_rocrate_audit <- function(audit) {
   rc <- rc |>
     add_permission_entities_cr8tor(
       expand_group_permissions_to_users(
-        perm_tbl = audit$permissions,
+        perm_tbl = audit$permissions |>
+          dplyr::left_join(
+            audit$safe_projects,
+            by = c("project" = "project_id")
+          ),
         membership_tbl = audit$user_groups,
         data_tbl = audit$safe_data$assets
       ) |>

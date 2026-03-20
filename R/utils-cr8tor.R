@@ -29,17 +29,14 @@ add_safe_people_entities_cr8tor <- function(rc, people_tbl, membership_tbl) {
       list(`@id` = id_hash("#project:", pr))
     })
 
-    display_name <- paste(p$given_name, p$family_name)
-    if (is.na(display_name) || trimws(display_name) == "") {
-      display_name <- p$username
-    }
-
     rc <- rc |>
       rocrateR::add_entity(
         rocrateR::entity(
           id = person_id,
           type = "Person",
-          name = display_name,
+          name = p$username,
+          givenName = p$given_name,
+          familyName = p$family_name,
           email = p$email,
           affiliation = p$affiliation,
           memberOf = memberOf
@@ -69,22 +66,21 @@ add_safe_project_entities_cr8tor <- function(rc, proj_tbl, data_tbl) {
   now <- format(Sys.time(), "%Y-%m-%dT%H:%M:%OS3Z", tz = "UTC")
 
   for (i in seq_len(nrow(proj_tbl))) {
-    project_id <- proj_tbl$id[i]
+    project_id <- proj_tbl$project_id[i]
     project <- proj_tbl$name[i]
-    project_eid <- id_hash("#project:", project_id)
 
     ds_ids <- data_tbl |>
       dplyr::filter(project == project_id) |>
       dplyr::pull(asset) |>
       unique() |>
-      (\(x) id_hash("#asset:", x))()
+      (\(x) id_hash("#asset:", paste0(project, x)))()
 
     has_part <- purrr::map(ds_ids, \(x) list(`@id` = x))
 
     rc <- rc |>
       rocrateR::add_entity(
         rocrateR::entity(
-          id = project_eid,
+          id = id_hash("#project:", project),
           type = "Project",
           name = project,
           dateCreated = now,
@@ -110,13 +106,13 @@ add_safe_project_entities_cr8tor <- function(rc, proj_tbl, data_tbl) {
 #' @noRd
 add_safe_data_entities_cr8tor <- function(rc, tbl) {
   for (i in seq_len(nrow(tbl))) {
-    dataset_id <- id_hash("#asset:", tbl$asset[i])
+    asset_id <- id_hash("#asset:", paste0(tbl$project[i], tbl$asset[i]))
     project_id <- id_hash("#project:", tbl$project[i])
 
     rc <- rc |>
       rocrateR::add_entity(
         rocrateR::entity(
-          id = dataset_id,
+          id = asset_id,
           type = "Dataset",
           name = tbl$asset[i],
           isPartOf = list(`@id` = project_id)
@@ -173,7 +169,7 @@ add_permission_entities_cr8tor <- function(rc, perm_expanded_tbl) {
     row <- perm_expanded_tbl[i, ]
 
     person_id <- id_hash("#person:", row$username)
-    asset_id <- id_hash("#asset:", row$asset)
+    asset_id <- id_hash("#asset:", paste0(row$project, row$asset))
 
     ents <- user_perm_entity(
       person = row$username,
@@ -272,7 +268,7 @@ expand_group_permissions_to_users <- function(
   data_tbl
 ) {
   # local bindings
-  asset <- project <- role <- user <- username <- NULL
+  asset <- name <- project <- role <- user <- username <- NULL
 
   # map cr8tor role to Opal permission
   role_to_permission <- function(role) {
@@ -305,6 +301,7 @@ expand_group_permissions_to_users <- function(
 
   # 3. Map roles to permissions
   perm_tables |>
+    dplyr::mutate(project = name) |>
     dplyr::transmute(
       username,
       project,
@@ -383,6 +380,8 @@ extract_safe_data_cr8tor <- function(bundle) {
   }
 
   ing_yaml <- yaml::yaml.load(paste(ing$content[[1]], collapse = "\n"))
+  # extract groups and projects
+  group_tbl <- extract_groups_cr8tor(bundle)
   proj_tbl <- extract_safe_projects_cr8tor(bundle)
 
   assets <- ing_yaml$datasets |>
@@ -488,6 +487,13 @@ extract_user_groups_cr8tor <- function(bundle) {
 }
 
 extract_user_projects_cr8tor <- function(bundle) {
+  # local bindings
+  description <- group_id <- NULL
+  # extract group details
+  grp_tbl <- extract_groups_cr8tor(bundle)
+  # extract project details
+  prj_tbl <- extract_projects_cr8tor(bundle)
+  # extract user docs
   user_docs <- bundle$resources[
     grepl("user-.*\\.ya?ml$", names(bundle$resources))
   ]
@@ -499,16 +505,20 @@ extract_user_projects_cr8tor <- function(bundle) {
     if (length(groups) == 0) {
       return(NULL)
     }
-    purrr::map(groups, function(g) {
-      grp <- g$value
-      project <- sub("-(admin|analyst)$", "", grp)
 
+    usr_grp_tbl <- purrr::map(groups, function(g) {
       tibble::tibble(
         username = username,
-        project = project
+        group_id = g$value
       )
     }) |>
       purrr::list_c()
+
+    # combine user x groups x projects
+    usr_grp_tbl |>
+      dplyr::left_join(grp_tbl, by = "group_id") |>
+      dplyr::select(-description, -group_id) |>
+      dplyr::left_join(prj_tbl, by = "project")
   }) |>
     purrr::list_c() |>
     dplyr::distinct()
@@ -589,6 +599,20 @@ extract_permissions_cr8tor <- function(bundle) {
     purrr::list_c()
 }
 
+extract_projects_cr8tor <- function(bundle) {
+  prj_docs <- bundle$resources[
+    grepl("project-.*\\.ya?ml$", names(bundle$resources))
+  ]
+
+  purrr::map(prj_docs, function(doc) {
+    tibble::tibble(
+      project = doc$metadata$name,
+      description = doc$spec$description %||% NA_character_
+    )
+  }) |>
+    purrr::list_c()
+}
+
 #' Extract Safe Projects
 #'
 #' @param bundle cr8tor_bundle
@@ -600,12 +624,16 @@ extract_safe_projects_cr8tor <- function(bundle) {
 
   # deployment spec
   proj_docs <- bundle$resources[
-    grepl("project-.*\\.ya?ml$", names(bundle$resources))
+    grepl(
+      sprintf("project-%s.*\\.ya?ml$", proj$identifier),
+      names(bundle$resources)
+    )
   ]
 
   tibble::tibble(
-    id = proj$identifier %||% proj$name %||% NA_character_,
-    name = proj$name %||% NA_character_,
+    project_id = proj$identifier,
+    name = proj$identifier %||% NA_character_,
+    description = proj$name %||% NA_character_,
     uuid = proj$`@id` %||% NA_character_,
     deployment_defined = length(proj_docs) > 0
   )
@@ -674,20 +702,20 @@ link_people_to_root <- function(rc, usernames) {
 #' * resources/  → deployment & governance YAML specs.
 #' * config.toml → platform configuration.
 #'
-#' @param path Path to cr8tor ZIP archive.
+#' @param x Path to cr8tor ZIP archive.
 #' @param ... Unused.
 #'
 #' @return Object of class `cr8tor`.
 #' @export
-load_cr8tor_bundle <- function(path, ...) {
+load_cr8tor_bundle <- function(x, ...) {
   tmp <- tempfile("cr8tor_")
   dir.create(tmp, recursive = TRUE, showWarnings = FALSE)
 
-  utils::unzip(path, exdir = tmp)
+  utils::unzip(x, exdir = tmp)
 
   # load RO-Crate layer
   rocrate <- rocrateR::load_rocrate(
-    path, #file.path(tmp, "bagit"),
+    x, #file.path(tmp, "bagit"),
     load_content = TRUE,
     ...
   )
@@ -724,6 +752,9 @@ load_cr8tor_bundle <- function(path, ...) {
 }
 
 map_project_name_to_id <- function(project, proj_tbl) {
-  idx <- which(proj_tbl$name == project)
-  if (length(idx)) proj_tbl$id[idx[1]] else project
+  idx <- which(proj_tbl$description == project)
+  if (length(idx) == 0) {
+    idx <- which(proj_tbl$name == project)
+  }
+  if (length(idx)) proj_tbl$project_id[idx[1]] else project
 }
