@@ -55,7 +55,7 @@ test_that("opal method errors for unknown project", {
 
   expect_error(
     audit_safe_project(opal_con, project = "NON_EXISTENT_PROJECT"),
-    "The `project = 'NON_EXISTENT_PROJECT'` was not found",
+    "The following project is not valid",
     fixed = TRUE
   )
 

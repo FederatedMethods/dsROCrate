@@ -110,7 +110,7 @@ test_that("parse_user_profiles.opal() handles missing userInfo column", {
 test_that("parse_user_profiles.opal() parses JSON userInfo and NA correctly", {
   opal_con <- structure(list(), class = "opal")
 
-  json <- '{"firstName":"John","lastName":"Doe"}'
+  json <- '{"givenName":"John","familyName":"Doe"}'
 
   local_mocked_bindings(
     `opal.get` = function(...) {

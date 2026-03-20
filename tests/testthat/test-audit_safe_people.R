@@ -18,7 +18,11 @@ test_that("opal method returns RO-Crate with expected attributes", {
 
   # ignore warning about empty logs
   suppressWarnings(
-    crate <- audit_safe_people(opal_con, user = attr(opal_con, "PEOPLE"))
+    crate <- audit_safe_people(
+      opal_con,
+      project = attr(opal_con, "PROJECT"),
+      user = attr(opal_con, "PEOPLE")
+    )
   )
 
   expect_s3_class(crate, "rocrate")
@@ -63,7 +67,7 @@ test_that("opal method errors for unknown project", {
       project = "NON_EXISTENT_PROJECT",
       user = attr(opal_con, "PEOPLE")
     ),
-    "The `project = 'NON_EXISTENT_PROJECT'` was not found in the given Opal connection!",
+    "The following project is not valid",
     fixed = TRUE
   )
 })
@@ -77,6 +81,7 @@ test_that("path argument is stored as attribute", {
     crate <- audit_safe_people(
       opal_con,
       path = tempdir(),
+      project = attr(opal_con, "PROJECT"),
       user = attr(opal_con, "PEOPLE")
     )
   )

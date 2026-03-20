@@ -27,7 +27,10 @@ test_that("list method returns list with expected attributes", {
 
   # ignore warning about empty logs
   suppressWarnings(
-    crate <- audit_study(list(demo = opal_con))
+    crate <- audit_study(
+      list(demo = opal_con),
+      project = attr(opal_con, "PROJECT")
+    )
   )
 
   expect_equal(attr(crate, "audit_type"), "Study")
@@ -62,7 +65,7 @@ test_that("list method errors for unknown project", {
 
   expect_error(
     audit_study(list(demo = opal_con), project = "NON_EXISTENT_PROJECT"),
-    "The `project = 'NON_EXISTENT_PROJECT'` was not found",
+    "The following project is not valid:",
     fixed = TRUE
   )
 
@@ -78,7 +81,8 @@ test_that("path argument is stored as attribute", {
   suppressWarnings(
     crate <- audit_study(
       list(demo = opal_con),
-      path = tempdir()
+      path = tempdir(),
+      project = attr(opal_con, "PROJECT")
     )
   )
 
