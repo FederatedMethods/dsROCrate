@@ -41,12 +41,23 @@ audit_engine.opal <- function(
   # validate Opal connection
   is_opal_admin_con(x)
 
-  # if `project` is missing, then extract all project names
+  # if `project` is missing, then ~extract all project names~ error
   if (is.null(project)) {
-    # extract all data sources
-    ds <- opalr::opal.datasources(x)
+    stop("A `project` name is required!", call. = FALSE)
+  }
 
-    project <- ds[, "name"]
+  # extract all data sources to verify `project` contains a valid value.
+  ds <- opalr::opal.datasources(x)
+  server_prjs <- ds[, "name"]
+  idx <- project %in% server_prjs
+  if (!all(idx)) {
+    stop(
+      "The following project",
+      ifelse(length(idx) == 1, " is ", "s are "),
+      "not valid: \n",
+      paste0(" - ", project[!idx], collapse = "\n"),
+      call. = FALSE
+    )
   }
 
   # Safe People ----
