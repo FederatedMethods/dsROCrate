@@ -4,10 +4,10 @@
 \alias{load_cr8tor_bundle}
 \title{Load cr8tor governance bundle / project archive}
 \usage{
-load_cr8tor_bundle(path, ...)
+load_cr8tor_bundle(x, ...)
 }
 \arguments{
-\item{path}{Path to cr8tor ZIP archive.}
+\item{x}{Path to cr8tor ZIP archive.}
 
 \item{...}{Unused.}
 }

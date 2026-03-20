@@ -18,7 +18,7 @@ audit_cr8tor(x, ...)
 \item{...}{Additional arguments for \link[rocrateR:load_rocrate]{rocrateR::load_rocrate}.}
 }
 \value{
-RO-Crate audit object.
+Audit RO-Crate with 5 Safes Components.
 }
 \description{
 This audit loads a cr8tor project archive and generates an RO-Crate object
