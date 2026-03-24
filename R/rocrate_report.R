@@ -94,96 +94,19 @@ rocrate_report.list <- function(
   )
 
   # combine reports ----
-  ## Safe People -----
-  safe_people_all <- tryCatch(
-    {
-      report_outputs |>
-        # extract each component per server
-        lapply(getElement, name = "safe_people") |>
-        # attach the server name as a new column
-        purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
-        # combine rows
-        dplyr::bind_rows()
-    },
-    error = function(e) {
-      NULL
-    }
-  )
-  ## Safe Data ----
-  safe_data_all <- tryCatch(
-    {
-      report_outputs |>
-        # extract each component per server
-        lapply(getElement, name = "safe_data") |>
-        # attach the server name as a new column
-        purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
-        # combine rows
-        dplyr::bind_rows()
-    },
-    error = function(e) {
-      NULL
-    }
-  )
-  ## Safe Projects ----
-  safe_project_all <- tryCatch(
-    {
-      report_outputs |>
-        # extract each component per server
-        lapply(getElement, name = "safe_project") |>
-        # attach the server name as a new column
-        purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
-        # combine rows
-        dplyr::bind_rows()
-    },
-    error = function(e) {
-      NULL
-    }
-  )
-  ## Safe Settings ----
-  safe_setting_all <- tryCatch(
-    {
-      report_outputs |>
-        # extract each component per server
-        lapply(getElement, name = "safe_setting") |>
-        # attach the server name as a new column
-        purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
-        # combine rows
-        dplyr::bind_rows()
-    },
-    error = function(e) {
-      NULL
-    }
-  )
-  ## Safe Outputs ----
-  safe_output_all <- tryCatch(
-    {
-      report_outputs |>
-        # extract each component per server
-        lapply(getElement, name = "safe_output") |>
-        # attach the server name as a new column
-        purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
-        # combine rows
-        dplyr::bind_rows()
-    },
-    error = function(e) {
-      NULL
-    }
-  )
-  ## Safe Data permissions (optional) ----
-  safe_data_permissions_all <- tryCatch(
-    {
-      report_outputs |>
-        # extract each component per server
-        lapply(getElement, name = "safe_data_permissions") |>
-        # attach the server name as a new column
-        purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
-        # combine rows
-        dplyr::bind_rows()
-    },
-    error = function(e) {
-      NULL
-    }
-  )
+  ## Safe People
+  safe_people_all <- .extract_srvr_comp(report_outputs, "safe_people")
+  ## Safe Data
+  safe_data_all <- .extract_srvr_comp(report_outputs, "safe_data")
+  ## Safe Projects
+  safe_project_all <- .extract_srvr_comp(report_outputs, "safe_project")
+  ## Safe Settings
+  safe_setting_all <- .extract_srvr_comp(report_outputs, "safe_setting")
+  ## Safe Outputs
+  safe_output_all <- .extract_srvr_comp(report_outputs, "safe_output")
+  ## Safe Data permissions (optional)
+  safe_data_permissions_all <- report_outputs |>
+    .extract_srvr_comp("safe_data_permissions")
 
   ## overview table ----
   overview_data_all <- tibble::tibble()
@@ -195,18 +118,9 @@ rocrate_report.list <- function(
   # generate new overview table
   if (!is.null(safe_data_permissions_all)) {
     overview_data_all <- safe_data_permissions_all |>
-      dplyr::left_join(
-        safe_people_all,
-        by = c("person_id", "server")
-      ) |>
+      dplyr::left_join(safe_people_all, by = c("person_id", "server")) |>
       dplyr::left_join(safe_project_data_all, by = c("asset_id", "server")) |>
-      dplyr::select(
-        server,
-        project,
-        asset,
-        permission,
-        user = name
-      )
+      dplyr::select(server, project, asset, permission, user = name)
 
     # if any Safe Outputs were found in the inputs, include in the overview
     if (!is.null(safe_output_all) && nrow(safe_output_all)) {
@@ -712,6 +626,26 @@ rocrate_report.rocrate <- function(
       safe_setting = flatten_safe_setting(safe_setting_rocrate),
       safe_output = safe_output_tbl_v2
     )
+  )
+}
+
+.extract_srvr_comp <- function(x, component) {
+  tryCatch(
+    {
+      x |>
+        # extract each component per server
+        purrr::map(component) |>
+        # lapply(getElement, name = component) |>
+        # filter out NULL elements
+        purrr::keep(\(x) !is.null(x)) |>
+        # attach the server name as a new column
+        purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
+        # combine rows
+        dplyr::bind_rows()
+    },
+    error = function(e) {
+      NULL
+    }
   )
 }
 
