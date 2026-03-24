@@ -19,11 +19,11 @@ The goal of dsROCrate is to provide functions to wrap elements from a
 ## 1. Installation
 
 You can install the development version of dsROCrate from
-[GitHub](https://github.com/DataSHIELD-5S/dsROCrate/) with:
+[GitHub](https://github.com/FederatedMethods/dsROCrate/) with:
 
 ``` r
 # install.packages("pak")
-pak::pak("DataSHIELD-5S/dsROCrate")
+pak::pak("FederatedMethods/dsROCrate")
 ```
 
 ## 2. Creating your first RO-Crate
