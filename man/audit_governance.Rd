@@ -13,7 +13,7 @@ audit_governance(x, ...)
 \item{x}{List with two named elements (\code{cr8tor} and \code{server}).}
 
 \item{...}{Arguments passed on to \code{\link[rocrateR:load_rocrate]{rocrateR::load_rocrate()}} (excluding
-\code{path}) and \code{\link[=audit_safe_project]{audit_safe_project()}} (excluding \code{project} and \code{user}).}
+\code{path}) and \code{\link[=audit]{audit()}} (excluding \code{project} and \code{user}).}
 }
 \value{
 Audit RO-Crates with 5 Safes Components.

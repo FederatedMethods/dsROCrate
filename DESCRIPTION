@@ -56,12 +56,9 @@ Depends:
 VignetteBuilder: knitr
 Collate: 
     'ArmadilloCredentials-class.R'
-    'audit_cr8tor.R'
+    'audit.R'
     'audit_engine.R'
     'audit_governance.R'
-    'audit_safe_people.R'
-    'audit_safe_project.R'
-    'audit_study.R'
     'dsROCrate-package.R'
     'dsROCrate.R'
     'print.R'
@@ -72,6 +69,7 @@ Collate:
     'safe_project.R'
     'safe_setting.R'
     'utils-armadillo.R'
+    'utils-audit.R'
     'utils-connection.R'
     'utils-cr8tor.R'
     'utils-date.R'

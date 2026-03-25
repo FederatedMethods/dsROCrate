@@ -2,10 +2,13 @@
 % Please edit documentation in R/audit_engine.R
 \name{audit_engine}
 \alias{audit_engine}
+\alias{audit_engine.cr8tor}
 \alias{audit_engine.opal}
 \title{Audit Engine}
 \usage{
 audit_engine(x, ...)
+
+\method{audit_engine}{cr8tor}(x, ...)
 
 \method{audit_engine}{opal}(
   x,
