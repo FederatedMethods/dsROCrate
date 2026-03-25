@@ -284,7 +284,7 @@ test_that("rocrate_report works end-to-end with real dsROCrate audit outputs", {
   # generate audit RO-Crate for a Safe Project
   # suppress warnings about missing logs
   suppressWarnings({
-    roc <- audit_safe_project(
+    roc <- audit(
       opal_con,
       project = "CNSIM",
       path = tmp_dir
@@ -327,7 +327,7 @@ test_that("rocrate_report.character loads crate from disk", {
   # generate audit RO-Crate for a Safe Project
   # suppress warnings about missing logs
   suppressWarnings({
-    roc <- audit_safe_project(
+    roc <- audit(
       opal_con,
       project = "CNSIM",
       path = tmp_dir
@@ -367,7 +367,7 @@ test_that("rocrate_report.list aggregates outputs from a study audit", {
   opal_con <- opal_demo_con()
 
   # generate audit RO-Crate for a study
-  roc <- audit_study(
+  roc <- audit(
     list(demo = opal_con),
     project = "CNSIM",
     path = tmp_dir
