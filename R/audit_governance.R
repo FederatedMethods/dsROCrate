@@ -7,7 +7,7 @@
 #'
 #' @param x List with two named elements (`cr8tor` and `server`).
 #' @param ... Arguments passed on to [rocrateR::load_rocrate()] (excluding
-#'     `path`) and [audit_safe_project()] (excluding `project` and `user`).
+#'     `path`) and [audit()] (excluding `project` and `user`).
 #'
 #' @returns Audit RO-Crates with 5 Safes Components.
 #' @export
@@ -40,7 +40,7 @@ audit_governance.list <- function(x, ...) {
   # utils::capture.output(
   suppressMessages(suppressWarnings({
     cr8tor_audit_roc <- do.call(
-      audit_cr8tor,
+      audit,
       c(x = getElement(x, "cr8tor"), args_cr8tor)
     )
   })) #,
@@ -57,7 +57,7 @@ audit_governance.list <- function(x, ...) {
   # utils::capture.output(
   suppressMessages(suppressWarnings({
     server_audit_roc <- do.call(
-      audit_safe_project,
+      audit,
       c(
         x = getElement(x, "server"),
         project = safe_project_tbl$project,

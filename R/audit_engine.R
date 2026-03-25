@@ -23,6 +23,27 @@ audit_engine <- function(x, ...) {
 
 #' @rdname audit_engine
 #' @export
+audit_engine.cr8tor <- function(x, ...) {
+  audit <- list(
+    metadata = extract_cr8tor_metadata(x),
+    integrity = extract_integrity_cr8tor(x),
+    safe_people = extract_safe_people_cr8tor(x),
+    safe_projects = extract_safe_projects_cr8tor(x),
+    safe_data = extract_safe_data_cr8tor(x),
+    safe_settings = extract_safe_settings_cr8tor(x),
+    safe_outputs = extract_safe_outputs_cr8tor(x),
+    user_projects = extract_user_projects_cr8tor(x),
+    user_groups = extract_user_groups_cr8tor(x),
+    groups = extract_groups_cr8tor(x),
+    permissions = extract_permissions_cr8tor(x) #,
+    # lineage = extract_lineage_cr8tor(x),
+  )
+
+  as_rocrate_audit(audit)
+}
+
+#' @rdname audit_engine
+#' @export
 audit_engine.opal <- function(
   x,
   ...,
