@@ -22,3 +22,4 @@ A cr8tor project archive contains:
 \item config.toml → platform configuration.
 }
 }
+\keyword{internal}
