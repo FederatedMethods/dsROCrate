@@ -58,7 +58,6 @@ Collate:
     'ArmadilloCredentials-class.R'
     'audit.R'
     'audit_engine.R'
-    'audit_governance.R'
     'dsROCrate-package.R'
     'dsROCrate.R'
     'print.R'
