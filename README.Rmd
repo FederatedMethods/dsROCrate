@@ -394,7 +394,7 @@ safe_people_crate_v1 <- opalr::opal.login(
   password = USERPASS,
   url = SERVER
 ) |>
-  dsROCrate::audit_safe_people(user = "dsuser", project = "CNSIM")
+  dsROCrate::audit(user = "dsuser", project = "CNSIM")
 
 print(safe_people_crate_v1)
 ```
@@ -430,28 +430,6 @@ safe_people_crate_v1 |>
                             overwrite = TRUE)
 ```
 
-##### List all accessible projects & tables for an user
-```{r safe_people_crate_audit_v2, warning=FALSE}
-safe_people_crate_v2 <- opalr::opal.login(
-  username = USERNAME,
-  password = USERPASS,
-  url = SERVER
-) |>
-  dsROCrate::audit_safe_people(user = "dsuser")
-
-safe_people_crate_v2_rmd <- tempfile(fileext = ".Rmd") # temporary file
-
-safe_people_crate_contents_v2 <- safe_people_crate_v2 |>
-  dsROCrate::rocrate_report(filepath = safe_people_crate_v2_rmd, render = FALSE)
-
-# display Overview diagram
-safe_people_crate_contents_v2$overview_diagram
-
-# display Overview data (Safe People, Safe Projects and Safe Data)
-safe_people_crate_contents_v2$overview_data |>
-  knitr::kable()
-```
-
 ### 3.2. Audit Project
 
 ##### List users and dataset/table level permissions within a project
@@ -461,7 +439,7 @@ safe_project_crate_v1 <- opalr::opal.login(
   password = USERPASS,
   url = SERVER
 ) |>
-  dsROCrate::audit_safe_project(project = "CNSIM")
+  dsROCrate::audit(project = "CNSIM")
 
 print(safe_project_crate_v1)
 ```
@@ -516,7 +494,7 @@ study_crate_v1 <-
       url = "https://opal-demo.obiba.org"
     )
   ) |>
-  dsROCrate::audit_study(project = "CNSIM")
+  dsROCrate::audit(project = "CNSIM")
 
 print(study_crate_v1)
 ```
@@ -564,7 +542,6 @@ You are welcome to use any of the following hex codes when referencing `{dsROCra
 
 ```{r, echo = FALSE, message = FALSE, error = FALSE}
 unlink(safe_people_crate_v1_rmd, TRUE, TRUE)
-unlink(safe_people_crate_v2_rmd, TRUE, TRUE)
 unlink(safe_project_crate_v1_rmd, TRUE, TRUE)
 unlink(study_crate_v1_rmd, TRUE, TRUE)
 ```
