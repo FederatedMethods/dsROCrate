@@ -71,44 +71,35 @@ audit.character <- function(x, ..., intent = NULL) {
     )
   }
 
-  # if `intent` is NOT NULL, audit this object
-  intent_audit <- if (!is.null(intent)) {
-    audit(intent, ...)
-  } else {
-    NULL
-  }
-
-  # list of additional args
-  main_audit_args <- list(...)
-
-  # check if `intent_audit` is not NULL
-  if (!is.null(intent_audit)) {
-    # extract Project(s) and People from the `intent` audit crate
-    safe_project_tbl <- intent_audit |>
-      flatten_safe_project()
-    safe_people_tbl <- intent_audit |>
-      flatten_safe_people()
-
-    main_audit_args <- exclude_args(..., c("project", "user"))
-
-    main_audit_args <- c(
-      main_audit_args,
-      project = safe_project_tbl$project,
-      user = safe_people_tbl$name
-    )
-  }
+  # attempt auditing intent
+  intent_lst <- audit_intent(intent, ...)
 
   # call next method
-  main_audit <- audit(x_obj, main_audit_args)
+  main_audit <- audit(x_obj, intent_lst$main_audit_args)
 
   # return list
-  list(intent = intent_audit, deployment = main_audit)
+  if (is.null(intent_lst$intent_audit)) {
+    return(main_audit)
+  }
+  list(intent = intent_lst$intent_audit, deployment = main_audit)
 }
 
 #' @rdname audit
 #' @export
 audit.cr8tor <- function(x, ..., intent = NULL) {
-  audit_engine(x, exclude_args(..., "path"), intent = intent)
+  # attempt auditing intent
+  intent_lst <- audit_intent(intent, ..., excluded_args = "path")
+
+  # audit_engine(x, exclude_args(..., "path"), intent = intent)
+
+  # call next method
+  main_audit <- audit_engine(x, intent_lst$main_audit_args)
+
+  # return list
+  if (is.null(intent_lst$intent_audit)) {
+    return(main_audit)
+  }
+  list(intent = intent_lst$intent_audit, deployment = main_audit)
 }
 
 #' @rdname audit
@@ -129,14 +120,25 @@ audit.opal <- function(
   logs_to = Inf,
   path = NULL
 ) {
-  audit_engine(
+  # attempt auditing intent
+  intent_lst <- audit_intent(intent, ...)
+
+  # call next method
+  main_audit <- audit_engine(
     x,
-    project = project,
-    user = user,
+    project = c(intent_lst$main_audit_args$project, project),
+    user = c(intent_lst$main_audit_args$user, user),
     logs_from = logs_from,
     logs_to = logs_to,
-    path = path
+    path = path,
+    intent_lst$main_audit_args
   )
+
+  # return list
+  if (is.null(intent_lst$intent_audit)) {
+    return(main_audit)
+  }
+  list(intent = intent_lst$intent_audit, deployment = main_audit)
 }
 
 #' @rdname audit
