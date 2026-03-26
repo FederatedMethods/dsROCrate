@@ -402,7 +402,7 @@ print(safe_people_crate_v1)
 ###### Markdown report
 
 A markdown report can be created with an overview and details for an RO-Crate,
-using the `dsROCrate::rocrate_report`:
+using the `dsROCrate::report`:
 
 **Only generate .Rmd file**
 
@@ -410,7 +410,7 @@ using the `dsROCrate::rocrate_report`:
 safe_people_crate_v1_rmd <- tempfile(fileext = ".Rmd") # temporary file
 
 safe_people_crate_contents <- safe_people_crate_v1 |>
-  dsROCrate::rocrate_report(filepath = safe_people_crate_v1_rmd, render = FALSE)
+  dsROCrate::report(filepath = safe_people_crate_v1_rmd, render = FALSE)
 
 # display Overview diagram
 safe_people_crate_contents$overview_diagram
@@ -424,7 +424,7 @@ safe_people_crate_contents$overview_data |>
 
 ```{r, eval = FALSE}
 safe_people_crate_v1 |>
-  dsROCrate::rocrate_report(filepath = safe_people_crate_v1_rmd,
+  dsROCrate::report(filepath = safe_people_crate_v1_rmd,
                             title = "DataSHIELD Safe People - Audit Report",
                             render = TRUE, 
                             overwrite = TRUE)
@@ -447,7 +447,7 @@ print(safe_project_crate_v1)
 ###### Markdown report
 
 A markdown report can be created with an overview and details for an RO-Crate,
-using the `dsROCrate::rocrate_report`:
+using the `dsROCrate::report`:
 
 **Only generate .Rmd file**
 
@@ -455,7 +455,7 @@ using the `dsROCrate::rocrate_report`:
 safe_project_crate_v1_rmd <- tempfile(fileext = ".Rmd") # temporary file
 
 safe_project_crate_contents <- safe_project_crate_v1 |>
-  dsROCrate::rocrate_report(filepath = safe_project_crate_v1_rmd, render = FALSE)
+  dsROCrate::report(filepath = safe_project_crate_v1_rmd, render = FALSE)
 
 # display Overview diagram
 safe_project_crate_contents$overview_diagram
@@ -469,7 +469,7 @@ safe_project_crate_contents$overview_data |>
 
 ```{r, eval = FALSE}
 safe_project_crate_v1 |>
-  dsROCrate::rocrate_report(filepath = safe_project_crate_v1_rmd, 
+  dsROCrate::report(filepath = safe_project_crate_v1_rmd, 
                             title = "DataSHIELD Safe Project - Audit Report",
                             render = TRUE, 
                             overwrite = TRUE)
@@ -502,7 +502,7 @@ print(study_crate_v1)
 ###### Markdown report
 
 A markdown report can be created with an overview and details for an RO-Crate,
-using the `dsROCrate::rocrate_report`:
+using the `dsROCrate::report`:
 
 **Only generate .Rmd file**
 
@@ -510,7 +510,7 @@ using the `dsROCrate::rocrate_report`:
 study_crate_v1_rmd <- tempfile(fileext = ".Rmd") # temporary file
 
 safe_project_crate_contents <- study_crate_v1 |>
-  dsROCrate::rocrate_report(filepath = study_crate_v1_rmd, render = FALSE)
+  dsROCrate::report(filepath = study_crate_v1_rmd, render = FALSE)
 
 # display Overview diagram
 safe_project_crate_contents$overview_diagram
@@ -524,7 +524,7 @@ safe_project_crate_contents$overview_data |>
 
 ```{r, eval = FALSE}
 study_crate_v1 |>
-  dsROCrate::rocrate_report(filepath = study_crate_v1_rmd, 
+  dsROCrate::report(filepath = study_crate_v1_rmd, 
                             title = "DataSHIELD Study audit",
                             render = TRUE, 
                             overwrite = TRUE)

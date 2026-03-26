@@ -1,18 +1,18 @@
-test_that("rocrate_report.default errors", {
+test_that("report.default errors", {
   expect_error(
-    rocrate_report(123),
+    report(123),
     "Unknown class"
   )
 })
 
-test_that("rocrate_report.character errors for invalid path", {
+test_that("report.character errors for invalid path", {
   expect_error(
-    rocrate_report("nonexistent_path", render = FALSE),
+    report("nonexistent_path", render = FALSE),
     "The provided path does not exist"
   )
 })
 
-test_that("rocrate_report.character errors if read_rocrate fails", {
+test_that("report.character errors if read_rocrate fails", {
   # create temporary file
   tmp_dir <- file.path(tempdir(), "dsROCRate_tests")
   tmp_file <- tempfile(tmpdir = tmp_dir)
@@ -24,7 +24,7 @@ test_that("rocrate_report.character errors if read_rocrate fails", {
     read_rocrate = function(...) stop("fail"),
     code = {
       expect_error(
-        rocrate_report(tmp_file, render = FALSE),
+        report(tmp_file, render = FALSE),
         "Could not determine how to load RO-Crate from provided input"
       )
     },
@@ -32,7 +32,7 @@ test_that("rocrate_report.character errors if read_rocrate fails", {
   )
 })
 
-test_that("rocrate_report.character errors if input is invalid .zip", {
+test_that("report.character errors if input is invalid .zip", {
   # create temporary file
   tmp_dir <- file.path(tempdir(), "dsROCRate_tests")
   tmp_file <- tempfile(tmpdir = tmp_dir, fileext = ".zip")
@@ -40,10 +40,10 @@ test_that("rocrate_report.character errors if input is invalid .zip", {
   on.exit(unlink(tmp_dir, recursive = TRUE, force = TRUE))
   file.create(tmp_file)
 
-  expect_error(rocrate_report(tmp_file, render = FALSE))
+  expect_error(report(tmp_file, render = FALSE))
 })
 
-test_that("rocrate_report.character dispatches to rocrate method", {
+test_that("report.character dispatches to rocrate method", {
   # create temporary file
   tmp_dir <- file.path(tempdir(), "dsROCRate_tests")
   dir.create(tmp_dir, recursive = TRUE)
@@ -59,16 +59,16 @@ test_that("rocrate_report.character dispatches to rocrate method", {
   )
   testthat::with_mocked_bindings(
     load_content = function(x, ...) x,
-    rocrate_report.rocrate = function(x, ...) "OK",
+    report.rocrate = function(x, ...) "OK",
     code = {
-      result <- rocrate_report(tmp_dir, render = FALSE)
+      result <- report(tmp_dir, render = FALSE)
       expect_equal(result, "OK")
     },
     .package = "dsROCrate"
   )
 })
 
-test_that("rocrate_report.rocrate errors if required entities missing", {
+test_that("report.rocrate errors if required entities missing", {
   fake_rocrate <- structure(list(), class = "rocrate")
 
   testthat::local_mocked_bindings(
@@ -82,7 +82,7 @@ test_that("rocrate_report.rocrate errors if required entities missing", {
     extract_safe_data = function(...) NULL,
     code = {
       expect_error(
-        rocrate_report(fake_rocrate, render = FALSE),
+        report(fake_rocrate, render = FALSE),
         "missing"
       )
     },
@@ -90,7 +90,7 @@ test_that("rocrate_report.rocrate errors if required entities missing", {
   )
 })
 
-test_that("rocrate_report.rocrate returns expected structure", {
+test_that("report.rocrate returns expected structure", {
   fake_rocrate <- structure(list(), class = "rocrate")
 
   safe_people <- list()
@@ -130,7 +130,7 @@ test_that("rocrate_report.rocrate returns expected structure", {
     .markdown_report_body = function(...) "BODY",
     .markdown_report_rocrate = function(...) "ROCRATE",
     code = {
-      result <- rocrate_report(
+      result <- report(
         fake_rocrate,
         render = FALSE,
         filepath = tempfile(fileext = ".md")
@@ -155,7 +155,7 @@ test_that("rocrate_report.rocrate returns expected structure", {
   )
 })
 
-test_that("rocrate_report.rocrate prevents overwrite", {
+test_that("report.rocrate prevents overwrite", {
   fake_rocrate <- structure(list(), class = "rocrate")
   # create temporary file
   tmp_dir <- file.path(tempdir(), "dsROCRate_tests")
@@ -175,7 +175,7 @@ test_that("rocrate_report.rocrate prevents overwrite", {
     extract_safe_data = function(...) list(),
     code = {
       expect_error(
-        rocrate_report(fake_rocrate, filepath = tmp_file, overwrite = FALSE),
+        report(fake_rocrate, filepath = tmp_file, overwrite = FALSE),
         "existing file"
       )
     },
@@ -183,7 +183,7 @@ test_that("rocrate_report.rocrate prevents overwrite", {
   )
 })
 
-test_that("rocrate_report.list aggregates multiple servers", {
+test_that("report.list aggregates multiple servers", {
   fake_rocrate <- structure(list(), class = "rocrate")
 
   server_output <- list(
@@ -211,14 +211,14 @@ test_that("rocrate_report.list aggregates multiple servers", {
   )
 
   testthat::with_mocked_bindings(
-    rocrate_report = function(...) server_output,
+    report = function(...) server_output,
     .overview_diagram = function(...) list(diag_lst = "diag", diag_path = NULL),
     .tidy_overview = function(...) tibble::tibble(Project = "P1"),
     .markdown_report_header = function(...) "HEADER",
     .markdown_report_body = function(...) "BODY",
     .markdown_report_rocrate = function(...) "ROCRATE",
     code = {
-      result <- rocrate_report(
+      result <- report(
         list(server1 = fake_rocrate, server2 = fake_rocrate),
         study_name = "StudyX",
         render = FALSE,
@@ -266,13 +266,13 @@ test_that(".break_tibble returns input table when varname = NULL", {
   expect_equal(knitr::kable(df), .break_tibble(df, NULL))
 })
 
-test_that("rocrate_report fails if the given path points to a non-existing directory", {
+test_that("report fails if the given path points to a non-existing directory", {
   expect_error(
-    rocrate_report(rocrateR::rocrate_5s(), filepath = "path/to/dir")
+    report(rocrateR::rocrate_5s(), filepath = "path/to/dir")
   )
 })
 
-test_that("rocrate_report works end-to-end with real dsROCrate audit outputs", {
+test_that("report works end-to-end with real dsROCrate audit outputs", {
   # create temporary file
   tmp_dir <- file.path(tempdir(), "dsROCRate_tests")
   dir.create(tmp_dir, recursive = TRUE)
@@ -295,7 +295,7 @@ test_that("rocrate_report works end-to-end with real dsROCrate audit outputs", {
 
   # ignore warnings about missing permission entities (e.g., @type = 'ControlAction')
   suppressWarnings(
-    result <- rocrate_report(
+    result <- report(
       roc,
       filepath = out_file,
       render = FALSE,
@@ -315,7 +315,7 @@ test_that("rocrate_report works end-to-end with real dsROCrate audit outputs", {
   opalr::opal.logout(opal_con)
 })
 
-test_that("rocrate_report.character loads crate from disk", {
+test_that("report.character loads crate from disk", {
   # create temporary file
   tmp_dir <- file.path(tempdir(), "dsROCRate_tests")
   dir.create(tmp_dir, recursive = TRUE)
@@ -341,7 +341,7 @@ test_that("rocrate_report.character loads crate from disk", {
 
   # ignore warnings about missing permission entities (e.g., @type = 'ControlAction')
   suppressWarnings(
-    result <- rocrate_report(
+    result <- report(
       path_to_rocrate_bag,
       filepath = out_file,
       render = FALSE,
@@ -357,7 +357,7 @@ test_that("rocrate_report.character loads crate from disk", {
   opalr::opal.logout(opal_con)
 })
 
-test_that("rocrate_report.list aggregates outputs from a study audit", {
+test_that("report.list aggregates outputs from a study audit", {
   # create temporary file
   tmp_dir <- file.path(tempdir(), "dsROCRate_tests")
   dir.create(tmp_dir, recursive = TRUE)
@@ -377,7 +377,7 @@ test_that("rocrate_report.list aggregates outputs from a study audit", {
 
   # ignore warnings about missing permission entities (e.g., @type = 'ControlAction')
   suppressWarnings(
-    result <- rocrate_report(
+    result <- report(
       roc,
       filepath = out_file,
       study_name = "StudyX",
@@ -394,11 +394,11 @@ test_that("rocrate_report.list aggregates outputs from a study audit", {
   opalr::opal.logout(opal_con)
 })
 
-test_that("rocrate_report.list handles missing outputs from a study audit", {
+test_that("report.list handles missing outputs from a study audit", {
   testthat::with_mocked_bindings(
-    rocrate_report = function(...) list(),
+    report = function(...) list(),
     code = {
-      result <- rocrate_report(
+      result <- report(
         list(server1 = rocrateR::rocrate_5s()),
         study_name = "StudyX",
         render = FALSE,

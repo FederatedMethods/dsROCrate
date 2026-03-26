@@ -3,17 +3,17 @@
 #' @param x This can be an RO-Crate ([rocrate][rocrateR::rocrate()] class) or a
 #'     string with the path to an RO-Crate.
 #' @param ... Other optional arguments. See the full documentation,
-#'     [`?dsROCrate::rocrate_report`][rocrate_report()].
+#'     [`?dsROCrate::report`][report()].
 #'
 #' @returns RO-Crate report as markdown (.md) file and/or HTML.
 #' @export
-rocrate_report <- function(x, ...) {
-  UseMethod("rocrate_report")
+report <- function(x, ...) {
+  UseMethod("report")
 }
 
-#' @rdname rocrate_report
+#' @rdname report
 #' @export
-rocrate_report.character <- function(
+report.character <- function(
   x,
   ...,
   title = "DataSHIELD Report",
@@ -32,7 +32,7 @@ rocrate_report.character <- function(
 
   # call the next generic method
   rocrate |>
-    rocrate_report(
+    report(
       title = title,
       filepath = filepath,
       render = render,
@@ -45,9 +45,9 @@ rocrate_report.character <- function(
     )
 }
 
-#' @rdname rocrate_report
+#' @rdname report
 #' @export
-rocrate_report.default <- function(x, ...) {
+report.default <- function(x, ...) {
   stop(
     "Unknown class, please try either a file path or",
     " an object with `rocrate` class!"
@@ -55,9 +55,9 @@ rocrate_report.default <- function(x, ...) {
 }
 
 #' @param study_name String with the study name.
-#' @rdname rocrate_report
+#' @rdname report
 #' @export
-rocrate_report.list <- function(
+report.list <- function(
   x,
   ...,
   study_name,
@@ -81,7 +81,7 @@ rocrate_report.list <- function(
   # generate individual reports for each RO-Crate
   report_outputs <- lapply(
     x,
-    rocrate_report,
+    report,
     title = title,
     filepath = filepath,
     render = FALSE,
@@ -296,9 +296,9 @@ rocrate_report.list <- function(
 #'     overview's diagram (default: `NULL`, estimated based on number of nodes).
 #' @param max_line_length Integer with the maximum number of characters per line
 #'     in the RO-Crate to be printed in the report.
-#' @rdname rocrate_report
+#' @rdname report
 #' @export
-rocrate_report.rocrate <- function(
+report.rocrate <- function(
   x,
   ...,
   title = "DataSHIELD Report",
@@ -652,7 +652,7 @@ rocrate_report.rocrate <- function(
 #' Create diagram for RO-Crate overview
 #'
 #' @param overview_tbl Data frame with overview details for the RO-Crate.
-#' @inheritParams rocrate_report
+#' @inheritParams report
 #'
 #' @returns Diagram object
 #' @keywords internal
@@ -848,7 +848,7 @@ rocrate_report.rocrate <- function(
 #' Generate Markdown report's header
 #'
 #' @inheritParams .overview_diagram
-#' @inheritParams rocrate_report
+#' @inheritParams report
 #'
 #' @returns String with report's header
 #' @keywords internal

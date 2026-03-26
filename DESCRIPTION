@@ -61,7 +61,7 @@ Collate:
     'dsROCrate-package.R'
     'dsROCrate.R'
     'print.R'
-    'rocrate_report.R'
+    'report.R'
     'safe_data.R'
     'safe_output.R'
     'safe_people.R'
