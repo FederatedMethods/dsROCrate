@@ -67,12 +67,12 @@ rocrate_txt <- function(rocrate) {
 }
 ```
 
-# dsROCrate: 'DataSHIELD' RO-Crate Wrapper Functions <img src="man/figures/logo.png" alt="logo" align="right" height="200" style="float:right; height:200px;"/>
+# dsROCrate: 'DataSHIELD' RO-Crate Governance Functions <img src="man/figures/logo.png" alt="logo" align="right" height="200" style="float:right; height:200px;"/>
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/dsROCrate)](https://CRAN.R-project.org/package=dsROCrate)
-[![Codecov test coverage](https://codecov.io/gh/DataSHIELD-5S/dsROCrate/graph/badge.svg)](https://app.codecov.io/gh/DataSHIELD-5S/dsROCrate)
+[![Codecov test coverage](https://codecov.io/gh/FederatedMethods/dsROCrate/graph/badge.svg)](https://app.codecov.io/gh/FederatedMethods/dsROCrate)
 <!-- badges: end -->
 
 The goal of dsROCrate is to provide functions to wrap elements from a 
@@ -80,11 +80,11 @@ The goal of dsROCrate is to provide functions to wrap elements from a
 
 ## 1. Installation
 
-You can install the development version of dsROCrate from [GitHub](https://github.com/DataSHIELD-5S/dsROCrate/) with:
+You can install the development version of dsROCrate from [GitHub](https://github.com/FederatedMethods/dsROCrate/) with:
 
 ``` r
 # install.packages("pak")
-pak::pak("DataSHIELD-5S/dsROCrate")
+pak::pak("FederatedMethods/dsROCrate")
 ```
 
 ## 2. Creating your first RO-Crate

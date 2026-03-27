@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# dsROCrate: ‘DataSHIELD’ RO-Crate Wrapper Functions <img src="man/figures/logo.png" alt="logo" align="right" height="200" style="float:right; height:200px;"/>
+# dsROCrate: ‘DataSHIELD’ RO-Crate Governance Functions <img src="man/figures/logo.png" alt="logo" align="right" height="200" style="float:right; height:200px;"/>
 
 <!-- badges: start -->
 
@@ -10,7 +10,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![CRAN
 status](https://www.r-pkg.org/badges/version/dsROCrate)](https://CRAN.R-project.org/package=dsROCrate)
 [![Codecov test
-coverage](https://codecov.io/gh/DataSHIELD-5S/dsROCrate/graph/badge.svg)](https://app.codecov.io/gh/DataSHIELD-5S/dsROCrate)
+coverage](https://codecov.io/gh/FederatedMethods/dsROCrate/graph/badge.svg)](https://app.codecov.io/gh/FederatedMethods/dsROCrate)
 <!-- badges: end -->
 
 The goal of dsROCrate is to provide functions to wrap elements from a
@@ -19,11 +19,11 @@ The goal of dsROCrate is to provide functions to wrap elements from a
 ## 1. Installation
 
 You can install the development version of dsROCrate from
-[GitHub](https://github.com/DataSHIELD-5S/dsROCrate/) with:
+[GitHub](https://github.com/FederatedMethods/dsROCrate/) with:
 
 ``` r
 # install.packages("pak")
-pak::pak("DataSHIELD-5S/dsROCrate")
+pak::pak("FederatedMethods/dsROCrate")
 ```
 
 ## 2. Creating your first RO-Crate
@@ -86,7 +86,7 @@ o <- opalr::opal.login(
 print(o)
 #> url: https://opal-demo.obiba.org 
 #> name: opal-demo.obiba.org 
-#> version: 5.5.2 
+#> version: 5.6.1 
 #> username: administrator
 ```
 
@@ -130,7 +130,7 @@ print(basic_rocrate)
 #>       "@type": "Dataset",
 #>       "name": "",
 #>       "description": "",
-#>       "datePublished": "2026-02-27",
+#>       "datePublished": "2026-03-27",
 #>       "license": {
 #>         "@id": "http://spdx.org/licenses/CC-BY-4.0"
 #>       },
@@ -162,12 +162,52 @@ basic_rocrate <- o |>
 print(basic_rocrate) # note that the output will be truncated
 ...
 #>     {
-#>       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",
+#>       "@id": "#perm:9bf7f75b6c5b07d02830b95652cd39a0-dict-summary-read",
+#>       "@type": "ReadAction",
+#>       "agent": {
+#>         "@id": "#person:a0af2a94926db1b49ad7a812eef509d2"
+#>       },
+#>       "object": {
+#>         "@id": "#asset:fad6faf661584d53e58f9730b14c5aae"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
+#>     },
+#>     {
+#>       "@id": "#perm:1f09051d217d17c3e9b5ed92819ded26-admin-table",
+#>       "@type": "ControlAction",
+#>       "agent": {
+#>         "@id": "#person:a3bc19cc9c1269320cf2847c63a66a92"
+#>       },
+#>       "object": {
+#>         "@id": "#asset:fad6faf661584d53e58f9730b14c5aae"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User has full administrative rights: view/edit dictionary and view/edit individual values."
+#>     },
+#>     {
+#>       "@id": "#perm:4d2673da68a58c3bce23a61d97b6df51-dict-summary-read",
+#>       "@type": "ReadAction",
+#>       "agent": {
+#>         "@id": "#person:cb809df1c2fb30b154f60b843e62b3d0"
+#>       },
+#>       "object": {
+#>         "@id": "#asset:fad6faf661584d53e58f9730b14c5aae"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
+#>     },
+#>     {
+#>       "@id": "#asset:fad6faf661584d53e58f9730b14c5aae",
 #>       "@type": "Dataset",
 #>       "name": "CNSIM1",
-#>       "dateCreated": "2026-02-27T06:29:50.731Z",
-#>       "dateModified": "2026-02-27T06:29:51.865Z",
-#>       "path": "/datasource/CNSIM/table/CNSIM1"
+#>       "description": "",
+#>       "url": "/datasource/CNSIM/table/CNSIM1",
+#>       "dateCreated": "2026-03-27T00:00:00Z",
+#>       "dateModified": "2026-03-27T00:00:00Z",
+#>       "isPartOf": {
+#>         "@id": "#project:7ba189863f9f641196596cb28e04aa14"
+#>       }
 #>     }
 #>   ]
 #> }
@@ -185,15 +225,17 @@ basic_rocrate <- o |>
 
 print(basic_rocrate) # note that the output will be truncated
 ...
+#>       ]
+#>     },
 #>     {
 #>       "@id": "#project:7ba189863f9f641196596cb28e04aa14",
 #>       "@type": "Project",
 #>       "name": "CNSIM",
-#>       "dateCreated": "2026-02-27T06:29:49.235Z",
-#>       "dateModified": "2026-02-27T06:29:54.200Z",
+#>       "dateCreated": "2026-03-27T06:29:56.149Z",
+#>       "dateModified": "2026-03-27T06:30:01.340Z",
 #>       "hasPart": [
 #>         {
-#>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
+#>           "@id": "#asset:fad6faf661584d53e58f9730b14c5aae"
 #>         }
 #>       ]
 #>     }
@@ -215,12 +257,7 @@ print(basic_rocrate) # note that the output will be truncated
 #>     {
 #>       "@id": "#person:a0af2a94926db1b49ad7a812eef509d2",
 #>       "@type": "Person",
-#>       "name": "dsuser",
-#>       "memberOf": [
-#>         {
-#>           "@id": "#project:7ba189863f9f641196596cb28e04aa14"
-#>         }
-#>       ]
+#>       "name": "dsuser"
 #>     }
 #>   ]
 #> }
@@ -257,91 +294,229 @@ basic_rocrate <- o |>
 print(basic_rocrate) # note that the output will be truncated
 ...
 #>     {
-#>       "@id": "_:localid:datashield.privacyLevel:5",
+#>       "@id": "#disc:27d8c1d2233ecb654a24b635fd4dbd78",
 #>       "@type": "PropertyValue",
 #>       "name": "datashield.privacyLevel",
 #>       "value": "5"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.datashield.privacyControlLevel:banana",
+#>       "@id": "#disc:46b65707a6b998f3b1364bc10e6d9b4b",
 #>       "@type": "PropertyValue",
 #>       "name": "default.datashield.privacyControlLevel",
 #>       "value": "banana"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.glm:0.33",
+#>       "@id": "#disc:7769282e7b0a1cb8887f60886c7b56ae",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.glm",
 #>       "value": "0.33"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.kNN:3",
+#>       "@id": "#disc:49d822f52075aafbec1d1b2545aa46b7",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.kNN",
 #>       "value": "3"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.levels.density:0.33",
+#>       "@id": "#disc:9a59210a743557bbd61cb21c3f1e0a79",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.levels.density",
 #>       "value": "0.33"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.levels.max:40",
+#>       "@id": "#disc:a00b1e31a448142ee66bbb013f990e1f",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.levels.max",
 #>       "value": "40"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.noise:0.25",
+#>       "@id": "#disc:29dd5e27a9f1c66d81a7037c236e7dd5",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.noise",
 #>       "value": "0.25"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.string:80",
+#>       "@id": "#disc:1c12e549b91e2cc0856f56657988ce54",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.string",
 #>       "value": "80"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.stringShort:20",
+#>       "@id": "#disc:786bc0ffcdd3054925e431240caecea5",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.stringShort",
 #>       "value": "20"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.subset:3",
+#>       "@id": "#disc:fd9bea5ef311d5f14b28d237ecb6e985",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.subset",
 #>       "value": "3"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.tab:3",
+#>       "@id": "#disc:4e93a50cbd8cfea8f0a6adc50ee7aac0",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.tab",
 #>       "value": "3"
 #>     },
 #>     {
-#>       "@id": "_:localid:3aaeab3631b4c9bbe7f44d60805b8f9c",
+#>       "@id": "#env:disclosure_settings:7d746edc2fb36ee671241a333742b3a8",
+#>       "@type": "CreativeWork",
+#>       "name": "Disclosure Control Environment",
+#>       "description": "Disclosure control settings extract from the OBiBa Opal server connection provided, using the profile: 'default'.",
+#>       "hasPart": [
+#>         {
+#>           "@id": "#disc:27d8c1d2233ecb654a24b635fd4dbd78"
+#>         },
+#>         {
+#>           "@id": "#disc:46b65707a6b998f3b1364bc10e6d9b4b"
+#>         },
+#>         {
+#>           "@id": "#disc:7769282e7b0a1cb8887f60886c7b56ae"
+#>         },
+#>         {
+#>           "@id": "#disc:49d822f52075aafbec1d1b2545aa46b7"
+#>         },
+#>         {
+#>           "@id": "#disc:9a59210a743557bbd61cb21c3f1e0a79"
+#>         },
+#>         {
+#>           "@id": "#disc:a00b1e31a448142ee66bbb013f990e1f"
+#>         },
+#>         {
+#>           "@id": "#disc:29dd5e27a9f1c66d81a7037c236e7dd5"
+#>         },
+#>         {
+#>           "@id": "#disc:1c12e549b91e2cc0856f56657988ce54"
+#>         },
+#>         {
+#>           "@id": "#disc:786bc0ffcdd3054925e431240caecea5"
+#>         },
+#>         {
+#>           "@id": "#disc:fd9bea5ef311d5f14b28d237ecb6e985"
+#>         },
+#>         {
+#>           "@id": "#disc:4e93a50cbd8cfea8f0a6adc50ee7aac0"
+#>         }
+#>       ]
+#>     },
+#>     {
+#>       "@id": "#software:f8784d80bad08f840fba23fa9c41ec27",
 #>       "@type": "SoftwareApplication",
 #>       "name": "dsBase",
 #>       "version": "6.3.5",
-#>       "description": "Base 'DataSHIELD' functions for the server side. 'DataSHIELD' is a software package which allows\n    you to do non-disclosive federated analysis on sensitive data. 'DataSHIELD' analytic functions have\n    been designed to only share non disclosive summary statistics, with built in automated output\n    checking based on statistical disclosure control. With data sites setting the threshold values for\n    the automated output checks. For more details, see 'citation(\"dsBase\")'."
+#>       "description": "Base 'DataSHIELD' functions for the server side. 'DataSHIELD' is a software package which allows you to do non-disclosive federated analysis on sensitive data. 'DataSHIELD' analytic functions have been designed to only share non disclosive summary statistics, with built in automated output checking based on statistical disclosure control. With data sites setting the threshold values for the automated output checks. For more details, see 'citation(\"dsBase\")'."
 #>     },
 #>     {
-#>       "@id": "_:localid:e2f7c43973c40d7a6a6731da5a0aa564",
+#>       "@id": "#software:afa897ee58de14b27570462c97a9dd44",
 #>       "@type": "SoftwareApplication",
 #>       "name": "dsTidyverse",
 #>       "version": "1.1.0",
 #>       "description": "Implementation of selected 'Tidyverse' functions within 'DataSHIELD', an open-source federated analysis solution in R. Currently, DataSHIELD contains very limited tools for data manipulation, so the aim of this package is to improve the researcher experience by implementing essential functions for data manipulation, including subsetting, filtering, grouping, and renaming variables. This is the serverside package which should be installed on the server holding the data, and is used in conjuncture with the clientside package 'dsTidyverseClient' which is installed in the local R environment of the analyst. For more information, see <https://tidyverse.org/> and <https://datashield.org/>."
 #>     },
 #>     {
-#>       "@id": "_:localid:411453e2513e6d909fe2cb8273b034dc",
+#>       "@id": "#software:d2133fef4ca6df6312f205e51aee541b",
 #>       "@type": "SoftwareApplication",
 #>       "name": "resourcer",
 #>       "version": "1.5.0",
-#>       "description": "A resource represents some data or a computation unit. It is \n    described by a URL and credentials. This package proposes a Resource model\n    with \"resolver\" and \"client\" classes to facilitate the access and the usage of the \n    resources."
+#>       "description": "A resource represents some data or a computation unit. It is described by a URL and credentials. This package proposes a Resource model with \"resolver\" and \"client\" classes to facilitate the access and the usage of the resources."
+#>     },
+#>     {
+#>       "@id": "#software:77514b155cfdb0c8c535fbe54daf67fc",
+#>       "@type": "SoftwareApplication",
+#>       "name": "Opal",
+#>       "version": "5.6.1",
+#>       "description": "Opal is OBiBa's (https://www.obiba.org/) core database application for epidemiological studies. Participant data, collected by questionnaires, medical instruments, sensors, administrative databases etc. can be integrated and stored in a central data repository under a uniform model."
+#>     },
+#>     {
+#>       "@id": "#env:software_stack:239d65ed3c0c0c3932e23cebb34be7e1",
+#>       "@type": "CreativeWork",
+#>       "name": "Approved Analytical Software Environment",
+#>       "description": "Software packages installed in the controlled Opal/DataSHIELD environment used for federated analysis.",
+#>       "hasPart": [
+#>         {
+#>           "@id": "#software:f8784d80bad08f840fba23fa9c41ec27"
+#>         },
+#>         {
+#>           "@id": "#software:afa897ee58de14b27570462c97a9dd44"
+#>         },
+#>         {
+#>           "@id": "#software:d2133fef4ca6df6312f205e51aee541b"
+#>         },
+#>         {
+#>           "@id": "#software:77514b155cfdb0c8c535fbe54daf67fc"
+#>         }
+#>       ]
+#>     },
+#>     {
+#>       "@id": "#control:output-checking",
+#>       "@type": "CreativeWork",
+#>       "name": "Statistical Disclosure Output Checking",
+#>       "description": "Automated disclosure control prevents release of small-cell counts and disclosive statistics."
+#>     },
+#>     {
+#>       "@id": "#control:server-side-analysis",
+#>       "@type": "CreativeWork",
+#>       "name": "Server-Side Analysis Enforcement",
+#>       "description": "Raw data never leaves the secure server; analysis occurs via vetted aggregate functions."
+#>     },
+#>     {
+#>       "@id": "#control:session-logging",
+#>       "@type": "CreativeWork",
+#>       "name": "Comprehensive Session Logging",
+#>       "description": "All analytical actions are logged and auditable."
+#>     },
+#>     {
+#>       "@id": "#control:secure-facility",
+#>       "@type": "CreativeWork",
+#>       "name": "Secure Data Facility",
+#>       "description": "Access restricted to approved secure premises."
+#>     },
+#>     {
+#>       "@id": "#control:access-governance",
+#>       "@type": "CreativeWork",
+#>       "name": "Access Governance Process",
+#>       "description": "Data access committee review and approval required."
+#>     },
+#>     {
+#>       "@id": "#safesetting:8489860e7540c5dfb95b5d8ddab232c5",
+#>       "@type": "CreativeWork",
+#>       "name": "Safe Setting Controls (Opal)",
+#>       "description": "Technical, physical and organisational safeguards applied to minimise disclosure risk.",
+#>       "hasPart": [
+#>         {
+#>           "@id": "#env:disclosure_settings:7d746edc2fb36ee671241a333742b3a8"
+#>         },
+#>         {
+#>           "@id": "#env:software_stack:239d65ed3c0c0c3932e23cebb34be7e1"
+#>         },
+#>         {
+#>           "@id": "#control:output-checking"
+#>         },
+#>         {
+#>           "@id": "#control:server-side-analysis"
+#>         },
+#>         {
+#>           "@id": "#control:session-logging"
+#>         },
+#>         {
+#>           "@id": "#control:secure-facility"
+#>         },
+#>         {
+#>           "@id": "#control:access-governance"
+#>         }
+#>       ]
+#>     },
+#>     {
+#>       "@id": "#link:b16fbdedcc33e826878020dcd5fad3d3",
+#>       "@type": "CreativeWork",
+#>       "name": "Safe Settings x Safe Project Link",
+#>       "about": {
+#>         "@id": "#safesetting:8489860e7540c5dfb95b5d8ddab232c5"
+#>       },
+#>       "isPartOf": {
+#>         "@id": "#project:7ba189863f9f641196596cb28e04aa14"
+#>       }
 #>     }
 #>   ]
 #> }
@@ -454,7 +629,7 @@ basic_rocrate <- o |>
                          logs_from = Sys.time() - 60, # capture the last minute
                          logs_to = Sys.time())
 #> opening file input connection.
-#>  Found 83 records... Imported 83 records. Simplifying...
+#>  Found 55 records... Imported 55 records. Simplifying...
 #> closing file input connection.
 #> Warning: A `path` wasn't provided! The logs will be included in the RO-Crate
 #> object, under the `content` tag!
@@ -463,114 +638,114 @@ basic_rocrate <- o |>
 ``` r
 print(basic_rocrate) # note that the output will be truncated
 ...
-#>       "@type": "SoftwareApplication",
-#>       "name": "resourcer",
-#>       "version": "1.5.0",
-#>       "description": "A resource represents some data or a computation unit. It is \n    described by a URL and credentials. This package proposes a Resource model\n    with \"resolver\" and \"client\" classes to facilitate the access and the usage of the \n    resources."
+#>       },
+#>       "isPartOf": {
+#>         "@id": "#project:7ba189863f9f641196596cb28e04aa14"
+#>       }
 #>     },
 #>     {
-#>       "@id": "20260227T152405-dslogs-dsuser.log",
+#>       "@id": "20260327T120002-dslogs-dsuser.log",
 #>       "@type": "File",
-#>       "dateModified": "2026-02-27 15:24:05",
-#>       "name": "20260227T152405-dslogs-dsuser.log",
-#>       "description": "This file contains the raw logs for the user: `dsuser` , between: 2026-02-27 15:23:05 and 2026-02-27 15:24:05",
+#>       "dateModified": "2026-03-27 12:00:02",
+#>       "name": "20260327T120002-dslogs-dsuser.log",
+#>       "description": "This file contains the raw logs for the user: `dsuser` , between: 2026-03-27 11:59:01 and 2026-03-27 12:00:01",
 #>       "encodingFormat": "text/plain",
 #>       "content": [
-#>         ["[INFO][2026-02-27T15:24:02][OPEN]      created a datashield session fc258313-6846-4a8e-93d9-4809cd794fbe", "[INFO][2026-02-27T15:24:02][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T15:24:03][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:24:04][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:24:04][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-02-27T15:24:04][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-02-27T15:24:04][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:05][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
+#>         ["[INFO][2026-03-27T11:59:57][OPEN]      created a datashield session 84b50a64-e51e-4d54-a155-bd3ebbdbcdf8", "[INFO][2026-03-27T11:59:59][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-03-27T12:00:00][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-03-27T12:00:01][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-03-27T12:00:01][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
 #>       ]
 #>     },
 #>     {
-#>       "@id": "20260227T152405-dslogs-dsuser_mappings.csv",
+#>       "@id": "20260327T120002-dslogs-dsuser_mappings.csv",
 #>       "@type": "File",
-#>       "dateModified": "2026-02-27 15:24:05",
-#>       "name": "20260227T152405-dslogs-dsuser_mappings.csv",
+#>       "dateModified": "2026-03-27 12:00:02",
+#>       "name": "20260327T120002-dslogs-dsuser_mappings.csv",
 #>       "description": "This file contains mappings and evaluated functions",
 #>       "encodingFormat": "text/csv",
 #>       "content": [
 #>         [
 #>           {
-#>             "timestamp": "2026-02-27T15:24:02",
+#>             "timestamp": "2026-03-27T11:59:57",
 #>             "action": "OPEN",
 #>             "user": "dsuser",
-#>             "r_cmd": "Open session: fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "r_cmd": "Open session: 84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "fx": "DSI::datashield.login",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T15:24:02",
+#>             "timestamp": "2026-03-27T11:59:59",
 #>             "action": "ASSIGN",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
 #>             "fx": "base::assign",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T15:24:04",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
 #>             "fx": "dsBase::lsDS",
 #>             "symbol": "search.filter = NULL, 1L",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T15:24:04",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "base::exists(\"dsROCrate_test\")",
 #>             "fx": "base::exists",
 #>             "symbol": "dsROCrate_test",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T15:24:04",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsBase::classDS(\"dsROCrate_test\")",
 #>             "fx": "dsBase::classDS",
 #>             "symbol": "dsROCrate_test",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T15:24:04",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsBase::isValidDS(dsROCrate_test)",
 #>             "fx": "dsBase::isValidDS",
 #>             "symbol": "dsROCrate_test",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T15:24:04",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsBase::dimDS(\"dsROCrate_test\")",
 #>             "fx": "dsBase::dimDS",
 #>             "symbol": "dsROCrate_test",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T15:24:05",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsBase::colnamesDS(\"dsROCrate_test\")",
 #>             "fx": "dsBase::colnamesDS",
 #>             "symbol": "dsROCrate_test",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           }
 #>         ]
@@ -631,7 +806,7 @@ basic_rocrate <- basic_rocrate |>
 path_to_rocrate_bag <- basic_rocrate |>
   rocrateR::bag_rocrate(path = "./rocrates", overwrite = TRUE)
 #> RO-Crate successfully 'bagged'!
-#> For details, see: ./rocrates/rocrate-200ecad114285e36b84c12cfa3be6526.zip
+#> For details, see: ./rocrates/rocrate-168d1073270b8b5ddb29de5fb1e8f745.zip
 ```
 
 We can explore the contents with the following commands:
@@ -643,11 +818,12 @@ path_to_rocrate_bag |>
   rocrateR::unbag_rocrate(output = "./rocrates/ROC", quiet = TRUE) |>
   # create tree with the files
   fs::dir_tree()
-#> ./rocrates/ROC/
+#> /Users/robertovillegas-diaz/Documents/dsROCrate/rocrates/ROC
+#> ├── bag-info.txt
 #> ├── bagit.txt
 #> ├── data
-#> │   ├── 20260227T152405-dslogs-dsuser.log
-#> │   ├── 20260227T152405-dslogs-dsuser_mappings.csv
+#> │   ├── 20260327T120002-dslogs-dsuser.log
+#> │   ├── 20260327T120002-dslogs-dsuser_mappings.csv
 #> │   └── ro-crate-metadata.json
 #> ├── manifest-sha512.txt
 #> └── tagmanifest-sha512.txt
@@ -673,9 +849,9 @@ safe_people_crate_v1 <- opalr::opal.login(
   password = USERPASS,
   url = SERVER
 ) |>
-  dsROCrate::audit_safe_people(user = "dsuser", project = "CNSIM")
+  dsROCrate::audit(user = "dsuser", project = "CNSIM")
 #> opening file input connection.
-#>  Found 83 records... Imported 83 records. Simplifying...
+#>  Found 55 records... Imported 55 records. Simplifying...
 #> closing file input connection.
 
 print(safe_people_crate_v1)
@@ -697,7 +873,7 @@ print(safe_people_crate_v1)
 #>       "@type": "Dataset",
 #>       "name": "",
 #>       "description": "",
-#>       "datePublished": "2026-02-27",
+#>       "datePublished": "2026-03-27",
 #>       "license": {
 #>         "@id": "http://spdx.org/licenses/CC-BY-4.0"
 #>       },
@@ -706,10 +882,10 @@ print(safe_people_crate_v1)
 #>       },
 #>       "hasPart": [
 #>         {
-#>           "@id": "20260227T152406-dslogs-dsuser.log"
+#>           "@id": "20260327T120003-dslogs-dsuser.log"
 #>         },
 #>         {
-#>           "@id": "20260227T152406-dslogs-dsuser_mappings.csv"
+#>           "@id": "20260327T120003-dslogs-dsuser_mappings.csv"
 #>         }
 #>       ]
 #>     },
@@ -719,51 +895,27 @@ print(safe_people_crate_v1)
 #>       "name": "Five Safes RO-Crate profile"
 #>     },
 #>     {
-#>       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",
-#>       "@type": "Dataset",
-#>       "name": "CNSIM1",
-#>       "dateCreated": "2026-02-27T06:29:50.731Z",
-#>       "dateModified": "2026-02-27T06:29:51.865Z",
-#>       "path": "/datasource/CNSIM/table/CNSIM1"
-#>     },
-#>     {
-#>       "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9",
-#>       "@type": "Dataset",
-#>       "name": "CNSIM2",
-#>       "dateCreated": "2026-02-27T06:29:51.872Z",
-#>       "dateModified": "2026-02-27T06:29:53.057Z",
-#>       "path": "/datasource/CNSIM/table/CNSIM2"
-#>     },
-#>     {
-#>       "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492",
-#>       "@type": "Dataset",
-#>       "name": "CNSIM3",
-#>       "dateCreated": "2026-02-27T06:29:53.064Z",
-#>       "dateModified": "2026-02-27T06:29:54.200Z",
-#>       "path": "/datasource/CNSIM/table/CNSIM3"
+#>       "@id": "#person:a0af2a94926db1b49ad7a812eef509d2",
+#>       "@type": "Person",
+#>       "name": "dsuser"
 #>     },
 #>     {
 #>       "@id": "#project:7ba189863f9f641196596cb28e04aa14",
 #>       "@type": "Project",
 #>       "name": "CNSIM",
-#>       "dateCreated": "2026-02-27T06:29:49.235Z",
-#>       "dateModified": "2026-02-27T06:29:54.200Z",
+#>       "dateCreated": "2026-03-27T06:29:56.149Z",
+#>       "dateModified": "2026-03-27T06:30:01.340Z",
 #>       "hasPart": [
 #>         {
-#>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
+#>           "@id": "#asset:fad6faf661584d53e58f9730b14c5aae"
 #>         },
 #>         {
-#>           "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9"
+#>           "@id": "#asset:b6721026564c746f604df7ba785931fa"
 #>         },
 #>         {
-#>           "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492"
+#>           "@id": "#asset:14fbb8de0021e6d237a2ed7779f9625d"
 #>         }
 #>       ]
-#>     },
-#>     {
-#>       "@id": "#person:a0af2a94926db1b49ad7a812eef509d2",
-#>       "@type": "Person",
-#>       "name": "dsuser"
 #>     },
 #>     {
 #>       "@id": "#perm:9bf7f75b6c5b07d02830b95652cd39a0-dict-summary-read",
@@ -772,7 +924,7 @@ print(safe_people_crate_v1)
 #>         "@id": "#person:a0af2a94926db1b49ad7a812eef509d2"
 #>       },
 #>       "object": {
-#>         "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
+#>         "@id": "#asset:fad6faf661584d53e58f9730b14c5aae"
 #>       },
 #>       "actionStatus": "PotentialActionStatus",
 #>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
@@ -784,7 +936,7 @@ print(safe_people_crate_v1)
 #>         "@id": "#person:a0af2a94926db1b49ad7a812eef509d2"
 #>       },
 #>       "object": {
-#>         "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9"
+#>         "@id": "#asset:b6721026564c746f604df7ba785931fa"
 #>       },
 #>       "actionStatus": "PotentialActionStatus",
 #>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
@@ -796,411 +948,375 @@ print(safe_people_crate_v1)
 #>         "@id": "#person:a0af2a94926db1b49ad7a812eef509d2"
 #>       },
 #>       "object": {
-#>         "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492"
+#>         "@id": "#asset:14fbb8de0021e6d237a2ed7779f9625d"
 #>       },
 #>       "actionStatus": "PotentialActionStatus",
 #>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
 #>     },
 #>     {
-#>       "@id": "_:localid:datashield.privacyLevel:5",
+#>       "@id": "#asset:fad6faf661584d53e58f9730b14c5aae",
+#>       "@type": "Dataset",
+#>       "name": "CNSIM1",
+#>       "description": "",
+#>       "url": "/datasource/CNSIM/table/CNSIM1",
+#>       "dateCreated": "2026-03-27T00:00:00Z",
+#>       "dateModified": "2026-03-27T00:00:00Z",
+#>       "isPartOf": {
+#>         "@id": "#project:7ba189863f9f641196596cb28e04aa14"
+#>       }
+#>     },
+#>     {
+#>       "@id": "#asset:b6721026564c746f604df7ba785931fa",
+#>       "@type": "Dataset",
+#>       "name": "CNSIM2",
+#>       "description": "",
+#>       "url": "/datasource/CNSIM/table/CNSIM2",
+#>       "dateCreated": "2026-03-27T00:00:00Z",
+#>       "dateModified": "2026-03-27T00:00:00Z",
+#>       "isPartOf": {
+#>         "@id": "#project:7ba189863f9f641196596cb28e04aa14"
+#>       }
+#>     },
+#>     {
+#>       "@id": "#asset:14fbb8de0021e6d237a2ed7779f9625d",
+#>       "@type": "Dataset",
+#>       "name": "CNSIM3",
+#>       "description": "",
+#>       "url": "/datasource/CNSIM/table/CNSIM3",
+#>       "dateCreated": "2026-03-27T00:00:00Z",
+#>       "dateModified": "2026-03-27T00:00:00Z",
+#>       "isPartOf": {
+#>         "@id": "#project:7ba189863f9f641196596cb28e04aa14"
+#>       }
+#>     },
+#>     {
+#>       "@id": "#disc:27d8c1d2233ecb654a24b635fd4dbd78",
 #>       "@type": "PropertyValue",
 #>       "name": "datashield.privacyLevel",
 #>       "value": "5"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.datashield.privacyControlLevel:banana",
+#>       "@id": "#disc:46b65707a6b998f3b1364bc10e6d9b4b",
 #>       "@type": "PropertyValue",
 #>       "name": "default.datashield.privacyControlLevel",
 #>       "value": "banana"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.glm:0.33",
+#>       "@id": "#disc:7769282e7b0a1cb8887f60886c7b56ae",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.glm",
 #>       "value": "0.33"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.kNN:3",
+#>       "@id": "#disc:49d822f52075aafbec1d1b2545aa46b7",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.kNN",
 #>       "value": "3"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.levels.density:0.33",
+#>       "@id": "#disc:9a59210a743557bbd61cb21c3f1e0a79",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.levels.density",
 #>       "value": "0.33"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.levels.max:40",
+#>       "@id": "#disc:a00b1e31a448142ee66bbb013f990e1f",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.levels.max",
 #>       "value": "40"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.noise:0.25",
+#>       "@id": "#disc:29dd5e27a9f1c66d81a7037c236e7dd5",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.noise",
 #>       "value": "0.25"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.string:80",
+#>       "@id": "#disc:1c12e549b91e2cc0856f56657988ce54",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.string",
 #>       "value": "80"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.stringShort:20",
+#>       "@id": "#disc:786bc0ffcdd3054925e431240caecea5",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.stringShort",
 #>       "value": "20"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.subset:3",
+#>       "@id": "#disc:fd9bea5ef311d5f14b28d237ecb6e985",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.subset",
 #>       "value": "3"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.tab:3",
+#>       "@id": "#disc:4e93a50cbd8cfea8f0a6adc50ee7aac0",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.tab",
 #>       "value": "3"
 #>     },
 #>     {
-#>       "@id": "_:localid:3aaeab3631b4c9bbe7f44d60805b8f9c",
+#>       "@id": "#env:disclosure_settings:7d746edc2fb36ee671241a333742b3a8",
+#>       "@type": "CreativeWork",
+#>       "name": "Disclosure Control Environment",
+#>       "description": "Disclosure control settings extract from the OBiBa Opal server connection provided, using the profile: 'default'.",
+#>       "hasPart": [
+#>         {
+#>           "@id": "#disc:27d8c1d2233ecb654a24b635fd4dbd78"
+#>         },
+#>         {
+#>           "@id": "#disc:46b65707a6b998f3b1364bc10e6d9b4b"
+#>         },
+#>         {
+#>           "@id": "#disc:7769282e7b0a1cb8887f60886c7b56ae"
+#>         },
+#>         {
+#>           "@id": "#disc:49d822f52075aafbec1d1b2545aa46b7"
+#>         },
+#>         {
+#>           "@id": "#disc:9a59210a743557bbd61cb21c3f1e0a79"
+#>         },
+#>         {
+#>           "@id": "#disc:a00b1e31a448142ee66bbb013f990e1f"
+#>         },
+#>         {
+#>           "@id": "#disc:29dd5e27a9f1c66d81a7037c236e7dd5"
+#>         },
+#>         {
+#>           "@id": "#disc:1c12e549b91e2cc0856f56657988ce54"
+#>         },
+#>         {
+#>           "@id": "#disc:786bc0ffcdd3054925e431240caecea5"
+#>         },
+#>         {
+#>           "@id": "#disc:fd9bea5ef311d5f14b28d237ecb6e985"
+#>         },
+#>         {
+#>           "@id": "#disc:4e93a50cbd8cfea8f0a6adc50ee7aac0"
+#>         }
+#>       ]
+#>     },
+#>     {
+#>       "@id": "#software:f8784d80bad08f840fba23fa9c41ec27",
 #>       "@type": "SoftwareApplication",
 #>       "name": "dsBase",
 #>       "version": "6.3.5",
-#>       "description": "Base 'DataSHIELD' functions for the server side. 'DataSHIELD' is a software package which allows\n    you to do non-disclosive federated analysis on sensitive data. 'DataSHIELD' analytic functions have\n    been designed to only share non disclosive summary statistics, with built in automated output\n    checking based on statistical disclosure control. With data sites setting the threshold values for\n    the automated output checks. For more details, see 'citation(\"dsBase\")'."
+#>       "description": "Base 'DataSHIELD' functions for the server side. 'DataSHIELD' is a software package which allows you to do non-disclosive federated analysis on sensitive data. 'DataSHIELD' analytic functions have been designed to only share non disclosive summary statistics, with built in automated output checking based on statistical disclosure control. With data sites setting the threshold values for the automated output checks. For more details, see 'citation(\"dsBase\")'."
 #>     },
 #>     {
-#>       "@id": "_:localid:e2f7c43973c40d7a6a6731da5a0aa564",
+#>       "@id": "#software:afa897ee58de14b27570462c97a9dd44",
 #>       "@type": "SoftwareApplication",
 #>       "name": "dsTidyverse",
 #>       "version": "1.1.0",
 #>       "description": "Implementation of selected 'Tidyverse' functions within 'DataSHIELD', an open-source federated analysis solution in R. Currently, DataSHIELD contains very limited tools for data manipulation, so the aim of this package is to improve the researcher experience by implementing essential functions for data manipulation, including subsetting, filtering, grouping, and renaming variables. This is the serverside package which should be installed on the server holding the data, and is used in conjuncture with the clientside package 'dsTidyverseClient' which is installed in the local R environment of the analyst. For more information, see <https://tidyverse.org/> and <https://datashield.org/>."
 #>     },
 #>     {
-#>       "@id": "_:localid:411453e2513e6d909fe2cb8273b034dc",
+#>       "@id": "#software:d2133fef4ca6df6312f205e51aee541b",
 #>       "@type": "SoftwareApplication",
 #>       "name": "resourcer",
 #>       "version": "1.5.0",
-#>       "description": "A resource represents some data or a computation unit. It is \n    described by a URL and credentials. This package proposes a Resource model\n    with \"resolver\" and \"client\" classes to facilitate the access and the usage of the \n    resources."
+#>       "description": "A resource represents some data or a computation unit. It is described by a URL and credentials. This package proposes a Resource model with \"resolver\" and \"client\" classes to facilitate the access and the usage of the resources."
 #>     },
 #>     {
-#>       "@id": "20260227T152406-dslogs-dsuser.log",
-#>       "@type": "File",
-#>       "dateModified": "2026-02-27 15:24:06",
-#>       "name": "20260227T152406-dslogs-dsuser.log",
-#>       "description": "This file contains the raw logs for the user: `dsuser` , between: ALL and ALL",
-#>       "encodingFormat": "text/plain",
-#>       "content": [
-#>         ["[INFO][2026-02-27T08:56:24][OPEN]      created a datashield session 622f2c74-9242-48e2-82d9-bc3250f8aa4b", "[INFO][2026-02-27T08:56:26][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T08:56:26][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T08:56:27][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T09:00:37][OPEN]      created a datashield session 7925f5e8-f7b6-416e-b05b-5ac2c19f00c1", "[INFO][2026-02-27T09:00:37][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T09:00:38][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T09:00:38][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T09:20:47][OPEN]      created a datashield session 08413766-4fa8-4eec-9392-ec30581fb48c", "[INFO][2026-02-27T09:20:48][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T09:20:48][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T09:20:49][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T14:08:39][OPEN]      created a datashield session 88a48432-61c8-4444-bb6f-1d0174d4f177", "[INFO][2026-02-27T14:08:39][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T14:08:39][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T14:08:40][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T14:18:40][OPEN]      created a datashield session e45b3573-21cc-445d-8d22-b7fc289d279a", "[INFO][2026-02-27T14:18:40][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T14:18:40][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T14:18:41][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:04:13][OPEN]      created a datashield session 026b4b18-c40c-4f08-8a19-75716fee1c75", "[INFO][2026-02-27T15:04:13][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T15:04:14][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:04:14][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:13:01][OPEN]      created a datashield session a3a6f257-79ef-443c-a110-393b1ff196f0", "[INFO][2026-02-27T15:13:01][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T15:13:02][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:13:03][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:24:02][OPEN]      created a datashield session fc258313-6846-4a8e-93d9-4809cd794fbe", "[INFO][2026-02-27T15:24:02][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T15:24:03][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:24:04][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:24:04][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-02-27T15:24:04][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-02-27T15:24:04][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:05][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
+#>       "@id": "#software:77514b155cfdb0c8c535fbe54daf67fc",
+#>       "@type": "SoftwareApplication",
+#>       "name": "Opal",
+#>       "version": "5.6.1",
+#>       "description": "Opal is OBiBa's (https://www.obiba.org/) core database application for epidemiological studies. Participant data, collected by questionnaires, medical instruments, sensors, administrative databases etc. can be integrated and stored in a central data repository under a uniform model."
+#>     },
+#>     {
+#>       "@id": "#env:software_stack:239d65ed3c0c0c3932e23cebb34be7e1",
+#>       "@type": "CreativeWork",
+#>       "name": "Approved Analytical Software Environment",
+#>       "description": "Software packages installed in the controlled Opal/DataSHIELD environment used for federated analysis.",
+#>       "hasPart": [
+#>         {
+#>           "@id": "#software:f8784d80bad08f840fba23fa9c41ec27"
+#>         },
+#>         {
+#>           "@id": "#software:afa897ee58de14b27570462c97a9dd44"
+#>         },
+#>         {
+#>           "@id": "#software:d2133fef4ca6df6312f205e51aee541b"
+#>         },
+#>         {
+#>           "@id": "#software:77514b155cfdb0c8c535fbe54daf67fc"
+#>         }
 #>       ]
 #>     },
 #>     {
-#>       "@id": "20260227T152406-dslogs-dsuser_mappings.csv",
+#>       "@id": "#control:output-checking",
+#>       "@type": "CreativeWork",
+#>       "name": "Statistical Disclosure Output Checking",
+#>       "description": "Automated disclosure control prevents release of small-cell counts and disclosive statistics."
+#>     },
+#>     {
+#>       "@id": "#control:server-side-analysis",
+#>       "@type": "CreativeWork",
+#>       "name": "Server-Side Analysis Enforcement",
+#>       "description": "Raw data never leaves the secure server; analysis occurs via vetted aggregate functions."
+#>     },
+#>     {
+#>       "@id": "#control:session-logging",
+#>       "@type": "CreativeWork",
+#>       "name": "Comprehensive Session Logging",
+#>       "description": "All analytical actions are logged and auditable."
+#>     },
+#>     {
+#>       "@id": "#control:secure-facility",
+#>       "@type": "CreativeWork",
+#>       "name": "Secure Data Facility",
+#>       "description": "Access restricted to approved secure premises."
+#>     },
+#>     {
+#>       "@id": "#control:access-governance",
+#>       "@type": "CreativeWork",
+#>       "name": "Access Governance Process",
+#>       "description": "Data access committee review and approval required."
+#>     },
+#>     {
+#>       "@id": "#safesetting:8489860e7540c5dfb95b5d8ddab232c5",
+#>       "@type": "CreativeWork",
+#>       "name": "Safe Setting Controls (Opal)",
+#>       "description": "Technical, physical and organisational safeguards applied to minimise disclosure risk.",
+#>       "hasPart": [
+#>         {
+#>           "@id": "#env:disclosure_settings:7d746edc2fb36ee671241a333742b3a8"
+#>         },
+#>         {
+#>           "@id": "#env:software_stack:239d65ed3c0c0c3932e23cebb34be7e1"
+#>         },
+#>         {
+#>           "@id": "#control:output-checking"
+#>         },
+#>         {
+#>           "@id": "#control:server-side-analysis"
+#>         },
+#>         {
+#>           "@id": "#control:session-logging"
+#>         },
+#>         {
+#>           "@id": "#control:secure-facility"
+#>         },
+#>         {
+#>           "@id": "#control:access-governance"
+#>         }
+#>       ]
+#>     },
+#>     {
+#>       "@id": "#link:b16fbdedcc33e826878020dcd5fad3d3",
+#>       "@type": "CreativeWork",
+#>       "name": "Safe Settings x Safe Project Link",
+#>       "about": {
+#>         "@id": "#safesetting:8489860e7540c5dfb95b5d8ddab232c5"
+#>       },
+#>       "isPartOf": {
+#>         "@id": "#project:7ba189863f9f641196596cb28e04aa14"
+#>       }
+#>     },
+#>     {
+#>       "@id": "20260327T120003-dslogs-dsuser.log",
 #>       "@type": "File",
-#>       "dateModified": "2026-02-27 15:24:06",
-#>       "name": "20260227T152406-dslogs-dsuser_mappings.csv",
+#>       "dateModified": "2026-03-27 12:00:03",
+#>       "name": "20260327T120003-dslogs-dsuser.log",
+#>       "description": "This file contains the raw logs for the user: `dsuser` , between: ALL and ALL",
+#>       "encodingFormat": "text/plain",
+#>       "content": [
+#>         ["[INFO][2026-03-27T11:59:57][OPEN]      created a datashield session 84b50a64-e51e-4d54-a155-bd3ebbdbcdf8", "[INFO][2026-03-27T11:59:59][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-03-27T12:00:00][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-03-27T12:00:01][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-03-27T12:00:01][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
+#>       ]
+#>     },
+#>     {
+#>       "@id": "20260327T120003-dslogs-dsuser_mappings.csv",
+#>       "@type": "File",
+#>       "dateModified": "2026-03-27 12:00:03",
+#>       "name": "20260327T120003-dslogs-dsuser_mappings.csv",
 #>       "description": "This file contains mappings and evaluated functions",
 #>       "encodingFormat": "text/csv",
 #>       "content": [
 #>         [
 #>           {
-#>             "timestamp": "2026-02-27T08:56:24",
+#>             "timestamp": "2026-03-27T11:59:57",
 #>             "action": "OPEN",
 #>             "user": "dsuser",
-#>             "r_cmd": "Open session: 622f2c74-9242-48e2-82d9-bc3250f8aa4b",
+#>             "r_cmd": "Open session: 84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "fx": "DSI::datashield.login",
-#>             "session": "622f2c74-9242-48e2-82d9-bc3250f8aa4b",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T08:56:26",
+#>             "timestamp": "2026-03-27T11:59:59",
 #>             "action": "ASSIGN",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
 #>             "fx": "base::assign",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "622f2c74-9242-48e2-82d9-bc3250f8aa4b",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T08:56:27",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
 #>             "fx": "dsBase::lsDS",
 #>             "symbol": "search.filter = NULL, 1L",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "622f2c74-9242-48e2-82d9-bc3250f8aa4b",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T09:00:37",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: 7925f5e8-f7b6-416e-b05b-5ac2c19f00c1",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "7925f5e8-f7b6-416e-b05b-5ac2c19f00c1",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T09:00:37",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "7925f5e8-f7b6-416e-b05b-5ac2c19f00c1",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T09:00:38",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "7925f5e8-f7b6-416e-b05b-5ac2c19f00c1",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T09:20:47",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: 08413766-4fa8-4eec-9392-ec30581fb48c",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "08413766-4fa8-4eec-9392-ec30581fb48c",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T09:20:48",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "08413766-4fa8-4eec-9392-ec30581fb48c",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T09:20:49",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "08413766-4fa8-4eec-9392-ec30581fb48c",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T14:08:39",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: 88a48432-61c8-4444-bb6f-1d0174d4f177",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "88a48432-61c8-4444-bb6f-1d0174d4f177",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T14:08:39",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "88a48432-61c8-4444-bb6f-1d0174d4f177",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T14:08:40",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "88a48432-61c8-4444-bb6f-1d0174d4f177",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T14:18:40",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: e45b3573-21cc-445d-8d22-b7fc289d279a",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "e45b3573-21cc-445d-8d22-b7fc289d279a",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T14:18:40",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "e45b3573-21cc-445d-8d22-b7fc289d279a",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T14:18:41",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "e45b3573-21cc-445d-8d22-b7fc289d279a",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:04:13",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: 026b4b18-c40c-4f08-8a19-75716fee1c75",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "026b4b18-c40c-4f08-8a19-75716fee1c75",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:04:13",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "026b4b18-c40c-4f08-8a19-75716fee1c75",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:04:14",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "026b4b18-c40c-4f08-8a19-75716fee1c75",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:13:01",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: a3a6f257-79ef-443c-a110-393b1ff196f0",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "a3a6f257-79ef-443c-a110-393b1ff196f0",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:13:01",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "a3a6f257-79ef-443c-a110-393b1ff196f0",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:13:03",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "a3a6f257-79ef-443c-a110-393b1ff196f0",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:24:02",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: fc258313-6846-4a8e-93d9-4809cd794fbe",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:24:02",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:24:04",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:24:04",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "base::exists(\"dsROCrate_test\")",
 #>             "fx": "base::exists",
 #>             "symbol": "dsROCrate_test",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T15:24:04",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsBase::classDS(\"dsROCrate_test\")",
 #>             "fx": "dsBase::classDS",
 #>             "symbol": "dsROCrate_test",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T15:24:04",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsBase::isValidDS(dsROCrate_test)",
 #>             "fx": "dsBase::isValidDS",
 #>             "symbol": "dsROCrate_test",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T15:24:04",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsBase::dimDS(\"dsROCrate_test\")",
 #>             "fx": "dsBase::dimDS",
 #>             "symbol": "dsROCrate_test",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T15:24:05",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsBase::colnamesDS(\"dsROCrate_test\")",
 #>             "fx": "dsBase::colnamesDS",
 #>             "symbol": "dsROCrate_test",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           }
 #>         ]
@@ -1213,7 +1329,7 @@ print(safe_people_crate_v1)
 ###### Markdown report
 
 A markdown report can be created with an overview and details for an
-RO-Crate, using the `dsROCrate::rocrate_report`:
+RO-Crate, using the `dsROCrate::report`:
 
 **Only generate .Rmd file**
 
@@ -1221,13 +1337,11 @@ RO-Crate, using the `dsROCrate::rocrate_report`:
 safe_people_crate_v1_rmd <- tempfile(fileext = ".Rmd") # temporary file
 
 safe_people_crate_contents <- safe_people_crate_v1 |>
-  dsROCrate::rocrate_report(filepath = safe_people_crate_v1_rmd, render = FALSE)
+  dsROCrate::report(filepath = safe_people_crate_v1_rmd, render = FALSE)
 #> 1 'Author' entity was found!
-#> 3 'Dataset' entities were found!
-#> Warning: No entities were found with @type = 'WriteAction'!
-#> Warning: No entities were found with @type = 'ControlAction'!
+#> 3 asset entities were found!
 #> 1 'Project' entity was found!
-#> 14 'PropertyValue' OR 'SoftwareApplication' entities were found!
+#> 22 'CreativeWork', 'PropertyValue' OR 'SoftwareApplication' entities were found!
 #> 2 'File' entities were found!
 
 # display Overview diagram
@@ -1245,27 +1359,13 @@ safe_people_crate_contents$overview_data |>
 
 | Project | Data   | Access Level | People | Function           | Timestamp           |
 |:--------|:-------|:-------------|:-------|:-------------------|:--------------------|
-| CNSIM   | CNSIM1 | read         | dsuser | base::assign       | 2026-02-27T08:56:26 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::lsDS       | 2026-02-27T08:56:27 |
-| CNSIM   | CNSIM1 | read         | dsuser | base::assign       | 2026-02-27T09:00:37 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::lsDS       | 2026-02-27T09:00:38 |
-| CNSIM   | CNSIM1 | read         | dsuser | base::assign       | 2026-02-27T09:20:48 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::lsDS       | 2026-02-27T09:20:49 |
-| CNSIM   | CNSIM1 | read         | dsuser | base::assign       | 2026-02-27T14:08:39 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::lsDS       | 2026-02-27T14:08:40 |
-| CNSIM   | CNSIM1 | read         | dsuser | base::assign       | 2026-02-27T14:18:40 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::lsDS       | 2026-02-27T14:18:41 |
-| CNSIM   | CNSIM1 | read         | dsuser | base::assign       | 2026-02-27T15:04:13 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::lsDS       | 2026-02-27T15:04:14 |
-| CNSIM   | CNSIM1 | read         | dsuser | base::assign       | 2026-02-27T15:13:01 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::lsDS       | 2026-02-27T15:13:03 |
-| CNSIM   | CNSIM1 | read         | dsuser | base::assign       | 2026-02-27T15:24:02 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::lsDS       | 2026-02-27T15:24:04 |
-| CNSIM   | CNSIM1 | read         | dsuser | base::exists       | 2026-02-27T15:24:04 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::classDS    | 2026-02-27T15:24:04 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::isValidDS  | 2026-02-27T15:24:04 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::dimDS      | 2026-02-27T15:24:04 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::colnamesDS | 2026-02-27T15:24:05 |
+| CNSIM   | CNSIM1 | read         | dsuser | base::assign       | 2026-03-27T11:59:59 |
+| CNSIM   | CNSIM1 | read         | dsuser | dsBase::lsDS       | 2026-03-27T12:00:01 |
+| CNSIM   | CNSIM1 | read         | dsuser | base::exists       | 2026-03-27T12:00:01 |
+| CNSIM   | CNSIM1 | read         | dsuser | dsBase::classDS    | 2026-03-27T12:00:01 |
+| CNSIM   | CNSIM1 | read         | dsuser | dsBase::isValidDS  | 2026-03-27T12:00:01 |
+| CNSIM   | CNSIM1 | read         | dsuser | dsBase::dimDS      | 2026-03-27T12:00:01 |
+| CNSIM   | CNSIM1 | read         | dsuser | dsBase::colnamesDS | 2026-03-27T12:00:01 |
 | CNSIM   | CNSIM2 | read         | dsuser |                    |                     |
 | CNSIM   | CNSIM3 | read         | dsuser |                    |                     |
 
@@ -1273,100 +1373,11 @@ safe_people_crate_contents$overview_data |>
 
 ``` r
 safe_people_crate_v1 |>
-  dsROCrate::rocrate_report(filepath = safe_people_crate_v1_rmd,
+  dsROCrate::report(filepath = safe_people_crate_v1_rmd,
                             title = "DataSHIELD Safe People - Audit Report",
                             render = TRUE, 
                             overwrite = TRUE)
 ```
-
-##### List all accessible projects & tables for an user
-
-``` r
-safe_people_crate_v2 <- opalr::opal.login(
-  username = USERNAME,
-  password = USERPASS,
-  url = SERVER
-) |>
-  dsROCrate::audit_safe_people(user = "dsuser")
-#> opening file input connection.
-#>  Found 83 records... Imported 83 records. Simplifying...
-#> closing file input connection.
-
-safe_people_crate_v2_rmd <- tempfile(fileext = ".Rmd") # temporary file
-
-safe_people_crate_contents_v2 <- safe_people_crate_v2 |>
-  dsROCrate::rocrate_report(filepath = safe_people_crate_v2_rmd, render = FALSE)
-#> 1 'Author' entity was found!
-#> 30 'Dataset' entities were found!
-#> 11 'Project' entities were found!
-#> 14 'PropertyValue' OR 'SoftwareApplication' entities were found!
-#> 2 'File' entities were found!
-
-# display Overview diagram
-safe_people_crate_contents_v2$overview_diagram
-```
-
-<img src="man/figures/README-safe_people_crate_audit_v2-1.png" alt="" width="100%" />
-
-``` r
-
-# display Overview data (Safe People, Safe Projects and Safe Data)
-safe_people_crate_contents_v2$overview_data |>
-  knitr::kable()
-```
-
-| Project | Data | Access Level | People | Function | Timestamp |
-|:---|:---|:---|:---|:---|:---|
-| CNSIM | CNSIM1 | read | dsuser | base::assign | 2026-02-27T08:56:26 |
-| CNSIM | CNSIM1 | read | dsuser | dsBase::lsDS | 2026-02-27T08:56:27 |
-| CNSIM | CNSIM1 | read | dsuser | base::assign | 2026-02-27T09:00:37 |
-| CNSIM | CNSIM1 | read | dsuser | dsBase::lsDS | 2026-02-27T09:00:38 |
-| CNSIM | CNSIM1 | read | dsuser | base::assign | 2026-02-27T09:20:48 |
-| CNSIM | CNSIM1 | read | dsuser | dsBase::lsDS | 2026-02-27T09:20:49 |
-| CNSIM | CNSIM1 | read | dsuser | base::assign | 2026-02-27T14:08:39 |
-| CNSIM | CNSIM1 | read | dsuser | dsBase::lsDS | 2026-02-27T14:08:40 |
-| CNSIM | CNSIM1 | read | dsuser | base::assign | 2026-02-27T14:18:40 |
-| CNSIM | CNSIM1 | read | dsuser | dsBase::lsDS | 2026-02-27T14:18:41 |
-| CNSIM | CNSIM1 | read | dsuser | base::assign | 2026-02-27T15:04:13 |
-| CNSIM | CNSIM1 | read | dsuser | dsBase::lsDS | 2026-02-27T15:04:14 |
-| CNSIM | CNSIM1 | read | dsuser | base::assign | 2026-02-27T15:13:01 |
-| CNSIM | CNSIM1 | read | dsuser | dsBase::lsDS | 2026-02-27T15:13:03 |
-| CNSIM | CNSIM1 | read | dsuser | base::assign | 2026-02-27T15:24:02 |
-| CNSIM | CNSIM1 | read | dsuser | dsBase::lsDS | 2026-02-27T15:24:04 |
-| CNSIM | CNSIM1 | read | dsuser | base::exists | 2026-02-27T15:24:04 |
-| CNSIM | CNSIM1 | read | dsuser | dsBase::classDS | 2026-02-27T15:24:04 |
-| CNSIM | CNSIM1 | read | dsuser | dsBase::isValidDS | 2026-02-27T15:24:04 |
-| CNSIM | CNSIM1 | read | dsuser | dsBase::dimDS | 2026-02-27T15:24:04 |
-| CNSIM | CNSIM1 | read | dsuser | dsBase::colnamesDS | 2026-02-27T15:24:05 |
-| CNSIM | CNSIM2 | read | dsuser |  |  |
-| CNSIM | CNSIM3 | read | dsuser |  |  |
-| DASIM | DASIM1 | read | dsuser |  |  |
-| DASIM | DASIM2 | read | dsuser |  |  |
-| DASIM | DASIM3 | read | dsuser |  |  |
-| DISCORDANT | DISCORDANT_STUDY1 | read | dsuser |  |  |
-| DISCORDANT | DISCORDANT_STUDY2 | read | dsuser |  |  |
-| DISCORDANT | DISCORDANT_STUDY3 | read | dsuser |  |  |
-| GREENSPACE | Cohort1_exposome | read | dsuser |  |  |
-| GREENSPACE | Cohort2_exposome | read | dsuser |  |  |
-| GREENSPACE | Cohort3_exposome | read | dsuser |  |  |
-| GWAS | ega_phenotypes | read | dsuser |  |  |
-| GWAS | ega_phenotypes_1 | read | dsuser |  |  |
-| GWAS | ega_phenotypes_2 | read | dsuser |  |  |
-| GWAS | ega_phenotypes_3 | read | dsuser |  |  |
-| MEDIATION | UPBdata1 | read | dsuser |  |  |
-| MEDIATION | UPBdata2 | read | dsuser |  |  |
-| MEDIATION | UPBdata3 | read | dsuser |  |  |
-| SURVIVAL | EXPAND_WITH_MISSING1 | read | dsuser |  |  |
-| SURVIVAL | EXPAND_WITH_MISSING2 | read | dsuser |  |  |
-| SURVIVAL | EXPAND_WITH_MISSING3 | read | dsuser |  |  |
-| TESTING | TESTING1 | read | dsuser |  |  |
-| TESTING | TESTING2 | read | dsuser |  |  |
-| TESTING | TESTING3 | read | dsuser |  |  |
-| TITANIC_NEWCOMERS_WORKSHOP | titanic_server_1 | read | dsuser |  |  |
-| TITANIC_NEWCOMERS_WORKSHOP | titanic_server_2 | read | dsuser |  |  |
-| depression | growth_1 | read | dsuser |  |  |
-| depression | growth_2 | read | dsuser |  |  |
-| serverDataKey | myKey | read | dsuser |  |  |
 
 ### 3.2. Audit Project
 
@@ -1378,9 +1389,18 @@ safe_project_crate_v1 <- opalr::opal.login(
   password = USERPASS,
   url = SERVER
 ) |>
-  dsROCrate::audit_safe_project(project = "CNSIM")
+  dsROCrate::audit(project = "CNSIM")
 #> opening file input connection.
-#>  Found 83 records... Imported 83 records. Simplifying...
+#>  Found 55 records... Imported 55 records. Simplifying...
+#> closing file input connection.
+#> opening file input connection.
+#>  Found 55 records... Imported 55 records. Simplifying...
+#> closing file input connection.
+#> opening file input connection.
+#>  Found 55 records... Imported 55 records. Simplifying...
+#> closing file input connection.
+#> opening file input connection.
+#>  Found 55 records... Imported 55 records. Simplifying...
 #> closing file input connection.
 
 print(safe_project_crate_v1)
@@ -1402,7 +1422,7 @@ print(safe_project_crate_v1)
 #>       "@type": "Dataset",
 #>       "name": "",
 #>       "description": "",
-#>       "datePublished": "2026-02-27",
+#>       "datePublished": "2026-03-27",
 #>       "license": {
 #>         "@id": "http://spdx.org/licenses/CC-BY-4.0"
 #>       },
@@ -1411,10 +1431,10 @@ print(safe_project_crate_v1)
 #>       },
 #>       "hasPart": [
 #>         {
-#>           "@id": "20260227T152439-dslogs-dsuser.log"
+#>           "@id": "20260327T120011-dslogs-dsuser.log"
 #>         },
 #>         {
-#>           "@id": "20260227T152439-dslogs-dsuser_mappings.csv"
+#>           "@id": "20260327T120011-dslogs-dsuser_mappings.csv"
 #>         }
 #>       ]
 #>     },
@@ -1424,51 +1444,42 @@ print(safe_project_crate_v1)
 #>       "name": "Five Safes RO-Crate profile"
 #>     },
 #>     {
-#>       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",
-#>       "@type": "Dataset",
-#>       "name": "CNSIM1",
-#>       "dateCreated": "2026-02-27T06:29:50.731Z",
-#>       "dateModified": "2026-02-27T06:29:51.865Z",
-#>       "path": "/datasource/CNSIM/table/CNSIM1"
+#>       "@id": "#person:a0af2a94926db1b49ad7a812eef509d2",
+#>       "@type": "Person",
+#>       "name": "dsuser"
 #>     },
 #>     {
-#>       "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9",
-#>       "@type": "Dataset",
-#>       "name": "CNSIM2",
-#>       "dateCreated": "2026-02-27T06:29:51.872Z",
-#>       "dateModified": "2026-02-27T06:29:53.057Z",
-#>       "path": "/datasource/CNSIM/table/CNSIM2"
+#>       "@id": "#person:cb809df1c2fb30b154f60b843e62b3d0",
+#>       "@type": "Person",
+#>       "name": "dsuser1"
 #>     },
 #>     {
-#>       "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492",
-#>       "@type": "Dataset",
-#>       "name": "CNSIM3",
-#>       "dateCreated": "2026-02-27T06:29:53.064Z",
-#>       "dateModified": "2026-02-27T06:29:54.200Z",
-#>       "path": "/datasource/CNSIM/table/CNSIM3"
+#>       "@id": "#person:a3cd7ce7818436c83b1eadaa5ba47411",
+#>       "@type": "Person",
+#>       "name": "dsuser2"
+#>     },
+#>     {
+#>       "@id": "#person:5657241505661473308ae9aa9a378293",
+#>       "@type": "Person",
+#>       "name": "dsuser3"
 #>     },
 #>     {
 #>       "@id": "#project:7ba189863f9f641196596cb28e04aa14",
 #>       "@type": "Project",
 #>       "name": "CNSIM",
-#>       "dateCreated": "2026-02-27T06:29:49.235Z",
-#>       "dateModified": "2026-02-27T06:29:54.200Z",
+#>       "dateCreated": "2026-03-27T06:29:56.149Z",
+#>       "dateModified": "2026-03-27T06:30:01.340Z",
 #>       "hasPart": [
 #>         {
-#>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
+#>           "@id": "#asset:fad6faf661584d53e58f9730b14c5aae"
 #>         },
 #>         {
-#>           "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9"
+#>           "@id": "#asset:b6721026564c746f604df7ba785931fa"
 #>         },
 #>         {
-#>           "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492"
+#>           "@id": "#asset:14fbb8de0021e6d237a2ed7779f9625d"
 #>         }
 #>       ]
-#>     },
-#>     {
-#>       "@id": "#person:a0af2a94926db1b49ad7a812eef509d2",
-#>       "@type": "Person",
-#>       "name": "dsuser"
 #>     },
 #>     {
 #>       "@id": "#perm:9bf7f75b6c5b07d02830b95652cd39a0-dict-summary-read",
@@ -1477,7 +1488,19 @@ print(safe_project_crate_v1)
 #>         "@id": "#person:a0af2a94926db1b49ad7a812eef509d2"
 #>       },
 #>       "object": {
-#>         "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
+#>         "@id": "#asset:fad6faf661584d53e58f9730b14c5aae"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
+#>     },
+#>     {
+#>       "@id": "#perm:4d2673da68a58c3bce23a61d97b6df51-dict-summary-read",
+#>       "@type": "ReadAction",
+#>       "agent": {
+#>         "@id": "#person:cb809df1c2fb30b154f60b843e62b3d0"
+#>       },
+#>       "object": {
+#>         "@id": "#asset:fad6faf661584d53e58f9730b14c5aae"
 #>       },
 #>       "actionStatus": "PotentialActionStatus",
 #>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
@@ -1489,7 +1512,19 @@ print(safe_project_crate_v1)
 #>         "@id": "#person:a0af2a94926db1b49ad7a812eef509d2"
 #>       },
 #>       "object": {
-#>         "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9"
+#>         "@id": "#asset:b6721026564c746f604df7ba785931fa"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
+#>     },
+#>     {
+#>       "@id": "#perm:802d140a064e6ebf3a784f759af1b640-dict-summary-read",
+#>       "@type": "ReadAction",
+#>       "agent": {
+#>         "@id": "#person:a3cd7ce7818436c83b1eadaa5ba47411"
+#>       },
+#>       "object": {
+#>         "@id": "#asset:b6721026564c746f604df7ba785931fa"
 #>       },
 #>       "actionStatus": "PotentialActionStatus",
 #>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
@@ -1501,411 +1536,387 @@ print(safe_project_crate_v1)
 #>         "@id": "#person:a0af2a94926db1b49ad7a812eef509d2"
 #>       },
 #>       "object": {
-#>         "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492"
+#>         "@id": "#asset:14fbb8de0021e6d237a2ed7779f9625d"
 #>       },
 #>       "actionStatus": "PotentialActionStatus",
 #>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
 #>     },
 #>     {
-#>       "@id": "_:localid:datashield.privacyLevel:5",
+#>       "@id": "#perm:04c3f293c7a360fe0a1b7c29c8363540-dict-summary-read",
+#>       "@type": "ReadAction",
+#>       "agent": {
+#>         "@id": "#person:5657241505661473308ae9aa9a378293"
+#>       },
+#>       "object": {
+#>         "@id": "#asset:14fbb8de0021e6d237a2ed7779f9625d"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
+#>     },
+#>     {
+#>       "@id": "#asset:fad6faf661584d53e58f9730b14c5aae",
+#>       "@type": "Dataset",
+#>       "name": "CNSIM1",
+#>       "description": "",
+#>       "url": "/datasource/CNSIM/table/CNSIM1",
+#>       "dateCreated": "2026-03-27T00:00:00Z",
+#>       "dateModified": "2026-03-27T00:00:00Z",
+#>       "isPartOf": {
+#>         "@id": "#project:7ba189863f9f641196596cb28e04aa14"
+#>       }
+#>     },
+#>     {
+#>       "@id": "#asset:b6721026564c746f604df7ba785931fa",
+#>       "@type": "Dataset",
+#>       "name": "CNSIM2",
+#>       "description": "",
+#>       "url": "/datasource/CNSIM/table/CNSIM2",
+#>       "dateCreated": "2026-03-27T00:00:00Z",
+#>       "dateModified": "2026-03-27T00:00:00Z",
+#>       "isPartOf": {
+#>         "@id": "#project:7ba189863f9f641196596cb28e04aa14"
+#>       }
+#>     },
+#>     {
+#>       "@id": "#asset:14fbb8de0021e6d237a2ed7779f9625d",
+#>       "@type": "Dataset",
+#>       "name": "CNSIM3",
+#>       "description": "",
+#>       "url": "/datasource/CNSIM/table/CNSIM3",
+#>       "dateCreated": "2026-03-27T00:00:00Z",
+#>       "dateModified": "2026-03-27T00:00:00Z",
+#>       "isPartOf": {
+#>         "@id": "#project:7ba189863f9f641196596cb28e04aa14"
+#>       }
+#>     },
+#>     {
+#>       "@id": "#disc:27d8c1d2233ecb654a24b635fd4dbd78",
 #>       "@type": "PropertyValue",
 #>       "name": "datashield.privacyLevel",
 #>       "value": "5"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.datashield.privacyControlLevel:banana",
+#>       "@id": "#disc:46b65707a6b998f3b1364bc10e6d9b4b",
 #>       "@type": "PropertyValue",
 #>       "name": "default.datashield.privacyControlLevel",
 #>       "value": "banana"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.glm:0.33",
+#>       "@id": "#disc:7769282e7b0a1cb8887f60886c7b56ae",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.glm",
 #>       "value": "0.33"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.kNN:3",
+#>       "@id": "#disc:49d822f52075aafbec1d1b2545aa46b7",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.kNN",
 #>       "value": "3"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.levels.density:0.33",
+#>       "@id": "#disc:9a59210a743557bbd61cb21c3f1e0a79",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.levels.density",
 #>       "value": "0.33"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.levels.max:40",
+#>       "@id": "#disc:a00b1e31a448142ee66bbb013f990e1f",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.levels.max",
 #>       "value": "40"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.noise:0.25",
+#>       "@id": "#disc:29dd5e27a9f1c66d81a7037c236e7dd5",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.noise",
 #>       "value": "0.25"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.string:80",
+#>       "@id": "#disc:1c12e549b91e2cc0856f56657988ce54",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.string",
 #>       "value": "80"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.stringShort:20",
+#>       "@id": "#disc:786bc0ffcdd3054925e431240caecea5",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.stringShort",
 #>       "value": "20"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.subset:3",
+#>       "@id": "#disc:fd9bea5ef311d5f14b28d237ecb6e985",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.subset",
 #>       "value": "3"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.tab:3",
+#>       "@id": "#disc:4e93a50cbd8cfea8f0a6adc50ee7aac0",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.tab",
 #>       "value": "3"
 #>     },
 #>     {
-#>       "@id": "_:localid:3aaeab3631b4c9bbe7f44d60805b8f9c",
+#>       "@id": "#env:disclosure_settings:7d746edc2fb36ee671241a333742b3a8",
+#>       "@type": "CreativeWork",
+#>       "name": "Disclosure Control Environment",
+#>       "description": "Disclosure control settings extract from the OBiBa Opal server connection provided, using the profile: 'default'.",
+#>       "hasPart": [
+#>         {
+#>           "@id": "#disc:27d8c1d2233ecb654a24b635fd4dbd78"
+#>         },
+#>         {
+#>           "@id": "#disc:46b65707a6b998f3b1364bc10e6d9b4b"
+#>         },
+#>         {
+#>           "@id": "#disc:7769282e7b0a1cb8887f60886c7b56ae"
+#>         },
+#>         {
+#>           "@id": "#disc:49d822f52075aafbec1d1b2545aa46b7"
+#>         },
+#>         {
+#>           "@id": "#disc:9a59210a743557bbd61cb21c3f1e0a79"
+#>         },
+#>         {
+#>           "@id": "#disc:a00b1e31a448142ee66bbb013f990e1f"
+#>         },
+#>         {
+#>           "@id": "#disc:29dd5e27a9f1c66d81a7037c236e7dd5"
+#>         },
+#>         {
+#>           "@id": "#disc:1c12e549b91e2cc0856f56657988ce54"
+#>         },
+#>         {
+#>           "@id": "#disc:786bc0ffcdd3054925e431240caecea5"
+#>         },
+#>         {
+#>           "@id": "#disc:fd9bea5ef311d5f14b28d237ecb6e985"
+#>         },
+#>         {
+#>           "@id": "#disc:4e93a50cbd8cfea8f0a6adc50ee7aac0"
+#>         }
+#>       ]
+#>     },
+#>     {
+#>       "@id": "#software:f8784d80bad08f840fba23fa9c41ec27",
 #>       "@type": "SoftwareApplication",
 #>       "name": "dsBase",
 #>       "version": "6.3.5",
-#>       "description": "Base 'DataSHIELD' functions for the server side. 'DataSHIELD' is a software package which allows\n    you to do non-disclosive federated analysis on sensitive data. 'DataSHIELD' analytic functions have\n    been designed to only share non disclosive summary statistics, with built in automated output\n    checking based on statistical disclosure control. With data sites setting the threshold values for\n    the automated output checks. For more details, see 'citation(\"dsBase\")'."
+#>       "description": "Base 'DataSHIELD' functions for the server side. 'DataSHIELD' is a software package which allows you to do non-disclosive federated analysis on sensitive data. 'DataSHIELD' analytic functions have been designed to only share non disclosive summary statistics, with built in automated output checking based on statistical disclosure control. With data sites setting the threshold values for the automated output checks. For more details, see 'citation(\"dsBase\")'."
 #>     },
 #>     {
-#>       "@id": "_:localid:e2f7c43973c40d7a6a6731da5a0aa564",
+#>       "@id": "#software:afa897ee58de14b27570462c97a9dd44",
 #>       "@type": "SoftwareApplication",
 #>       "name": "dsTidyverse",
 #>       "version": "1.1.0",
 #>       "description": "Implementation of selected 'Tidyverse' functions within 'DataSHIELD', an open-source federated analysis solution in R. Currently, DataSHIELD contains very limited tools for data manipulation, so the aim of this package is to improve the researcher experience by implementing essential functions for data manipulation, including subsetting, filtering, grouping, and renaming variables. This is the serverside package which should be installed on the server holding the data, and is used in conjuncture with the clientside package 'dsTidyverseClient' which is installed in the local R environment of the analyst. For more information, see <https://tidyverse.org/> and <https://datashield.org/>."
 #>     },
 #>     {
-#>       "@id": "_:localid:411453e2513e6d909fe2cb8273b034dc",
+#>       "@id": "#software:d2133fef4ca6df6312f205e51aee541b",
 #>       "@type": "SoftwareApplication",
 #>       "name": "resourcer",
 #>       "version": "1.5.0",
-#>       "description": "A resource represents some data or a computation unit. It is \n    described by a URL and credentials. This package proposes a Resource model\n    with \"resolver\" and \"client\" classes to facilitate the access and the usage of the \n    resources."
+#>       "description": "A resource represents some data or a computation unit. It is described by a URL and credentials. This package proposes a Resource model with \"resolver\" and \"client\" classes to facilitate the access and the usage of the resources."
 #>     },
 #>     {
-#>       "@id": "20260227T152439-dslogs-dsuser.log",
-#>       "@type": "File",
-#>       "dateModified": "2026-02-27 15:24:39",
-#>       "name": "20260227T152439-dslogs-dsuser.log",
-#>       "description": "This file contains the raw logs for the user: `dsuser` , between: ALL and ALL",
-#>       "encodingFormat": "text/plain",
-#>       "content": [
-#>         ["[INFO][2026-02-27T08:56:24][OPEN]      created a datashield session 622f2c74-9242-48e2-82d9-bc3250f8aa4b", "[INFO][2026-02-27T08:56:26][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T08:56:26][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T08:56:27][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T09:00:37][OPEN]      created a datashield session 7925f5e8-f7b6-416e-b05b-5ac2c19f00c1", "[INFO][2026-02-27T09:00:37][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T09:00:38][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T09:00:38][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T09:20:47][OPEN]      created a datashield session 08413766-4fa8-4eec-9392-ec30581fb48c", "[INFO][2026-02-27T09:20:48][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T09:20:48][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T09:20:49][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T14:08:39][OPEN]      created a datashield session 88a48432-61c8-4444-bb6f-1d0174d4f177", "[INFO][2026-02-27T14:08:39][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T14:08:39][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T14:08:40][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T14:18:40][OPEN]      created a datashield session e45b3573-21cc-445d-8d22-b7fc289d279a", "[INFO][2026-02-27T14:18:40][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T14:18:40][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T14:18:41][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:04:13][OPEN]      created a datashield session 026b4b18-c40c-4f08-8a19-75716fee1c75", "[INFO][2026-02-27T15:04:13][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T15:04:14][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:04:14][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:13:01][OPEN]      created a datashield session a3a6f257-79ef-443c-a110-393b1ff196f0", "[INFO][2026-02-27T15:13:01][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T15:13:02][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:13:03][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:24:02][OPEN]      created a datashield session fc258313-6846-4a8e-93d9-4809cd794fbe", "[INFO][2026-02-27T15:24:02][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T15:24:03][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:24:04][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:24:04][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-02-27T15:24:04][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-02-27T15:24:04][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:05][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
+#>       "@id": "#software:77514b155cfdb0c8c535fbe54daf67fc",
+#>       "@type": "SoftwareApplication",
+#>       "name": "Opal",
+#>       "version": "5.6.1",
+#>       "description": "Opal is OBiBa's (https://www.obiba.org/) core database application for epidemiological studies. Participant data, collected by questionnaires, medical instruments, sensors, administrative databases etc. can be integrated and stored in a central data repository under a uniform model."
+#>     },
+#>     {
+#>       "@id": "#env:software_stack:239d65ed3c0c0c3932e23cebb34be7e1",
+#>       "@type": "CreativeWork",
+#>       "name": "Approved Analytical Software Environment",
+#>       "description": "Software packages installed in the controlled Opal/DataSHIELD environment used for federated analysis.",
+#>       "hasPart": [
+#>         {
+#>           "@id": "#software:f8784d80bad08f840fba23fa9c41ec27"
+#>         },
+#>         {
+#>           "@id": "#software:afa897ee58de14b27570462c97a9dd44"
+#>         },
+#>         {
+#>           "@id": "#software:d2133fef4ca6df6312f205e51aee541b"
+#>         },
+#>         {
+#>           "@id": "#software:77514b155cfdb0c8c535fbe54daf67fc"
+#>         }
 #>       ]
 #>     },
 #>     {
-#>       "@id": "20260227T152439-dslogs-dsuser_mappings.csv",
+#>       "@id": "#control:output-checking",
+#>       "@type": "CreativeWork",
+#>       "name": "Statistical Disclosure Output Checking",
+#>       "description": "Automated disclosure control prevents release of small-cell counts and disclosive statistics."
+#>     },
+#>     {
+#>       "@id": "#control:server-side-analysis",
+#>       "@type": "CreativeWork",
+#>       "name": "Server-Side Analysis Enforcement",
+#>       "description": "Raw data never leaves the secure server; analysis occurs via vetted aggregate functions."
+#>     },
+#>     {
+#>       "@id": "#control:session-logging",
+#>       "@type": "CreativeWork",
+#>       "name": "Comprehensive Session Logging",
+#>       "description": "All analytical actions are logged and auditable."
+#>     },
+#>     {
+#>       "@id": "#control:secure-facility",
+#>       "@type": "CreativeWork",
+#>       "name": "Secure Data Facility",
+#>       "description": "Access restricted to approved secure premises."
+#>     },
+#>     {
+#>       "@id": "#control:access-governance",
+#>       "@type": "CreativeWork",
+#>       "name": "Access Governance Process",
+#>       "description": "Data access committee review and approval required."
+#>     },
+#>     {
+#>       "@id": "#safesetting:8489860e7540c5dfb95b5d8ddab232c5",
+#>       "@type": "CreativeWork",
+#>       "name": "Safe Setting Controls (Opal)",
+#>       "description": "Technical, physical and organisational safeguards applied to minimise disclosure risk.",
+#>       "hasPart": [
+#>         {
+#>           "@id": "#env:disclosure_settings:7d746edc2fb36ee671241a333742b3a8"
+#>         },
+#>         {
+#>           "@id": "#env:software_stack:239d65ed3c0c0c3932e23cebb34be7e1"
+#>         },
+#>         {
+#>           "@id": "#control:output-checking"
+#>         },
+#>         {
+#>           "@id": "#control:server-side-analysis"
+#>         },
+#>         {
+#>           "@id": "#control:session-logging"
+#>         },
+#>         {
+#>           "@id": "#control:secure-facility"
+#>         },
+#>         {
+#>           "@id": "#control:access-governance"
+#>         }
+#>       ]
+#>     },
+#>     {
+#>       "@id": "#link:b16fbdedcc33e826878020dcd5fad3d3",
+#>       "@type": "CreativeWork",
+#>       "name": "Safe Settings x Safe Project Link",
+#>       "about": {
+#>         "@id": "#safesetting:8489860e7540c5dfb95b5d8ddab232c5"
+#>       },
+#>       "isPartOf": {
+#>         "@id": "#project:7ba189863f9f641196596cb28e04aa14"
+#>       }
+#>     },
+#>     {
+#>       "@id": "20260327T120011-dslogs-dsuser.log",
 #>       "@type": "File",
-#>       "dateModified": "2026-02-27 15:24:39",
-#>       "name": "20260227T152439-dslogs-dsuser_mappings.csv",
+#>       "dateModified": "2026-03-27 12:00:11",
+#>       "name": "20260327T120011-dslogs-dsuser.log",
+#>       "description": "This file contains the raw logs for the user: `dsuser` , between: ALL and ALL",
+#>       "encodingFormat": "text/plain",
+#>       "content": [
+#>         ["[INFO][2026-03-27T11:59:57][OPEN]      created a datashield session 84b50a64-e51e-4d54-a155-bd3ebbdbcdf8", "[INFO][2026-03-27T11:59:59][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-03-27T12:00:00][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-03-27T12:00:01][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-03-27T12:00:01][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
+#>       ]
+#>     },
+#>     {
+#>       "@id": "20260327T120011-dslogs-dsuser_mappings.csv",
+#>       "@type": "File",
+#>       "dateModified": "2026-03-27 12:00:11",
+#>       "name": "20260327T120011-dslogs-dsuser_mappings.csv",
 #>       "description": "This file contains mappings and evaluated functions",
 #>       "encodingFormat": "text/csv",
 #>       "content": [
 #>         [
 #>           {
-#>             "timestamp": "2026-02-27T08:56:24",
+#>             "timestamp": "2026-03-27T11:59:57",
 #>             "action": "OPEN",
 #>             "user": "dsuser",
-#>             "r_cmd": "Open session: 622f2c74-9242-48e2-82d9-bc3250f8aa4b",
+#>             "r_cmd": "Open session: 84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "fx": "DSI::datashield.login",
-#>             "session": "622f2c74-9242-48e2-82d9-bc3250f8aa4b",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T08:56:26",
+#>             "timestamp": "2026-03-27T11:59:59",
 #>             "action": "ASSIGN",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
 #>             "fx": "base::assign",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "622f2c74-9242-48e2-82d9-bc3250f8aa4b",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T08:56:27",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
 #>             "fx": "dsBase::lsDS",
 #>             "symbol": "search.filter = NULL, 1L",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "622f2c74-9242-48e2-82d9-bc3250f8aa4b",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T09:00:37",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: 7925f5e8-f7b6-416e-b05b-5ac2c19f00c1",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "7925f5e8-f7b6-416e-b05b-5ac2c19f00c1",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T09:00:37",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "7925f5e8-f7b6-416e-b05b-5ac2c19f00c1",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T09:00:38",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "7925f5e8-f7b6-416e-b05b-5ac2c19f00c1",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T09:20:47",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: 08413766-4fa8-4eec-9392-ec30581fb48c",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "08413766-4fa8-4eec-9392-ec30581fb48c",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T09:20:48",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "08413766-4fa8-4eec-9392-ec30581fb48c",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T09:20:49",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "08413766-4fa8-4eec-9392-ec30581fb48c",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T14:08:39",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: 88a48432-61c8-4444-bb6f-1d0174d4f177",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "88a48432-61c8-4444-bb6f-1d0174d4f177",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T14:08:39",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "88a48432-61c8-4444-bb6f-1d0174d4f177",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T14:08:40",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "88a48432-61c8-4444-bb6f-1d0174d4f177",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T14:18:40",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: e45b3573-21cc-445d-8d22-b7fc289d279a",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "e45b3573-21cc-445d-8d22-b7fc289d279a",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T14:18:40",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "e45b3573-21cc-445d-8d22-b7fc289d279a",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T14:18:41",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "e45b3573-21cc-445d-8d22-b7fc289d279a",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:04:13",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: 026b4b18-c40c-4f08-8a19-75716fee1c75",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "026b4b18-c40c-4f08-8a19-75716fee1c75",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:04:13",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "026b4b18-c40c-4f08-8a19-75716fee1c75",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:04:14",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "026b4b18-c40c-4f08-8a19-75716fee1c75",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:13:01",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: a3a6f257-79ef-443c-a110-393b1ff196f0",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "a3a6f257-79ef-443c-a110-393b1ff196f0",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:13:01",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "a3a6f257-79ef-443c-a110-393b1ff196f0",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:13:03",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "a3a6f257-79ef-443c-a110-393b1ff196f0",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:24:02",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: fc258313-6846-4a8e-93d9-4809cd794fbe",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:24:02",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:24:04",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:24:04",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "base::exists(\"dsROCrate_test\")",
 #>             "fx": "base::exists",
 #>             "symbol": "dsROCrate_test",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T15:24:04",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsBase::classDS(\"dsROCrate_test\")",
 #>             "fx": "dsBase::classDS",
 #>             "symbol": "dsROCrate_test",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T15:24:04",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsBase::isValidDS(dsROCrate_test)",
 #>             "fx": "dsBase::isValidDS",
 #>             "symbol": "dsROCrate_test",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T15:24:04",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsBase::dimDS(\"dsROCrate_test\")",
 #>             "fx": "dsBase::dimDS",
 #>             "symbol": "dsROCrate_test",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T15:24:05",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsBase::colnamesDS(\"dsROCrate_test\")",
 #>             "fx": "dsBase::colnamesDS",
 #>             "symbol": "dsROCrate_test",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           }
 #>         ]
@@ -1918,7 +1929,7 @@ print(safe_project_crate_v1)
 ###### Markdown report
 
 A markdown report can be created with an overview and details for an
-RO-Crate, using the `dsROCrate::rocrate_report`:
+RO-Crate, using the `dsROCrate::report`:
 
 **Only generate .Rmd file**
 
@@ -1926,13 +1937,11 @@ RO-Crate, using the `dsROCrate::rocrate_report`:
 safe_project_crate_v1_rmd <- tempfile(fileext = ".Rmd") # temporary file
 
 safe_project_crate_contents <- safe_project_crate_v1 |>
-  dsROCrate::rocrate_report(filepath = safe_project_crate_v1_rmd, render = FALSE)
-#> 1 'Author' entity was found!
-#> 3 'Dataset' entities were found!
-#> Warning: No entities were found with @type = 'WriteAction'!
-#> Warning: No entities were found with @type = 'ControlAction'!
+  dsROCrate::report(filepath = safe_project_crate_v1_rmd, render = FALSE)
+#> 4 'Author' entities were found!
+#> 3 asset entities were found!
 #> 1 'Project' entity was found!
-#> 14 'PropertyValue' OR 'SoftwareApplication' entities were found!
+#> 22 'CreativeWork', 'PropertyValue' OR 'SoftwareApplication' entities were found!
 #> 2 'File' entities were found!
 
 # display Overview diagram
@@ -1948,37 +1957,26 @@ safe_project_crate_contents$overview_data |>
   knitr::kable()
 ```
 
-| Project | Data   | Access Level | People | Function           | Timestamp           |
-|:--------|:-------|:-------------|:-------|:-------------------|:--------------------|
-| CNSIM   | CNSIM1 | read         | dsuser | base::assign       | 2026-02-27T08:56:26 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::lsDS       | 2026-02-27T08:56:27 |
-| CNSIM   | CNSIM1 | read         | dsuser | base::assign       | 2026-02-27T09:00:37 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::lsDS       | 2026-02-27T09:00:38 |
-| CNSIM   | CNSIM1 | read         | dsuser | base::assign       | 2026-02-27T09:20:48 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::lsDS       | 2026-02-27T09:20:49 |
-| CNSIM   | CNSIM1 | read         | dsuser | base::assign       | 2026-02-27T14:08:39 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::lsDS       | 2026-02-27T14:08:40 |
-| CNSIM   | CNSIM1 | read         | dsuser | base::assign       | 2026-02-27T14:18:40 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::lsDS       | 2026-02-27T14:18:41 |
-| CNSIM   | CNSIM1 | read         | dsuser | base::assign       | 2026-02-27T15:04:13 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::lsDS       | 2026-02-27T15:04:14 |
-| CNSIM   | CNSIM1 | read         | dsuser | base::assign       | 2026-02-27T15:13:01 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::lsDS       | 2026-02-27T15:13:03 |
-| CNSIM   | CNSIM1 | read         | dsuser | base::assign       | 2026-02-27T15:24:02 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::lsDS       | 2026-02-27T15:24:04 |
-| CNSIM   | CNSIM1 | read         | dsuser | base::exists       | 2026-02-27T15:24:04 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::classDS    | 2026-02-27T15:24:04 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::isValidDS  | 2026-02-27T15:24:04 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::dimDS      | 2026-02-27T15:24:04 |
-| CNSIM   | CNSIM1 | read         | dsuser | dsBase::colnamesDS | 2026-02-27T15:24:05 |
-| CNSIM   | CNSIM2 | read         | dsuser |                    |                     |
-| CNSIM   | CNSIM3 | read         | dsuser |                    |                     |
+| Project | Data   | Access Level | People  | Function           | Timestamp           |
+|:--------|:-------|:-------------|:--------|:-------------------|:--------------------|
+| CNSIM   | CNSIM1 | read         | dsuser  | base::assign       | 2026-03-27T11:59:59 |
+| CNSIM   | CNSIM1 | read         | dsuser  | dsBase::lsDS       | 2026-03-27T12:00:01 |
+| CNSIM   | CNSIM1 | read         | dsuser  | base::exists       | 2026-03-27T12:00:01 |
+| CNSIM   | CNSIM1 | read         | dsuser  | dsBase::classDS    | 2026-03-27T12:00:01 |
+| CNSIM   | CNSIM1 | read         | dsuser  | dsBase::isValidDS  | 2026-03-27T12:00:01 |
+| CNSIM   | CNSIM1 | read         | dsuser  | dsBase::dimDS      | 2026-03-27T12:00:01 |
+| CNSIM   | CNSIM1 | read         | dsuser  | dsBase::colnamesDS | 2026-03-27T12:00:01 |
+| CNSIM   | CNSIM1 | read         | dsuser1 |                    |                     |
+| CNSIM   | CNSIM2 | read         | dsuser  |                    |                     |
+| CNSIM   | CNSIM2 | read         | dsuser2 |                    |                     |
+| CNSIM   | CNSIM3 | read         | dsuser  |                    |                     |
+| CNSIM   | CNSIM3 | read         | dsuser3 |                    |                     |
 
 **Render and display report (HTML)**
 
 ``` r
 safe_project_crate_v1 |>
-  dsROCrate::rocrate_report(filepath = safe_project_crate_v1_rmd, 
+  dsROCrate::report(filepath = safe_project_crate_v1_rmd, 
                             title = "DataSHIELD Safe Project - Audit Report",
                             render = TRUE, 
                             overwrite = TRUE)
@@ -2004,7 +2002,37 @@ study_crate_v1 <-
       url = "https://opal-demo.obiba.org"
     )
   ) |>
-  dsROCrate::audit_study(project = "CNSIM")
+  dsROCrate::audit(project = "CNSIM")
+#> opening file input connection.
+#>  Found 6 records... Imported 6 records. Simplifying...
+#> closing file input connection.
+#> opening file input connection.
+#>  Found 6 records... Imported 6 records. Simplifying...
+#> closing file input connection.
+#> opening file input connection.
+#>  Found 6 records... Imported 6 records. Simplifying...
+#> closing file input connection.
+#> opening file input connection.
+#>  Found 6 records... Imported 6 records. Simplifying...
+#> closing file input connection.
+#> opening file input connection.
+#>  Found 6 records... Imported 6 records. Simplifying...
+#> closing file input connection.
+#> opening file input connection.
+#>  Found 6 records... Imported 6 records. Simplifying...
+#> closing file input connection.
+#> opening file input connection.
+#>  Found 55 records... Imported 55 records. Simplifying...
+#> closing file input connection.
+#> opening file input connection.
+#>  Found 55 records... Imported 55 records. Simplifying...
+#> closing file input connection.
+#> opening file input connection.
+#>  Found 55 records... Imported 55 records. Simplifying...
+#> closing file input connection.
+#> opening file input connection.
+#>  Found 55 records... Imported 55 records. Simplifying...
+#> closing file input connection.
 
 print(study_crate_v1)
 #> $opal_test
@@ -2026,7 +2054,7 @@ print(study_crate_v1)
 #>       "@type": "Dataset",
 #>       "name": "",
 #>       "description": "",
-#>       "datePublished": "2026-02-27",
+#>       "datePublished": "2026-03-27",
 #>       "license": {
 #>         "@id": "http://spdx.org/licenses/CC-BY-4.0"
 #>       },
@@ -2040,28 +2068,53 @@ print(study_crate_v1)
 #>       "name": "Five Safes RO-Crate profile"
 #>     },
 #>     {
-#>       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",
-#>       "@type": "Dataset",
-#>       "name": "CNSIM1",
-#>       "dateCreated": "2026-01-17T10:53:48.925Z",
-#>       "dateModified": "2026-01-17T10:53:50.189Z",
-#>       "path": "/datasource/CNSIM/table/CNSIM1"
+#>       "@id": "#person:8ab380609ec94312fa958741d1f0f0b1",
+#>       "@type": "Person",
+#>       "name": "user1"
 #>     },
 #>     {
-#>       "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9",
-#>       "@type": "Dataset",
-#>       "name": "CNSIM2",
-#>       "dateCreated": "2026-01-17T10:53:50.194Z",
-#>       "dateModified": "2026-01-17T10:53:51.417Z",
-#>       "path": "/datasource/CNSIM/table/CNSIM2"
+#>       "@id": "#person:89bba9a8875a3a16196372b4c087edbd",
+#>       "@type": "Person",
+#>       "name": "ds"
 #>     },
 #>     {
-#>       "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492",
-#>       "@type": "Dataset",
-#>       "name": "CNSIM3",
-#>       "dateCreated": "2026-01-17T10:53:51.422Z",
-#>       "dateModified": "2026-01-17T10:53:52.663Z",
-#>       "path": "/datasource/CNSIM/table/CNSIM3"
+#>       "@id": "#person:ab761662ca15f3f7658a0b3adeaae564",
+#>       "@type": "Person",
+#>       "name": "bthillo@gmail.com",
+#>       "sub": "109004362127439404576",
+#>       "email_verified": true,
+#>       "given_name": "Roberto",
+#>       "family_name": "Villegas-Diaz",
+#>       "picture": "https://lh3.googleusercontent.com/a/ACg8ocK8GIJLuuDRjfevJjXSZ8Ymw_Y67r8_bsud8eLGClA92MS-GLhd8Q=s96-c",
+#>       "email": "bthillo@gmail.com"
+#>     },
+#>     {
+#>       "@id": "#person:f53ed7aa4ab05429c9d20f360d451a98",
+#>       "@type": "Person",
+#>       "name": "i.w.farr@googlemail.com",
+#>       "sub": "106174335072326132292",
+#>       "email_verified": true,
+#>       "given_name": "ian",
+#>       "family_name": "farr",
+#>       "picture": "https://lh3.googleusercontent.com/a/ACg8ocKBagSKWdPGazh5CWkffgXleyPaSqn66IlAOMm0voLm-79S1A=s96-c",
+#>       "email": "i.w.farr@googlemail.com"
+#>     },
+#>     {
+#>       "@id": "#person:a0af2a94926db1b49ad7a812eef509d2",
+#>       "@type": "Person",
+#>       "name": "dsuser"
+#>     },
+#>     {
+#>       "@id": "#person:315ba97bcf520312d32e7f1e4f5e8575",
+#>       "@type": "Person",
+#>       "name": "yannick.marcon@obiba.org",
+#>       "sub": "112183318969537221630",
+#>       "email_verified": true,
+#>       "given_name": "Yannick",
+#>       "hd": "obiba.org",
+#>       "family_name": "Marcon",
+#>       "picture": "https://lh3.googleusercontent.com/a/ACg8ocJFG4mQ2lz80itm91vEUX3jnj12IRv1tF_OaVBDf2Ear6pUsA=s96-c",
+#>       "email": "yannick.marcon@obiba.org"
 #>     },
 #>     {
 #>       "@id": "#project:7ba189863f9f641196596cb28e04aa14",
@@ -2071,20 +2124,15 @@ print(study_crate_v1)
 #>       "dateModified": "2026-01-17T10:53:52.663Z",
 #>       "hasPart": [
 #>         {
-#>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
+#>           "@id": "#asset:fad6faf661584d53e58f9730b14c5aae"
 #>         },
 #>         {
-#>           "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9"
+#>           "@id": "#asset:b6721026564c746f604df7ba785931fa"
 #>         },
 #>         {
-#>           "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492"
+#>           "@id": "#asset:14fbb8de0021e6d237a2ed7779f9625d"
 #>         }
 #>       ]
-#>     },
-#>     {
-#>       "@id": "#person:a0af2a94926db1b49ad7a812eef509d2",
-#>       "@type": "Person",
-#>       "name": "dsuser"
 #>     },
 #>     {
 #>       "@id": "#perm:9bf7f75b6c5b07d02830b95652cd39a0-dict-summary-read",
@@ -2093,97 +2141,271 @@ print(study_crate_v1)
 #>         "@id": "#person:a0af2a94926db1b49ad7a812eef509d2"
 #>       },
 #>       "object": {
-#>         "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
+#>         "@id": "#asset:fad6faf661584d53e58f9730b14c5aae"
 #>       },
 #>       "actionStatus": "PotentialActionStatus",
 #>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
 #>     },
 #>     {
-#>       "@id": "_:localid:datashield.privacyLevel:5",
+#>       "@id": "#asset:fad6faf661584d53e58f9730b14c5aae",
+#>       "@type": "Dataset",
+#>       "name": "CNSIM1",
+#>       "description": "",
+#>       "url": "/datasource/CNSIM/table/CNSIM1",
+#>       "dateCreated": "2026-01-17T00:00:00Z",
+#>       "dateModified": "2026-01-17T00:00:00Z",
+#>       "isPartOf": {
+#>         "@id": "#project:7ba189863f9f641196596cb28e04aa14"
+#>       }
+#>     },
+#>     {
+#>       "@id": "#asset:b6721026564c746f604df7ba785931fa",
+#>       "@type": "Dataset",
+#>       "name": "CNSIM2",
+#>       "description": "",
+#>       "url": "/datasource/CNSIM/table/CNSIM2",
+#>       "dateCreated": "2026-01-17T00:00:00Z",
+#>       "dateModified": "2026-01-17T00:00:00Z",
+#>       "isPartOf": {
+#>         "@id": "#project:7ba189863f9f641196596cb28e04aa14"
+#>       }
+#>     },
+#>     {
+#>       "@id": "#asset:14fbb8de0021e6d237a2ed7779f9625d",
+#>       "@type": "Dataset",
+#>       "name": "CNSIM3",
+#>       "description": "",
+#>       "url": "/datasource/CNSIM/table/CNSIM3",
+#>       "dateCreated": "2026-01-17T00:00:00Z",
+#>       "dateModified": "2026-01-17T00:00:00Z",
+#>       "isPartOf": {
+#>         "@id": "#project:7ba189863f9f641196596cb28e04aa14"
+#>       }
+#>     },
+#>     {
+#>       "@id": "#disc:27d8c1d2233ecb654a24b635fd4dbd78",
 #>       "@type": "PropertyValue",
 #>       "name": "datashield.privacyLevel",
 #>       "value": "5"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.datashield.privacyControlLevel:banana",
+#>       "@id": "#disc:46b65707a6b998f3b1364bc10e6d9b4b",
 #>       "@type": "PropertyValue",
 #>       "name": "default.datashield.privacyControlLevel",
 #>       "value": "banana"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.glm:0.33",
+#>       "@id": "#disc:7769282e7b0a1cb8887f60886c7b56ae",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.glm",
 #>       "value": "0.33"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.kNN:3",
+#>       "@id": "#disc:49d822f52075aafbec1d1b2545aa46b7",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.kNN",
 #>       "value": "3"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.levels.density:0.33",
+#>       "@id": "#disc:9a59210a743557bbd61cb21c3f1e0a79",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.levels.density",
 #>       "value": "0.33"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.levels.max:40",
+#>       "@id": "#disc:a00b1e31a448142ee66bbb013f990e1f",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.levels.max",
 #>       "value": "40"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.noise:0.25",
+#>       "@id": "#disc:29dd5e27a9f1c66d81a7037c236e7dd5",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.noise",
 #>       "value": "0.25"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.string:80",
+#>       "@id": "#disc:1c12e549b91e2cc0856f56657988ce54",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.string",
 #>       "value": "80"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.stringShort:20",
+#>       "@id": "#disc:786bc0ffcdd3054925e431240caecea5",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.stringShort",
 #>       "value": "20"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.subset:3",
+#>       "@id": "#disc:fd9bea5ef311d5f14b28d237ecb6e985",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.subset",
 #>       "value": "3"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.tab:3",
+#>       "@id": "#disc:4e93a50cbd8cfea8f0a6adc50ee7aac0",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.tab",
 #>       "value": "3"
 #>     },
 #>     {
-#>       "@id": "_:localid:3aaeab3631b4c9bbe7f44d60805b8f9c",
+#>       "@id": "#env:disclosure_settings:7d746edc2fb36ee671241a333742b3a8",
+#>       "@type": "CreativeWork",
+#>       "name": "Disclosure Control Environment",
+#>       "description": "Disclosure control settings extract from the OBiBa Opal server connection provided, using the profile: 'default'.",
+#>       "hasPart": [
+#>         {
+#>           "@id": "#disc:27d8c1d2233ecb654a24b635fd4dbd78"
+#>         },
+#>         {
+#>           "@id": "#disc:46b65707a6b998f3b1364bc10e6d9b4b"
+#>         },
+#>         {
+#>           "@id": "#disc:7769282e7b0a1cb8887f60886c7b56ae"
+#>         },
+#>         {
+#>           "@id": "#disc:49d822f52075aafbec1d1b2545aa46b7"
+#>         },
+#>         {
+#>           "@id": "#disc:9a59210a743557bbd61cb21c3f1e0a79"
+#>         },
+#>         {
+#>           "@id": "#disc:a00b1e31a448142ee66bbb013f990e1f"
+#>         },
+#>         {
+#>           "@id": "#disc:29dd5e27a9f1c66d81a7037c236e7dd5"
+#>         },
+#>         {
+#>           "@id": "#disc:1c12e549b91e2cc0856f56657988ce54"
+#>         },
+#>         {
+#>           "@id": "#disc:786bc0ffcdd3054925e431240caecea5"
+#>         },
+#>         {
+#>           "@id": "#disc:fd9bea5ef311d5f14b28d237ecb6e985"
+#>         },
+#>         {
+#>           "@id": "#disc:4e93a50cbd8cfea8f0a6adc50ee7aac0"
+#>         }
+#>       ]
+#>     },
+#>     {
+#>       "@id": "#software:f8784d80bad08f840fba23fa9c41ec27",
 #>       "@type": "SoftwareApplication",
 #>       "name": "dsBase",
 #>       "version": "6.3.5",
-#>       "description": "Base 'DataSHIELD' functions for the server side. 'DataSHIELD' is a software package which allows\n    you to do non-disclosive federated analysis on sensitive data. 'DataSHIELD' analytic functions have\n    been designed to only share non disclosive summary statistics, with built in automated output\n    checking based on statistical disclosure control. With data sites setting the threshold values for\n    the automated output checks. For more details, see 'citation(\"dsBase\")'."
+#>       "description": "Base 'DataSHIELD' functions for the server side. 'DataSHIELD' is a software package which allows you to do non-disclosive federated analysis on sensitive data. 'DataSHIELD' analytic functions have been designed to only share non disclosive summary statistics, with built in automated output checking based on statistical disclosure control. With data sites setting the threshold values for the automated output checks. For more details, see 'citation(\"dsBase\")'."
 #>     },
 #>     {
-#>       "@id": "_:localid:e2f7c43973c40d7a6a6731da5a0aa564",
+#>       "@id": "#software:afa897ee58de14b27570462c97a9dd44",
 #>       "@type": "SoftwareApplication",
 #>       "name": "dsTidyverse",
 #>       "version": "1.1.0",
 #>       "description": "Implementation of selected 'Tidyverse' functions within 'DataSHIELD', an open-source federated analysis solution in R. Currently, DataSHIELD contains very limited tools for data manipulation, so the aim of this package is to improve the researcher experience by implementing essential functions for data manipulation, including subsetting, filtering, grouping, and renaming variables. This is the serverside package which should be installed on the server holding the data, and is used in conjuncture with the clientside package 'dsTidyverseClient' which is installed in the local R environment of the analyst. For more information, see <https://tidyverse.org/> and <https://datashield.org/>."
 #>     },
 #>     {
-#>       "@id": "_:localid:411453e2513e6d909fe2cb8273b034dc",
+#>       "@id": "#software:d2133fef4ca6df6312f205e51aee541b",
 #>       "@type": "SoftwareApplication",
 #>       "name": "resourcer",
 #>       "version": "1.5.0",
-#>       "description": "A resource represents some data or a computation unit. It is \n    described by a URL and credentials. This package proposes a Resource model\n    with \"resolver\" and \"client\" classes to facilitate the access and the usage of the \n    resources."
+#>       "description": "A resource represents some data or a computation unit. It is described by a URL and credentials. This package proposes a Resource model with \"resolver\" and \"client\" classes to facilitate the access and the usage of the resources."
+#>     },
+#>     {
+#>       "@id": "#software:0cd42af0c314700303b0c4b14b16b9ce",
+#>       "@type": "SoftwareApplication",
+#>       "name": "Opal",
+#>       "version": "5.6.0-SNAPSHOT",
+#>       "description": "Opal is OBiBa's (https://www.obiba.org/) core database application for epidemiological studies. Participant data, collected by questionnaires, medical instruments, sensors, administrative databases etc. can be integrated and stored in a central data repository under a uniform model."
+#>     },
+#>     {
+#>       "@id": "#env:software_stack:55187df92eed3fae2198151d49e29389",
+#>       "@type": "CreativeWork",
+#>       "name": "Approved Analytical Software Environment",
+#>       "description": "Software packages installed in the controlled Opal/DataSHIELD environment used for federated analysis.",
+#>       "hasPart": [
+#>         {
+#>           "@id": "#software:f8784d80bad08f840fba23fa9c41ec27"
+#>         },
+#>         {
+#>           "@id": "#software:afa897ee58de14b27570462c97a9dd44"
+#>         },
+#>         {
+#>           "@id": "#software:d2133fef4ca6df6312f205e51aee541b"
+#>         },
+#>         {
+#>           "@id": "#software:0cd42af0c314700303b0c4b14b16b9ce"
+#>         }
+#>       ]
+#>     },
+#>     {
+#>       "@id": "#control:output-checking",
+#>       "@type": "CreativeWork",
+#>       "name": "Statistical Disclosure Output Checking",
+#>       "description": "Automated disclosure control prevents release of small-cell counts and disclosive statistics."
+#>     },
+#>     {
+#>       "@id": "#control:server-side-analysis",
+#>       "@type": "CreativeWork",
+#>       "name": "Server-Side Analysis Enforcement",
+#>       "description": "Raw data never leaves the secure server; analysis occurs via vetted aggregate functions."
+#>     },
+#>     {
+#>       "@id": "#control:session-logging",
+#>       "@type": "CreativeWork",
+#>       "name": "Comprehensive Session Logging",
+#>       "description": "All analytical actions are logged and auditable."
+#>     },
+#>     {
+#>       "@id": "#control:secure-facility",
+#>       "@type": "CreativeWork",
+#>       "name": "Secure Data Facility",
+#>       "description": "Access restricted to approved secure premises."
+#>     },
+#>     {
+#>       "@id": "#control:access-governance",
+#>       "@type": "CreativeWork",
+#>       "name": "Access Governance Process",
+#>       "description": "Data access committee review and approval required."
+#>     },
+#>     {
+#>       "@id": "#safesetting:8489860e7540c5dfb95b5d8ddab232c5",
+#>       "@type": "CreativeWork",
+#>       "name": "Safe Setting Controls (Opal)",
+#>       "description": "Technical, physical and organisational safeguards applied to minimise disclosure risk.",
+#>       "hasPart": [
+#>         {
+#>           "@id": "#env:disclosure_settings:7d746edc2fb36ee671241a333742b3a8"
+#>         },
+#>         {
+#>           "@id": "#env:software_stack:55187df92eed3fae2198151d49e29389"
+#>         },
+#>         {
+#>           "@id": "#control:output-checking"
+#>         },
+#>         {
+#>           "@id": "#control:server-side-analysis"
+#>         },
+#>         {
+#>           "@id": "#control:session-logging"
+#>         },
+#>         {
+#>           "@id": "#control:secure-facility"
+#>         },
+#>         {
+#>           "@id": "#control:access-governance"
+#>         }
+#>       ]
+#>     },
+#>     {
+#>       "@id": "#link:b16fbdedcc33e826878020dcd5fad3d3",
+#>       "@type": "CreativeWork",
+#>       "name": "Safe Settings x Safe Project Link",
+#>       "about": {
+#>         "@id": "#safesetting:8489860e7540c5dfb95b5d8ddab232c5"
+#>       },
+#>       "isPartOf": {
+#>         "@id": "#project:7ba189863f9f641196596cb28e04aa14"
+#>       }
 #>     }
 #>   ]
 #> }
@@ -2207,7 +2429,7 @@ print(study_crate_v1)
 #>       "@type": "Dataset",
 #>       "name": "",
 #>       "description": "",
-#>       "datePublished": "2026-02-27",
+#>       "datePublished": "2026-03-27",
 #>       "license": {
 #>         "@id": "http://spdx.org/licenses/CC-BY-4.0"
 #>       },
@@ -2216,10 +2438,10 @@ print(study_crate_v1)
 #>       },
 #>       "hasPart": [
 #>         {
-#>           "@id": "20260227T152444-dslogs-dsuser.log"
+#>           "@id": "20260327T120017-dslogs-dsuser.log"
 #>         },
 #>         {
-#>           "@id": "20260227T152444-dslogs-dsuser_mappings.csv"
+#>           "@id": "20260327T120017-dslogs-dsuser_mappings.csv"
 #>         }
 #>       ]
 #>     },
@@ -2229,51 +2451,42 @@ print(study_crate_v1)
 #>       "name": "Five Safes RO-Crate profile"
 #>     },
 #>     {
-#>       "@id": "#dataset:67adf2d8e106aca9b11de773758bd241",
-#>       "@type": "Dataset",
-#>       "name": "CNSIM1",
-#>       "dateCreated": "2026-02-27T06:29:50.731Z",
-#>       "dateModified": "2026-02-27T06:29:51.865Z",
-#>       "path": "/datasource/CNSIM/table/CNSIM1"
+#>       "@id": "#person:a0af2a94926db1b49ad7a812eef509d2",
+#>       "@type": "Person",
+#>       "name": "dsuser"
 #>     },
 #>     {
-#>       "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9",
-#>       "@type": "Dataset",
-#>       "name": "CNSIM2",
-#>       "dateCreated": "2026-02-27T06:29:51.872Z",
-#>       "dateModified": "2026-02-27T06:29:53.057Z",
-#>       "path": "/datasource/CNSIM/table/CNSIM2"
+#>       "@id": "#person:cb809df1c2fb30b154f60b843e62b3d0",
+#>       "@type": "Person",
+#>       "name": "dsuser1"
 #>     },
 #>     {
-#>       "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492",
-#>       "@type": "Dataset",
-#>       "name": "CNSIM3",
-#>       "dateCreated": "2026-02-27T06:29:53.064Z",
-#>       "dateModified": "2026-02-27T06:29:54.200Z",
-#>       "path": "/datasource/CNSIM/table/CNSIM3"
+#>       "@id": "#person:a3cd7ce7818436c83b1eadaa5ba47411",
+#>       "@type": "Person",
+#>       "name": "dsuser2"
+#>     },
+#>     {
+#>       "@id": "#person:5657241505661473308ae9aa9a378293",
+#>       "@type": "Person",
+#>       "name": "dsuser3"
 #>     },
 #>     {
 #>       "@id": "#project:7ba189863f9f641196596cb28e04aa14",
 #>       "@type": "Project",
 #>       "name": "CNSIM",
-#>       "dateCreated": "2026-02-27T06:29:49.235Z",
-#>       "dateModified": "2026-02-27T06:29:54.200Z",
+#>       "dateCreated": "2026-03-27T06:29:56.149Z",
+#>       "dateModified": "2026-03-27T06:30:01.340Z",
 #>       "hasPart": [
 #>         {
-#>           "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
+#>           "@id": "#asset:fad6faf661584d53e58f9730b14c5aae"
 #>         },
 #>         {
-#>           "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9"
+#>           "@id": "#asset:b6721026564c746f604df7ba785931fa"
 #>         },
 #>         {
-#>           "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492"
+#>           "@id": "#asset:14fbb8de0021e6d237a2ed7779f9625d"
 #>         }
 #>       ]
-#>     },
-#>     {
-#>       "@id": "#person:a0af2a94926db1b49ad7a812eef509d2",
-#>       "@type": "Person",
-#>       "name": "dsuser"
 #>     },
 #>     {
 #>       "@id": "#perm:9bf7f75b6c5b07d02830b95652cd39a0-dict-summary-read",
@@ -2282,7 +2495,19 @@ print(study_crate_v1)
 #>         "@id": "#person:a0af2a94926db1b49ad7a812eef509d2"
 #>       },
 #>       "object": {
-#>         "@id": "#dataset:67adf2d8e106aca9b11de773758bd241"
+#>         "@id": "#asset:fad6faf661584d53e58f9730b14c5aae"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
+#>     },
+#>     {
+#>       "@id": "#perm:4d2673da68a58c3bce23a61d97b6df51-dict-summary-read",
+#>       "@type": "ReadAction",
+#>       "agent": {
+#>         "@id": "#person:cb809df1c2fb30b154f60b843e62b3d0"
+#>       },
+#>       "object": {
+#>         "@id": "#asset:fad6faf661584d53e58f9730b14c5aae"
 #>       },
 #>       "actionStatus": "PotentialActionStatus",
 #>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
@@ -2294,7 +2519,19 @@ print(study_crate_v1)
 #>         "@id": "#person:a0af2a94926db1b49ad7a812eef509d2"
 #>       },
 #>       "object": {
-#>         "@id": "#dataset:ffb1b1adcafc024743be1b0c252787c9"
+#>         "@id": "#asset:b6721026564c746f604df7ba785931fa"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
+#>     },
+#>     {
+#>       "@id": "#perm:802d140a064e6ebf3a784f759af1b640-dict-summary-read",
+#>       "@type": "ReadAction",
+#>       "agent": {
+#>         "@id": "#person:a3cd7ce7818436c83b1eadaa5ba47411"
+#>       },
+#>       "object": {
+#>         "@id": "#asset:b6721026564c746f604df7ba785931fa"
 #>       },
 #>       "actionStatus": "PotentialActionStatus",
 #>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
@@ -2306,411 +2543,387 @@ print(study_crate_v1)
 #>         "@id": "#person:a0af2a94926db1b49ad7a812eef509d2"
 #>       },
 #>       "object": {
-#>         "@id": "#dataset:cc3061aef69ce457358815fb9d8c6492"
+#>         "@id": "#asset:14fbb8de0021e6d237a2ed7779f9625d"
 #>       },
 #>       "actionStatus": "PotentialActionStatus",
 #>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
 #>     },
 #>     {
-#>       "@id": "_:localid:datashield.privacyLevel:5",
+#>       "@id": "#perm:04c3f293c7a360fe0a1b7c29c8363540-dict-summary-read",
+#>       "@type": "ReadAction",
+#>       "agent": {
+#>         "@id": "#person:5657241505661473308ae9aa9a378293"
+#>       },
+#>       "object": {
+#>         "@id": "#asset:14fbb8de0021e6d237a2ed7779f9625d"
+#>       },
+#>       "actionStatus": "PotentialActionStatus",
+#>       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."
+#>     },
+#>     {
+#>       "@id": "#asset:fad6faf661584d53e58f9730b14c5aae",
+#>       "@type": "Dataset",
+#>       "name": "CNSIM1",
+#>       "description": "",
+#>       "url": "/datasource/CNSIM/table/CNSIM1",
+#>       "dateCreated": "2026-03-27T00:00:00Z",
+#>       "dateModified": "2026-03-27T00:00:00Z",
+#>       "isPartOf": {
+#>         "@id": "#project:7ba189863f9f641196596cb28e04aa14"
+#>       }
+#>     },
+#>     {
+#>       "@id": "#asset:b6721026564c746f604df7ba785931fa",
+#>       "@type": "Dataset",
+#>       "name": "CNSIM2",
+#>       "description": "",
+#>       "url": "/datasource/CNSIM/table/CNSIM2",
+#>       "dateCreated": "2026-03-27T00:00:00Z",
+#>       "dateModified": "2026-03-27T00:00:00Z",
+#>       "isPartOf": {
+#>         "@id": "#project:7ba189863f9f641196596cb28e04aa14"
+#>       }
+#>     },
+#>     {
+#>       "@id": "#asset:14fbb8de0021e6d237a2ed7779f9625d",
+#>       "@type": "Dataset",
+#>       "name": "CNSIM3",
+#>       "description": "",
+#>       "url": "/datasource/CNSIM/table/CNSIM3",
+#>       "dateCreated": "2026-03-27T00:00:00Z",
+#>       "dateModified": "2026-03-27T00:00:00Z",
+#>       "isPartOf": {
+#>         "@id": "#project:7ba189863f9f641196596cb28e04aa14"
+#>       }
+#>     },
+#>     {
+#>       "@id": "#disc:27d8c1d2233ecb654a24b635fd4dbd78",
 #>       "@type": "PropertyValue",
 #>       "name": "datashield.privacyLevel",
 #>       "value": "5"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.datashield.privacyControlLevel:banana",
+#>       "@id": "#disc:46b65707a6b998f3b1364bc10e6d9b4b",
 #>       "@type": "PropertyValue",
 #>       "name": "default.datashield.privacyControlLevel",
 #>       "value": "banana"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.glm:0.33",
+#>       "@id": "#disc:7769282e7b0a1cb8887f60886c7b56ae",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.glm",
 #>       "value": "0.33"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.kNN:3",
+#>       "@id": "#disc:49d822f52075aafbec1d1b2545aa46b7",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.kNN",
 #>       "value": "3"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.levels.density:0.33",
+#>       "@id": "#disc:9a59210a743557bbd61cb21c3f1e0a79",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.levels.density",
 #>       "value": "0.33"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.levels.max:40",
+#>       "@id": "#disc:a00b1e31a448142ee66bbb013f990e1f",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.levels.max",
 #>       "value": "40"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.noise:0.25",
+#>       "@id": "#disc:29dd5e27a9f1c66d81a7037c236e7dd5",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.noise",
 #>       "value": "0.25"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.string:80",
+#>       "@id": "#disc:1c12e549b91e2cc0856f56657988ce54",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.string",
 #>       "value": "80"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.stringShort:20",
+#>       "@id": "#disc:786bc0ffcdd3054925e431240caecea5",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.stringShort",
 #>       "value": "20"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.subset:3",
+#>       "@id": "#disc:fd9bea5ef311d5f14b28d237ecb6e985",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.subset",
 #>       "value": "3"
 #>     },
 #>     {
-#>       "@id": "_:localid:default.nfilter.tab:3",
+#>       "@id": "#disc:4e93a50cbd8cfea8f0a6adc50ee7aac0",
 #>       "@type": "PropertyValue",
 #>       "name": "default.nfilter.tab",
 #>       "value": "3"
 #>     },
 #>     {
-#>       "@id": "_:localid:3aaeab3631b4c9bbe7f44d60805b8f9c",
+#>       "@id": "#env:disclosure_settings:7d746edc2fb36ee671241a333742b3a8",
+#>       "@type": "CreativeWork",
+#>       "name": "Disclosure Control Environment",
+#>       "description": "Disclosure control settings extract from the OBiBa Opal server connection provided, using the profile: 'default'.",
+#>       "hasPart": [
+#>         {
+#>           "@id": "#disc:27d8c1d2233ecb654a24b635fd4dbd78"
+#>         },
+#>         {
+#>           "@id": "#disc:46b65707a6b998f3b1364bc10e6d9b4b"
+#>         },
+#>         {
+#>           "@id": "#disc:7769282e7b0a1cb8887f60886c7b56ae"
+#>         },
+#>         {
+#>           "@id": "#disc:49d822f52075aafbec1d1b2545aa46b7"
+#>         },
+#>         {
+#>           "@id": "#disc:9a59210a743557bbd61cb21c3f1e0a79"
+#>         },
+#>         {
+#>           "@id": "#disc:a00b1e31a448142ee66bbb013f990e1f"
+#>         },
+#>         {
+#>           "@id": "#disc:29dd5e27a9f1c66d81a7037c236e7dd5"
+#>         },
+#>         {
+#>           "@id": "#disc:1c12e549b91e2cc0856f56657988ce54"
+#>         },
+#>         {
+#>           "@id": "#disc:786bc0ffcdd3054925e431240caecea5"
+#>         },
+#>         {
+#>           "@id": "#disc:fd9bea5ef311d5f14b28d237ecb6e985"
+#>         },
+#>         {
+#>           "@id": "#disc:4e93a50cbd8cfea8f0a6adc50ee7aac0"
+#>         }
+#>       ]
+#>     },
+#>     {
+#>       "@id": "#software:f8784d80bad08f840fba23fa9c41ec27",
 #>       "@type": "SoftwareApplication",
 #>       "name": "dsBase",
 #>       "version": "6.3.5",
-#>       "description": "Base 'DataSHIELD' functions for the server side. 'DataSHIELD' is a software package which allows\n    you to do non-disclosive federated analysis on sensitive data. 'DataSHIELD' analytic functions have\n    been designed to only share non disclosive summary statistics, with built in automated output\n    checking based on statistical disclosure control. With data sites setting the threshold values for\n    the automated output checks. For more details, see 'citation(\"dsBase\")'."
+#>       "description": "Base 'DataSHIELD' functions for the server side. 'DataSHIELD' is a software package which allows you to do non-disclosive federated analysis on sensitive data. 'DataSHIELD' analytic functions have been designed to only share non disclosive summary statistics, with built in automated output checking based on statistical disclosure control. With data sites setting the threshold values for the automated output checks. For more details, see 'citation(\"dsBase\")'."
 #>     },
 #>     {
-#>       "@id": "_:localid:e2f7c43973c40d7a6a6731da5a0aa564",
+#>       "@id": "#software:afa897ee58de14b27570462c97a9dd44",
 #>       "@type": "SoftwareApplication",
 #>       "name": "dsTidyverse",
 #>       "version": "1.1.0",
 #>       "description": "Implementation of selected 'Tidyverse' functions within 'DataSHIELD', an open-source federated analysis solution in R. Currently, DataSHIELD contains very limited tools for data manipulation, so the aim of this package is to improve the researcher experience by implementing essential functions for data manipulation, including subsetting, filtering, grouping, and renaming variables. This is the serverside package which should be installed on the server holding the data, and is used in conjuncture with the clientside package 'dsTidyverseClient' which is installed in the local R environment of the analyst. For more information, see <https://tidyverse.org/> and <https://datashield.org/>."
 #>     },
 #>     {
-#>       "@id": "_:localid:411453e2513e6d909fe2cb8273b034dc",
+#>       "@id": "#software:d2133fef4ca6df6312f205e51aee541b",
 #>       "@type": "SoftwareApplication",
 #>       "name": "resourcer",
 #>       "version": "1.5.0",
-#>       "description": "A resource represents some data or a computation unit. It is \n    described by a URL and credentials. This package proposes a Resource model\n    with \"resolver\" and \"client\" classes to facilitate the access and the usage of the \n    resources."
+#>       "description": "A resource represents some data or a computation unit. It is described by a URL and credentials. This package proposes a Resource model with \"resolver\" and \"client\" classes to facilitate the access and the usage of the resources."
 #>     },
 #>     {
-#>       "@id": "20260227T152444-dslogs-dsuser.log",
-#>       "@type": "File",
-#>       "dateModified": "2026-02-27 15:24:44",
-#>       "name": "20260227T152444-dslogs-dsuser.log",
-#>       "description": "This file contains the raw logs for the user: `dsuser` , between: ALL and ALL",
-#>       "encodingFormat": "text/plain",
-#>       "content": [
-#>         ["[INFO][2026-02-27T08:56:24][OPEN]      created a datashield session 622f2c74-9242-48e2-82d9-bc3250f8aa4b", "[INFO][2026-02-27T08:56:26][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T08:56:26][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T08:56:27][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T09:00:37][OPEN]      created a datashield session 7925f5e8-f7b6-416e-b05b-5ac2c19f00c1", "[INFO][2026-02-27T09:00:37][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T09:00:38][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T09:00:38][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T09:20:47][OPEN]      created a datashield session 08413766-4fa8-4eec-9392-ec30581fb48c", "[INFO][2026-02-27T09:20:48][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T09:20:48][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T09:20:49][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T14:08:39][OPEN]      created a datashield session 88a48432-61c8-4444-bb6f-1d0174d4f177", "[INFO][2026-02-27T14:08:39][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T14:08:39][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T14:08:40][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T14:18:40][OPEN]      created a datashield session e45b3573-21cc-445d-8d22-b7fc289d279a", "[INFO][2026-02-27T14:18:40][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T14:18:40][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T14:18:41][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:04:13][OPEN]      created a datashield session 026b4b18-c40c-4f08-8a19-75716fee1c75", "[INFO][2026-02-27T15:04:13][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T15:04:14][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:04:14][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:13:01][OPEN]      created a datashield session a3a6f257-79ef-443c-a110-393b1ff196f0", "[INFO][2026-02-27T15:13:01][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T15:13:02][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:13:03][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:24:02][OPEN]      created a datashield session fc258313-6846-4a8e-93d9-4809cd794fbe", "[INFO][2026-02-27T15:24:02][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-02-27T15:24:03][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:24:04][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-02-27T15:24:04][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-02-27T15:24:04][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-02-27T15:24:04][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:04][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-02-27T15:24:05][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
+#>       "@id": "#software:77514b155cfdb0c8c535fbe54daf67fc",
+#>       "@type": "SoftwareApplication",
+#>       "name": "Opal",
+#>       "version": "5.6.1",
+#>       "description": "Opal is OBiBa's (https://www.obiba.org/) core database application for epidemiological studies. Participant data, collected by questionnaires, medical instruments, sensors, administrative databases etc. can be integrated and stored in a central data repository under a uniform model."
+#>     },
+#>     {
+#>       "@id": "#env:software_stack:239d65ed3c0c0c3932e23cebb34be7e1",
+#>       "@type": "CreativeWork",
+#>       "name": "Approved Analytical Software Environment",
+#>       "description": "Software packages installed in the controlled Opal/DataSHIELD environment used for federated analysis.",
+#>       "hasPart": [
+#>         {
+#>           "@id": "#software:f8784d80bad08f840fba23fa9c41ec27"
+#>         },
+#>         {
+#>           "@id": "#software:afa897ee58de14b27570462c97a9dd44"
+#>         },
+#>         {
+#>           "@id": "#software:d2133fef4ca6df6312f205e51aee541b"
+#>         },
+#>         {
+#>           "@id": "#software:77514b155cfdb0c8c535fbe54daf67fc"
+#>         }
 #>       ]
 #>     },
 #>     {
-#>       "@id": "20260227T152444-dslogs-dsuser_mappings.csv",
+#>       "@id": "#control:output-checking",
+#>       "@type": "CreativeWork",
+#>       "name": "Statistical Disclosure Output Checking",
+#>       "description": "Automated disclosure control prevents release of small-cell counts and disclosive statistics."
+#>     },
+#>     {
+#>       "@id": "#control:server-side-analysis",
+#>       "@type": "CreativeWork",
+#>       "name": "Server-Side Analysis Enforcement",
+#>       "description": "Raw data never leaves the secure server; analysis occurs via vetted aggregate functions."
+#>     },
+#>     {
+#>       "@id": "#control:session-logging",
+#>       "@type": "CreativeWork",
+#>       "name": "Comprehensive Session Logging",
+#>       "description": "All analytical actions are logged and auditable."
+#>     },
+#>     {
+#>       "@id": "#control:secure-facility",
+#>       "@type": "CreativeWork",
+#>       "name": "Secure Data Facility",
+#>       "description": "Access restricted to approved secure premises."
+#>     },
+#>     {
+#>       "@id": "#control:access-governance",
+#>       "@type": "CreativeWork",
+#>       "name": "Access Governance Process",
+#>       "description": "Data access committee review and approval required."
+#>     },
+#>     {
+#>       "@id": "#safesetting:8489860e7540c5dfb95b5d8ddab232c5",
+#>       "@type": "CreativeWork",
+#>       "name": "Safe Setting Controls (Opal)",
+#>       "description": "Technical, physical and organisational safeguards applied to minimise disclosure risk.",
+#>       "hasPart": [
+#>         {
+#>           "@id": "#env:disclosure_settings:7d746edc2fb36ee671241a333742b3a8"
+#>         },
+#>         {
+#>           "@id": "#env:software_stack:239d65ed3c0c0c3932e23cebb34be7e1"
+#>         },
+#>         {
+#>           "@id": "#control:output-checking"
+#>         },
+#>         {
+#>           "@id": "#control:server-side-analysis"
+#>         },
+#>         {
+#>           "@id": "#control:session-logging"
+#>         },
+#>         {
+#>           "@id": "#control:secure-facility"
+#>         },
+#>         {
+#>           "@id": "#control:access-governance"
+#>         }
+#>       ]
+#>     },
+#>     {
+#>       "@id": "#link:b16fbdedcc33e826878020dcd5fad3d3",
+#>       "@type": "CreativeWork",
+#>       "name": "Safe Settings x Safe Project Link",
+#>       "about": {
+#>         "@id": "#safesetting:8489860e7540c5dfb95b5d8ddab232c5"
+#>       },
+#>       "isPartOf": {
+#>         "@id": "#project:7ba189863f9f641196596cb28e04aa14"
+#>       }
+#>     },
+#>     {
+#>       "@id": "20260327T120017-dslogs-dsuser.log",
 #>       "@type": "File",
-#>       "dateModified": "2026-02-27 15:24:44",
-#>       "name": "20260227T152444-dslogs-dsuser_mappings.csv",
+#>       "dateModified": "2026-03-27 12:00:17",
+#>       "name": "20260327T120017-dslogs-dsuser.log",
+#>       "description": "This file contains the raw logs for the user: `dsuser` , between: ALL and ALL",
+#>       "encodingFormat": "text/plain",
+#>       "content": [
+#>         ["[INFO][2026-03-27T11:59:57][OPEN]      created a datashield session 84b50a64-e51e-4d54-a155-bd3ebbdbcdf8", "[INFO][2026-03-27T11:59:59][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test <- opal[CNSIM.CNSIM1]'", "[INFO][2026-03-27T12:00:00][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-03-27T12:00:01][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-03-27T12:00:01][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-03-27T12:00:01][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]
+#>       ]
+#>     },
+#>     {
+#>       "@id": "20260327T120017-dslogs-dsuser_mappings.csv",
+#>       "@type": "File",
+#>       "dateModified": "2026-03-27 12:00:17",
+#>       "name": "20260327T120017-dslogs-dsuser_mappings.csv",
 #>       "description": "This file contains mappings and evaluated functions",
 #>       "encodingFormat": "text/csv",
 #>       "content": [
 #>         [
 #>           {
-#>             "timestamp": "2026-02-27T08:56:24",
+#>             "timestamp": "2026-03-27T11:59:57",
 #>             "action": "OPEN",
 #>             "user": "dsuser",
-#>             "r_cmd": "Open session: 622f2c74-9242-48e2-82d9-bc3250f8aa4b",
+#>             "r_cmd": "Open session: 84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "fx": "DSI::datashield.login",
-#>             "session": "622f2c74-9242-48e2-82d9-bc3250f8aa4b",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T08:56:26",
+#>             "timestamp": "2026-03-27T11:59:59",
 #>             "action": "ASSIGN",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
 #>             "fx": "base::assign",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "622f2c74-9242-48e2-82d9-bc3250f8aa4b",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T08:56:27",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
 #>             "fx": "dsBase::lsDS",
 #>             "symbol": "search.filter = NULL, 1L",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "622f2c74-9242-48e2-82d9-bc3250f8aa4b",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T09:00:37",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: 7925f5e8-f7b6-416e-b05b-5ac2c19f00c1",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "7925f5e8-f7b6-416e-b05b-5ac2c19f00c1",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T09:00:37",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "7925f5e8-f7b6-416e-b05b-5ac2c19f00c1",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T09:00:38",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "7925f5e8-f7b6-416e-b05b-5ac2c19f00c1",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T09:20:47",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: 08413766-4fa8-4eec-9392-ec30581fb48c",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "08413766-4fa8-4eec-9392-ec30581fb48c",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T09:20:48",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "08413766-4fa8-4eec-9392-ec30581fb48c",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T09:20:49",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "08413766-4fa8-4eec-9392-ec30581fb48c",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T14:08:39",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: 88a48432-61c8-4444-bb6f-1d0174d4f177",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "88a48432-61c8-4444-bb6f-1d0174d4f177",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T14:08:39",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "88a48432-61c8-4444-bb6f-1d0174d4f177",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T14:08:40",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "88a48432-61c8-4444-bb6f-1d0174d4f177",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T14:18:40",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: e45b3573-21cc-445d-8d22-b7fc289d279a",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "e45b3573-21cc-445d-8d22-b7fc289d279a",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T14:18:40",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "e45b3573-21cc-445d-8d22-b7fc289d279a",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T14:18:41",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "e45b3573-21cc-445d-8d22-b7fc289d279a",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:04:13",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: 026b4b18-c40c-4f08-8a19-75716fee1c75",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "026b4b18-c40c-4f08-8a19-75716fee1c75",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:04:13",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "026b4b18-c40c-4f08-8a19-75716fee1c75",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:04:14",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "026b4b18-c40c-4f08-8a19-75716fee1c75",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:13:01",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: a3a6f257-79ef-443c-a110-393b1ff196f0",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "a3a6f257-79ef-443c-a110-393b1ff196f0",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:13:01",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "a3a6f257-79ef-443c-a110-393b1ff196f0",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:13:03",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "a3a6f257-79ef-443c-a110-393b1ff196f0",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:24:02",
-#>             "action": "OPEN",
-#>             "user": "dsuser",
-#>             "r_cmd": "Open session: fc258313-6846-4a8e-93d9-4809cd794fbe",
-#>             "fx": "DSI::datashield.login",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:24:02",
-#>             "action": "ASSIGN",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsROCrate_test <- opal[CNSIM.CNSIM1]",
-#>             "fx": "base::assign",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:24:04",
-#>             "action": "AGGREGATE",
-#>             "user": "dsuser",
-#>             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",
-#>             "fx": "dsBase::lsDS",
-#>             "symbol": "search.filter = NULL, 1L",
-#>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
-#>             "backend": "OBiBa's Opal"
-#>           },
-#>           {
-#>             "timestamp": "2026-02-27T15:24:04",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "base::exists(\"dsROCrate_test\")",
 #>             "fx": "base::exists",
 #>             "symbol": "dsROCrate_test",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T15:24:04",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsBase::classDS(\"dsROCrate_test\")",
 #>             "fx": "dsBase::classDS",
 #>             "symbol": "dsROCrate_test",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T15:24:04",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsBase::isValidDS(dsROCrate_test)",
 #>             "fx": "dsBase::isValidDS",
 #>             "symbol": "dsROCrate_test",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T15:24:04",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsBase::dimDS(\"dsROCrate_test\")",
 #>             "fx": "dsBase::dimDS",
 #>             "symbol": "dsROCrate_test",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           },
 #>           {
-#>             "timestamp": "2026-02-27T15:24:05",
+#>             "timestamp": "2026-03-27T12:00:01",
 #>             "action": "AGGREGATE",
 #>             "user": "dsuser",
 #>             "r_cmd": "dsBase::colnamesDS(\"dsROCrate_test\")",
 #>             "fx": "dsBase::colnamesDS",
 #>             "symbol": "dsROCrate_test",
 #>             "table": "CNSIM.CNSIM1",
-#>             "session": "fc258313-6846-4a8e-93d9-4809cd794fbe",
+#>             "session": "84b50a64-e51e-4d54-a155-bd3ebbdbcdf8",
 #>             "backend": "OBiBa's Opal"
 #>           }
 #>         ]
@@ -2718,17 +2931,12 @@ print(study_crate_v1)
 #>     }
 #>   ]
 #> }
-#> 
-#> attr(,"audit_type")
-#> [1] "Study"
-#> attr(,"project")
-#> [1] "CNSIM"
 ```
 
 ###### Markdown report
 
 A markdown report can be created with an overview and details for an
-RO-Crate, using the `dsROCrate::rocrate_report`:
+RO-Crate, using the `dsROCrate::report`:
 
 **Only generate .Rmd file**
 
@@ -2736,20 +2944,15 @@ RO-Crate, using the `dsROCrate::rocrate_report`:
 study_crate_v1_rmd <- tempfile(fileext = ".Rmd") # temporary file
 
 safe_project_crate_contents <- study_crate_v1 |>
-  dsROCrate::rocrate_report(filepath = study_crate_v1_rmd, render = FALSE)
-#> 1 'Author' entity was found!
-#> 3 'Dataset' entities were found!
-#> Warning: No entities were found with @type = 'WriteAction'!
-#> Warning: No entities were found with @type = 'ControlAction'!
+  dsROCrate::report(filepath = study_crate_v1_rmd, render = FALSE)
+#> 6 'Author' entities were found!
+#> 3 asset entities were found!
 #> 1 'Project' entity was found!
-#> 14 'PropertyValue' OR 'SoftwareApplication' entities were found!
-#> Warning: No entities were found with @type = 'File'!
-#> 1 'Author' entity was found!
-#> 3 'Dataset' entities were found!
-#> Warning: No entities were found with @type = 'WriteAction'!
-#> Warning: No entities were found with @type = 'ControlAction'!
+#> 22 'CreativeWork', 'PropertyValue' OR 'SoftwareApplication' entities were found!
+#> 4 'Author' entities were found!
+#> 3 asset entities were found!
 #> 1 'Project' entity was found!
-#> 14 'PropertyValue' OR 'SoftwareApplication' entities were found!
+#> 22 'CreativeWork', 'PropertyValue' OR 'SoftwareApplication' entities were found!
 #> 2 'File' entities were found!
 
 # display Overview diagram
@@ -2767,36 +2970,25 @@ safe_project_crate_contents$overview_data |>
 
 | Server | Project | Data | Access Level | People | Function | Timestamp |
 |:---|:---|:---|:---|:---|:---|:---|
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | base::assign | 2026-02-27T08:56:26 |
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | dsBase::lsDS | 2026-02-27T08:56:27 |
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | base::assign | 2026-02-27T09:00:37 |
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | dsBase::lsDS | 2026-02-27T09:00:38 |
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | base::assign | 2026-02-27T09:20:48 |
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | dsBase::lsDS | 2026-02-27T09:20:49 |
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | base::assign | 2026-02-27T14:08:39 |
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | dsBase::lsDS | 2026-02-27T14:08:40 |
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | base::assign | 2026-02-27T14:18:40 |
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | dsBase::lsDS | 2026-02-27T14:18:41 |
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | base::assign | 2026-02-27T15:04:13 |
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | dsBase::lsDS | 2026-02-27T15:04:14 |
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | base::assign | 2026-02-27T15:13:01 |
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | dsBase::lsDS | 2026-02-27T15:13:03 |
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | base::assign | 2026-02-27T15:24:02 |
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | dsBase::lsDS | 2026-02-27T15:24:04 |
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | base::exists | 2026-02-27T15:24:04 |
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | dsBase::classDS | 2026-02-27T15:24:04 |
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | dsBase::isValidDS | 2026-02-27T15:24:04 |
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | dsBase::dimDS | 2026-02-27T15:24:04 |
-| opal_demo | CNSIM | CNSIM1 | read | dsuser | dsBase::colnamesDS | 2026-02-27T15:24:05 |
+| opal_demo | CNSIM | CNSIM1 | read | dsuser | base::assign | 2026-03-27T11:59:59 |
+| opal_demo | CNSIM | CNSIM1 | read | dsuser | dsBase::lsDS | 2026-03-27T12:00:01 |
+| opal_demo | CNSIM | CNSIM1 | read | dsuser | base::exists | 2026-03-27T12:00:01 |
+| opal_demo | CNSIM | CNSIM1 | read | dsuser | dsBase::classDS | 2026-03-27T12:00:01 |
+| opal_demo | CNSIM | CNSIM1 | read | dsuser | dsBase::isValidDS | 2026-03-27T12:00:01 |
+| opal_demo | CNSIM | CNSIM1 | read | dsuser | dsBase::dimDS | 2026-03-27T12:00:01 |
+| opal_demo | CNSIM | CNSIM1 | read | dsuser | dsBase::colnamesDS | 2026-03-27T12:00:01 |
+| opal_demo | CNSIM | CNSIM1 | read | dsuser1 |  |  |
 | opal_demo | CNSIM | CNSIM2 | read | dsuser |  |  |
+| opal_demo | CNSIM | CNSIM2 | read | dsuser2 |  |  |
 | opal_demo | CNSIM | CNSIM3 | read | dsuser |  |  |
+| opal_demo | CNSIM | CNSIM3 | read | dsuser3 |  |  |
 | opal_test | CNSIM | CNSIM1 | read | dsuser |  |  |
 
 **Render and display report (HTML)**
 
 ``` r
 study_crate_v1 |>
-  dsROCrate::rocrate_report(filepath = study_crate_v1_rmd, 
+  dsROCrate::report(filepath = study_crate_v1_rmd, 
                             title = "DataSHIELD Study audit",
                             render = TRUE, 
                             overwrite = TRUE)
