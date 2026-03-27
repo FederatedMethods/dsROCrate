@@ -4,7 +4,7 @@
 \name{dsROCrate-package}
 \alias{dsROCrate}
 \alias{dsROCrate-package}
-\title{dsROCrate: 'DataSHIELD' RO-Crate Wrapper Functions}
+\title{dsROCrate: 'DataSHIELD' RO-Crate Governance Functions}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
