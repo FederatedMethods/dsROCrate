@@ -1,5 +1,5 @@
 Package: dsROCrate
-Title: 'DataSHIELD' RO-Crate Wrapper Functions
+Title: 'DataSHIELD' RO-Crate Governance Functions
 Version: 0.0.1
 Authors@R: c(
     person(given = "Roberto",
