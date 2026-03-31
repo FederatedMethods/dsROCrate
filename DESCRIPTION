@@ -46,13 +46,15 @@ Imports:
     purrr,
     RcppTOML,
     rmarkdown,
-    rocrateR (>= 0.0.1),
+    rocrateR (>= 0.0.2),
     tibble,
     vtree,
     xptr,
     yaml
 Depends: 
     R (>= 4.1.0)
+Remotes:
+    ResearchObject/ro-crate-r
 VignetteBuilder: knitr
 Collate: 
     'ArmadilloCredentials-class.R'
