@@ -59,7 +59,7 @@ test_that("report.character dispatches to rocrate method", {
   )
   testthat::with_mocked_bindings(
     load_content = function(x, ...) x,
-    report.rocrate = function(x, ...) "OK",
+    report.character = function(x, ...) "OK",
     code = {
       result <- report(tmp_dir, render = FALSE)
       expect_equal(result, "OK")
@@ -367,10 +367,13 @@ test_that("report.list aggregates outputs from a study audit", {
   opal_con <- opal_demo_con()
 
   # generate audit RO-Crate for a study
-  roc <- audit(
-    list(demo = opal_con),
-    project = "CNSIM",
-    path = tmp_dir
+  ## ignore warnings about missing logs
+  suppressWarnings(
+    roc <- audit(
+      list(demo = opal_con),
+      project = "CNSIM",
+      path = tmp_dir
+    )
   )
 
   out_file <- file.path(tmp_dir, "report.md")

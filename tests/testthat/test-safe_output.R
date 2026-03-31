@@ -183,14 +183,17 @@ test_that("safe_output works", {
   tempdir_name <- tempdir()
   on.exit(unlink(tempdir_name, force = TRUE, recursive = TRUE))
   expect_true(dir.exists(tempdir_name))
-  basic_rocrate_8 <- basic_rocrate_3 |>
-    dsROCrate::safe_output(
-      connection = opal_con,
-      logs_from = Sys.time() - 60, # capture the last min
-      logs_to = Sys.time(),
-      user = "dsuser",
-      path = tempdir_name
-    )
+  ## ignore warnings about missing logs
+  suppressWarnings(
+    basic_rocrate_8 <- basic_rocrate_3 |>
+      dsROCrate::safe_output(
+        connection = opal_con,
+        logs_from = Sys.time() - 60, # capture the last min
+        logs_to = Sys.time(),
+        user = "dsuser",
+        path = tempdir_name
+      )
+  )
   unlink(tempdir_name, force = TRUE, recursive = TRUE)
   expect_false(dir.exists(tempdir_name))
 
