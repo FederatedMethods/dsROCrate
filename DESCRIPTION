@@ -46,7 +46,7 @@ Imports:
     purrr,
     RcppTOML,
     rmarkdown,
-    rocrateR (>= 0.0.2),
+    rocrateR (>= 0.0.1),
     tibble,
     vtree,
     xptr,
