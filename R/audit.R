@@ -40,7 +40,10 @@ audit <- function(x, ...) {
 #' @rdname audit
 #' @export
 audit.armadillo <- function(x, ..., intent = NULL) {
-  # <PLACEHOLDER>
+  stop(
+    "The audit for Armadillo backend is not currently implemented!",
+    call. = FALSE
+  )
 }
 
 #' @rdname audit
@@ -144,5 +147,6 @@ audit.opal <- function(
 #' @rdname audit
 #' @export
 audit.rocrate <- function(x, ..., intent = NULL) {
-  # <PLACEHOLDER>
+  # return input rocrate object
+  x
 }
