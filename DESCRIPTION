@@ -84,3 +84,5 @@ Collate:
     'utils-safe_setting.R'
     'utils-show.R'
     'utils-tibble.R'
+URL: https://github.com/FederatedMethods/dsROCrate
+BugReports: https://github.com/FederatedMethods/dsROCrate/issues
