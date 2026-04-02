@@ -45,6 +45,7 @@ jobs:
           install.packages("pak")
           pak::pak(c(
             "ResearchObject/ro-crate-r@dev",
+            "rcmdcheck",
             "local::."
           ))
         shell: Rscript {0}
