@@ -10,6 +10,14 @@
 
 R package to wrap elements from 'DataSHIELD' analysis into an RO-Crate.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/FederatedMethods/dsROCrate}
+  \item Report bugs at \url{https://github.com/FederatedMethods/dsROCrate/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Roberto Villegas-Diaz \email{r.villegas-diaz@outlook.com} (\href{https://orcid.org/0000-0001-5036-8661}{ORCID})
 
