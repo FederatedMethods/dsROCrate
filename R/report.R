@@ -656,6 +656,7 @@ report.rocrate <- function(
 #'
 #' @returns Diagram object
 #' @keywords internal
+#' @noRd
 .overview_diagram <- function(
   overview_tbl,
   include_user_perm,
@@ -772,6 +773,7 @@ report.rocrate <- function(
 #'
 #' @returns Data frame with tidy overview table.
 #' @keywords internal
+#' @noRd
 .tidy_overview <- function(overview_tbl, include_user_perm) {
   # local bindings
   fx <- permission <- timestamp <- NULL
@@ -852,6 +854,7 @@ report.rocrate <- function(
 #'
 #' @returns String with report's header
 #' @keywords internal
+#' @noRd
 .markdown_report_header <- function(title, overview_tbl, diagram_filepath) {
   # initialise variables for the report header
   unique_users_vct <- unique(c(
@@ -958,6 +961,7 @@ report.rocrate <- function(
 #'
 #' @returns String with updated Markdown report.
 #' @keywords internal
+#' @noRd
 .markdown_report_body <- function(
   report_contents,
   overview_tbl,
@@ -1046,6 +1050,7 @@ report.rocrate <- function(
 #'
 #' @returns String with update Markdown report.
 #' @keywords internal
+#' @noRd
 .markdown_report_rocrate <- function(
   report_contents,
   rocrate,
@@ -1094,6 +1099,7 @@ report.rocrate <- function(
 #'
 #' @returns String with data frame rendered with `kable`.
 #' @keywords internal
+#' @noRd
 .break_tibble <- function(df, varname) {
   # local bindings
   temp <- NULL
