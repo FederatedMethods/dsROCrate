@@ -22,7 +22,9 @@ audit_engine(x, ...)
 }
 \arguments{
 \item{x}{This can be a connection to a 'DataSHIELD' server (e.g., object with
-the \code{opal} class, see \code{\link[opalr:opal.login]{opalr::opal.login()}}).}
+the \code{opal} class, see \code{\link[opalr:opal.login]{opalr::opal.login()}}). Alternatively, a governance
+archive file, representing the intent of a project and associated
+governance details.}
 
 \item{...}{Other optional arguments, see full documentation for details.}
 
@@ -46,6 +48,6 @@ the RO-Crate returned by this function.}
 Audit RO-Crate with 5 Safes Components.
 }
 \description{
-Audit Engine
+Internal function to create audits for various back-ends.
 }
 \keyword{internal}

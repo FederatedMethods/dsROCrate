@@ -6,6 +6,18 @@
 \usage{
 append_entity_ref(rocrate, id, key, ref_id)
 }
+\arguments{
+\item{rocrate}{RO-Crate object.}
+
+\item{id}{String with \verb{@id} of the entity.}
+
+\item{key}{String with property/key of the entity.}
+
+\item{ref_id}{String with reference \verb{@id}.}
+}
+\value{
+Updated RO-Crate object.
+}
 \description{
 Adds a reference to an existing property while
 preserving existing values and avoiding duplicates.
