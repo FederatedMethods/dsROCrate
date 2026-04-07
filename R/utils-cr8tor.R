@@ -422,19 +422,6 @@ extract_integrity_cr8tor <- function(bundle) {
   )
 }
 
-#' Extract lineage matrix (User × Project × Table)
-#'
-#' @param bundle cr8tor_bundle
-#' @return data.frame
-#' @noRd
-extract_lineage_cr8tor <- function(bundle) {
-  users <- extract_safe_people_cr8tor(bundle)$users$username
-  proj <- extract_safe_projects_cr8tor(bundle)$name
-  assets <- extract_safe_data_cr8tor(bundle)$assets$asset
-
-  expand.grid(user = users, project = proj, asset = assets)
-}
-
 #' Extract Safe Data (datasets & tables)
 #'
 #' @param bundle cr8tor_bundle
@@ -660,11 +647,6 @@ extract_permissions_cr8tor <- function(bundle) {
       stringsAsFactors = FALSE
     ) |>
       tibble::as_tibble()
-    # tibble::tibble(
-    #   group = y$metadata$name %||% NA_character_,
-    #   project = y$spec$projects %||% NA,
-    #   role = y$spec$role %||% NA
-    # )
   }) |>
     purrr::list_c()
 }

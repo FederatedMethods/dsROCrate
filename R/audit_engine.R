@@ -1,7 +1,11 @@
 #' Audit Engine
 #'
+#' Internal function to create audits for various back-ends.
+#'
 #' @param x This can be a connection to a 'DataSHIELD' server (e.g., object with
-#'     the `opal` class, see [opalr::opal.login()]).
+#'     the `opal` class, see [opalr::opal.login()]). Alternatively, a governance
+#'     archive file, representing the intent of a project and associated
+#'     governance details.
 #' @param ... Other optional arguments, see full documentation for details.
 #' @param project String with project name(s) from which to extra Safe Project
 #'     details.
@@ -24,6 +28,7 @@ audit_engine <- function(x, ...) {
 #' @rdname audit_engine
 #' @export
 audit_engine.cr8tor <- function(x, ...) {
+  # extract individual components from cr8tor bundle
   audit <- list(
     metadata = extract_cr8tor_metadata(x),
     integrity = extract_integrity_cr8tor(x),
@@ -35,8 +40,7 @@ audit_engine.cr8tor <- function(x, ...) {
     user_projects = extract_user_projects_cr8tor(x),
     user_groups = extract_user_groups_cr8tor(x),
     groups = extract_groups_cr8tor(x),
-    permissions = extract_permissions_cr8tor(x) #,
-    # lineage = extract_lineage_cr8tor(x),
+    permissions = extract_permissions_cr8tor(x)
   )
 
   as_rocrate_audit(audit)

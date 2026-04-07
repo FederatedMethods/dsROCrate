@@ -93,8 +93,6 @@ audit.cr8tor <- function(x, ..., intent = NULL) {
   # attempt auditing intent
   intent_lst <- audit_intent(intent, ..., excluded_args = "path")
 
-  # audit_engine(x, exclude_args(..., "path"), intent = intent)
-
   # call next method
   main_audit <- audit_engine(x, intent_lst$main_audit_args)
 

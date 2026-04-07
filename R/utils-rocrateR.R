@@ -3,6 +3,12 @@
 #' Adds a reference to an existing property while
 #' preserving existing values and avoiding duplicates.
 #'
+#' @param rocrate RO-Crate object.
+#' @param id String with `@id` of the entity.
+#' @param key String with property/key of the entity.
+#' @param ref_id String with reference `@id`.
+#'
+#' @returns Updated RO-Crate object.
 #' @keywords internal
 append_entity_ref <- function(rocrate, id, key, ref_id) {
   entity <- rocrateR::get_entity(rocrate, id = id)[[1]]
