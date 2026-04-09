@@ -3,5 +3,6 @@
 
 ## usethis namespace: start
 #' @import methods
+#' @importClassesFrom DSMolgenisArmadillo ArmadilloCredentials
 ## usethis namespace: end
 NULL

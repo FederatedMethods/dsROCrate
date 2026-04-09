@@ -251,6 +251,14 @@ safe_project.rocrate <- function(
 }
 
 # S4 methods ----
+# Bridge method for your S4 class
+#' @method safe_project armadillo
+#' @rdname safe_project
+#' @export
+safe_project.armadillo <- function(x, ...) {
+  methods::callGeneric(x, ...)
+}
+
 #' @aliases safe_project,armadillo-method
 #' @export
 setMethod(
