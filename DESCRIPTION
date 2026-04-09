@@ -30,7 +30,6 @@ Suggests:
     fs,
     knitr,
     MolgenisArmadillo,
-    opalr,
     testthat (>= 3.0.0),
     withr
 Config/testthat/edition: 3
@@ -44,6 +43,7 @@ Imports:
     DSMolgenisArmadillo,
     jsonlite,
     methods,
+    opalr,
     purrr,
     RcppTOML,
     rmarkdown,
