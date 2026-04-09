@@ -27,7 +27,7 @@ jobs:
           extra-packages: |
             any::covr
             any::xml2
-            github::ResearchObject/ro-crate-r@dev
+            # github::ResearchObject/ro-crate-r@dev
             local::.
           needs: coverage
 
