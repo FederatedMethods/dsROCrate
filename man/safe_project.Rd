@@ -6,6 +6,7 @@
 \alias{safe_project.character}
 \alias{safe_project.opal}
 \alias{safe_project.rocrate}
+\alias{safe_project.armadillo}
 \title{Safe Project details}
 \source{
 \itemize{
@@ -69,6 +70,8 @@
   tables = attr(x, "tables"),
   user = attr(x, "user")
 )
+
+\method{safe_project}{armadillo}(x, ...)
 }
 \arguments{
 \item{x}{This can be a connection to a 'DataSHIELD' server (e.g., object with
