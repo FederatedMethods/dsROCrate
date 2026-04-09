@@ -7,25 +7,6 @@ test_that("safe_people fails when attempt calling function with invalid class", 
   )
 })
 
-test_that("safe_people fails when attempt adding user to RO-Crate without project entity, `@type = 'Project`", {
-  # # setup
-  # ## open connection to OBiBa's Opal demo server
-  # opal_con <- opal_demo_con()
-  # ## create basic RO-Crate
-  # basic_rocrate <- rocrateR::rocrate_5s()
-  #
-  # expect_warning(
-  #   opal_con |>
-  #     dsROCrate::safe_people(
-  #       rocrate = basic_rocrate,
-  #       user = attr(opal_con, "PEOPLE")
-  #     )
-  # )
-  #
-  # # close connection to OBiBa's Opal demo server
-  # opalr::opal.logout(opal_con)
-})
-
 test_that("safe_people fails when attempt calling with invalid connection", {
   # setup
   ## open connection to OBiBa's Opal demo server
