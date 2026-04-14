@@ -39,7 +39,7 @@ audit <- function(x, ...) {
 
 #' @rdname audit
 #' @export
-audit.armadillo <- function(x, ..., intent = NULL) {
+audit.ArmadilloCredentials <- function(x, ..., intent = NULL) {
   stop(
     "The audit for Armadillo backend is not currently implemented!",
     call. = FALSE

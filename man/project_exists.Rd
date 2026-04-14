@@ -4,7 +4,7 @@
 \alias{project_exists}
 \alias{project_exists,armadillo-method}
 \alias{project_exists.opal}
-\alias{project_exists.armadillo}
+\alias{project_exists.ArmadilloCredentials}
 \title{Verify if project exists}
 \usage{
 \S4method{project_exists}{armadillo}(
@@ -13,9 +13,9 @@
   project
 )
 
-project_exists.opal(x, ..., project)
+\method{project_exists}{opal}(x, ..., project)
 
-\method{project_exists}{armadillo}(x, ...)
+\method{project_exists}{ArmadilloCredentials}(x, ..., project)
 }
 \arguments{
 \item{x}{Connection object to backend for DataSHIELD server (e.g., Opal).}
@@ -40,6 +40,9 @@ Other Opal:
 \code{\link{get_project_details}()},
 \code{\link{get_project_tables}()},
 \code{\link{get_table_permissions}()},
+\code{\link{parse_user_profiles}()}
+
+Other Armadillo: 
 \code{\link{parse_user_profiles}()}
 }
 \concept{Armadillo}

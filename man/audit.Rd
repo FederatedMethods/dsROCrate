@@ -2,7 +2,7 @@
 % Please edit documentation in R/audit.R
 \name{audit}
 \alias{audit}
-\alias{audit.armadillo}
+\alias{audit.ArmadilloCredentials}
 \alias{audit.character}
 \alias{audit.cr8tor}
 \alias{audit.list}
@@ -12,7 +12,7 @@
 \usage{
 audit(x, ...)
 
-\method{audit}{armadillo}(x, ..., intent = NULL)
+\method{audit}{ArmadilloCredentials}(x, ..., intent = NULL)
 
 \method{audit}{character}(x, ..., intent = NULL)
 

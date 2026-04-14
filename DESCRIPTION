@@ -42,7 +42,6 @@ Imports:
     dplyr,
     DSMolgenisArmadillo,
     jsonlite,
-    methods,
     opalr,
     purrr,
     RcppTOML,
@@ -55,34 +54,5 @@ Imports:
 Depends: 
     R (>= 4.1.0)
 VignetteBuilder: knitr
-Collate: 
-    'ArmadilloCredentials-class.R'
-    'audit.R'
-    'audit_engine.R'
-    'dsROCrate-package.R'
-    'dsROCrate.R'
-    'print.R'
-    'report.R'
-    'safe_data.R'
-    'safe_output.R'
-    'safe_people.R'
-    'safe_project.R'
-    'safe_setting.R'
-    'utils-armadillo.R'
-    'utils-audit.R'
-    'utils-connection.R'
-    'utils-cr8tor.R'
-    'utils-date.R'
-    'utils-digest.R'
-    'utils-opal.R'
-    'utils-rocrate.R'
-    'utils-rocrateR.R'
-    'utils-safe_data.R'
-    'utils-safe_output.R'
-    'utils-safe_people.R'
-    'utils-safe_project.R'
-    'utils-safe_setting.R'
-    'utils-show.R'
-    'utils-tibble.R'
 URL: https://github.com/FederatedMethods/dsROCrate
 BugReports: https://github.com/FederatedMethods/dsROCrate/issues
