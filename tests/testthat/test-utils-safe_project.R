@@ -225,7 +225,6 @@ test_that("flatten_safe_project.rocrate returns tibble", {
   out <- flatten_safe_project(rocrate)
 
   expect_s3_class(out, "tbl_df")
-  print(names(out))
   expect_true(all(
     c("project_id", "project", "asset_id", "asset") %in% names(out)
   ))

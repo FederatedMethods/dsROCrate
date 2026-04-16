@@ -249,7 +249,6 @@ report.list <- function(
       stop("The format `", doc_format, "` is not valid! Try 'html' or 'pdf'.")
     }
   } else {
-    print(overview_lst$diag_lst)
     return(invisible(
       list(
         overview_diagram = overview_lst$diag_lst,
@@ -599,7 +598,6 @@ report.rocrate <- function(
       stop("The format `", doc_format, "` is not valid! Try 'html' or 'pdf'.")
     }
   } else {
-    print(overview_lst$diag_lst)
     return(invisible(
       list(
         overview_diagram = overview_lst$diag_lst,
