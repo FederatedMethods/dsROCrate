@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-R package to wrap elements from 'DataSHIELD' analysis into an RO-Crate.
+Tools for wrapping 'DataSHIELD' analyses into RO-Crate (Research Object Crate) objects. Provides functions to create structured metadata for federated data analysis projects, enabling governance tracking of data access, project membership, analysis execution and output validation across distributed data sources.
 }
 \seealso{
 Useful links:
