@@ -45,23 +45,12 @@ parse_user_profiles.opal <- function(x, ..., user) {
 }
 
 # S4 methods ----
-# Bridge method for your S4 class
-#' @method parse_user_profiles armadillo
+#' @method parse_user_profiles ArmadilloCredentials
 #' @rdname parse_user_profiles
 #' @export
-parse_user_profiles.armadillo <- function(x, ...) {
-  methods::callGeneric(x, ...)
+parse_user_profiles.ArmadilloCredentials <- function(x, ..., user) {
+  message("PLACEHOLDER!")
 }
-
-#' @aliases parse_user_profiles,armadillo-method
-#' @family Armadillo
-setMethod(
-  "parse_user_profiles",
-  signature(x = "armadillo"),
-  function(x, ..., user) {
-    message("PLACEHOLDER!")
-  }
-)
 
 #' Verify if project exists
 #'
@@ -104,19 +93,11 @@ project_exists.opal <- function(x, ..., project) {
 }
 
 # S4 methods ----
-# Bridge method for your S4 class
-#' @method project_exists armadillo
+#' @method project_exists ArmadilloCredentials
 #' @rdname project_exists
 #' @export
-project_exists.armadillo <- function(x, ...) {
-  methods::callGeneric(x, ...)
-}
-
-#' @aliases project_exists,armadillo-method
 #' @family Armadillo
-setMethod(
-  "project_exists",
-  signature(x = "armadillo"),
+project_exists.ArmadilloCredentials <-
   function(
     x,
     ...,
@@ -132,4 +113,3 @@ setMethod(
       )
     }
   }
-)

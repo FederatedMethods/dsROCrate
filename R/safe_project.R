@@ -251,38 +251,27 @@ safe_project.rocrate <- function(
 }
 
 # S4 methods ----
-# Bridge method for your S4 class
-#' @method safe_project armadillo
+#' @method safe_project ArmadilloCredentials
 #' @rdname safe_project
 #' @export
-safe_project.armadillo <- function(x, ...) {
-  methods::callGeneric(x, ...)
+safe_project.ArmadilloCredentials <- function(
+  x,
+  ...,
+  profile = "default",
+  project = NULL,
+  rocrate = rocrateR::rocrate_5s(),
+  asset_id_suffix = "#asset:",
+  project_id_suffix = "#project:",
+  path = NULL,
+  resources = NULL,
+  tables = NULL,
+  user = NULL
+) {
+  # check if the given `project` exists
+  project_exists(x, project = project)
+
+  # retrieve details associated to `project`
+  project_details_tbl <- MolgenisArmadillo::armadillo.get_projects_info() |>
+    purrr::list_c() |>
+    tibble::as_tibble()
 }
-
-#' @aliases safe_project,armadillo-method
-#' @export
-setMethod(
-  "safe_project",
-  signature(x = "armadillo"),
-  function(
-    x,
-    ...,
-    profile = "default",
-    project = NULL,
-    rocrate = rocrateR::rocrate_5s(),
-    asset_id_suffix = "#asset:",
-    project_id_suffix = "#project:",
-    path = NULL,
-    resources = NULL,
-    tables = NULL,
-    user = NULL
-  ) {
-    # check if the given `project` exists
-    project_exists(x, project = project)
-
-    # retrieve details associated to `project`
-    project_details_tbl <- MolgenisArmadillo::armadillo.get_projects_info() |>
-      purrr::list_c() |>
-      tibble::as_tibble()
-  }
-)
