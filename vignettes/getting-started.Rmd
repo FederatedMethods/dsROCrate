@@ -322,11 +322,12 @@ function `rocrateR::bag_rocrate`:
 
 ```{r}
 # create temp directory
-dir.create("./rocrates", showWarnings = FALSE)
+tmp_path_bag <- file.path(tempdir(), "dsROCrate-getting-started")
+dir.create(tmp_path_bag, showWarnings = FALSE)
 
 # create RO-Crate bag
 path_to_rocrate_bag <- basic_rocrate |>
-  rocrateR::bag_rocrate(path = "./rocrates", overwrite = TRUE)
+  rocrateR::bag_rocrate(path = tmp_path_bag, overwrite = TRUE)
 ```
 
 We can explore the contents with the following commands:
@@ -334,8 +335,8 @@ We can explore the contents with the following commands:
 ```{r}
 # extract files in temporary directory
 path_to_rocrate_bag |>
-  # extract contents inside ./rocrates/ROC
-  rocrateR::unbag_rocrate(output = "./rocrates/ROC", quiet = TRUE) |>
+  # extract contents inside /tmp_path_bag/ROC
+  rocrateR::unbag_rocrate(output = file.path(tmp_path_bag, "ROC"), quiet = TRUE) |>
   # create tree with the files
   fs::dir_tree()
 ```
@@ -343,7 +344,7 @@ path_to_rocrate_bag |>
 ### 1.6. Clean working directory
 
 ```{r}
-unlink("./rocrates", recursive = TRUE, force = TRUE)
+unlink(tmp_path_bag, recursive = TRUE, force = TRUE)
 ```
 
 
