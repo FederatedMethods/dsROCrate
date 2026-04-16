@@ -20,8 +20,11 @@ Authors@R: c(
            role = c("aut"),
            comment = c(ORCID = "0009-0003-2419-1964")),
     person("University of Liverpool", role = c("cph")))
-Description: R package to wrap elements from 'DataSHIELD' analysis into an 
-    RO-Crate.
+Description: Tools for wrapping 'DataSHIELD' analyses into RO-Crate 
+    (Research Object Crate) objects. Provides functions to create structured
+    metadata for federated data analysis projects, enabling governance 
+    tracking of data access, project membership, analysis execution and 
+    output validation across distributed data sources.
 License: MIT + file LICENSE
 Suggests: 
     dsBaseClient,
