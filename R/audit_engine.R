@@ -87,7 +87,7 @@ audit_engine.opal <- function(
 
   # Safe People ----
   # get users' details
-  safe_people_tbl <- opalr::opal.get(x, "/system/subject-profiles/") |>
+  safe_people_tbl <- opalr::oadmin.user_profiles(x, df = FALSE) |>
     dplyr::bind_rows() |>
     dplyr::rename(name = principal) |>
     # exclude system administrators from the report

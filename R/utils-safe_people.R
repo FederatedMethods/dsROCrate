@@ -18,7 +18,7 @@ extract_safe_people.opal <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {
   name <- principal <- NULL
 
   # extract all users
-  opal_users <- opalr::opal.get(x, "/system/subject-profiles/") |>
+  opal_users <- opalr::oadmin.user_profiles(x, df = FALSE) |>
     dplyr::bind_rows() |>
     dplyr::rename(name = principal) |>
     # exclude system administrators from the report

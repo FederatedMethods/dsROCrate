@@ -134,27 +134,6 @@ get_asset_permissions <- function(x, project, asset_type, name) {
     perms <- opalr::opal.table_perm(x, project, name)
   } else {
     perms <- opalr::opal.resource_perm(x, project, name)
-    if (is.null(perms) || nrow(perms) == 0) {
-      # if the previous call returns NULL, then attempt a different approach
-      perms_lst <- x |>
-        opalr::opal.get("project", project, "permissions/resources")
-      # derive permissions at Project level
-      perms <- tryCatch(
-        perms_lst |>
-          purrr::map(function(p) {
-            tibble::tibble(
-              subject = p$subject$principal,
-              resource = p$resource,
-              permission = purrr::list_c(p$actions) |>
-                gsub(pattern = "RESOURCES_", replacement = "") |>
-                gsub(pattern = "ALL", replacement = "administrate") |>
-                tolower()
-            )
-          }),
-        error = function(e) NULL
-      ) |>
-        purrr::list_c()
-    }
   }
 
   if (is.null(perms) || length(perms$subject) == 0) {
@@ -182,7 +161,7 @@ get_project_assets <- function(x, project, type = c("tables", "resources")) {
   project_exists(x, project = project)
 
   if (type == "tables") {
-    prj <- opalr::opal.get(x, "datasource", project, "tables")
+    prj <- opalr::opal.tables(x, project, df = FALSE)
 
     if (length(prj) == 0) {
       return(NULL)
@@ -211,7 +190,7 @@ get_project_assets <- function(x, project, type = c("tables", "resources")) {
       meta = vector("list", length(prj))
     )
   } else if (type == "resources") {
-    res <- opalr::opal.get(x, "project", project, "resources")
+    res <- opalr::opal.resources(x, project, df = FALSE)
 
     if (length(res) == 0) {
       return(NULL)

@@ -22,7 +22,7 @@ parse_user_profiles.opal <- function(x, ..., user) {
   principal <- userInfo <- NULL
 
   # get user profiles and filter by the current user
-  user_prof_tbl <- opalr::opal.get(x, "/system/subject-profiles/") |>
+  user_prof_tbl <- opalr::oadmin.user_profiles(x, df = FALSE) |>
     dplyr::bind_rows() |>
     dplyr::filter(principal %in% user)
   # extract (if available) `userInfo` which contains additional details

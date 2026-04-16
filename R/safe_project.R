@@ -103,7 +103,7 @@ safe_project.opal <- function(
   user = NULL
 ) {
   # declare local bindings
-  created <- lastUpdate <- NULL
+  created <- lastUpdate <- type <- NULL
 
   # x is a valid opal connection object
   validate_opal_con(x)
@@ -152,13 +152,11 @@ safe_project.opal <- function(
     rocrateR::add_entity(project_entity, overwrite = TRUE)
 
   # Opal permissions ----
-  perms <- opalr::opal.get(x, "project", project, "permissions/project")
+  perms <- opalr::opal.project_perm(x, project)
 
   project_users <- perms |>
-    purrr::map_chr(
-      ~ getElement(.x$subject, "principal"),
-      .default = NA_character_
-    ) |>
+    dplyr::filter(type == "user") |>
+    purrr::pmap_chr(\(subject, ...) subject) |>
     stats::na.omit()
 
   # link existing Person entities ----
