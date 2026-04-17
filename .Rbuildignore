@@ -11,3 +11,4 @@
 ^\.github$
 (^|/)\.DS\_Store$
 ^\.git($|/)
+^CRAN-SUBMISSION$

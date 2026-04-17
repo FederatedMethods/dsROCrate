@@ -2,6 +2,7 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @import methods
+# @import methods
+# @importClassesFrom DSMolgenisArmadillo ArmadilloCredentials
 ## usethis namespace: end
 NULL

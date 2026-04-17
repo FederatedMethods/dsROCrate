@@ -24,7 +24,10 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::covr, any::xml2
+          extra-packages: |
+            any::covr
+            any::xml2
+            local::.
           needs: coverage
 
       - name: Test coverage
@@ -34,7 +37,6 @@ jobs:
             clean = FALSE,
             install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package")
           )
-          print(cov)
           covr::to_cobertura(cov)
         shell: Rscript {0}
 

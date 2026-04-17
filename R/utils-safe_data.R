@@ -17,26 +17,17 @@ extract_safe_data.opal <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {
   # extract all data sources
   ds <- opalr::opal.datasources(x)
 
-  # cycle through the data source (x) and data project details
-  for (i in seq_len(nrow(ds))) {
-    project_name <- ds[i, "name"]
-    project_tables <- get_project_tables(x, project_name)
-    if (
-      !is.na(project_name) &&
-        !is.null(project_name) &&
-        length(project_tables) > 0
-    ) {
-      rocrate <- rocrate |>
-        safe_data(
-          project = project_name,
-          tables = project_tables,
-          connection = x
-        )
-    }
-  }
+  # extract project names and ignore NAs
+  projects <- ds$name[!is.na(ds$name) & !is.null(ds$name)]
 
-  # return RO-Crate with Safe Data details
-  return(rocrate)
+  # create RO-Crate with Safe Data details for the projects found on the server
+  purrr::reduce(
+    projects,
+    \(crate, p) {
+      safe_data(crate, connection = x, project = p)
+    },
+    .init = rocrate
+  )
 }
 
 #' @param id (Optional) Vector with `@id` strings for Safe Data entity(ies)
@@ -47,25 +38,22 @@ extract_safe_data.rocrate <- function(
   x,
   ...,
   id = NULL,
+  asset_id_suffix = "#asset:",
   rocrate = rocrateR::rocrate_5s()
 ) {
   # validate RO-Crate
   rocrateR::is_rocrate(x)
 
-  # extract Dataset entities
-  entities_lst <- .get_entity(x, type = "Dataset")
+  # filter out asset entities associated with the project based on the
+  # value for `asset_id_suffix`.
+  entities_lst <- x$`@graph` |>
+    purrr::keep(\(x) grepl(paste0("^", asset_id_suffix), x$`@id`))
 
   # if `id` was provided, then filter out only those entities
   if (!is.null(id)) {
-    idx <- entities_lst |>
-      sapply(\(x) getElement(x, "@id") %in% id)
-    entities_lst <- entities_lst[idx]
+    entities_lst <- entities_lst |>
+      purrr::keep(\(x) getElement(x, "@id") %in% id)
   }
-
-  # remove root entity, ./
-  idx <- entities_lst |>
-    sapply(\(x) getElement(x, "@id") == "./")
-  entities_lst[idx] <- NULL
 
   # check if any entities were found
   if (length(entities_lst) == 0) {
@@ -73,20 +61,16 @@ extract_safe_data.rocrate <- function(
   } else {
     message(
       length(entities_lst),
-      " 'Dataset' entit",
+      " asset entit",
       ifelse(length(entities_lst) == 1, "y was", "ies were"),
       " found!"
     )
   }
 
-  # add Dataset entities to the RO-Crate
+  # add entities to the RO-Crate
   suppressWarnings({
-    rocrate <- rocrate |>
-      rocrateR::add_entity(entities_lst, verbose = FALSE)
+    purrr::reduce(entities_lst, rocrateR::add_entity, .init = rocrate)
   })
-
-  # return RO-Crate with the Safe Data details
-  return(rocrate)
 }
 
 #' Flatten object with Safe Data details
@@ -96,7 +80,7 @@ extract_safe_data.rocrate <- function(
 #' @param id Vector of strings with the `@id`s for the datasets to be extracted.
 #'     If not provided, extract all entities with `@type = 'Dataset'`.
 #'
-#' @returns Data frame with safe data details.
+#' @returns Data frame with Safe Data details.
 #' @rdname flatten_safe_data
 #' @keywords internal
 flatten_safe_data <- function(x, ...) {
@@ -111,28 +95,36 @@ flatten_safe_data.default <- function(x, ...) {
 
 #' @rdname flatten_safe_data
 #' @export
-flatten_safe_data.rocrate <- function(x, ..., id = NULL) {
+flatten_safe_data.rocrate <- function(
+  x,
+  ...,
+  id = NULL,
+  asset_id_suffix = "#asset:"
+) {
+  # local bindings
+  asset_id <- person_id <- NULL
+
   tryCatch(
     {
-      # extract Dataset entities
-      entities_tbl <- x |>
-        .get_entity(type = "Dataset") |>
+      # extract asset entities
+      entities_tbl <- x$`@graph` |>
+        purrr::keep(\(x) grepl(paste0("^", asset_id_suffix), x$`@id`)) |>
         # extract @id and name for each entity
         lapply(function(ent) {
           tibble::tibble(
-            id = getElement(ent, "@id"),
-            name = getElement(ent, "name")
+            asset_id = getElement(ent, "@id"),
+            asset = getElement(ent, "name")
           )
         }) |>
         # combine all rows
         dplyr::bind_rows() |>
         # filter out root (./) entity
-        dplyr::filter(id != "./")
+        dplyr::filter(asset_id != "./")
 
       # if `id` is provided, then only keep those entities
       if (!is.null(id)) {
         entities_tbl <- entities_tbl |>
-          dplyr::filter(id %in% !!id)
+          dplyr::filter(asset_id %in% !!id)
       }
 
       # return dataset entities

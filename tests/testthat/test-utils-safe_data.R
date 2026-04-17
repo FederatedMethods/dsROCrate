@@ -68,7 +68,7 @@ test_that("extract_safe_data.rocrate copies Dataset entities", {
   src <- rocrateR::add_entity(
     src,
     entity = rocrateR::entity(
-      id = "#ds1",
+      id = "#asset:1",
       type = "Dataset",
       name = "Dataset 1"
     )
@@ -77,7 +77,7 @@ test_that("extract_safe_data.rocrate copies Dataset entities", {
   src <- rocrateR::add_entity(
     src,
     entity = rocrateR::entity(
-      id = "#ds2",
+      id = "#asset:2",
       type = "Dataset",
       name = "Dataset 2"
     )
@@ -102,7 +102,7 @@ test_that("extract_safe_data.rocrate filters Dataset entities by id", {
   src <- rocrateR::add_entity(
     src,
     entity = rocrateR::entity(
-      id = "#keep_me",
+      id = "#asset:keep_me",
       type = "Dataset",
       name = "Keep"
     )
@@ -111,7 +111,7 @@ test_that("extract_safe_data.rocrate filters Dataset entities by id", {
   src <- rocrateR::add_entity(
     src,
     entity = rocrateR::entity(
-      id = "#drop_me",
+      id = "#asset:drop_me",
       type = "Dataset",
       name = "Drop"
     )
@@ -119,13 +119,13 @@ test_that("extract_safe_data.rocrate filters Dataset entities by id", {
 
   # ignore warning of project not having tables associated
   suppressWarnings(
-    new_roc <- extract_safe_data(src, id = "#keep_me")
+    new_roc <- extract_safe_data(src, id = "#asset:keep_me")
   )
 
   ents <- rocrateR::get_entity(new_roc, type = "Dataset")
   ids <- vapply(ents, function(e) e[["@id"]], character(1))
 
-  expect_equal(ids, c("./", "#keep_me"))
+  expect_equal(ids, c("./", "#asset:keep_me"))
 })
 
 test_that("extract_safe_data.rocrate errors when no Dataset entities exist", {
@@ -151,7 +151,7 @@ test_that("flatten_safe_data.rocrate extracts id and name correctly", {
   roc <- rocrateR::add_entity(
     roc,
     entity = rocrateR::entity(
-      id = "#ds1",
+      id = "#asset:1",
       type = "Dataset",
       name = "Dataset One"
     )
@@ -160,7 +160,7 @@ test_that("flatten_safe_data.rocrate extracts id and name correctly", {
   roc <- rocrateR::add_entity(
     roc,
     entity = rocrateR::entity(
-      id = "#ds2",
+      id = "#asset:2",
       type = "Dataset",
       name = "Dataset Two"
     )
@@ -169,7 +169,7 @@ test_that("flatten_safe_data.rocrate extracts id and name correctly", {
   res <- flatten_safe_data(roc)
 
   expect_s3_class(res, "data.frame")
-  expect_true(all(c("id", "name") %in% names(res)))
+  expect_true(all(c("asset_id", "asset") %in% names(res)))
   expect_equal(nrow(res), 2)
 })
 
@@ -179,7 +179,7 @@ test_that("flatten_safe_data.rocrate filters by id argument", {
   roc <- rocrateR::add_entity(
     roc,
     entity = rocrateR::entity(
-      id = "#dsA",
+      id = "#asset:A",
       type = "Dataset",
       name = "A"
     )
@@ -188,16 +188,16 @@ test_that("flatten_safe_data.rocrate filters by id argument", {
   roc <- rocrateR::add_entity(
     roc,
     entity = rocrateR::entity(
-      id = "#dsB",
+      id = "#asset:B",
       type = "Dataset",
       name = "B"
     )
   )
 
-  res <- flatten_safe_data(roc, id = "#dsA")
+  res <- flatten_safe_data(roc, id = "#asset:A")
 
   expect_equal(nrow(res), 1)
-  expect_equal(res$id, "#dsA")
+  expect_equal(res$asset_id, "#asset:A")
 })
 
 test_that("flatten_safe_data.rocrate returns empty tibble on error", {

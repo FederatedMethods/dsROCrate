@@ -4,11 +4,14 @@
 \alias{parse_user_profiles}
 \alias{parse_user_profiles,armadillo-method}
 \alias{parse_user_profiles.opal}
+\alias{parse_user_profiles.ArmadilloCredentials}
 \title{Parse user profiles}
 \usage{
 \S4method{parse_user_profiles}{armadillo}(x, ..., user)
 
-parse_user_profiles.opal(x, ..., user)
+\method{parse_user_profiles}{opal}(x, ..., user)
+
+\method{parse_user_profiles}{ArmadilloCredentials}(x, ..., user)
 }
 \arguments{
 \item{x}{Connection object to backend for DataSHIELD server (e.g., Opal).}

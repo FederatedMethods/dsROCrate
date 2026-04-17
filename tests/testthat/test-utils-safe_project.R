@@ -215,8 +215,8 @@ test_that("flatten_safe_project.rocrate returns tibble", {
   # minimal stub for flatten_safe_data used internally
   flatten_safe_data <- function(x, ..., id = NULL) {
     tibble::tibble(
-      id = id,
-      name = c("table1", "table2")
+      asset_id = id,
+      asset = c("table1", "table2")
     )
   }
 
@@ -225,7 +225,9 @@ test_that("flatten_safe_project.rocrate returns tibble", {
   out <- flatten_safe_project(rocrate)
 
   expect_s3_class(out, "tbl_df")
-  expect_true(all(c("id", "project", "table") %in% names(out)))
+  expect_true(all(
+    c("project_id", "project", "asset_id", "asset") %in% names(out)
+  ))
 })
 
 test_that("flatten_safe_project.rocrate extracts project metadata correctly", {
@@ -258,8 +260,8 @@ test_that("flatten_safe_project.rocrate extracts project metadata correctly", {
 
   flatten_safe_data <- function(x, ..., id = NULL) {
     tibble::tibble(
-      id = id,
-      name = paste0("name_", id)
+      asset_id = id,
+      asset = paste0("name_", id)
     )
   }
 
@@ -268,7 +270,7 @@ test_that("flatten_safe_project.rocrate extracts project metadata correctly", {
   out <- flatten_safe_project(rocrate)
 
   expect_true("Project 1" %in% out$project)
-  expect_true(any(grepl("name_", out$table)))
+  expect_true(any(grepl("name_", out$asset)))
 })
 
 test_that("flatten_safe_project.rocrate handles project without hasPart", {
@@ -286,7 +288,7 @@ test_that("flatten_safe_project.rocrate handles project without hasPart", {
   out <- flatten_safe_project(rocrate)
 
   expect_equal(nrow(out), 1)
-  expect_true(is.na(out$table))
+  expect_true(is.na(out$asset))
 })
 
 test_that("flatten_safe_project.rocrate returns empty tibble on error", {

@@ -18,7 +18,7 @@ extract_safe_people.opal <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {
   name <- principal <- NULL
 
   # extract all users
-  opal_users <- opalr::opal.get(x, "/system/subject-profiles/") |>
+  opal_users <- opalr::oadmin.user_profiles(x, df = FALSE) |>
     dplyr::bind_rows() |>
     dplyr::rename(name = principal) |>
     # exclude system administrators from the report
@@ -125,6 +125,8 @@ flatten_safe_people.default <- function(x, ...) {
 #' @rdname flatten_safe_people
 #' @export
 flatten_safe_people.rocrate <- function(x, ..., id = NULL) {
+  # local bindings
+  person_id <- NULL
   tryCatch(
     {
       # extract Person entities
@@ -133,7 +135,7 @@ flatten_safe_people.rocrate <- function(x, ..., id = NULL) {
         # extract @id and name for each entity
         lapply(function(ent) {
           tibble::tibble(
-            id = getElement(ent, "@id"),
+            person_id = getElement(ent, "@id"),
             name = getElement(ent, "name"),
             given_name = c(
               getElement(ent, "givenName"),
@@ -152,7 +154,7 @@ flatten_safe_people.rocrate <- function(x, ..., id = NULL) {
       # if `id` is provided, then only keep those entities
       if (!is.null(id)) {
         entities_tbl <- entities_tbl |>
-          dplyr::filter(id %in% !!id)
+          dplyr::filter(person_id %in% !!id)
       }
 
       # return dataset entities

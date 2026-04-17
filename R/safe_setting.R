@@ -204,6 +204,7 @@ safe_setting.opal <- function(
         name = Package,
         version = Version,
         description = Description |>
+          gsub(pattern = "[[:space:]]+", replacement = " ") |>
           trimws()
       )
     })

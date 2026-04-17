@@ -10,561 +10,98 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "man/figures/README-",
   out.width = "100%",
+  cache = FALSE,
   screenshot.opts = list(vwidth = 2000, vheight = 600, zoom = 3, selector = "div.html-widget")
 )
-
-# save the built-in output hook
-hook_output <- knitr::knit_hooks$get("output")
-hook_message <- knitr::knit_hooks$get("message")
-
-# define a truncation helper
-truncate_lines_tail <- function(x, lines) {
-  x <- unlist(strsplit(x, "\n"))
-  more <- "..."
-  if (length(lines) == 1) {
-    if (length(x) > lines) {
-      # truncate the output, but add `more`
-      # x <- c(head(x, n = lines), more)
-      x <- c(more, tail(x, n = lines))
-    }
-  } else {
-    x <- c(more, x[lines], more)
-  }
-  paste(c(x, ""), collapse = "\n")
-}
-
-# set the new hooks
-knitr::knit_hooks$set(
-  output = function(x, options) {
-    lines <- options$out.lines
-    if (is.null(lines)) return(hook_output(x, options))
-    x <- truncate_lines_tail(x, lines)
-    return(hook_output(x, options))
-  },
-  message = function(x, options) {
-    lines <- options$out.lines
-    if (is.null(lines)) return(hook_message(x, options))
-    x <- truncate_lines_tail(x, lines)
-    return(hook_message(x, options))
-  }
-)
-
-# helper function to get the number of rows of an RO-Crate
-rocrate_lines <- function(rocrate) {
-  rocrate_txt(rocrate) |>
-    length()
-}
-
-# helper function to read RO-Crate as text file
-rocrate_txt <- function(rocrate) {
-  # create tmp file to write a JSON file with the output
-  tmp_file <- tempfile(fileext = ".json")
-  on.exit(unlink(tmp_file, force = TRUE))
-  # write RO-Crate in tmp file
-  rocrateR::write_rocrate(rocrate, tmp_file)
-  # read RO-Crate as text file
-  readLines(tmp_file)
-}
 ```
 
-# dsROCrate: 'DataSHIELD' RO-Crate Wrapper Functions <img src="man/figures/logo.png" alt="logo" align="right" height="200" style="float:right; height:200px;"/>
+# dsROCrate: 'DataSHIELD' RO-Crate Governance Functions <img src="man/figures/logo.png" alt="logo" align="right" height="200" style="float:right; height:200px;"/>
 
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/dsROCrate)](https://CRAN.R-project.org/package=dsROCrate)
-[![Codecov test coverage](https://codecov.io/gh/DataSHIELD-5S/dsROCrate/graph/badge.svg)](https://app.codecov.io/gh/DataSHIELD-5S/dsROCrate)
+[![R-CMD-check](https://github.com/FederatedMethods/dsROCrate/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/FederatedMethods/dsROCrate/actions/workflows/R-CMD-check.yaml)
+<!-- [![Codecov test coverage](https://codecov.io/gh/FederatedMethods/dsROCrate/graph/badge.svg)](https://app.codecov.io/gh/FederatedMethods/dsROCrate) -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-The goal of dsROCrate is to provide functions to wrap elements from a 
-'DataSHIELD' analysis into an RO-Crate.
+## Overview
 
-## 1. Installation
+`{dsROCrate}` provides tools to capture, structure and audit DataSHIELD analyses using the RO-Crate standard.
+It enables reproducible governance of federated analyses by packaging inputs, outputs, metadata, and audit information into a consistent, portable format.
 
-You can install the development version of dsROCrate from [GitHub](https://github.com/DataSHIELD-5S/dsROCrate/) with:
+## Key Features
+
+* Create RO-Crates for DataSHIELD workflows
+* Capture project metadata, data references and analysis outputs
+* Record and audit disclosure control processes
+* Support reproducibility and governance in federated environments
+
+## Installation
+You can install the released version of `{dsROCrate}` from [CRAN](https://cran.r-project.org/package=dsROCrate) with:
+
+``` r
+install.packages("dsROCrate")
+```
+
+And the development version from [GitHub](https://github.com/FederatedMethods/dsROCrate/) with:
 
 ``` r
 # install.packages("pak")
-pak::pak("DataSHIELD-5S/dsROCrate")
+pak::pak("FederatedMethods/dsROCrate@dev")
 ```
 
-## 2. Creating your first RO-Crate
-In this example, we will be using OBiBa's 
-[Opal](https://opaldoc.obiba.org/en/latest/index.html) as the _back-end_ for
-DataSHIELD. Another option would be MOLGENIS' [Armadillo](https://github.com/molgenis/molgenis-service-armadillo/).
+## Quick Start
 
-### 2.1. Connect to an Opal Server
-#### Setup
-For instructions on how to set up a local server for DataSHIELD, see the 
-following vignette:
-
-```{r, eval = FALSE}
-vignette("deploy-local-datashield-server-with-opal")
-```
-
-Here we will use OBiBa's Opal demo server: https://opal-demo.obiba.org/ which
-can be accessed with the following login credentials:
-
-```{r}
-# define global variables
-## Opal server access
-USERNAME <- "administrator"
-USERPASS <- "password"
-SERVER <- "https://opal-demo.obiba.org"
-## Credentials for `dsuser`
-### NOTE: this is only used to simulate an analysis and generate logs
-DSUSERPASS <- "P@ssw0rd"
-```
-
-Next, define global variables used in generating the RO-Crate, such as project 
-name, table references (within the project) and user identifiers.
-
-```{r}
-## Five safes variables
-PEOPLE <- "dsuser"
-PROJECT <- "CNSIM"
-TABLES <- c("CNSIM1")
-```
-
-#### Open connection
-
-Once the credentials and Five Safes variables are configured,we can start a 
-new session on the opal server with the following command:
-
-```{r}
-# login to local server with `USERNAME` and `USERPASS`.
-o <- opalr::opal.login(
-  username = USERNAME,
-  password = USERPASS,
-  url = SERVER
-)
-
-print(o)
-```
-
-### 2.2. Create a basic RO-Crate
-
-To create a basic RO-Crate, we will use the 
-[`{rocrateR}`](https://github.com/ResearchObject/ro-crate-r) package. This 
-package can be installed with the following command:
-
-```{r, eval = FALSE, echo = TRUE}
-# install.packages("pak")
-pak::pak("rocrateR")
-```
-
-Then, a basic RO-Crate can be created with the following command:
-
-```{r}
-basic_rocrate <- rocrateR::rocrate_5s()
-```
-
-Note that this RO-Crate uses the [5s-crate](https://trefx.uk/5s-crate/0.4/)
-profile.
-
-```{r}
-print(basic_rocrate)
-```
-
-### 2.3. Add the _Five Safes_ Elements
-#### Safe Data
-To add details for Safe Data, use the function `dsROCrate::safe_data()`.
-
-```{r, out.lines=-(rocrate_lines(basic_rocrate) - 2)}
-basic_rocrate <- o |>
-  dsROCrate::safe_data(rocrate = basic_rocrate,
-                       project = PROJECT,
-                       tables = TABLES)
-
-print(basic_rocrate) # note that the output will be truncated
-```
-
-#### Safe Project
-To add details for Safe Project, use the function `dsROCrate::safe_project()`.
-
-```{r, out.lines=-(rocrate_lines(basic_rocrate) - 2)}
-basic_rocrate <- o |>
-  dsROCrate::safe_project(rocrate = basic_rocrate,
-                          project = PROJECT)
-
-print(basic_rocrate) # note that the output will be truncated
-```
-
-#### Safe People
-To add details for Safe People, use the function `dsROCrate::safe_people()`.
-
-```{r safe_people, out.lines=-(rocrate_lines(basic_rocrate) + 1)}
-basic_rocrate <- o |>
-  dsROCrate::safe_people(rocrate = basic_rocrate, user = PEOPLE)
-
-print(basic_rocrate) # note that the output will be truncated
-```
-
-#### Safe Setting
-To add details for Safe Setting, use the function `dsROCrate::safe_setting()`.
-
-**⚠️NOTE:** The `dsROCrate::safe_setting` function requires administrator
-privileges, so here, we will have to log in with administrator credentials (if
-you used a non-administrator account previously).
-
-```{r, eval = FALSE}
-# close previous connection
-opalr::opal.logout(o)
-
-# open new connection as administrator
-o <- opalr::opal.login(
+```{r quick_start, eval = FALSE}
+# open connection
+con <- opalr::opal.login(
   username = "administrator",
   password = "password",
-  url = SERVER
+  url = "https://opal-demo.obiba.org"
 )
+
+# generate RO-Crate with Five Safes components
+crate <- con |>
+  # initialise RO-Crate
+  dsROCrate::init(project = "CNSIM", tables = "CNSIM1", user = "dsuser") |>
+  # extract Five Safes components
+  dsROCrate::safe_people() |>
+  dsROCrate::safe_project() |>
+  dsROCrate::safe_data() |>
+  dsROCrate::safe_setting() |>
+  dsROCrate::safe_output()
+
+# generate report
+dsROCrate::report(crate, title = "DataSHIELD Five Safes report")
 ```
 
-Then, we can proceed as per usual:
-```{r, out.lines=-(rocrate_lines(basic_rocrate) - 2)}
-basic_rocrate <- o |>
-  dsROCrate::safe_setting(rocrate = basic_rocrate)
-
-print(basic_rocrate) # note that the output will be truncated
-```
-
-#### Safe Outputs
-To add details for Safe Outputs, use the function `dsROCrate::safe_output()`.
-Currently, only log files from the operations executed by the user within a 
-specific period. Set the period using `logs_from` and `logs_to`. Additionally,
-a list of functions executed by the user are extracted in a separate file/entity.
-
-**⚠️NOTE:** Similar to `dsROCrate::safe_setting`, the `dsROCrate::safe_output` 
-function requires of administrator rights, so here, we will have to log in with 
-administrator credentials:
+Alternatively, the `dsROCrate::audit()` function can be used to generate an audit with
+all the Five Safes components:
 
 ```{r, eval = FALSE}
-# close previous connection
-opalr::opal.logout(o)
-
-# open new connection as administrator
-o <- opalr::opal.login(
+proj_audit <- opalr::opal.login(
   username = "administrator",
   password = "password",
-  url = SERVER
-)
-```
-
----------
-
-##### DataSHIELD operations
-
-**⚠️NOTE:** Before extracting logs, ensure there is recent activity on the 
-server for testing purposes. This can be done using the following commands:
-
-###### Setup
-You will need the following packages:
-
-```{r, eval = FALSE}
-pak::pak("DSI")
-pak::pak("DSOpal")
-pak::pak("dsBaseClient")
-```
-
-###### Open connection
-```{r}
-# run some test commands with dsBaseClient
-## needed to defined the OpalDriver class in the current environment
-DSOpal::Opal()
-## create new login object, note that here we use the `dsuser`
-builder <- DSI::newDSLoginBuilder()
-builder$append(server = "study1",
-               url = SERVER,
-               user = "dsuser",
-               password = DSUSERPASS,
-               driver = "OpalDriver")
-logindata <- builder$build()
-conns <- DSI::datashield.login(logins = logindata)
-```
-
-###### Simulate some operations
-```{r, eval = TRUE}
-## assign data
-DSI::datashield.assign.table(conns["study1"], 
-                             symbol = "dsROCrate_test",
-                             table = paste0(PROJECT, ".", TABLES[1]),
-                             errors.print = TRUE)
-
-dsBaseClient::ds.ls(datasources = conns["study1"])
-dsBaseClient::ds.summary("dsROCrate_test")
-```
-
----------
-
-Then, we can proceed as per usual:
-
-```{r safe_outputs_internal, echo=FALSE}
-lines_before_safe_outputs <- rocrate_lines(basic_rocrate)
-```
-
-```{r safe_outputs}
-basic_rocrate <- o |>
-  dsROCrate::safe_output(rocrate = basic_rocrate,
-                         logs_from = Sys.time() - 60, # capture the last minute
-                         logs_to = Sys.time())
-```
-
-```{r, out.lines=-(lines_before_safe_outputs + 1)}
-print(basic_rocrate) # note that the output will be truncated
-```
-
-### 2.4. Close connection
-
-```{r}
-opalr::opal.logout(o)
-```
-
-### 2.5. Bag/Save RO-Crate
-
-The resulting RO-Crate can be stored into an RO-Crate bag/archive with the
-function `rocrateR::bag_rocrate`:
-
-```{r}
-# create temp directory
-dir.create("./rocrates", showWarnings = FALSE)
-```
-
-NOTE: In the above example, a `path` to store the logs wasn't provided when 
-calling `dsROCrate::safe_output`, before creating an RO-Crate bag, we should 
-save the contents of this file first. In addition, the contents for the entity
-with the list of functions executed:
-
-```{r, eval = TRUE, warning = FALSE}
-logs_entity <- basic_rocrate |>
-  rocrateR::get_entity(type = "File")
-# write file using the path given by `@id`
-## write raw logs
-writeLines(
-  logs_entity[[1]]$content[[1]], 
-  file.path("./rocrates", logs_entity[[1]]$`@id`)
-)
-## write CSV with mappings and executed functions
-write.csv(
-  logs_entity[[2]]$content[[1]], 
-  file.path("./rocrates", logs_entity[[2]]$`@id`),
-  row.names = FALSE
-)
-
-# remove the section `content`
-logs_entity[[1]]$content <- NULL
-logs_entity[[2]]$content <- NULL
-# update the RO-Crate
-basic_rocrate <- basic_rocrate |>
-  rocrateR::add_entity(logs_entity[[1]], overwrite = TRUE) |>
-  rocrateR::add_entity(logs_entity[[2]], overwrite = TRUE)
-```
-
-```{r}
-# create RO-Crate bag
-path_to_rocrate_bag <- basic_rocrate |>
-  rocrateR::bag_rocrate(path = "./rocrates", overwrite = TRUE)
-```
-
-We can explore the contents with the following commands:
-
-```{r}
-# extract files in temporary directory
-path_to_rocrate_bag |>
-  # extract contents inside ./rocrates/ROC
-  rocrateR::unbag_rocrate(output = "./rocrates/ROC", quiet = TRUE) |>
-  # create tree with the files
-  fs::dir_tree()
-```
-
-### 2.6. Clean working directory
-
-```{r}
-unlink("./rocrates", recursive = TRUE, force = TRUE)
-```
-
-
-<br />
-
-## 3. Auditing RO-Crates and servers
-
-### 3.1. Audit People
-
-##### List accessible tables within a project for an user
-```{r, warning=FALSE}
-safe_people_crate_v1 <- opalr::opal.login(
-  username = USERNAME,
-  password = USERPASS,
-  url = SERVER
+  url = "https://opal-demo.obiba.org"
 ) |>
-  dsROCrate::audit_safe_people(user = "dsuser", project = "CNSIM")
+  dsROCrate::audit(project = "CNSIM", tables = "CNSIM1", user = "dsuser")
 
-print(safe_people_crate_v1)
+# generate report
+dsROCrate::report(proj_audit, title = "DataSHIELD Safe People - Audit Report")
 ```
 
-###### Markdown report
+## Learn More
 
-A markdown report can be created with an overview and details for an RO-Crate,
-using the `dsROCrate::rocrate_report`:
-
-**Only generate .Rmd file**
-
-```{r safe_people_crate_audit_v1}
-safe_people_crate_v1_rmd <- tempfile(fileext = ".Rmd") # temporary file
-
-safe_people_crate_contents <- safe_people_crate_v1 |>
-  dsROCrate::rocrate_report(filepath = safe_people_crate_v1_rmd, render = FALSE)
-
-# display Overview diagram
-safe_people_crate_contents$overview_diagram
-
-# display Overview data (Safe People, Safe Projects and Safe Data)
-safe_people_crate_contents$overview_data |>
-  knitr::kable()
-```
-
-**Render and display report (HTML)**
+For further details, see the following vignette:
 
 ```{r, eval = FALSE}
-safe_people_crate_v1 |>
-  dsROCrate::rocrate_report(filepath = safe_people_crate_v1_rmd,
-                            title = "DataSHIELD Safe People - Audit Report",
-                            render = TRUE, 
-                            overwrite = TRUE)
+vignette("getting-started", package = "dsROCrate")
 ```
 
-##### List all accessible projects & tables for an user
-```{r safe_people_crate_audit_v2, warning=FALSE}
-safe_people_crate_v2 <- opalr::opal.login(
-  username = USERNAME,
-  password = USERPASS,
-  url = SERVER
-) |>
-  dsROCrate::audit_safe_people(user = "dsuser")
-
-safe_people_crate_v2_rmd <- tempfile(fileext = ".Rmd") # temporary file
-
-safe_people_crate_contents_v2 <- safe_people_crate_v2 |>
-  dsROCrate::rocrate_report(filepath = safe_people_crate_v2_rmd, render = FALSE)
-
-# display Overview diagram
-safe_people_crate_contents_v2$overview_diagram
-
-# display Overview data (Safe People, Safe Projects and Safe Data)
-safe_people_crate_contents_v2$overview_data |>
-  knitr::kable()
-```
-
-### 3.2. Audit Project
-
-##### List users and dataset/table level permissions within a project
-```{r, warning=FALSE}
-safe_project_crate_v1 <- opalr::opal.login(
-  username = USERNAME,
-  password = USERPASS,
-  url = SERVER
-) |>
-  dsROCrate::audit_safe_project(project = "CNSIM")
-
-print(safe_project_crate_v1)
-```
-
-###### Markdown report
-
-A markdown report can be created with an overview and details for an RO-Crate,
-using the `dsROCrate::rocrate_report`:
-
-**Only generate .Rmd file**
-
-```{r safe_project_crate_audit_v1}
-safe_project_crate_v1_rmd <- tempfile(fileext = ".Rmd") # temporary file
-
-safe_project_crate_contents <- safe_project_crate_v1 |>
-  dsROCrate::rocrate_report(filepath = safe_project_crate_v1_rmd, render = FALSE)
-
-# display Overview diagram
-safe_project_crate_contents$overview_diagram
-
-# display Overview data (Safe People, Safe Projects and Safe Data)
-safe_project_crate_contents$overview_data |>
-  knitr::kable()
-```
-
-**Render and display report (HTML)**
-
-```{r, eval = FALSE}
-safe_project_crate_v1 |>
-  dsROCrate::rocrate_report(filepath = safe_project_crate_v1_rmd, 
-                            title = "DataSHIELD Safe Project - Audit Report",
-                            render = TRUE, 
-                            overwrite = TRUE)
-```
-
-<br />
-
-### 3.3. Audit Study
-
-##### List users and dataset/table level permissions within a study (i.e., multiple servers)
-```{r, warning=FALSE}
-study_crate_v1 <- 
-  list(
-    "opal_test" = opalr::opal.login(
-      username = USERNAME,
-      password = USERPASS,
-      url = "https://opal-test.obiba.org"
-    ),
-    "opal_demo" = opalr::opal.login(
-      username = USERNAME,
-      password = USERPASS,
-      url = "https://opal-demo.obiba.org"
-    )
-  ) |>
-  dsROCrate::audit_study(project = "CNSIM")
-
-print(study_crate_v1)
-```
-
-###### Markdown report
-
-A markdown report can be created with an overview and details for an RO-Crate,
-using the `dsROCrate::rocrate_report`:
-
-**Only generate .Rmd file**
-
-```{r study_crate_audit_v1}
-study_crate_v1_rmd <- tempfile(fileext = ".Rmd") # temporary file
-
-safe_project_crate_contents <- study_crate_v1 |>
-  dsROCrate::rocrate_report(filepath = study_crate_v1_rmd, render = FALSE)
-
-# display Overview diagram
-safe_project_crate_contents$overview_diagram
-
-# display Overview data (Safe People, Safe Projects and Safe Data)
-safe_project_crate_contents$overview_data |>
-  knitr::kable()
-```
-
-**Render and display report (HTML)**
-
-```{r, eval = FALSE}
-study_crate_v1 |>
-  dsROCrate::rocrate_report(filepath = study_crate_v1_rmd, 
-                            title = "DataSHIELD Study audit",
-                            render = TRUE, 
-                            overwrite = TRUE)
-```
-
-<br />
-
-## 4. Identity
+## Identity
 
 You are welcome to use any of the following hex codes when referencing `{dsROCrate}`:
 
 [<img src="man/figures/logo.png" alt="logo" align="left" height="150" style="float:left; height:150px;"/>](man/figures/logo.png)
 [<img src="man/figures/logo_white.png" alt="logo-white" align="left" height="150" style="float:left; height:150px;"/>](man/figures/logo_white.png)
 [<img src="man/figures/logo_black.png" alt="logo-black" align="left" height="150" style="float:left; height:150px;"/>](man/figures/logo_black.png)
-
-```{r, echo = FALSE, message = FALSE, error = FALSE}
-unlink(safe_people_crate_v1_rmd, TRUE, TRUE)
-unlink(safe_people_crate_v2_rmd, TRUE, TRUE)
-unlink(safe_project_crate_v1_rmd, TRUE, TRUE)
-unlink(study_crate_v1_rmd, TRUE, TRUE)
-```

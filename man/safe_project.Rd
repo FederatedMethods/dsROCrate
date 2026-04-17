@@ -6,6 +6,7 @@
 \alias{safe_project.character}
 \alias{safe_project.opal}
 \alias{safe_project.rocrate}
+\alias{safe_project.ArmadilloCredentials}
 \title{Safe Project details}
 \source{
 \itemize{
@@ -68,6 +69,20 @@
   resources = attr(x, "resources"),
   tables = attr(x, "tables"),
   user = attr(x, "user")
+)
+
+\method{safe_project}{ArmadilloCredentials}(
+  x,
+  ...,
+  profile = "default",
+  project = NULL,
+  rocrate = rocrateR::rocrate_5s(),
+  asset_id_suffix = "#asset:",
+  project_id_suffix = "#project:",
+  path = NULL,
+  resources = NULL,
+  tables = NULL,
+  user = NULL
 )
 }
 \arguments{

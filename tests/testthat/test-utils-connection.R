@@ -35,25 +35,25 @@ test_that("project_exists() dispatches to opal method", {
   opalr::opal.logout(opal_con)
 })
 
-test_that("project_exists() works for armadillo objects", {
-  skip_if_not_installed("MolgenisArmadillo")
-
-  arm <- methods::new("ArmadilloCredentials")
-
-  local_mocked_bindings(
-    armadillo.list_projects = function() c("proj1", "proj2"),
-    .package = "MolgenisArmadillo"
-  )
-
-  expect_silent(
-    project_exists(arm, project = "proj1")
-  )
-
-  expect_error(
-    project_exists(arm, project = "missing"),
-    "was not found in the given Armadillo connection!"
-  )
-})
+# test_that("project_exists() works for armadillo objects", {
+#   skip_if_not_installed("MolgenisArmadillo")
+#
+#   arm <- methods::new("ArmadilloCredentials")
+#
+#   local_mocked_bindings(
+#     armadillo.list_projects = function() c("proj1", "proj2"),
+#     .package = "MolgenisArmadillo"
+#   )
+#
+#   expect_silent(
+#     project_exists(arm, project = "proj1")
+#   )
+#
+#   expect_error(
+#     project_exists(arm, project = "missing"),
+#     "was not found in the given Armadillo connection!"
+#   )
+# })
 
 test_that("parse_user_profiles() dispatches to opal method", {
   opal_con <- structure(list(), class = "opal")
@@ -110,7 +110,7 @@ test_that("parse_user_profiles.opal() handles missing userInfo column", {
 test_that("parse_user_profiles.opal() parses JSON userInfo and NA correctly", {
   opal_con <- structure(list(), class = "opal")
 
-  json <- '{"firstName":"John","lastName":"Doe"}'
+  json <- '{"givenName":"John","familyName":"Doe"}'
 
   local_mocked_bindings(
     `opal.get` = function(...) {

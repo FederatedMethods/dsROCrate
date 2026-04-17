@@ -154,10 +154,10 @@ test_that("update_project_datasets updates project entities of an RO-Crate", {
 
 test_that("user_perm_entity works for all values of 'permission'", {
   input_tbl <- tibble::tibble(
-    user = "dsuser",
-    user_id = "dsuser",
-    table = "tab1",
-    table_id = "tab1",
+    person = "dsuser",
+    person_id = "dsuser",
+    asset = "tab1",
+    asset_id = "tab1",
     permission = c(
       "view",
       "view-values",
@@ -177,10 +177,10 @@ test_that("user_perm_entity works for all values of 'permission'", {
 
 test_that("user_perm_entity returns NULL for unknown 'permission'", {
   input_tbl <- tibble::tibble(
-    user = "dsuser",
-    user_id = "dsuser",
-    table = "tab1",
-    table_id = "tab1",
+    person = "dsuser",
+    person_id = "dsuser",
+    asset = "tab1",
+    asset_id = "tab1",
     permission = "INVALID"
   )
 

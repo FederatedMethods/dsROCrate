@@ -61,7 +61,7 @@ test_that("extract_safe_people.opal iterates over all returned subject profiles"
   # terminate connection when done with tests
   withr::defer(opalr::opal.logout(opal_con))
 
-  users_raw <- opalr::opal.get(opal_con, "/system/subject-profiles/")
+  users_raw <- opalr::oadmin.user_profiles(opal_con, df = FALSE)
   users_tbl <- dplyr::bind_rows(users_raw)
 
   expect_true(nrow(users_tbl) >= 1)
@@ -200,9 +200,10 @@ test_that("flatten_safe_people.rocrate extracts person metadata correctly", {
 
   expect_s3_class(res, "data.frame")
   expect_true(all(
-    c("id", "name", "given_name", "family_name", "organisation") %in% names(res)
+    c("person_id", "name", "given_name", "family_name", "organisation") %in%
+      names(res)
   ))
-  expect_equal(res$id, "#p1")
+  expect_equal(res$person_id, "#p1")
   expect_equal(res$name, "Jane Doe")
 })
 
@@ -222,7 +223,7 @@ test_that("flatten_safe_people.rocrate filters by id argument", {
   res <- flatten_safe_people(roc, id = "#p2")
 
   expect_equal(nrow(res), 1)
-  expect_equal(res$id, "#p2")
+  expect_equal(res$person_id, "#p2")
 })
 
 test_that("flatten_safe_people.rocrate returns empty tibble on malformed input", {

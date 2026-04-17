@@ -4,18 +4,26 @@
 \name{dsROCrate-package}
 \alias{dsROCrate}
 \alias{dsROCrate-package}
-\title{dsROCrate: 'DataSHIELD' RO-Crate Wrapper Functions}
+\title{dsROCrate: 'DataSHIELD' RO-Crate Governance Functions}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-R package to wrap elements from 'DataSHIELD' analysis into an RO-Crate.
+Tools for wrapping 'DataSHIELD' analyses into RO-Crate (Research Object Crate) objects. Provides functions to create structured metadata for federated data analysis projects, enabling governance tracking of data access, project membership, analysis execution and output validation across distributed data sources.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/FederatedMethods/dsROCrate}
+  \item Report bugs at \url{https://github.com/FederatedMethods/dsROCrate/issues}
+}
+
 }
 \author{
 \strong{Maintainer}: Roberto Villegas-Diaz \email{r.villegas-diaz@outlook.com} (\href{https://orcid.org/0000-0001-5036-8661}{ORCID})
 
 Authors:
 \itemize{
-  \item Rebecca Wilson (\href{https://orcid.org/0000-0003-2294-593X}{ORCID})
+  \item Becca Wilson (\href{https://orcid.org/0000-0003-2294-593X}{ORCID})
   \item Olly Butters (\href{https://orcid.org/0000-0003-0354-8461}{ORCID})
   \item Stuart Wheater (\href{https://orcid.org/0009-0003-2419-1964}{ORCID})
 }

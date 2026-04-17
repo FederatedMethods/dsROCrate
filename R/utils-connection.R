@@ -22,7 +22,7 @@ parse_user_profiles.opal <- function(x, ..., user) {
   principal <- userInfo <- NULL
 
   # get user profiles and filter by the current user
-  user_prof_tbl <- opalr::opal.get(x, "/system/subject-profiles/") |>
+  user_prof_tbl <- opalr::oadmin.user_profiles(x, df = FALSE) |>
     dplyr::bind_rows() |>
     dplyr::filter(principal %in% user)
   # extract (if available) `userInfo` which contains additional details
@@ -45,15 +45,12 @@ parse_user_profiles.opal <- function(x, ..., user) {
 }
 
 # S4 methods ----
-#' @aliases parse_user_profiles,armadillo-method
-#' @family Armadillo
-setMethod(
-  "parse_user_profiles",
-  signature(x = "armadillo"),
-  function(x, ..., user) {
-    message("PLACEHOLDER!")
-  }
-)
+#' @method parse_user_profiles ArmadilloCredentials
+#' @rdname parse_user_profiles
+#' @export
+parse_user_profiles.ArmadilloCredentials <- function(x, ..., user) {
+  message("PLACEHOLDER!")
+}
 
 #' Verify if project exists
 #'
@@ -86,10 +83,9 @@ project_exists <- function(x, ...) {
 project_exists.opal <- function(x, ..., project) {
   if (!opalr::opal.project_exists(x, project)) {
     stop(
-      paste0(
-        "The given `project = '",
-        project,
-        "'` was not found in the given Opal connection!"
+      sprintf(
+        "The `project = '%s'` was not found in the given Opal connection!",
+        project
       ),
       call. = FALSE
     )
@@ -97,11 +93,11 @@ project_exists.opal <- function(x, ..., project) {
 }
 
 # S4 methods ----
-#' @aliases project_exists,armadillo-method
+#' @method project_exists ArmadilloCredentials
+#' @rdname project_exists
+#' @export
 #' @family Armadillo
-setMethod(
-  "project_exists",
-  signature(x = "armadillo"),
+project_exists.ArmadilloCredentials <-
   function(
     x,
     ...,
@@ -109,13 +105,11 @@ setMethod(
   ) {
     if (!(project %in% MolgenisArmadillo::armadillo.list_projects())) {
       stop(
-        paste0(
-          "The given `project = '",
-          project,
-          "'` was not found in the given Armadillo connection!"
+        sprintf(
+          "The `project = '%s'` was not found in the given Armadillo connection!",
+          project
         ),
         call. = FALSE
       )
     }
   }
-)

@@ -10,7 +10,7 @@ flatten_safe_data(x, ...)
 
 \method{flatten_safe_data}{default}(x, ...)
 
-\method{flatten_safe_data}{rocrate}(x, ..., id = NULL)
+\method{flatten_safe_data}{rocrate}(x, ..., id = NULL, asset_id_suffix = "#asset:")
 }
 \arguments{
 \item{x}{Object (e.g., RO-Crate) with Safe Data details. This can be
@@ -20,7 +20,7 @@ generated with the \code{\link[=extract_safe_data]{extract_safe_data()}} functio
 If not provided, extract all entities with \verb{@type = 'Dataset'}.}
 }
 \value{
-Data frame with safe data details.
+Data frame with Safe Data details.
 }
 \description{
 Flatten object with Safe Data details

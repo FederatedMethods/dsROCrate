@@ -3,17 +3,17 @@
 #' @param x This can be an RO-Crate ([rocrate][rocrateR::rocrate()] class) or a
 #'     string with the path to an RO-Crate.
 #' @param ... Other optional arguments. See the full documentation,
-#'     [`?dsROCrate::rocrate_report`][rocrate_report()].
+#'     [`?dsROCrate::report`][report()].
 #'
 #' @returns RO-Crate report as markdown (.md) file and/or HTML.
 #' @export
-rocrate_report <- function(x, ...) {
-  UseMethod("rocrate_report")
+report <- function(x, ...) {
+  UseMethod("report")
 }
 
-#' @rdname rocrate_report
+#' @rdname report
 #' @export
-rocrate_report.character <- function(
+report.character <- function(
   x,
   ...,
   title = "DataSHIELD Report",
@@ -28,11 +28,11 @@ rocrate_report.character <- function(
   max_line_length = 200
 ) {
   # attempt loading the RO-Crate
-  rocrate <- load_rocrate(x)
+  rocrate <- rocrateR::load_rocrate(x)
 
   # call the next generic method
   rocrate |>
-    rocrate_report(
+    report(
       title = title,
       filepath = filepath,
       render = render,
@@ -45,9 +45,9 @@ rocrate_report.character <- function(
     )
 }
 
-#' @rdname rocrate_report
+#' @rdname report
 #' @export
-rocrate_report.default <- function(x, ...) {
+report.default <- function(x, ...) {
   stop(
     "Unknown class, please try either a file path or",
     " an object with `rocrate` class!"
@@ -55,9 +55,9 @@ rocrate_report.default <- function(x, ...) {
 }
 
 #' @param study_name String with the study name.
-#' @rdname rocrate_report
+#' @rdname report
 #' @export
-rocrate_report.list <- function(
+report.list <- function(
   x,
   ...,
   study_name,
@@ -73,7 +73,7 @@ rocrate_report.list <- function(
   max_line_length = 200
 ) {
   # local bindings
-  id <- name <- permission <- project <- server <- user <- NULL
+  asset <- id <- name <- permission <- project <- server <- user <- NULL
 
   # validate that all the objects in the list, `x`, are valid RO-Crates
   sapply(x, rocrateR::is_rocrate)
@@ -81,7 +81,7 @@ rocrate_report.list <- function(
   # generate individual reports for each RO-Crate
   report_outputs <- lapply(
     x,
-    rocrate_report,
+    report,
     title = title,
     filepath = filepath,
     render = FALSE,
@@ -94,131 +94,40 @@ rocrate_report.list <- function(
   )
 
   # combine reports ----
-  ## Safe People -----
-  safe_people_all <- tryCatch(
-    {
-      report_outputs |>
-        # extract each component per server
-        lapply(getElement, name = "safe_people") |>
-        # attach the server name as a new column
-        purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
-        # combine rows
-        dplyr::bind_rows()
-    },
-    error = function(e) {
-      NULL
-    }
-  )
-  ## Safe Data ----
-  safe_data_all <- tryCatch(
-    {
-      report_outputs |>
-        # extract each component per server
-        lapply(getElement, name = "safe_data") |>
-        # attach the server name as a new column
-        purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
-        # combine rows
-        dplyr::bind_rows()
-    },
-    error = function(e) {
-      NULL
-    }
-  )
-  ## Safe Projects ----
-  safe_project_all <- tryCatch(
-    {
-      report_outputs |>
-        # extract each component per server
-        lapply(getElement, name = "safe_project") |>
-        # attach the server name as a new column
-        purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
-        # combine rows
-        dplyr::bind_rows()
-    },
-    error = function(e) {
-      NULL
-    }
-  )
-  ## Safe Settings ----
-  safe_setting_all <- tryCatch(
-    {
-      report_outputs |>
-        # extract each component per server
-        lapply(getElement, name = "safe_setting") |>
-        # attach the server name as a new column
-        purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
-        # combine rows
-        dplyr::bind_rows()
-    },
-    error = function(e) {
-      NULL
-    }
-  )
-  ## Safe Outputs ----
-  safe_output_all <- tryCatch(
-    {
-      report_outputs |>
-        # extract each component per server
-        lapply(getElement, name = "safe_output") |>
-        # attach the server name as a new column
-        purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
-        # combine rows
-        dplyr::bind_rows()
-    },
-    error = function(e) {
-      NULL
-    }
-  )
-  ## Safe Data permissions (optional) ----
-  safe_data_permissions_all <- tryCatch(
-    {
-      report_outputs |>
-        # extract each component per server
-        lapply(getElement, name = "safe_data_permissions") |>
-        # attach the server name as a new column
-        purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
-        # combine rows
-        dplyr::bind_rows()
-    },
-    error = function(e) {
-      NULL
-    }
-  )
+  ## Safe People
+  safe_people_all <- .extract_srvr_comp(report_outputs, "safe_people")
+  ## Safe Data
+  safe_data_all <- .extract_srvr_comp(report_outputs, "safe_data")
+  ## Safe Projects
+  safe_project_all <- .extract_srvr_comp(report_outputs, "safe_project")
+  ## Safe Settings
+  safe_setting_all <- .extract_srvr_comp(report_outputs, "safe_setting")
+  ## Safe Outputs
+  safe_output_all <- .extract_srvr_comp(report_outputs, "safe_output")
+  ## Safe Data permissions (optional)
+  safe_data_permissions_all <- report_outputs |>
+    .extract_srvr_comp("safe_data_permissions")
 
   ## overview table ----
   overview_data_all <- tibble::tibble()
   ## combine aggregated data to generate new overview table
-  safe_project_data_all <- safe_project_all |>
-    dplyr::rename(project_id = id) |>
-    dplyr::left_join(
-      safe_data_all |>
-        dplyr::rename(table_id = id),
-      by = c("table" = "name", "server" = "server")
-    )
+  safe_project_data_all <- safe_project_all #|>
+  # dplyr::rename(asset = asset_name)
+
   # if data permissions were found, then combine with project-data details and
   # generate new overview table
   if (!is.null(safe_data_permissions_all)) {
     overview_data_all <- safe_data_permissions_all |>
-      dplyr::left_join(
-        safe_people_all |>
-          dplyr::rename(user_id = id),
-        by = c("user_id", "server")
-      ) |>
-      dplyr::left_join(safe_project_data_all, by = c("table_id", "server")) |>
-      dplyr::select(
-        server,
-        project,
-        table,
-        permission,
-        user = name
-      )
+      dplyr::left_join(safe_people_all, by = c("person_id", "server")) |>
+      dplyr::left_join(safe_project_data_all, by = c("asset_id", "server")) |>
+      dplyr::select(server, project, asset, permission, user = name)
 
     # if any Safe Outputs were found in the inputs, include in the overview
     if (!is.null(safe_output_all) && nrow(safe_output_all)) {
       overview_data_all <- overview_data_all |>
         dplyr::left_join(
           safe_output_all,
-          by = c("server", "project", "table", "user")
+          by = c("server", "project", "asset", "user")
         )
     }
   } else {
@@ -261,7 +170,7 @@ rocrate_report.list <- function(
   report_contents <- c(
     .markdown_report_header(title, overview_data_all, overview_lst$diag_path),
     tidy_overview_tbl |>
-      # # tidy up duplicated values in `project` and `table`
+      # # tidy up duplicated values in `project` and `asset`
       # dplyr::mutate(
       #   Project = unfill_vec(Project),
       #   Data = unfill_vec(Data)
@@ -340,7 +249,6 @@ rocrate_report.list <- function(
       stop("The format `", doc_format, "` is not valid! Try 'html' or 'pdf'.")
     }
   } else {
-    print(overview_lst$diag_lst)
     return(invisible(
       list(
         overview_diagram = overview_lst$diag_lst,
@@ -387,9 +295,9 @@ rocrate_report.list <- function(
 #'     overview's diagram (default: `NULL`, estimated based on number of nodes).
 #' @param max_line_length Integer with the maximum number of characters per line
 #'     in the RO-Crate to be printed in the report.
-#' @rdname rocrate_report
+#' @rdname report
 #' @export
-rocrate_report.rocrate <- function(
+report.rocrate <- function(
   x,
   ...,
   title = "DataSHIELD Report",
@@ -404,9 +312,9 @@ rocrate_report.rocrate <- function(
   max_line_length = 200
 ) {
   # local bindings ----
-  actionStatus <- description <- fx <- table <- NULL
-  encodingFormat <- id <- name <- project <- table_id <- table_name <- NULL
-  timestamp <- type <- user_id <- user <- NULL
+  actionStatus <- asset <- asset_id <- description <- fx <- NULL
+  encodingFormat <- id <- name <- permission <- perm_id <- project <- NULL
+  table_name <- timestamp <- type <- person_id <- user <- NULL
 
   # validate RO-Crate ----
   rocrateR::is_rocrate(x)
@@ -546,36 +454,31 @@ rocrate_report.rocrate <- function(
   ### extract (if available) table with user permissions
   user_perm_tbl <- flatten_user_perm_entity(user_perm_entity_lst)
   ### extract table with Safe People details
-  safe_people_tbl <- flatten_safe_people(safe_people_rocrate) |>
-    dplyr::rename(user_id = id)
+  safe_people_tbl <- flatten_safe_people(safe_people_rocrate)
   ### extract table with Safe Project details
   safe_project_tbl <- flatten_safe_project(safe_project_rocrate)
   ### extract table with Safe Data details
-  safe_data_tbl <- flatten_safe_data(safe_data_rocrate) |>
-    dplyr::rename(table_id = id, table_name = name)
+  safe_data_tbl <- flatten_safe_data(safe_data_rocrate)
   if (!is.null(user_perm_tbl) && nrow(user_perm_tbl) > 0) {
     overview_tbl <- user_perm_tbl |>
       # combine with Safe People details
-      dplyr::left_join(safe_people_tbl, by = "user_id") |>
-      # drop unused columns
-      dplyr::select(-id, -actionStatus, -description) |>
+      dplyr::left_join(safe_people_tbl, by = "person_id") |>
+      # subset columns of interest
+      dplyr::select(perm_id, person_id, name, asset_id, permission) |>
       # combine with Safe Data details
-      dplyr::left_join(safe_data_tbl, by = c("table_id")) |>
+      dplyr::left_join(safe_data_tbl, by = "asset_id") |>
       # combine with Safe Project details
-      dplyr::left_join(safe_project_tbl, by = c("table_name" = "table")) |>
-      # drop unused columns
-      dplyr::select(-id, -user_id, -table_id, -type) |>
-      dplyr::rename(table = table_name)
+      dplyr::left_join(safe_project_tbl, by = c("asset_id", "asset")) #|>
+    # # drop unused columns
+    # dplyr::select(-id, -person_id, -asset_id, -type) |>
+    # dplyr::rename(asset = asset_name)
   } else {
     overview_tbl <- flatten_safe_people(safe_people_rocrate) |>
-      dplyr::select(-id) |>
-      dplyr::bind_cols(
-        flatten_safe_project(safe_project_rocrate) |>
-          dplyr::select(-id),
-        flatten_safe_data(safe_data_rocrate) |>
-          dplyr::select(-id) |>
-          dplyr::rename(table = name)
-      )
+      purrr::pmap(function(person_id, name, ...) {
+        tibble::tibble(person_id, name) |>
+          dplyr::bind_cols(flatten_safe_project(safe_project_rocrate))
+      }) |>
+      purrr::list_c()
   }
 
   # attempt extracting list of functions executed by the users from Safe Outputs
@@ -596,15 +499,15 @@ rocrate_report.rocrate <- function(
     safe_output_tbl_v2 <- safe_output_tbl |>
       dplyr::mutate(
         project = gsub("(?=\\.).*$", "", table, perl = TRUE),
-        table = gsub("^.*(?<=\\.)", "", table, perl = TRUE)
+        asset = gsub("^.*(?<=\\.)", "", table, perl = TRUE)
       ) |>
-      dplyr::distinct(project, table, user, fx, timestamp)
+      dplyr::distinct(project, asset, user, fx, timestamp)
 
     # append the list of functions to the overview table
     overview_tbl <- overview_tbl |>
       dplyr::left_join(
         safe_output_tbl_v2,
-        by = c("project" = "project", "table" = "table", "name" = "user")
+        by = c("project" = "project", "asset" = "asset", "name" = "user")
       ) |>
       # replace 'NA' in fx & timestamp with empty string
       dplyr::mutate(
@@ -695,7 +598,6 @@ rocrate_report.rocrate <- function(
       stop("The format `", doc_format, "` is not valid! Try 'html' or 'pdf'.")
     }
   } else {
-    print(overview_lst$diag_lst)
     return(invisible(
       list(
         overview_diagram = overview_lst$diag_lst,
@@ -725,13 +627,34 @@ rocrate_report.rocrate <- function(
   )
 }
 
+.extract_srvr_comp <- function(x, component) {
+  tryCatch(
+    {
+      x |>
+        # extract each component per server
+        purrr::map(component) |>
+        # lapply(getElement, name = component) |>
+        # filter out NULL elements
+        purrr::keep(\(x) !is.null(x)) |>
+        # attach the server name as a new column
+        purrr::imap(~ dplyr::mutate(.x, server = .y)) |>
+        # combine rows
+        dplyr::bind_rows()
+    },
+    error = function(e) {
+      NULL
+    }
+  )
+}
+
 #' Create diagram for RO-Crate overview
 #'
 #' @param overview_tbl Data frame with overview details for the RO-Crate.
-#' @inheritParams rocrate_report
+#' @inheritParams report
 #'
 #' @returns Diagram object
 #' @keywords internal
+#' @noRd
 .overview_diagram <- function(
   overview_tbl,
   include_user_perm,
@@ -742,11 +665,11 @@ rocrate_report.rocrate <- function(
   diag_height
 ) {
   # local bindings
-  fx <- name <- permission <- project <- table <- NULL
+  fx <- name <- permission <- project <- asset <- NULL
 
   ## initialise `vars` and `labelvar`
-  vars <- c("project", "table")
-  labelvar <- c(project = "Project", table = "Data")
+  vars <- c("project", "asset")
+  labelvar <- c(project = "Project", asset = "Data")
 
   # check if `overview_tbl` has `permission` field AND include_user_perm = TRUE
   if ("permission" %in% colnames(overview_tbl) && include_user_perm) {
@@ -848,13 +771,14 @@ rocrate_report.rocrate <- function(
 #'
 #' @returns Data frame with tidy overview table.
 #' @keywords internal
+#' @noRd
 .tidy_overview <- function(overview_tbl, include_user_perm) {
   # local bindings
   fx <- permission <- timestamp <- NULL
 
   ## initialise `vars` and `varslab`
-  vars <- c("project", "table")
-  varslab <- c("Project" = "project", "Data" = "table")
+  vars <- c("project", "asset")
+  varslab <- c("Project" = "project", "Data" = "asset")
 
   # check if `overview_tbl` has `permission` field AND include_user_perm = TRUE
   if ("permission" %in% colnames(overview_tbl) && include_user_perm) {
@@ -924,10 +848,11 @@ rocrate_report.rocrate <- function(
 #' Generate Markdown report's header
 #'
 #' @inheritParams .overview_diagram
-#' @inheritParams rocrate_report
+#' @inheritParams report
 #'
 #' @returns String with report's header
 #' @keywords internal
+#' @noRd
 .markdown_report_header <- function(title, overview_tbl, diagram_filepath) {
   # initialise variables for the report header
   unique_users_vct <- unique(c(
@@ -1034,6 +959,7 @@ rocrate_report.rocrate <- function(
 #'
 #' @returns String with updated Markdown report.
 #' @keywords internal
+#' @noRd
 .markdown_report_body <- function(
   report_contents,
   overview_tbl,
@@ -1122,6 +1048,7 @@ rocrate_report.rocrate <- function(
 #'
 #' @returns String with update Markdown report.
 #' @keywords internal
+#' @noRd
 .markdown_report_rocrate <- function(
   report_contents,
   rocrate,
@@ -1170,6 +1097,7 @@ rocrate_report.rocrate <- function(
 #'
 #' @returns String with data frame rendered with `kable`.
 #' @keywords internal
+#' @noRd
 .break_tibble <- function(df, varname) {
   # local bindings
   temp <- NULL

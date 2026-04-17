@@ -4,7 +4,7 @@
 \alias{init}
 \alias{init.opal}
 \alias{init.rocrate}
-\title{Initialise Five Safes RO-Crate}
+\title{Initialise a Five Safes RO-Crate}
 \usage{
 init(x, ...)
 
@@ -70,8 +70,13 @@ values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is
 set to a connection object. If so, then \code{rocrate} is required.}
 }
 \value{
-Five Safes RO-Crate.
+Five Safes RO-Crate object.
 }
 \description{
-Initialise Five Safes RO-Crate
+Creates a new RO-Crate configured for Five Safes auditing.
+}
+\references{
+Wilkinson, M., Dumontier, M., Aalbersberg, I. et al. (2016) The FAIR Guiding
+Principles for scientific data management and stewardship. Sci Data 3,
+160018. https://doi.org/10.1038/sdata.2016.18
 }
