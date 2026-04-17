@@ -34,8 +34,20 @@
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/deploy-local-datashield-server-with-opal.html">Deploy a local DataSHIELD server with Opal</a>
     </li>
+    <li>
+      <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
   </ul></li>
-      </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="https://github.com/FederatedMethods/dsROCrate/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+
+  </a>
+</li>
+      </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
@@ -45,7 +57,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Safe Project details</h1>
-
+    <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/main/R/safe_project.R" class="external-link"><code>R/safe_project.R</code></a></small>
     <div class="hidden name"><code>safe_project.Rd</code></div>
     </div>
 
@@ -112,6 +124,21 @@
 <span>  resources <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"resources"</span><span class="op">)</span>,</span>
 <span>  tables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"tables"</span><span class="op">)</span>,</span>
 <span>  user <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"user"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'ArmadilloCredentials'</span></span>
+<span><span class="fu">safe_project</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  profile <span class="op">=</span> <span class="st">"default"</span>,</span>
+<span>  project <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  rocrate <span class="op">=</span> <span class="fu">rocrateR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rocrateR/man/rocrate_5s.html" class="external-link">rocrate_5s</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  asset_id_suffix <span class="op">=</span> <span class="st">"#asset:"</span>,</span>
+<span>  project_id_suffix <span class="op">=</span> <span class="st">"#project:"</span>,</span>
+<span>  path <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  resources <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tables <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  user <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -213,7 +240,7 @@ ethical purposes serving a public good.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Roberto Villegas-Diaz, Rebecca Wilson, Olly Butters, Stuart Wheater.</p>
+  <p></p><p>Developed by Roberto Villegas-Diaz, Becca Wilson, Olly Butters, Stuart Wheater.</p>
 </div>
 
 <div class="pkgdown">

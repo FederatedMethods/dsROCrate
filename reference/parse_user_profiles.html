@@ -34,8 +34,20 @@
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/deploy-local-datashield-server-with-opal.html">Deploy a local DataSHIELD server with Opal</a>
     </li>
+    <li>
+      <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
   </ul></li>
-      </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="https://github.com/FederatedMethods/dsROCrate/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+
+  </a>
+</li>
+      </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
@@ -45,7 +57,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Parse user profiles</h1>
-
+    <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/main/R/utils-connection.R" class="external-link"><code>R/utils-connection.R</code></a></small>
     <div class="hidden name"><code>parse_user_profiles.Rd</code></div>
     </div>
 
@@ -57,7 +69,11 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S4 method for class 'armadillo'</span></span>
 <span><span class="fu">parse_user_profiles</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, <span class="va">user</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">parse_user_profiles.opal</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, <span class="va">user</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># S3 method for class 'opal'</span></span>
+<span><span class="fu">parse_user_profiles</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, <span class="va">user</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'ArmadilloCredentials'</span></span>
+<span><span class="fu">parse_user_profiles</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, <span class="va">user</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -96,7 +112,7 @@ server pointed by <code>x</code>.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Roberto Villegas-Diaz, Rebecca Wilson, Olly Butters, Stuart Wheater.</p>
+  <p></p><p>Developed by Roberto Villegas-Diaz, Becca Wilson, Olly Butters, Stuart Wheater.</p>
 </div>
 
 <div class="pkgdown">

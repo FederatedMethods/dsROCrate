@@ -35,8 +35,20 @@ MolgenisArmadillo::armadillo.list_projects() functions."><meta property="og:imag
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/deploy-local-datashield-server-with-opal.html">Deploy a local DataSHIELD server with Opal</a>
     </li>
+    <li>
+      <a href="../articles/getting-started.html">Getting Started</a>
+    </li>
   </ul></li>
-      </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="https://github.com/FederatedMethods/dsROCrate/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+
+  </a>
+</li>
+      </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
@@ -46,7 +58,7 @@ MolgenisArmadillo::armadillo.list_projects() functions."><meta property="og:imag
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Verify if project exists</h1>
-
+    <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/main/R/utils-connection.R" class="external-link"><code>R/utils-connection.R</code></a></small>
     <div class="hidden name"><code>project_exists.Rd</code></div>
     </div>
 
@@ -63,7 +75,11 @@ MolgenisArmadillo::armadillo.list_projects() functions."><meta property="og:imag
 <span>  <span class="va">project</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">project_exists.opal</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, <span class="va">project</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># S3 method for class 'opal'</span></span>
+<span><span class="fu">project_exists</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, <span class="va">project</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'ArmadilloCredentials'</span></span>
+<span><span class="fu">project_exists</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, <span class="va">project</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,6 +111,8 @@ MolgenisArmadillo::armadillo.list_projects() functions."><meta property="og:imag
 <code><a href="get_project_details.html">get_project_details()</a></code>,
 <code><a href="get_project_tables.html">get_project_tables()</a></code>,
 <code><a href="get_table_permissions.html">get_table_permissions()</a></code>,
+<code><a href="parse_user_profiles.html">parse_user_profiles()</a></code></p>
+<p>Other Armadillo:
 <code><a href="parse_user_profiles.html">parse_user_profiles()</a></code></p></div>
     </div>
 
@@ -106,7 +124,7 @@ MolgenisArmadillo::armadillo.list_projects() functions."><meta property="og:imag
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Roberto Villegas-Diaz, Rebecca Wilson, Olly Butters, Stuart Wheater.</p>
+  <p></p><p>Developed by Roberto Villegas-Diaz, Becca Wilson, Olly Butters, Stuart Wheater.</p>
 </div>
 
 <div class="pkgdown">
