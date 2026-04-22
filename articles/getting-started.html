@@ -90,7 +90,7 @@
       <h1 data-toc-skip>Getting Started</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/main/vignettes/getting-started.Rmd" class="external-link"><code>vignettes/getting-started.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/v0.0.1/vignettes/getting-started.Rmd" class="external-link"><code>vignettes/getting-started.Rmd</code></a></small>
       <div class="hidden name"><code>getting-started.Rmd</code></div>
 
     </div>
@@ -186,7 +186,7 @@ package. This package can be installed with the following command:</p>
 <span><span class="co">#&gt;       "@type": "Dataset",</span></span>
 <span><span class="co">#&gt;       "name": "",</span></span>
 <span><span class="co">#&gt;       "description": "",</span></span>
-<span><span class="co">#&gt;       "datePublished": "2026-04-17",</span></span>
+<span><span class="co">#&gt;       "datePublished": "2026-04-22",</span></span>
 <span><span class="co">#&gt;       "license": {</span></span>
 <span><span class="co">#&gt;         "@id": "http://spdx.org/licenses/CC-BY-4.0"</span></span>
 <span><span class="co">#&gt;       },</span></span>
@@ -260,8 +260,8 @@ package. This package can be installed with the following command:</p>
 <span><span class="co">#&gt;       "name": "CNSIM1",</span></span>
 <span><span class="co">#&gt;       "description": "",</span></span>
 <span><span class="co">#&gt;       "url": "/datasource/CNSIM/table/CNSIM1",</span></span>
-<span><span class="co">#&gt;       "dateCreated": "2026-04-17T00:00:00Z",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-04-17T00:00:00Z",</span></span>
+<span><span class="co">#&gt;       "dateCreated": "2026-04-22T00:00:00Z",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-04-22T00:00:00Z",</span></span>
 <span><span class="co">#&gt;       "isPartOf": {</span></span>
 <span><span class="co">#&gt;         "@id": "#project:7ba189863f9f641196596cb28e04aa14"</span></span>
 <span><span class="co">#&gt;       }</span></span>
@@ -287,8 +287,8 @@ package. This package can be installed with the following command:</p>
 <span><span class="co">#&gt;       "@id": "#project:7ba189863f9f641196596cb28e04aa14",</span></span>
 <span><span class="co">#&gt;       "@type": "Project",</span></span>
 <span><span class="co">#&gt;       "name": "CNSIM",</span></span>
-<span><span class="co">#&gt;       "dateCreated": "2026-04-17T06:30:00.925Z",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-04-17T07:36:36.126Z",</span></span>
+<span><span class="co">#&gt;       "dateCreated": "2026-04-22T06:30:05.352Z",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-04-22T11:02:18.548Z",</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
 <span><span class="co">#&gt;           "@id": "#asset:fad6faf661584d53e58f9730b14c5aae"</span></span>
@@ -444,7 +444,7 @@ using the following commands:</p>
 <span>                         logs_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">60</span>, <span class="co"># capture the last minute</span></span>
 <span>                         logs_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 73 records... Imported 73 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 140 records... Imported 140 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; Warning: A `path` wasn't provided! The logs will be included in the RO-Crate</span></span>
 <span><span class="co">#&gt; object, under the `content` tag!</span></span></code></pre></div>
@@ -475,7 +475,7 @@ with the function <code><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.ht
 <span><span class="va">path_to_rocrate_bag</span> <span class="op">&lt;-</span> <span class="va">basic_rocrate</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">rocrateR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.html" class="external-link">bag_rocrate</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">tmp_path_bag</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; RO-Crate successfully 'bagged'!</span></span>
-<span><span class="co">#&gt; For details, see: /tmp/RtmpDu4la5/dsROCrate-getting-started/rocrate-dfe5599e6acbc311d2da2db800c2a5e7.zip</span></span></code></pre></div>
+<span><span class="co">#&gt; For details, see: /tmp/RtmpSOQtU8/dsROCrate-getting-started/rocrate-ace45c6ad7a268c3096d6d796c64d3e1.zip</span></span></code></pre></div>
 <p>We can explore the contents with the following commands:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract files in temporary directory</span></span>
@@ -484,12 +484,12 @@ with the function <code><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.ht
 <span>  <span class="fu">rocrateR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rocrateR/man/unbag_rocrate.html" class="external-link">unbag_rocrate</a></span><span class="op">(</span>output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmp_path_bag</span>, <span class="st">"ROC"</span><span class="op">)</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># create tree with the files</span></span>
 <span>  <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/dir_tree.html" class="external-link">dir_tree</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpDu4la5/dsROCrate-getting-started/ROC</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpSOQtU8/dsROCrate-getting-started/ROC</span></span></span>
 <span><span class="co">#&gt; ├── bag-info.txt</span></span>
 <span><span class="co">#&gt; ├── bagit.txt</span></span>
 <span><span class="co">#&gt; ├── <span style="color: #0000BB; font-weight: bold;">data</span></span></span>
-<span><span class="co">#&gt; │   ├── 20260417T085301-dslogs-dsuser.log</span></span>
-<span><span class="co">#&gt; │   ├── 20260417T085301-dslogs-dsuser_mappings.csv</span></span>
+<span><span class="co">#&gt; │   ├── 20260422T110315-dslogs-dsuser.log</span></span>
+<span><span class="co">#&gt; │   ├── 20260422T110315-dslogs-dsuser_mappings.csv</span></span>
 <span><span class="co">#&gt; │   └── ro-crate-metadata.json</span></span>
 <span><span class="co">#&gt; ├── manifest-sha512.txt</span></span>
 <span><span class="co">#&gt; └── tagmanifest-sha512.txt</span></span></code></pre></div>
@@ -519,7 +519,7 @@ with the function <code><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.ht
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="../reference/audit.html">audit</a></span><span class="op">(</span>user <span class="op">=</span> <span class="st">"dsuser"</span>, project <span class="op">=</span> <span class="st">"CNSIM"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 73 records... Imported 73 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 140 records... Imported 140 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">safe_people_crate_v1</span><span class="op">)</span></span>
@@ -541,7 +541,7 @@ with the function <code><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.ht
 <span><span class="co">#&gt;       "@type": "Dataset",</span></span>
 <span><span class="co">#&gt;       "name": "",</span></span>
 <span><span class="co">#&gt;       "description": "",</span></span>
-<span><span class="co">#&gt;       "datePublished": "2026-04-17",</span></span>
+<span><span class="co">#&gt;       "datePublished": "2026-04-22",</span></span>
 <span><span class="co">#&gt;       "license": {</span></span>
 <span><span class="co">#&gt;         "@id": "http://spdx.org/licenses/CC-BY-4.0"</span></span>
 <span><span class="co">#&gt;       },</span></span>
@@ -550,10 +550,10 @@ with the function <code><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.ht
 <span><span class="co">#&gt;       },</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260417T085305-dslogs-dsuser.log"</span></span>
+<span><span class="co">#&gt;           "@id": "20260422T110319-dslogs-dsuser.log"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260417T085306-dslogs-dsuser_mappings.csv"</span></span>
+<span><span class="co">#&gt;           "@id": "20260422T110319-dslogs-dsuser_mappings.csv"</span></span>
 <span><span class="co">#&gt;         }</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
@@ -571,17 +571,23 @@ with the function <code><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.ht
 <span><span class="co">#&gt;       "@id": "#project:7ba189863f9f641196596cb28e04aa14",</span></span>
 <span><span class="co">#&gt;       "@type": "Project",</span></span>
 <span><span class="co">#&gt;       "name": "CNSIM",</span></span>
-<span><span class="co">#&gt;       "dateCreated": "2026-04-17T06:30:00.925Z",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-04-17T07:36:36.126Z",</span></span>
+<span><span class="co">#&gt;       "dateCreated": "2026-04-22T06:30:05.352Z",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-04-22T11:02:18.548Z",</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
 <span><span class="co">#&gt;           "@id": "#asset:fad6faf661584d53e58f9730b14c5aae"</span></span>
+<span><span class="co">#&gt;         },</span></span>
+<span><span class="co">#&gt;         {</span></span>
+<span><span class="co">#&gt;           "@id": "#asset:f41e757bd471f19f166e8f0c9659abe8"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
 <span><span class="co">#&gt;           "@id": "#asset:b6721026564c746f604df7ba785931fa"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
 <span><span class="co">#&gt;           "@id": "#asset:14fbb8de0021e6d237a2ed7779f9625d"</span></span>
+<span><span class="co">#&gt;         },</span></span>
+<span><span class="co">#&gt;         {</span></span>
+<span><span class="co">#&gt;           "@id": "#asset:b105d23b44e08238821d5556e4d0fe97"</span></span>
 <span><span class="co">#&gt;         }</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
@@ -615,12 +621,6 @@ with the function <code><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.ht
 <span><span class="co">#&gt;       "agent": {</span></span>
 <span><span class="co">#&gt;         "@id": "#person:a0af2a94926db1b49ad7a812eef509d2"</span></span>
 <span><span class="co">#&gt;       },</span></span>
-<span><span class="co">#&gt;       "object": {</span></span>
-<span><span class="co">#&gt;         "@id": "#asset:14fbb8de0021e6d237a2ed7779f9625d"</span></span>
-<span><span class="co">#&gt;       },</span></span>
-<span><span class="co">#&gt;       "actionStatus": "PotentialActionStatus",</span></span>
-<span><span class="co">#&gt;       "description": "User may view table dictionary and summary statistics only; access to individual values is restricted."</span></span>
-<span><span class="co">#&gt;     },</span></span>
 <span><span class="co">#&gt;   ❗ &lt;file truncated, set `options(max_lines = Inf)` to display all&gt;</span></span>
 <span><span class="co">#&gt;   ]</span></span>
 <span><span class="co">#&gt; }</span></span></code></pre></div>
@@ -636,7 +636,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <span><span class="va">safe_people_crate_contents</span> <span class="op">&lt;-</span> <span class="va">safe_people_crate_v1</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="../reference/report.html">report</a></span><span class="op">(</span>filepath <span class="op">=</span> <span class="va">safe_people_crate_v1_rmd</span>, render <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 1 'Author' entity was found!</span></span>
-<span><span class="co">#&gt; 3 asset entities were found!</span></span>
+<span><span class="co">#&gt; 5 asset entities were found!</span></span>
 <span><span class="co">#&gt; 1 'Project' entity was found!</span></span>
 <span><span class="co">#&gt; 22 'CreativeWork', 'PropertyValue' OR 'SoftwareApplication' entities were found!</span></span>
 <span><span class="co">#&gt; 2 'File' entities were found!</span></span>
@@ -673,7 +673,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">base::assign</td>
-<td align="left">2026-04-17T08:52:13</td>
+<td align="left">2026-04-22T06:44:54</td>
 </tr>
 <tr class="even">
 <td align="left">CNSIM</td>
@@ -681,7 +681,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::lsDS</td>
-<td align="left">2026-04-17T08:52:15</td>
+<td align="left">2026-04-22T06:44:56</td>
 </tr>
 <tr class="odd">
 <td align="left">CNSIM</td>
@@ -689,7 +689,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">base::exists</td>
-<td align="left">2026-04-17T08:52:16</td>
+<td align="left">2026-04-22T06:44:56</td>
 </tr>
 <tr class="even">
 <td align="left">CNSIM</td>
@@ -697,7 +697,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::classDS</td>
-<td align="left">2026-04-17T08:52:16</td>
+<td align="left">2026-04-22T06:44:56</td>
 </tr>
 <tr class="odd">
 <td align="left">CNSIM</td>
@@ -705,7 +705,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::isValidDS</td>
-<td align="left">2026-04-17T08:52:17</td>
+<td align="left">2026-04-22T06:44:57</td>
 </tr>
 <tr class="even">
 <td align="left">CNSIM</td>
@@ -713,7 +713,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::dimDS</td>
-<td align="left">2026-04-17T08:52:17</td>
+<td align="left">2026-04-22T06:44:57</td>
 </tr>
 <tr class="odd">
 <td align="left">CNSIM</td>
@@ -721,7 +721,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::colnamesDS</td>
-<td align="left">2026-04-17T08:52:18</td>
+<td align="left">2026-04-22T06:44:58</td>
 </tr>
 <tr class="even">
 <td align="left">CNSIM</td>
@@ -729,7 +729,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">base::assign</td>
-<td align="left">2026-04-17T08:52:37</td>
+<td align="left">2026-04-22T09:12:26</td>
 </tr>
 <tr class="odd">
 <td align="left">CNSIM</td>
@@ -737,23 +737,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::lsDS</td>
-<td align="left">2026-04-17T08:52:39</td>
-</tr>
-<tr class="even">
-<td align="left">CNSIM</td>
-<td align="left">CNSIM1</td>
-<td align="left">read</td>
-<td align="left">dsuser</td>
-<td align="left">base::assign</td>
-<td align="left">2026-04-17T08:52:56</td>
-</tr>
-<tr class="odd">
-<td align="left">CNSIM</td>
-<td align="left">CNSIM1</td>
-<td align="left">read</td>
-<td align="left">dsuser</td>
-<td align="left">dsBase::lsDS</td>
-<td align="left">2026-04-17T08:52:57</td>
+<td align="left">2026-04-22T09:12:27</td>
 </tr>
 <tr class="even">
 <td align="left">CNSIM</td>
@@ -761,7 +745,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">base::exists</td>
-<td align="left">2026-04-17T08:52:58</td>
+<td align="left">2026-04-22T09:12:28</td>
 </tr>
 <tr class="odd">
 <td align="left">CNSIM</td>
@@ -769,7 +753,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::classDS</td>
-<td align="left">2026-04-17T08:52:59</td>
+<td align="left">2026-04-22T09:12:29</td>
 </tr>
 <tr class="even">
 <td align="left">CNSIM</td>
@@ -777,7 +761,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::isValidDS</td>
-<td align="left">2026-04-17T08:52:59</td>
+<td align="left">2026-04-22T09:12:29</td>
 </tr>
 <tr class="odd">
 <td align="left">CNSIM</td>
@@ -785,7 +769,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::dimDS</td>
-<td align="left">2026-04-17T08:52:59</td>
+<td align="left">2026-04-22T09:12:29</td>
 </tr>
 <tr class="even">
 <td align="left">CNSIM</td>
@@ -793,7 +777,119 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::colnamesDS</td>
-<td align="left">2026-04-17T08:53:00</td>
+<td align="left">2026-04-22T09:12:30</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-22T10:44:55</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-22T10:44:57</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-22T10:44:57</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-22T10:44:57</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-22T10:44:57</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-22T10:44:57</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-22T10:44:57</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-22T11:03:11</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-22T11:03:12</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-22T11:03:13</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-22T11:03:13</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-22T11:03:13</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-22T11:03:14</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-22T11:03:14</td>
 </tr>
 <tr class="odd">
 <td align="left">CNSIM</td>
@@ -837,16 +933,16 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="../reference/audit.html">audit</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">"CNSIM"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 73 records... Imported 73 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 140 records... Imported 140 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 73 records... Imported 73 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 140 records... Imported 140 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 73 records... Imported 73 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 140 records... Imported 140 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 73 records... Imported 73 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 140 records... Imported 140 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">safe_project_crate_v1</span><span class="op">)</span></span>
@@ -868,7 +964,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <span><span class="co">#&gt;       "@type": "Dataset",</span></span>
 <span><span class="co">#&gt;       "name": "",</span></span>
 <span><span class="co">#&gt;       "description": "",</span></span>
-<span><span class="co">#&gt;       "datePublished": "2026-04-17",</span></span>
+<span><span class="co">#&gt;       "datePublished": "2026-04-22",</span></span>
 <span><span class="co">#&gt;       "license": {</span></span>
 <span><span class="co">#&gt;         "@id": "http://spdx.org/licenses/CC-BY-4.0"</span></span>
 <span><span class="co">#&gt;       },</span></span>
@@ -877,10 +973,10 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <span><span class="co">#&gt;       },</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260417T085311-dslogs-dsuser.log"</span></span>
+<span><span class="co">#&gt;           "@id": "20260422T110323-dslogs-dsuser.log"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260417T085311-dslogs-dsuser_mappings.csv"</span></span>
+<span><span class="co">#&gt;           "@id": "20260422T110323-dslogs-dsuser_mappings.csv"</span></span>
 <span><span class="co">#&gt;         }</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
@@ -913,17 +1009,23 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <span><span class="co">#&gt;       "@id": "#project:7ba189863f9f641196596cb28e04aa14",</span></span>
 <span><span class="co">#&gt;       "@type": "Project",</span></span>
 <span><span class="co">#&gt;       "name": "CNSIM",</span></span>
-<span><span class="co">#&gt;       "dateCreated": "2026-04-17T06:30:00.925Z",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-04-17T07:36:36.126Z",</span></span>
+<span><span class="co">#&gt;       "dateCreated": "2026-04-22T06:30:05.352Z",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-04-22T11:02:18.548Z",</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
 <span><span class="co">#&gt;           "@id": "#asset:fad6faf661584d53e58f9730b14c5aae"</span></span>
+<span><span class="co">#&gt;         },</span></span>
+<span><span class="co">#&gt;         {</span></span>
+<span><span class="co">#&gt;           "@id": "#asset:f41e757bd471f19f166e8f0c9659abe8"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
 <span><span class="co">#&gt;           "@id": "#asset:b6721026564c746f604df7ba785931fa"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
 <span><span class="co">#&gt;           "@id": "#asset:14fbb8de0021e6d237a2ed7779f9625d"</span></span>
+<span><span class="co">#&gt;         },</span></span>
+<span><span class="co">#&gt;         {</span></span>
+<span><span class="co">#&gt;           "@id": "#asset:b105d23b44e08238821d5556e4d0fe97"</span></span>
 <span><span class="co">#&gt;         }</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
@@ -942,12 +1044,6 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <span><span class="co">#&gt;     {</span></span>
 <span><span class="co">#&gt;       "@id": "#perm:4d2673da68a58c3bce23a61d97b6df51-dict-summary-read",</span></span>
 <span><span class="co">#&gt;       "@type": "ReadAction",</span></span>
-<span><span class="co">#&gt;       "agent": {</span></span>
-<span><span class="co">#&gt;         "@id": "#person:cb809df1c2fb30b154f60b843e62b3d0"</span></span>
-<span><span class="co">#&gt;       },</span></span>
-<span><span class="co">#&gt;       "object": {</span></span>
-<span><span class="co">#&gt;         "@id": "#asset:fad6faf661584d53e58f9730b14c5aae"</span></span>
-<span><span class="co">#&gt;       },</span></span>
 <span><span class="co">#&gt;   ❗ &lt;file truncated, set `options(max_lines = Inf)` to display all&gt;</span></span>
 <span><span class="co">#&gt;   ]</span></span>
 <span><span class="co">#&gt; }</span></span></code></pre></div>
@@ -963,7 +1059,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <span><span class="va">safe_project_crate_contents</span> <span class="op">&lt;-</span> <span class="va">safe_project_crate_v1</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="../reference/report.html">report</a></span><span class="op">(</span>filepath <span class="op">=</span> <span class="va">safe_project_crate_v1_rmd</span>, render <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 4 'Author' entities were found!</span></span>
-<span><span class="co">#&gt; 3 asset entities were found!</span></span>
+<span><span class="co">#&gt; 5 asset entities were found!</span></span>
 <span><span class="co">#&gt; 1 'Project' entity was found!</span></span>
 <span><span class="co">#&gt; 22 'CreativeWork', 'PropertyValue' OR 'SoftwareApplication' entities were found!</span></span>
 <span><span class="co">#&gt; 2 'File' entities were found!</span></span>
@@ -1000,7 +1096,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">base::assign</td>
-<td align="left">2026-04-17T08:52:13</td>
+<td align="left">2026-04-22T06:44:54</td>
 </tr>
 <tr class="even">
 <td align="left">CNSIM</td>
@@ -1008,7 +1104,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::lsDS</td>
-<td align="left">2026-04-17T08:52:15</td>
+<td align="left">2026-04-22T06:44:56</td>
 </tr>
 <tr class="odd">
 <td align="left">CNSIM</td>
@@ -1016,7 +1112,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">base::exists</td>
-<td align="left">2026-04-17T08:52:16</td>
+<td align="left">2026-04-22T06:44:56</td>
 </tr>
 <tr class="even">
 <td align="left">CNSIM</td>
@@ -1024,7 +1120,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::classDS</td>
-<td align="left">2026-04-17T08:52:16</td>
+<td align="left">2026-04-22T06:44:56</td>
 </tr>
 <tr class="odd">
 <td align="left">CNSIM</td>
@@ -1032,7 +1128,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::isValidDS</td>
-<td align="left">2026-04-17T08:52:17</td>
+<td align="left">2026-04-22T06:44:57</td>
 </tr>
 <tr class="even">
 <td align="left">CNSIM</td>
@@ -1040,7 +1136,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::dimDS</td>
-<td align="left">2026-04-17T08:52:17</td>
+<td align="left">2026-04-22T06:44:57</td>
 </tr>
 <tr class="odd">
 <td align="left">CNSIM</td>
@@ -1048,7 +1144,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::colnamesDS</td>
-<td align="left">2026-04-17T08:52:18</td>
+<td align="left">2026-04-22T06:44:58</td>
 </tr>
 <tr class="even">
 <td align="left">CNSIM</td>
@@ -1056,7 +1152,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">base::assign</td>
-<td align="left">2026-04-17T08:52:37</td>
+<td align="left">2026-04-22T09:12:26</td>
 </tr>
 <tr class="odd">
 <td align="left">CNSIM</td>
@@ -1064,23 +1160,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::lsDS</td>
-<td align="left">2026-04-17T08:52:39</td>
-</tr>
-<tr class="even">
-<td align="left">CNSIM</td>
-<td align="left">CNSIM1</td>
-<td align="left">read</td>
-<td align="left">dsuser</td>
-<td align="left">base::assign</td>
-<td align="left">2026-04-17T08:52:56</td>
-</tr>
-<tr class="odd">
-<td align="left">CNSIM</td>
-<td align="left">CNSIM1</td>
-<td align="left">read</td>
-<td align="left">dsuser</td>
-<td align="left">dsBase::lsDS</td>
-<td align="left">2026-04-17T08:52:57</td>
+<td align="left">2026-04-22T09:12:27</td>
 </tr>
 <tr class="even">
 <td align="left">CNSIM</td>
@@ -1088,7 +1168,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">base::exists</td>
-<td align="left">2026-04-17T08:52:58</td>
+<td align="left">2026-04-22T09:12:28</td>
 </tr>
 <tr class="odd">
 <td align="left">CNSIM</td>
@@ -1096,7 +1176,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::classDS</td>
-<td align="left">2026-04-17T08:52:59</td>
+<td align="left">2026-04-22T09:12:29</td>
 </tr>
 <tr class="even">
 <td align="left">CNSIM</td>
@@ -1104,7 +1184,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::isValidDS</td>
-<td align="left">2026-04-17T08:52:59</td>
+<td align="left">2026-04-22T09:12:29</td>
 </tr>
 <tr class="odd">
 <td align="left">CNSIM</td>
@@ -1112,7 +1192,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::dimDS</td>
-<td align="left">2026-04-17T08:52:59</td>
+<td align="left">2026-04-22T09:12:29</td>
 </tr>
 <tr class="even">
 <td align="left">CNSIM</td>
@@ -1120,7 +1200,119 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::colnamesDS</td>
-<td align="left">2026-04-17T08:53:00</td>
+<td align="left">2026-04-22T09:12:30</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-22T10:44:55</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-22T10:44:57</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-22T10:44:57</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-22T10:44:57</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-22T10:44:57</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-22T10:44:57</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-22T10:44:57</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-22T11:03:11</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-22T11:03:12</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-22T11:03:13</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-22T11:03:13</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-22T11:03:13</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-22T11:03:14</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-22T11:03:14</td>
 </tr>
 <tr class="odd">
 <td align="left">CNSIM</td>
@@ -1216,16 +1408,16 @@ multiple servers)<a class="anchor" aria-label="anchor" href="#list-users-and-dat
 <span><span class="co">#&gt;  Found 6 records... Imported 6 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 79 records... Imported 79 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 140 records... Imported 140 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 79 records... Imported 79 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 140 records... Imported 140 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 79 records... Imported 79 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 140 records... Imported 140 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 79 records... Imported 79 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 140 records... Imported 140 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">study_crate_v1</span><span class="op">)</span></span>
@@ -1248,7 +1440,7 @@ multiple servers)<a class="anchor" aria-label="anchor" href="#list-users-and-dat
 <span><span class="co">#&gt;       "@type": "Dataset",</span></span>
 <span><span class="co">#&gt;       "name": "",</span></span>
 <span><span class="co">#&gt;       "description": "",</span></span>
-<span><span class="co">#&gt;       "datePublished": "2026-04-17",</span></span>
+<span><span class="co">#&gt;       "datePublished": "2026-04-22",</span></span>
 <span><span class="co">#&gt;       "license": {</span></span>
 <span><span class="co">#&gt;         "@id": "http://spdx.org/licenses/CC-BY-4.0"</span></span>
 <span><span class="co">#&gt;       },</span></span>
@@ -1351,7 +1543,7 @@ multiple servers)<a class="anchor" aria-label="anchor" href="#list-users-and-dat
 <span><span class="co">#&gt;       "@type": "Dataset",</span></span>
 <span><span class="co">#&gt;       "name": "",</span></span>
 <span><span class="co">#&gt;       "description": "",</span></span>
-<span><span class="co">#&gt;       "datePublished": "2026-04-17",</span></span>
+<span><span class="co">#&gt;       "datePublished": "2026-04-22",</span></span>
 <span><span class="co">#&gt;       "license": {</span></span>
 <span><span class="co">#&gt;         "@id": "http://spdx.org/licenses/CC-BY-4.0"</span></span>
 <span><span class="co">#&gt;       },</span></span>
@@ -1360,10 +1552,10 @@ multiple servers)<a class="anchor" aria-label="anchor" href="#list-users-and-dat
 <span><span class="co">#&gt;       },</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260417T085323-dslogs-dsuser.log"</span></span>
+<span><span class="co">#&gt;           "@id": "20260422T110331-dslogs-dsuser.log"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260417T085323-dslogs-dsuser_mappings.csv"</span></span>
+<span><span class="co">#&gt;           "@id": "20260422T110331-dslogs-dsuser_mappings.csv"</span></span>
 <span><span class="co">#&gt;         }</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
@@ -1396,17 +1588,23 @@ multiple servers)<a class="anchor" aria-label="anchor" href="#list-users-and-dat
 <span><span class="co">#&gt;       "@id": "#project:7ba189863f9f641196596cb28e04aa14",</span></span>
 <span><span class="co">#&gt;       "@type": "Project",</span></span>
 <span><span class="co">#&gt;       "name": "CNSIM",</span></span>
-<span><span class="co">#&gt;       "dateCreated": "2026-04-17T06:30:00.925Z",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-04-17T07:36:36.126Z",</span></span>
+<span><span class="co">#&gt;       "dateCreated": "2026-04-22T06:30:05.352Z",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-04-22T11:03:28.014Z",</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
 <span><span class="co">#&gt;           "@id": "#asset:fad6faf661584d53e58f9730b14c5aae"</span></span>
+<span><span class="co">#&gt;         },</span></span>
+<span><span class="co">#&gt;         {</span></span>
+<span><span class="co">#&gt;           "@id": "#asset:f41e757bd471f19f166e8f0c9659abe8"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
 <span><span class="co">#&gt;           "@id": "#asset:b6721026564c746f604df7ba785931fa"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
 <span><span class="co">#&gt;           "@id": "#asset:14fbb8de0021e6d237a2ed7779f9625d"</span></span>
+<span><span class="co">#&gt;         },</span></span>
+<span><span class="co">#&gt;         {</span></span>
+<span><span class="co">#&gt;           "@id": "#asset:b105d23b44e08238821d5556e4d0fe97"</span></span>
 <span><span class="co">#&gt;         }</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
@@ -1425,12 +1623,6 @@ multiple servers)<a class="anchor" aria-label="anchor" href="#list-users-and-dat
 <span><span class="co">#&gt;     {</span></span>
 <span><span class="co">#&gt;       "@id": "#perm:4d2673da68a58c3bce23a61d97b6df51-dict-summary-read",</span></span>
 <span><span class="co">#&gt;       "@type": "ReadAction",</span></span>
-<span><span class="co">#&gt;       "agent": {</span></span>
-<span><span class="co">#&gt;         "@id": "#person:cb809df1c2fb30b154f60b843e62b3d0"</span></span>
-<span><span class="co">#&gt;       },</span></span>
-<span><span class="co">#&gt;       "object": {</span></span>
-<span><span class="co">#&gt;         "@id": "#asset:fad6faf661584d53e58f9730b14c5aae"</span></span>
-<span><span class="co">#&gt;       },</span></span>
 <span><span class="co">#&gt;   ❗ &lt;file truncated, set `options(max_lines = Inf)` to display all&gt;</span></span>
 <span><span class="co">#&gt;   ]</span></span>
 <span><span class="co">#&gt; }</span></span></code></pre></div>
@@ -1450,7 +1642,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <span><span class="co">#&gt; 1 'Project' entity was found!</span></span>
 <span><span class="co">#&gt; 22 'CreativeWork', 'PropertyValue' OR 'SoftwareApplication' entities were found!</span></span>
 <span><span class="co">#&gt; 4 'Author' entities were found!</span></span>
-<span><span class="co">#&gt; 3 asset entities were found!</span></span>
+<span><span class="co">#&gt; 5 asset entities were found!</span></span>
 <span><span class="co">#&gt; 1 'Project' entity was found!</span></span>
 <span><span class="co">#&gt; 22 'CreativeWork', 'PropertyValue' OR 'SoftwareApplication' entities were found!</span></span>
 <span><span class="co">#&gt; 2 'File' entities were found!</span></span>
@@ -1490,7 +1682,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">base::assign</td>
-<td align="left">2026-04-17T08:52:13</td>
+<td align="left">2026-04-22T06:44:54</td>
 </tr>
 <tr class="even">
 <td align="left">opal_demo</td>
@@ -1499,7 +1691,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::lsDS</td>
-<td align="left">2026-04-17T08:52:15</td>
+<td align="left">2026-04-22T06:44:56</td>
 </tr>
 <tr class="odd">
 <td align="left">opal_demo</td>
@@ -1508,7 +1700,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">base::exists</td>
-<td align="left">2026-04-17T08:52:16</td>
+<td align="left">2026-04-22T06:44:56</td>
 </tr>
 <tr class="even">
 <td align="left">opal_demo</td>
@@ -1517,7 +1709,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::classDS</td>
-<td align="left">2026-04-17T08:52:16</td>
+<td align="left">2026-04-22T06:44:56</td>
 </tr>
 <tr class="odd">
 <td align="left">opal_demo</td>
@@ -1526,7 +1718,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::isValidDS</td>
-<td align="left">2026-04-17T08:52:17</td>
+<td align="left">2026-04-22T06:44:57</td>
 </tr>
 <tr class="even">
 <td align="left">opal_demo</td>
@@ -1535,7 +1727,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::dimDS</td>
-<td align="left">2026-04-17T08:52:17</td>
+<td align="left">2026-04-22T06:44:57</td>
 </tr>
 <tr class="odd">
 <td align="left">opal_demo</td>
@@ -1544,7 +1736,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::colnamesDS</td>
-<td align="left">2026-04-17T08:52:18</td>
+<td align="left">2026-04-22T06:44:58</td>
 </tr>
 <tr class="even">
 <td align="left">opal_demo</td>
@@ -1553,7 +1745,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">base::assign</td>
-<td align="left">2026-04-17T08:52:37</td>
+<td align="left">2026-04-22T09:12:26</td>
 </tr>
 <tr class="odd">
 <td align="left">opal_demo</td>
@@ -1562,25 +1754,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::lsDS</td>
-<td align="left">2026-04-17T08:52:39</td>
-</tr>
-<tr class="even">
-<td align="left">opal_demo</td>
-<td align="left">CNSIM</td>
-<td align="left">CNSIM1</td>
-<td align="left">read</td>
-<td align="left">dsuser</td>
-<td align="left">base::assign</td>
-<td align="left">2026-04-17T08:52:56</td>
-</tr>
-<tr class="odd">
-<td align="left">opal_demo</td>
-<td align="left">CNSIM</td>
-<td align="left">CNSIM1</td>
-<td align="left">read</td>
-<td align="left">dsuser</td>
-<td align="left">dsBase::lsDS</td>
-<td align="left">2026-04-17T08:52:57</td>
+<td align="left">2026-04-22T09:12:27</td>
 </tr>
 <tr class="even">
 <td align="left">opal_demo</td>
@@ -1589,7 +1763,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">base::exists</td>
-<td align="left">2026-04-17T08:52:58</td>
+<td align="left">2026-04-22T09:12:28</td>
 </tr>
 <tr class="odd">
 <td align="left">opal_demo</td>
@@ -1598,7 +1772,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::classDS</td>
-<td align="left">2026-04-17T08:52:59</td>
+<td align="left">2026-04-22T09:12:29</td>
 </tr>
 <tr class="even">
 <td align="left">opal_demo</td>
@@ -1607,7 +1781,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::isValidDS</td>
-<td align="left">2026-04-17T08:52:59</td>
+<td align="left">2026-04-22T09:12:29</td>
 </tr>
 <tr class="odd">
 <td align="left">opal_demo</td>
@@ -1616,7 +1790,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::dimDS</td>
-<td align="left">2026-04-17T08:52:59</td>
+<td align="left">2026-04-22T09:12:29</td>
 </tr>
 <tr class="even">
 <td align="left">opal_demo</td>
@@ -1625,7 +1799,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::colnamesDS</td>
-<td align="left">2026-04-17T08:53:00</td>
+<td align="left">2026-04-22T09:12:30</td>
 </tr>
 <tr class="odd">
 <td align="left">opal_demo</td>
@@ -1634,7 +1808,61 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">base::assign</td>
-<td align="left">2026-04-17T08:53:21</td>
+<td align="left">2026-04-22T10:44:55</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-22T10:44:57</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-22T10:44:57</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-22T10:44:57</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-22T10:44:57</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-22T10:44:57</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-22T10:44:57</td>
 </tr>
 <tr class="even">
 <td align="left">opal_demo</td>
@@ -1643,7 +1871,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">base::assign</td>
-<td align="left">2026-04-17T08:53:23</td>
+<td align="left">2026-04-22T11:03:11</td>
 </tr>
 <tr class="odd">
 <td align="left">opal_demo</td>
@@ -1652,9 +1880,54 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left">dsBase::lsDS</td>
-<td align="left">2026-04-17T08:53:23</td>
+<td align="left">2026-04-22T11:03:12</td>
 </tr>
 <tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-22T11:03:13</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-22T11:03:13</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-22T11:03:13</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-22T11:03:14</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-22T11:03:14</td>
+</tr>
+<tr class="odd">
 <td align="left">opal_demo</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -1663,7 +1936,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left"></td>
 <td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_demo</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM2</td>
@@ -1672,7 +1945,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left"></td>
 <td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_demo</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM2</td>
@@ -1681,7 +1954,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left"></td>
 <td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_demo</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM3</td>
@@ -1690,7 +1963,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left"></td>
 <td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_demo</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM3</td>
@@ -1699,7 +1972,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left"></td>
 <td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
