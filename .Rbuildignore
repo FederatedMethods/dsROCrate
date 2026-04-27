@@ -12,3 +12,5 @@
 (^|/)\.DS\_Store$
 ^\.git($|/)
 ^CRAN-SUBMISSION$
+^\.positai$
+^\.claude$
