@@ -90,7 +90,7 @@
       <h1 data-toc-skip>Getting Started</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/main/vignettes/getting-started.Rmd" class="external-link"><code>vignettes/getting-started.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/v0.0.2/vignettes/getting-started.Rmd" class="external-link"><code>vignettes/getting-started.Rmd</code></a></small>
       <div class="hidden name"><code>getting-started.Rmd</code></div>
 
     </div>
@@ -448,7 +448,7 @@ using the following commands:</p>
 <span>                         logs_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">60</span>, <span class="co"># capture the last minute</span></span>
 <span>                         logs_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 500 records... Found 895 records... Imported 895 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 500 records... Found 1000 records... Found 1326 records... Imported 1326 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; Warning: A `path` wasn't provided! The logs will be included in the RO-Crate</span></span>
 <span><span class="co">#&gt; object, under the `content` tag!</span></span></code></pre></div>
@@ -479,7 +479,7 @@ with the function <code><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.ht
 <span><span class="va">path_to_rocrate_bag</span> <span class="op">&lt;-</span> <span class="va">basic_rocrate</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">rocrateR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.html" class="external-link">bag_rocrate</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">tmp_path_bag</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; RO-Crate successfully 'bagged'!</span></span>
-<span><span class="co">#&gt; For details, see: /tmp/RtmpP5Dd6P/dsROCrate-getting-started/rocrate-10e6c1501d11777e3f1053126940c805.zip</span></span></code></pre></div>
+<span><span class="co">#&gt; For details, see: /tmp/Rtmpxb9bZy/dsROCrate-getting-started/rocrate-c19b2a8506b41d23ed5aec2e5ed649be.zip</span></span></code></pre></div>
 <p>We can explore the contents with the following commands:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract files in temporary directory</span></span>
@@ -488,12 +488,12 @@ with the function <code><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.ht
 <span>  <span class="fu">rocrateR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rocrateR/man/unbag_rocrate.html" class="external-link">unbag_rocrate</a></span><span class="op">(</span>output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmp_path_bag</span>, <span class="st">"ROC"</span><span class="op">)</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># create tree with the files</span></span>
 <span>  <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/dir_tree.html" class="external-link">dir_tree</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpP5Dd6P/dsROCrate-getting-started/ROC</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/tmp/Rtmpxb9bZy/dsROCrate-getting-started/ROC</span></span></span>
 <span><span class="co">#&gt; ├── bag-info.txt</span></span>
 <span><span class="co">#&gt; ├── bagit.txt</span></span>
 <span><span class="co">#&gt; ├── <span style="color: #0000BB; font-weight: bold;">data</span></span></span>
-<span><span class="co">#&gt; │   ├── 20260427T111822-dslogs-dsuser.log</span></span>
-<span><span class="co">#&gt; │   ├── 20260427T111822-dslogs-dsuser_mappings.csv</span></span>
+<span><span class="co">#&gt; │   ├── 20260427T125337-dslogs-dsuser.log</span></span>
+<span><span class="co">#&gt; │   ├── 20260427T125338-dslogs-dsuser_mappings.csv</span></span>
 <span><span class="co">#&gt; │   └── ro-crate-metadata.json</span></span>
 <span><span class="co">#&gt; ├── manifest-sha512.txt</span></span>
 <span><span class="co">#&gt; └── tagmanifest-sha512.txt</span></span></code></pre></div>
@@ -523,7 +523,7 @@ with the function <code><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.ht
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="../reference/audit.html">audit</a></span><span class="op">(</span>user <span class="op">=</span> <span class="st">"dsuser"</span>, project <span class="op">=</span> <span class="st">"CNSIM"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 500 records... Found 903 records... Imported 903 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 500 records... Found 1000 records... Found 1326 records... Imported 1326 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">safe_people_crate_v1</span><span class="op">)</span></span>
@@ -554,10 +554,10 @@ with the function <code><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.ht
 <span><span class="co">#&gt;       },</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260427T111826-dslogs-dsuser.log"</span></span>
+<span><span class="co">#&gt;           "@id": "20260427T125342-dslogs-dsuser.log"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260427T111826-dslogs-dsuser_mappings.csv"</span></span>
+<span><span class="co">#&gt;           "@id": "20260427T125342-dslogs-dsuser_mappings.csv"</span></span>
 <span><span class="co">#&gt;         }</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
@@ -648,7 +648,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <span><span class="co"># display Overview diagram</span></span>
 <span><span class="va">safe_people_crate_contents</span><span class="op">$</span><span class="va">overview_diagram</span></span></code></pre></div>
 <div class="grViz html-widget html-fill-item" id="htmlwidget-ac96cb3ee4656e2e9ec3" style="width:100%;height:432.632880098888px;"></div>
-<script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"diagram":"digraph vtree {\ngraph [nodesep=0.1, ranksep=0.5, tooltip=\" \"]\nnode [fontname = \"Arial\", fontcolor = black,shape = rectangle, color = black, tooltip=\" \",margin=0.1]\nNode_L0_0 [style=invisible]\n\nNode_L1_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#DE2D26\"><B>Project  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L0_0 -> Node_L1_0 [style=invisible arrowhead=none]\n\nNode_L2_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#3182BD\"><B>Data  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L1_0 -> Node_L2_0 [style=invisible arrowhead=none]\n\nNode_L3_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#31A354\"><B>Access<BR/>Level  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L2_0 -> Node_L3_0 [style=invisible arrowhead=none]\n\nNode_L4_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#E6550D\"><B>People  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L3_0 -> Node_L4_0 [style=invisible arrowhead=none]\n\nNode_L5_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#BCBDDC\"><B>Function  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L4_0 -> Node_L5_0 [style=invisible arrowhead=none]\n\nedge[style=solid]\nNode_1->Node_2\nNode_2->Node_3 Node_2->Node_4 Node_2->Node_5\nNode_3->Node_6\nNode_6->Node_7\nNode_7->Node_8 Node_7->Node_9 Node_7->Node_10 Node_7->Node_11 Node_7->Node_12 Node_7->Node_13 Node_7->Node_14 Node_7->Node_15 Node_7->Node_16 Node_7->Node_17 Node_7->Node_18 Node_7->Node_19\nNode_4->Node_20\nNode_20->Node_21\nNode_5->Node_22\nNode_22->Node_23\n\nNode_1[label=<DataSHIELD<BR/>server<BR/>14>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#EFF3FF>]\nNode_2[label=<CNSIM<BR/>>  fontcolor=<#ffffff> color=black style=\"rounded,filled\" fillcolor=<#FC9272>  ]\nNode_3[label=<CNSIM1<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#DEEBF7>  ]\nNode_4[label=<CNSIM2<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#9ECAE1>  ]\nNode_5[label=<CNSIM3<BR/>>  fontcolor=<#ffffff> color=black style=\"rounded,filled\" fillcolor=<#3182BD>  ]\nNode_6[label=<read<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#A1D99B>  ]\nNode_7[label=<dsuser<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FDAE6B>  ]\nNode_8[label=<base::assign<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_9[label=<base::exists<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_10[label=<dsBase::classDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_11[label=<dsBase::colnamesDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_12[label=<dsBase::dimDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_13[label=<dsBase::isValidDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_14[label=<dsBase::lengthDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_15[label=<dsBase::levelsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_16[label=<dsBase::lsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_17[label=<dsBase::meanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_18[label=<dsBase::quantileMeanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_19[label=<dsBase::table1DDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_20[label=<read<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#A1D99B>  ]\nNode_21[label=<dsuser<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FDAE6B>  ]\nNode_22[label=<read<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#A1D99B>  ]\nNode_23[label=<dsuser<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FDAE6B>  ]\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"diagram":"digraph vtree {\ngraph [nodesep=0.1, ranksep=0.5, tooltip=\" \"]\nnode [fontname = \"Arial\", fontcolor = black,shape = rectangle, color = black, tooltip=\" \",margin=0.1]\nNode_L0_0 [style=invisible]\n\nNode_L1_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#DE2D26\"><B>Project  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L0_0 -> Node_L1_0 [style=invisible arrowhead=none]\n\nNode_L2_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#3182BD\"><B>Data  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L1_0 -> Node_L2_0 [style=invisible arrowhead=none]\n\nNode_L3_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#31A354\"><B>Access<BR/>Level  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L2_0 -> Node_L3_0 [style=invisible arrowhead=none]\n\nNode_L4_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#E6550D\"><B>People  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L3_0 -> Node_L4_0 [style=invisible arrowhead=none]\n\nNode_L5_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#BCBDDC\"><B>Function  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L4_0 -> Node_L5_0 [style=invisible arrowhead=none]\n\nedge[style=solid]\nNode_1->Node_2\nNode_2->Node_3 Node_2->Node_4 Node_2->Node_5\nNode_3->Node_6\nNode_6->Node_7\nNode_7->Node_8 Node_7->Node_9 Node_7->Node_10 Node_7->Node_11 Node_7->Node_12 Node_7->Node_13 Node_7->Node_14 Node_7->Node_15 Node_7->Node_16 Node_7->Node_17 Node_7->Node_18 Node_7->Node_19 Node_7->Node_20 Node_7->Node_21\nNode_4->Node_22\nNode_22->Node_23\nNode_23->Node_24 Node_23->Node_25 Node_23->Node_26 Node_23->Node_27 Node_23->Node_28 Node_23->Node_29 Node_23->Node_30 Node_23->Node_31 Node_23->Node_32 Node_23->Node_33 Node_23->Node_34 Node_23->Node_35 Node_23->Node_36 Node_23->Node_37 Node_23->Node_38 Node_23->Node_39 Node_23->Node_40 Node_23->Node_41 Node_23->Node_42\nNode_5->Node_43\nNode_43->Node_44\nNode_44->Node_45 Node_44->Node_46 Node_44->Node_47 Node_44->Node_48 Node_44->Node_49 Node_44->Node_50 Node_44->Node_51 Node_44->Node_52 Node_44->Node_53 Node_44->Node_54 Node_44->Node_55\n\nNode_1[label=<DataSHIELD<BR/>server<BR/>44>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#EFF3FF>]\nNode_2[label=<CNSIM<BR/>>  fontcolor=<#ffffff> color=black style=\"rounded,filled\" fillcolor=<#FC9272>  ]\nNode_3[label=<CNSIM1<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#DEEBF7>  ]\nNode_4[label=<CNSIM2<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#9ECAE1>  ]\nNode_5[label=<CNSIM3<BR/>>  fontcolor=<#ffffff> color=black style=\"rounded,filled\" fillcolor=<#3182BD>  ]\nNode_6[label=<read<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#A1D99B>  ]\nNode_7[label=<dsuser<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FDAE6B>  ]\nNode_8[label=<base::assign<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_9[label=<base::exists<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_10[label=<dsBase::classDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_11[label=<dsBase::colnamesDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_12[label=<dsBase::dimDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_13[label=<dsBase::isValidDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_14[label=<dsBase::lengthDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_15[label=<dsBase::levelsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_16[label=<dsBase::lsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_17[label=<dsBase::meanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_18[label=<dsBase::numNaDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_19[label=<dsBase::quantileMeanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_20[label=<dsBase::table1DDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_21[label=<dsBase::varDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_22[label=<read<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#A1D99B>  ]\nNode_23[label=<dsuser<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FDAE6B>  ]\nNode_24[label=<base::assign<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_25[label=<base::exists<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_26[label=<dsBase::classDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_27[label=<dsBase::colnamesDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_28[label=<dsBase::dimDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_29[label=<dsBase::glmSLMADS.<BR/>assign<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_30[label=<dsBase::glmSLMADS1<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_31[label=<dsBase::glmSLMADS2<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_32[label=<dsBase::isValidDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_33[label=<dsBase::lengthDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_34[label=<dsBase::levelsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_35[label=<dsBase::lsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_36[label=<dsBase::meanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_37[label=<dsBase::messageDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_38[label=<dsBase::numNaDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_39[label=<dsBase::quantileMeanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_40[label=<dsBase::table1DDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_41[label=<dsBase::testObjExistsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_42[label=<dsBase::varDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_43[label=<read<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#A1D99B>  ]\nNode_44[label=<dsuser<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FDAE6B>  ]\nNode_45[label=<base::assign<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_46[label=<base::exists<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_47[label=<dsBase::classDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_48[label=<dsBase::colnamesDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_49[label=<dsBase::dimDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_50[label=<dsBase::lengthDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_51[label=<dsBase::lsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_52[label=<dsBase::meanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_53[label=<dsBase::numNaDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_54[label=<dsBase::quantileMeanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_55[label=<dsBase::varDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># display Overview data (Safe People, Safe Projects and Safe Data)</span></span>
 <span><span class="va">safe_people_crate_contents</span><span class="op">$</span><span class="va">overview_data</span> <span class="op">|&gt;</span></span>
@@ -659,7 +659,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <col width="8%">
 <col width="16%">
 <col width="8%">
-<col width="29%">
+<col width="31%">
 <col width="25%">
 </colgroup>
 <thead><tr class="header">
@@ -3961,19 +3961,1475 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 </tr>
 <tr class="even">
 <td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:18:37</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:18:38</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:18:39</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:18:39</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:18:40</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:18:40</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:18:41</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:18:59</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:19:01</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:19:21</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:19:22</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:19:22</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:19:23</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:19:23</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:19:23</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:19:24</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:19:30</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:19:32</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:19:52</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:19:54</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:19:54</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:19:54</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:19:55</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:19:55</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:19:55</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:20:25</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:20:27</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:20:28</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:20:30</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:20:30</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:20:32</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:20:59</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:21:01</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:21:02</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:21:02</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:21:03</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:21:03</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:21:04</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:21:23</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:21:24</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:21:25</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:21:25</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:21:25</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:21:26</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:21:26</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:21:47</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:21:49</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:21:49</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:21:50</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:21:50</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:21:51</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:21:51</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:45:52</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:45:53</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:45:54</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:45:54</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:45:55</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:45:55</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:45:56</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:47:19</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:47:20</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:48:33</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:48:35</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:48:35</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:48:36</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:48:36</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:48:37</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:48:37</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:57:18</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:57:24</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:57:49</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:57:50</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:00:46</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::meanDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:00</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::quantileMeanDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::numNaDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::quantileMeanDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:02:03</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::numNaDS</td>
+<td align="left">2026-04-27T12:02:03</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:20</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:02:21</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:04:28</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:04:29</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:04:29</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:04:30</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:05:30</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:31</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:32</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:33</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:34</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T12:31:59</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T12:32:01</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:32:02</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:32:02</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T12:32:03</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T12:32:03</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T12:32:04</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T12:53:33</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T12:53:34</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:53:35</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:53:35</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T12:53:35</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T12:53:36</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T12:53:37</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
 <td align="left">CNSIM2</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:57:19</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:57:24</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:57:49</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:57:50</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:00:46</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::meanDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:00</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::quantileMeanDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::numNaDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::quantileMeanDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:02:03</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::numNaDS</td>
+<td align="left">2026-04-27T12:02:03</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:20</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:02:21</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:04:28</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:04:29</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:04:29</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:04:30</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:05:30</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:31</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:32</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:33</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:34</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T12:31:07</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T12:32:13</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T12:32:20</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:32:26</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:32:26</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T12:32:27</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:32:27</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::levelsDS</td>
+<td align="left">2026-04-27T12:32:27</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::table1DDS</td>
+<td align="left">2026-04-27T12:32:27</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:32:36</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::glmSLMADS1</td>
+<td align="left">2026-04-27T12:32:36</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::glmSLMADS.assign</td>
+<td align="left">2026-04-27T12:32:36</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::glmSLMADS2</td>
+<td align="left">2026-04-27T12:32:37</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::testObjExistsDS</td>
+<td align="left">2026-04-27T12:32:37</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::messageDS</td>
+<td align="left">2026-04-27T12:32:37</td>
 </tr>
 <tr class="odd">
 <td align="left">CNSIM</td>
 <td align="left">CNSIM3</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:57:19</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:57:24</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:57:49</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:57:50</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:00:46</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::meanDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:00</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::quantileMeanDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::numNaDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::quantileMeanDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:02:03</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::numNaDS</td>
+<td align="left">2026-04-27T12:02:03</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:20</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:02:21</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:04:28</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:04:29</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:04:29</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:04:30</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:05:31</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:31</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:32</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:33</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:34</td>
 </tr>
 </tbody>
 </table>
@@ -4001,16 +5457,16 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="../reference/audit.html">audit</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">"CNSIM"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 500 records... Found 903 records... Imported 903 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 500 records... Found 1000 records... Found 1326 records... Imported 1326 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 500 records... Found 903 records... Imported 903 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 500 records... Found 1000 records... Found 1326 records... Imported 1326 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 500 records... Found 903 records... Imported 903 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 500 records... Found 1000 records... Found 1326 records... Imported 1326 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 500 records... Found 903 records... Imported 903 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 500 records... Found 1000 records... Found 1326 records... Imported 1326 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">safe_project_crate_v1</span><span class="op">)</span></span>
@@ -4041,10 +5497,10 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <span><span class="co">#&gt;       },</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260427T111831-dslogs-dsuser.log"</span></span>
+<span><span class="co">#&gt;           "@id": "20260427T125346-dslogs-dsuser.log"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260427T111831-dslogs-dsuser_mappings.csv"</span></span>
+<span><span class="co">#&gt;           "@id": "20260427T125346-dslogs-dsuser_mappings.csv"</span></span>
 <span><span class="co">#&gt;         }</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
@@ -4135,19 +5591,19 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <span><span class="co"># display Overview diagram</span></span>
 <span><span class="va">safe_project_crate_contents</span><span class="op">$</span><span class="va">overview_diagram</span></span></code></pre></div>
 <div class="grViz html-widget html-fill-item" id="htmlwidget-e5c8c404fe174e4c81bd" style="width:100%;height:432.632880098888px;"></div>
-<script type="application/json" data-for="htmlwidget-e5c8c404fe174e4c81bd">{"x":{"diagram":"digraph vtree {\ngraph [nodesep=0.1, ranksep=0.5, tooltip=\" \"]\nnode [fontname = \"Arial\", fontcolor = black,shape = rectangle, color = black, tooltip=\" \",margin=0.1]\nNode_L0_0 [style=invisible]\n\nNode_L1_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#DE2D26\"><B>Project  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L0_0 -> Node_L1_0 [style=invisible arrowhead=none]\n\nNode_L2_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#3182BD\"><B>Data  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L1_0 -> Node_L2_0 [style=invisible arrowhead=none]\n\nNode_L3_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#31A354\"><B>Access<BR/>Level  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L2_0 -> Node_L3_0 [style=invisible arrowhead=none]\n\nNode_L4_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#E6550D\"><B>People  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L3_0 -> Node_L4_0 [style=invisible arrowhead=none]\n\nNode_L5_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#BCBDDC\"><B>Function  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L4_0 -> Node_L5_0 [style=invisible arrowhead=none]\n\nedge[style=solid]\nNode_1->Node_2\nNode_2->Node_3 Node_2->Node_4 Node_2->Node_5\nNode_3->Node_6\nNode_6->Node_7 Node_6->Node_8\nNode_7->Node_9 Node_7->Node_10 Node_7->Node_11 Node_7->Node_12 Node_7->Node_13 Node_7->Node_14 Node_7->Node_15 Node_7->Node_16 Node_7->Node_17 Node_7->Node_18 Node_7->Node_19 Node_7->Node_20\nNode_4->Node_21\nNode_21->Node_22 Node_21->Node_23\nNode_5->Node_24\nNode_24->Node_25 Node_24->Node_26\n\nNode_1[label=<DataSHIELD<BR/>server<BR/>17>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#EFF3FF>]\nNode_2[label=<CNSIM<BR/>>  fontcolor=<#ffffff> color=black style=\"rounded,filled\" fillcolor=<#FC9272>  ]\nNode_3[label=<CNSIM1<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#DEEBF7>  ]\nNode_4[label=<CNSIM2<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#9ECAE1>  ]\nNode_5[label=<CNSIM3<BR/>>  fontcolor=<#ffffff> color=black style=\"rounded,filled\" fillcolor=<#3182BD>  ]\nNode_6[label=<read<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#A1D99B>  ]\nNode_7[label=<dsuser<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FEEDDE>  ]\nNode_8[label=<dsuser1<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FDBE85>  ]\nNode_9[label=<base::assign<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_10[label=<base::exists<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_11[label=<dsBase::classDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_12[label=<dsBase::colnamesDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_13[label=<dsBase::dimDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_14[label=<dsBase::isValidDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_15[label=<dsBase::lengthDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_16[label=<dsBase::levelsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_17[label=<dsBase::lsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_18[label=<dsBase::meanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_19[label=<dsBase::quantileMeanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_20[label=<dsBase::table1DDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_21[label=<read<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#A1D99B>  ]\nNode_22[label=<dsuser<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FEEDDE>  ]\nNode_23[label=<dsuser2<BR/>>  fontcolor=<#ffffff> color=black style=\"rounded,filled\" fillcolor=<#FD8D3C>  ]\nNode_24[label=<read<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#A1D99B>  ]\nNode_25[label=<dsuser<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FEEDDE>  ]\nNode_26[label=<dsuser3<BR/>>  fontcolor=<#ffffff> color=black style=\"rounded,filled\" fillcolor=<#D94701>  ]\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<script type="application/json" data-for="htmlwidget-e5c8c404fe174e4c81bd">{"x":{"diagram":"digraph vtree {\ngraph [nodesep=0.1, ranksep=0.5, tooltip=\" \"]\nnode [fontname = \"Arial\", fontcolor = black,shape = rectangle, color = black, tooltip=\" \",margin=0.1]\nNode_L0_0 [style=invisible]\n\nNode_L1_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#DE2D26\"><B>Project  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L0_0 -> Node_L1_0 [style=invisible arrowhead=none]\n\nNode_L2_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#3182BD\"><B>Data  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L1_0 -> Node_L2_0 [style=invisible arrowhead=none]\n\nNode_L3_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#31A354\"><B>Access<BR/>Level  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L2_0 -> Node_L3_0 [style=invisible arrowhead=none]\n\nNode_L4_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#E6550D\"><B>People  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L3_0 -> Node_L4_0 [style=invisible arrowhead=none]\n\nNode_L5_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#BCBDDC\"><B>Function  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L4_0 -> Node_L5_0 [style=invisible arrowhead=none]\n\nedge[style=solid]\nNode_1->Node_2\nNode_2->Node_3 Node_2->Node_4 Node_2->Node_5\nNode_3->Node_6\nNode_6->Node_7 Node_6->Node_8\nNode_7->Node_9 Node_7->Node_10 Node_7->Node_11 Node_7->Node_12 Node_7->Node_13 Node_7->Node_14 Node_7->Node_15 Node_7->Node_16 Node_7->Node_17 Node_7->Node_18 Node_7->Node_19 Node_7->Node_20 Node_7->Node_21 Node_7->Node_22\nNode_4->Node_23\nNode_23->Node_24 Node_23->Node_25\nNode_24->Node_26 Node_24->Node_27 Node_24->Node_28 Node_24->Node_29 Node_24->Node_30 Node_24->Node_31 Node_24->Node_32 Node_24->Node_33 Node_24->Node_34 Node_24->Node_35 Node_24->Node_36 Node_24->Node_37 Node_24->Node_38 Node_24->Node_39 Node_24->Node_40 Node_24->Node_41 Node_24->Node_42 Node_24->Node_43 Node_24->Node_44\nNode_5->Node_45\nNode_45->Node_46 Node_45->Node_47\nNode_46->Node_48 Node_46->Node_49 Node_46->Node_50 Node_46->Node_51 Node_46->Node_52 Node_46->Node_53 Node_46->Node_54 Node_46->Node_55 Node_46->Node_56 Node_46->Node_57 Node_46->Node_58\n\nNode_1[label=<DataSHIELD<BR/>server<BR/>47>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#EFF3FF>]\nNode_2[label=<CNSIM<BR/>>  fontcolor=<#ffffff> color=black style=\"rounded,filled\" fillcolor=<#FC9272>  ]\nNode_3[label=<CNSIM1<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#DEEBF7>  ]\nNode_4[label=<CNSIM2<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#9ECAE1>  ]\nNode_5[label=<CNSIM3<BR/>>  fontcolor=<#ffffff> color=black style=\"rounded,filled\" fillcolor=<#3182BD>  ]\nNode_6[label=<read<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#A1D99B>  ]\nNode_7[label=<dsuser<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FEEDDE>  ]\nNode_8[label=<dsuser1<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FDBE85>  ]\nNode_9[label=<base::assign<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_10[label=<base::exists<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_11[label=<dsBase::classDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_12[label=<dsBase::colnamesDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_13[label=<dsBase::dimDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_14[label=<dsBase::isValidDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_15[label=<dsBase::lengthDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_16[label=<dsBase::levelsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_17[label=<dsBase::lsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_18[label=<dsBase::meanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_19[label=<dsBase::numNaDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_20[label=<dsBase::quantileMeanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_21[label=<dsBase::table1DDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_22[label=<dsBase::varDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_23[label=<read<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#A1D99B>  ]\nNode_24[label=<dsuser<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FEEDDE>  ]\nNode_25[label=<dsuser2<BR/>>  fontcolor=<#ffffff> color=black style=\"rounded,filled\" fillcolor=<#FD8D3C>  ]\nNode_26[label=<base::assign<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_27[label=<base::exists<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_28[label=<dsBase::classDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_29[label=<dsBase::colnamesDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_30[label=<dsBase::dimDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_31[label=<dsBase::glmSLMADS.<BR/>assign<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_32[label=<dsBase::glmSLMADS1<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_33[label=<dsBase::glmSLMADS2<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_34[label=<dsBase::isValidDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_35[label=<dsBase::lengthDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_36[label=<dsBase::levelsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_37[label=<dsBase::lsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_38[label=<dsBase::meanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_39[label=<dsBase::messageDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_40[label=<dsBase::numNaDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_41[label=<dsBase::quantileMeanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_42[label=<dsBase::table1DDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_43[label=<dsBase::testObjExistsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_44[label=<dsBase::varDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_45[label=<read<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#A1D99B>  ]\nNode_46[label=<dsuser<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FEEDDE>  ]\nNode_47[label=<dsuser3<BR/>>  fontcolor=<#ffffff> color=black style=\"rounded,filled\" fillcolor=<#D94701>  ]\nNode_48[label=<base::assign<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_49[label=<base::exists<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_50[label=<dsBase::classDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_51[label=<dsBase::colnamesDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_52[label=<dsBase::dimDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_53[label=<dsBase::lengthDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_54[label=<dsBase::lsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_55[label=<dsBase::meanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_56[label=<dsBase::numNaDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_57[label=<dsBase::quantileMeanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\nNode_58[label=<dsBase::varDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#BCBDDC>  ]\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># display Overview data (Safe People, Safe Projects and Safe Data)</span></span>
 <span><span class="va">safe_project_crate_contents</span><span class="op">$</span><span class="va">overview_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="10%">
+<col width="9%">
 <col width="8%">
 <col width="16%">
-<col width="10%">
-<col width="29%">
-<col width="25%">
+<col width="9%">
+<col width="30%">
+<col width="24%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">Project</th>
@@ -7450,17 +8906,1249 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
 <td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:18:37</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:18:38</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:18:39</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:18:39</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:18:40</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:18:40</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:18:41</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:18:59</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:19:01</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:19:21</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:19:22</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:19:22</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:19:23</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:19:23</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:19:23</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:19:24</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:19:30</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:19:32</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:19:52</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:19:54</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:19:54</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:19:54</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:19:55</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:19:55</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:19:55</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:20:25</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:20:27</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:20:28</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:20:30</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:20:30</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:20:32</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:20:59</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:21:01</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:21:02</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:21:02</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:21:03</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:21:03</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:21:04</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:21:23</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:21:24</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:21:25</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:21:25</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:21:25</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:21:26</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:21:26</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:21:47</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:21:49</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:21:49</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:21:50</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:21:50</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:21:51</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:21:51</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:45:52</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:45:53</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:45:54</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:45:54</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:45:55</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:45:55</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:45:56</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:47:19</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:47:20</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:48:33</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:48:35</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:48:35</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:48:36</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:48:36</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:48:37</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:48:37</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:57:18</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:57:24</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:57:49</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:57:50</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:00:46</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::meanDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:00</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::quantileMeanDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::numNaDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::quantileMeanDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:02:03</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::numNaDS</td>
+<td align="left">2026-04-27T12:02:03</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:20</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:02:21</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:04:28</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:04:29</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:04:29</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:04:30</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:05:30</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:31</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:32</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:33</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:34</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T12:31:59</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T12:32:01</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:32:02</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:32:02</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T12:32:03</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T12:32:03</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T12:32:04</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T12:53:33</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T12:53:34</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:53:35</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:53:35</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T12:53:35</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T12:53:36</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T12:53:37</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
 <td align="left">dsuser1</td>
 <td align="left"></td>
 <td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:57:19</td>
 </tr>
 <tr class="odd">
 <td align="left">CNSIM</td>
 <td align="left">CNSIM2</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:57:24</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:57:49</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:57:50</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:00:46</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::meanDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:00</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::quantileMeanDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::numNaDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::quantileMeanDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:02:03</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::numNaDS</td>
+<td align="left">2026-04-27T12:02:03</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:20</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:02:21</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:04:28</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:04:29</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:04:29</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:04:30</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:05:30</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:31</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:32</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:33</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:34</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T12:31:07</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T12:32:13</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T12:32:20</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:32:26</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:32:26</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T12:32:27</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:32:27</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::levelsDS</td>
+<td align="left">2026-04-27T12:32:27</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::table1DDS</td>
+<td align="left">2026-04-27T12:32:27</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:32:36</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::glmSLMADS1</td>
+<td align="left">2026-04-27T12:32:36</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::glmSLMADS.assign</td>
+<td align="left">2026-04-27T12:32:36</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::glmSLMADS2</td>
+<td align="left">2026-04-27T12:32:37</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::testObjExistsDS</td>
+<td align="left">2026-04-27T12:32:37</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::messageDS</td>
+<td align="left">2026-04-27T12:32:37</td>
 </tr>
 <tr class="even">
 <td align="left">CNSIM</td>
@@ -7475,8 +10163,232 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">CNSIM3</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:57:19</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:57:24</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:57:49</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:57:50</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:00:46</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::meanDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:00</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::quantileMeanDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::numNaDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::quantileMeanDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:02:03</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::numNaDS</td>
+<td align="left">2026-04-27T12:02:03</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:20</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:02:21</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:04:28</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:04:29</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:04:29</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:04:30</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:05:31</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:31</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:32</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:33</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:34</td>
 </tr>
 <tr class="even">
 <td align="left">CNSIM</td>
@@ -7540,16 +10452,16 @@ multiple servers)<a class="anchor" aria-label="anchor" href="#list-users-and-dat
 <span><span class="co">#&gt;  Found 6 records... Imported 6 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 500 records... Found 917 records... Imported 917 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 500 records... Found 1000 records... Found 1326 records... Imported 1326 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 500 records... Found 917 records... Imported 917 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 500 records... Found 1000 records... Found 1326 records... Imported 1326 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 500 records... Found 917 records... Imported 917 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 500 records... Found 1000 records... Found 1326 records... Imported 1326 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 500 records... Found 917 records... Imported 917 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 500 records... Found 1000 records... Found 1326 records... Imported 1326 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">study_crate_v1</span><span class="op">)</span></span>
@@ -7684,10 +10596,10 @@ multiple servers)<a class="anchor" aria-label="anchor" href="#list-users-and-dat
 <span><span class="co">#&gt;       },</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260427T111843-dslogs-dsuser.log"</span></span>
+<span><span class="co">#&gt;           "@id": "20260427T125356-dslogs-dsuser.log"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260427T111843-dslogs-dsuser_mappings.csv"</span></span>
+<span><span class="co">#&gt;           "@id": "20260427T125356-dslogs-dsuser_mappings.csv"</span></span>
 <span><span class="co">#&gt;         }</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
@@ -7782,20 +10694,20 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <span><span class="co"># display Overview diagram</span></span>
 <span><span class="va">safe_project_crate_contents</span><span class="op">$</span><span class="va">overview_diagram</span></span></code></pre></div>
 <div class="grViz html-widget html-fill-item" id="htmlwidget-36aa3d2a04d42bbc2145" style="width:100%;height:432.632880098888px;"></div>
-<script type="application/json" data-for="htmlwidget-36aa3d2a04d42bbc2145">{"x":{"diagram":"digraph vtree {\ngraph [nodesep=0.1, ranksep=0.5, tooltip=\" \"]\nnode [fontname = \"Arial\", fontcolor = black,shape = rectangle, color = black, tooltip=\" \",margin=0.1]\nNode_L0_0 [style=invisible]\n\nNode_L1_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#DE2D26\"><B>Server  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L0_0 -> Node_L1_0 [style=invisible arrowhead=none]\n\nNode_L2_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#3182BD\"><B>Project  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L1_0 -> Node_L2_0 [style=invisible arrowhead=none]\n\nNode_L3_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#31A354\"><B>Data  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L2_0 -> Node_L3_0 [style=invisible arrowhead=none]\n\nNode_L4_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#E6550D\"><B>Access<BR/>Level  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L3_0 -> Node_L4_0 [style=invisible arrowhead=none]\n\nNode_L5_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#756BB1\"><B>People  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L4_0 -> Node_L5_0 [style=invisible arrowhead=none]\n\nNode_L6_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#ADDD8E\"><B>Function  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L5_0 -> Node_L6_0 [style=invisible arrowhead=none]\n\nedge[style=solid]\nNode_1->Node_2 Node_1->Node_3\nNode_2->Node_4\nNode_4->Node_5 Node_4->Node_6 Node_4->Node_7\nNode_5->Node_8\nNode_8->Node_9 Node_8->Node_10\nNode_9->Node_11 Node_9->Node_12 Node_9->Node_13 Node_9->Node_14 Node_9->Node_15 Node_9->Node_16 Node_9->Node_17 Node_9->Node_18 Node_9->Node_19 Node_9->Node_20 Node_9->Node_21 Node_9->Node_22\nNode_6->Node_23\nNode_23->Node_24 Node_23->Node_25\nNode_7->Node_26\nNode_26->Node_27 Node_26->Node_28\nNode_3->Node_29\nNode_29->Node_30\nNode_30->Node_31\nNode_31->Node_32\n\nNode_1[label=<DataSHIELD<BR/>server<BR/>18>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#EFF3FF>]\nNode_2[label=<opal_<BR/>demo<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FEE0D2>  ]\nNode_1[label=<DataSHIELD<BR/>server<BR/>18>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#EFF3FF>]\nNode_3[label=<opal_<BR/>test<BR/>>  fontcolor=<#ffffff> color=black style=\"rounded,filled\" fillcolor=<#DE2D26>  ]\nNode_4[label=<CNSIM<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#9ECAE1>  ]\nNode_5[label=<CNSIM1<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#E5F5E0>  ]\nNode_6[label=<CNSIM2<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#A1D99B>  ]\nNode_7[label=<CNSIM3<BR/>>  fontcolor=<#ffffff> color=black style=\"rounded,filled\" fillcolor=<#31A354>  ]\nNode_8[label=<read<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FDAE6B>  ]\nNode_9[label=<dsuser<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#F2F0F7>  ]\nNode_10[label=<dsuser1<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#CBC9E2>  ]\nNode_11[label=<base::assign<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_12[label=<base::exists<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_13[label=<dsBase::classDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_14[label=<dsBase::colnamesDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_15[label=<dsBase::dimDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_16[label=<dsBase::isValidDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_17[label=<dsBase::lengthDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_18[label=<dsBase::levelsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_19[label=<dsBase::lsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_20[label=<dsBase::meanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_21[label=<dsBase::quantileMeanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_22[label=<dsBase::table1DDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_23[label=<read<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FDAE6B>  ]\nNode_24[label=<dsuser<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#F2F0F7>  ]\nNode_25[label=<dsuser2<BR/>>  fontcolor=<#ffffff> color=black style=\"rounded,filled\" fillcolor=<#9E9AC8>  ]\nNode_26[label=<read<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FDAE6B>  ]\nNode_27[label=<dsuser<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#F2F0F7>  ]\nNode_28[label=<dsuser3<BR/>>  fontcolor=<#ffffff> color=black style=\"rounded,filled\" fillcolor=<#6A51A3>  ]\nNode_29[label=<CNSIM<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#9ECAE1>  ]\nNode_30[label=<CNSIM1<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#E5F5E0>  ]\nNode_31[label=<read<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FDAE6B>  ]\nNode_32[label=<dsuser<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#F2F0F7>  ]\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<script type="application/json" data-for="htmlwidget-36aa3d2a04d42bbc2145">{"x":{"diagram":"digraph vtree {\ngraph [nodesep=0.1, ranksep=0.5, tooltip=\" \"]\nnode [fontname = \"Arial\", fontcolor = black,shape = rectangle, color = black, tooltip=\" \",margin=0.1]\nNode_L0_0 [style=invisible]\n\nNode_L1_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#DE2D26\"><B>Server  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L0_0 -> Node_L1_0 [style=invisible arrowhead=none]\n\nNode_L2_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#3182BD\"><B>Project  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L1_0 -> Node_L2_0 [style=invisible arrowhead=none]\n\nNode_L3_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#31A354\"><B>Data  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L2_0 -> Node_L3_0 [style=invisible arrowhead=none]\n\nNode_L4_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#E6550D\"><B>Access<BR/>Level  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L3_0 -> Node_L4_0 [style=invisible arrowhead=none]\n\nNode_L5_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#756BB1\"><B>People  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L4_0 -> Node_L5_0 [style=invisible arrowhead=none]\n\nNode_L6_0[label=<<FONT POINT-SIZE=\"24\"><FONT COLOR=\"#ADDD8E\"><B>Function  <\/B><\/FONT><\/FONT>> shape=none margin=0]\nNode_L5_0 -> Node_L6_0 [style=invisible arrowhead=none]\n\nedge[style=solid]\nNode_1->Node_2 Node_1->Node_3\nNode_2->Node_4\nNode_4->Node_5 Node_4->Node_6 Node_4->Node_7\nNode_5->Node_8\nNode_8->Node_9 Node_8->Node_10\nNode_9->Node_11 Node_9->Node_12 Node_9->Node_13 Node_9->Node_14 Node_9->Node_15 Node_9->Node_16 Node_9->Node_17 Node_9->Node_18 Node_9->Node_19 Node_9->Node_20 Node_9->Node_21 Node_9->Node_22 Node_9->Node_23 Node_9->Node_24\nNode_6->Node_25\nNode_25->Node_26 Node_25->Node_27\nNode_26->Node_28 Node_26->Node_29 Node_26->Node_30 Node_26->Node_31 Node_26->Node_32 Node_26->Node_33 Node_26->Node_34 Node_26->Node_35 Node_26->Node_36 Node_26->Node_37 Node_26->Node_38 Node_26->Node_39 Node_26->Node_40 Node_26->Node_41 Node_26->Node_42 Node_26->Node_43 Node_26->Node_44 Node_26->Node_45 Node_26->Node_46\nNode_7->Node_47\nNode_47->Node_48 Node_47->Node_49\nNode_48->Node_50 Node_48->Node_51 Node_48->Node_52 Node_48->Node_53 Node_48->Node_54 Node_48->Node_55 Node_48->Node_56 Node_48->Node_57 Node_48->Node_58 Node_48->Node_59 Node_48->Node_60\nNode_3->Node_61\nNode_61->Node_62\nNode_62->Node_63\nNode_63->Node_64\n\nNode_1[label=<DataSHIELD<BR/>server<BR/>48>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#EFF3FF>]\nNode_2[label=<opal_<BR/>demo<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FEE0D2>  ]\nNode_1[label=<DataSHIELD<BR/>server<BR/>48>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#EFF3FF>]\nNode_3[label=<opal_<BR/>test<BR/>>  fontcolor=<#ffffff> color=black style=\"rounded,filled\" fillcolor=<#DE2D26>  ]\nNode_4[label=<CNSIM<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#9ECAE1>  ]\nNode_5[label=<CNSIM1<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#E5F5E0>  ]\nNode_6[label=<CNSIM2<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#A1D99B>  ]\nNode_7[label=<CNSIM3<BR/>>  fontcolor=<#ffffff> color=black style=\"rounded,filled\" fillcolor=<#31A354>  ]\nNode_8[label=<read<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FDAE6B>  ]\nNode_9[label=<dsuser<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#F2F0F7>  ]\nNode_10[label=<dsuser1<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#CBC9E2>  ]\nNode_11[label=<base::assign<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_12[label=<base::exists<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_13[label=<dsBase::classDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_14[label=<dsBase::colnamesDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_15[label=<dsBase::dimDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_16[label=<dsBase::isValidDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_17[label=<dsBase::lengthDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_18[label=<dsBase::levelsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_19[label=<dsBase::lsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_20[label=<dsBase::meanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_21[label=<dsBase::numNaDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_22[label=<dsBase::quantileMeanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_23[label=<dsBase::table1DDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_24[label=<dsBase::varDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_25[label=<read<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FDAE6B>  ]\nNode_26[label=<dsuser<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#F2F0F7>  ]\nNode_27[label=<dsuser2<BR/>>  fontcolor=<#ffffff> color=black style=\"rounded,filled\" fillcolor=<#9E9AC8>  ]\nNode_28[label=<base::assign<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_29[label=<base::exists<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_30[label=<dsBase::classDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_31[label=<dsBase::colnamesDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_32[label=<dsBase::dimDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_33[label=<dsBase::glmSLMADS.<BR/>assign<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_34[label=<dsBase::glmSLMADS1<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_35[label=<dsBase::glmSLMADS2<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_36[label=<dsBase::isValidDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_37[label=<dsBase::lengthDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_38[label=<dsBase::levelsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_39[label=<dsBase::lsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_40[label=<dsBase::meanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_41[label=<dsBase::messageDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_42[label=<dsBase::numNaDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_43[label=<dsBase::quantileMeanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_44[label=<dsBase::table1DDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_45[label=<dsBase::testObjExistsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_46[label=<dsBase::varDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_47[label=<read<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FDAE6B>  ]\nNode_48[label=<dsuser<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#F2F0F7>  ]\nNode_49[label=<dsuser3<BR/>>  fontcolor=<#ffffff> color=black style=\"rounded,filled\" fillcolor=<#6A51A3>  ]\nNode_50[label=<base::assign<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_51[label=<base::exists<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_52[label=<dsBase::classDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_53[label=<dsBase::colnamesDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_54[label=<dsBase::dimDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_55[label=<dsBase::lengthDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_56[label=<dsBase::lsDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_57[label=<dsBase::meanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_58[label=<dsBase::numNaDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_59[label=<dsBase::quantileMeanDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_60[label=<dsBase::varDS<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#ADDD8E>  ]\nNode_61[label=<CNSIM<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#9ECAE1>  ]\nNode_62[label=<CNSIM1<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#E5F5E0>  ]\nNode_63[label=<read<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#FDAE6B>  ]\nNode_64[label=<dsuser<BR/>>  fontcolor=<#000000> color=black style=\"rounded,filled\" fillcolor=<#F2F0F7>  ]\n\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># display Overview data (Safe People, Safe Projects and Safe Data)</span></span>
 <span><span class="va">safe_project_crate_contents</span><span class="op">$</span><span class="va">overview_data</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="11%">
+<col width="10%">
 <col width="8%">
 <col width="7%">
 <col width="14%">
 <col width="8%">
-<col width="25%">
-<col width="22%">
+<col width="27%">
+<col width="21%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">Server</th>
@@ -11574,6 +14486,942 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
 <td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:18:59</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:19:01</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:19:21</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:19:22</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:19:22</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:19:23</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:19:23</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:19:23</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:19:24</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:19:30</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:19:32</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:19:52</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:19:54</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:19:54</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:19:54</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:19:55</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:19:55</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:19:55</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:20:25</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:20:27</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:20:28</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:20:30</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:20:30</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:20:32</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:20:59</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:21:01</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:21:02</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:21:02</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:21:03</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:21:03</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:21:04</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:21:23</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:21:24</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:21:25</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:21:25</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:21:25</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:21:26</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:21:26</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:21:47</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:21:49</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:21:49</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:21:50</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:21:50</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:21:51</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:21:51</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:45:52</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:45:53</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:45:54</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:45:54</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:45:55</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:45:55</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:45:56</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:47:19</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:47:20</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:48:33</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:48:35</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T11:48:35</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T11:48:36</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T11:48:36</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:48:37</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:48:37</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:57:18</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:57:24</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:57:49</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:57:50</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:00:46</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::meanDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:00</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::quantileMeanDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::numNaDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::quantileMeanDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:02:03</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::numNaDS</td>
+<td align="left">2026-04-27T12:02:03</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:20</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:02:21</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:04:28</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:04:29</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:04:29</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:04:30</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:05:30</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:31</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:32</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:33</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:34</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T12:31:59</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T12:32:01</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:32:02</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:32:02</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T12:32:03</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T12:32:03</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T12:32:04</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T12:53:33</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T12:53:34</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:53:35</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:53:35</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T12:53:35</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T12:53:36</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T12:53:37</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
 <td align="left">dsuser1</td>
 <td align="left"></td>
 <td align="left"></td>
@@ -11584,10 +15432,397 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">CNSIM2</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:57:19</td>
 </tr>
 <tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:57:24</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:57:49</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:57:50</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:00:46</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::meanDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:00</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::quantileMeanDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::numNaDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::quantileMeanDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:02:03</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::numNaDS</td>
+<td align="left">2026-04-27T12:02:03</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:20</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:02:21</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:04:28</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:04:29</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:04:29</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:04:30</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:05:30</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:31</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:32</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:33</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:34</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T12:31:07</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T12:32:13</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T12:32:20</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:32:26</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:32:26</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-04-27T12:32:27</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:32:27</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::levelsDS</td>
+<td align="left">2026-04-27T12:32:27</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::table1DDS</td>
+<td align="left">2026-04-27T12:32:27</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:32:36</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::glmSLMADS1</td>
+<td align="left">2026-04-27T12:32:36</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::glmSLMADS.assign</td>
+<td align="left">2026-04-27T12:32:36</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::glmSLMADS2</td>
+<td align="left">2026-04-27T12:32:37</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::testObjExistsDS</td>
+<td align="left">2026-04-27T12:32:37</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM2</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::messageDS</td>
+<td align="left">2026-04-27T12:32:37</td>
+</tr>
+<tr class="even">
 <td align="left">opal_demo</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM2</td>
@@ -11596,16 +15831,268 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left"></td>
 <td align="left"></td>
 </tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-04-27T11:57:19</td>
+</tr>
 <tr class="even">
 <td align="left">opal_demo</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM3</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-04-27T11:57:24</td>
 </tr>
 <tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-04-27T11:57:49</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-04-27T11:57:50</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:00:46</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::meanDS</td>
+<td align="left">2026-04-27T12:00:47</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:00</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::quantileMeanDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:02:01</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::numNaDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::quantileMeanDS</td>
+<td align="left">2026-04-27T12:02:02</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lengthDS</td>
+<td align="left">2026-04-27T12:02:03</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::numNaDS</td>
+<td align="left">2026-04-27T12:02:03</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:02:20</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:02:21</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:04:28</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:04:29</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:04:29</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::varDS</td>
+<td align="left">2026-04-27T12:04:30</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-04-27T12:05:31</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:31</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:32</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:33</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM3</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-04-27T12:05:34</td>
+</tr>
+<tr class="even">
 <td align="left">opal_demo</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM3</td>
@@ -11614,7 +16101,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left"></td>
 <td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
