@@ -15,7 +15,7 @@ parse_user_profiles <- function(x, ...) {
 }
 
 # S3 methods ----
-#' @rdname parse_user_profiles
+#' @export
 #' @family Opal
 parse_user_profiles.opal <- function(x, ..., user) {
   # local bindings
@@ -78,7 +78,7 @@ project_exists <- function(x, ...) {
 }
 
 # S3 methods ----
-#' @rdname project_exists
+#' @export
 #' @family Opal
 project_exists.opal <- function(x, ..., project) {
   if (!opalr::opal.project_exists(x, project)) {
