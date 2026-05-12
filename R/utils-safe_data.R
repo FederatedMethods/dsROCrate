@@ -14,8 +14,8 @@ extract_safe_data <- function(x, ...) {
 #' @rdname extract_safe_data
 #' @export
 extract_safe_data.opal <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {
-  # extract all data sources
-  ds <- opalr::opal.datasources(x)
+  # extract list with all projects
+  ds <- opalr::opal.projects(x)
 
   # extract project names and ignore NAs
   projects <- ds$name[!is.na(ds$name) & !is.null(ds$name)]

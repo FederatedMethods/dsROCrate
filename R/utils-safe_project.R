@@ -19,8 +19,8 @@ extract_safe_project.opal <- function(
   ...,
   rocrate = rocrateR::rocrate_5s()
 ) {
-  # extract all data sources
-  ds <- opalr::opal.datasources(x)
+  # extract list with all projects
+  ds <- opalr::opal.projects(x)
 
   # cycle through the data source (x) and extract project details
   for (i in seq_len(nrow(ds))) {

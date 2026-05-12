@@ -71,8 +71,8 @@ audit_engine.opal <- function(
     stop("A `project` name is required!", call. = FALSE)
   }
 
-  # extract all data sources to verify `project` contains a valid value.
-  ds <- opalr::opal.datasources(x)
+  # extract list with all projects to verify `project` contains a valid value
+  ds <- opalr::opal.projects(x)
   server_prjs <- ds[, "name"]
   idx <- project %in% server_prjs
   if (!all(idx)) {
