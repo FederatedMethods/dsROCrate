@@ -39,7 +39,6 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-GB
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Imports: 
     digest,
     dplyr,
@@ -59,3 +58,4 @@ Depends:
 VignetteBuilder: knitr
 URL: https://github.com/FederatedMethods/dsROCrate
 BugReports: https://github.com/FederatedMethods/dsROCrate/issues
+Config/roxygen2/version: 8.0.0
