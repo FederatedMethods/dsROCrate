@@ -3,13 +3,10 @@
 \name{parse_user_profiles}
 \alias{parse_user_profiles}
 \alias{parse_user_profiles,armadillo-method}
-\alias{parse_user_profiles.opal}
 \alias{parse_user_profiles.ArmadilloCredentials}
 \title{Parse user profiles}
 \usage{
 \S4method{parse_user_profiles}{armadillo}(x, ..., user)
-
-\method{parse_user_profiles}{opal}(x, ..., user)
 
 \method{parse_user_profiles}{ArmadilloCredentials}(x, ..., user)
 }
@@ -26,15 +23,8 @@ server pointed by \code{x}.
 Parse user profiles
 }
 \seealso{
-Other Armadillo: 
-\code{\link{project_exists}()}
-
-Other Opal: 
-\code{\link{get_project_details}()},
-\code{\link{get_project_tables}()},
-\code{\link{get_table_permissions}()},
-\code{\link{project_exists}()}
+Other Armadillo:
+\code{\link[=project_exists]{project_exists()}}
 }
 \concept{Armadillo}
-\concept{Opal}
 \keyword{internal}

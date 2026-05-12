@@ -18,11 +18,9 @@ Data frame with project and tables associated
 Get project details (including tables)
 }
 \seealso{
-Other Opal: 
-\code{\link{get_project_tables}()},
-\code{\link{get_table_permissions}()},
-\code{\link{parse_user_profiles}()},
-\code{\link{project_exists}()}
+Other Opal:
+\code{\link[=get_project_tables]{get_project_tables()}},
+\code{\link[=get_table_permissions]{get_table_permissions()}}
 }
 \concept{Opal}
 \keyword{internal}

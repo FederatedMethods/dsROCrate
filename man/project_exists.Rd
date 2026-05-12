@@ -3,7 +3,6 @@
 \name{project_exists}
 \alias{project_exists}
 \alias{project_exists,armadillo-method}
-\alias{project_exists.opal}
 \alias{project_exists.ArmadilloCredentials}
 \title{Verify if project exists}
 \usage{
@@ -12,8 +11,6 @@
   ...,
   project
 )
-
-\method{project_exists}{opal}(x, ..., project)
 
 \method{project_exists}{ArmadilloCredentials}(x, ..., project)
 }
@@ -33,18 +30,8 @@ Wrapper for the \code{\link[opalr:opal.project_exists]{opalr::opal.project_exist
 \code{\link[MolgenisArmadillo:armadillo.list_projects]{MolgenisArmadillo::armadillo.list_projects()}} functions.
 }
 \seealso{
-Other Armadillo: 
-\code{\link{parse_user_profiles}()}
-
-Other Opal: 
-\code{\link{get_project_details}()},
-\code{\link{get_project_tables}()},
-\code{\link{get_table_permissions}()},
-\code{\link{parse_user_profiles}()}
-
-Other Armadillo: 
-\code{\link{parse_user_profiles}()}
+Other Armadillo:
+\code{\link[=parse_user_profiles]{parse_user_profiles()}}
 }
 \concept{Armadillo}
-\concept{Opal}
 \keyword{internal}
