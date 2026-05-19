@@ -279,6 +279,8 @@ infer_table_resource_lineage <- function(assets_tbl) {
 #' @returns Boolean flag to indicate whether the given connection was created
 #'     by an administrative user.
 #' @keywords internal
+#'
+#' @noRd
 is_opal_admin_con <- function(x) {
   # validate connection
   validate_opal_con(x)
@@ -292,6 +294,51 @@ is_opal_admin_con <- function(x) {
 
   # check if the user has admin in their groups
   if ("admin" %in% groups) {
+    return(TRUE)
+  } else {
+    return(FALSE)
+  }
+}
+
+#' Verify if connection was created by an auditor user
+#'
+#' @inheritParams validate_opal_con
+#'
+#' @returns Boolean flag to indicate whether the given connection was created
+#'     by an administrative user.
+#' @keywords internal
+#'
+#' @noRd
+is_opal_audit_con <- function(x) {
+  # validate connection
+  validate_opal_con(x)
+
+  # condition 1: auditor users don't have access to `opalr::oadmin.user_exists`
+  cond1 <- tryCatch(
+    {
+      # failure expected
+      opalr::oadmin.user_exists(x, x$username)
+      return(FALSE)
+    },
+    error = function(e) {
+      return(TRUE)
+    }
+  )
+
+  # condition 2: auditor users have access to `opalr::dsadmin.profile_exists`
+  cond2 <- tryCatch(
+    {
+      # success expected
+      opalr::dsadmin.profile_exists(x, "default")
+      return(TRUE)
+    },
+    error = function(e) {
+      return(FALSE)
+    }
+  )
+
+  # check all the conditions
+  if (all(cond1, cond2)) {
     return(TRUE)
   } else {
     return(FALSE)
