@@ -110,11 +110,7 @@ build_asset_entities <- function(assets_tbl, project_id, asset_id_suffix) {
         url = url,
         dateCreated = safe_time(created),
         dateModified = safe_time(updated),
-        isPartOf = list(`@id` = project_id) #,
-        # extra = list(
-        #   assetKind = asset_type,
-        #   backend = meta
-        # )
+        isPartOf = list(`@id` = project_id)
       )
     }
   )
@@ -173,19 +169,11 @@ get_project_assets <- function(x, project, type = c("tables", "resources")) {
       name = vapply(prj, \(x) x$name %||% "", ""),
       description = vapply(prj, \(x) x$description %||% "", ""),
       created = vapply(prj, \(x) safe_time(x$timestamps$created), character(1)),
-      #   prj,
-      #   \(x) as.POSIXct(x$timestamps$created, tz = "UTC") %||% NA_real_,
-      #   character(1)
-      # ),
       updated = vapply(
         prj,
         \(x) safe_time(x$timestamps$lastUpdate),
         character(1)
       ),
-      #   prj,
-      #   \(x) as.POSIXct(x$timestamps$lastUpdate, tz = "UTC") %||% NA_real_,
-      #   character(1)
-      # ),
       url = vapply(prj, \(x) x$link %||% NA_character_, ""),
       meta = vector("list", length(prj))
     )
@@ -202,56 +190,13 @@ get_project_assets <- function(x, project, type = c("tables", "resources")) {
       name = vapply(res, \(x) x$name %||% "", ""),
       description = vapply(res, \(x) x$description %||% "", ""),
       created = vapply(res, \(x) safe_time(x$created), character(1)),
-      #   res,
-      #   \(x) as.POSIXct(x$created, tz = "UTC") %||% NA_real_,
-      #   character(1)
-      # ),
       updated = vapply(res, \(x) safe_time(x$updated), character(1)),
-      #   res,
-      #   \(x) as.POSIXct(x$updated, tz = "UTC") %||% NA_real_,
-      #   character(1)
-      # ),
       url = vapply(res, function(x) x$resource$url %||% NA_character_, ""),
       meta = parse_resource_params(
         vapply(res, `[[`, "", "parameters")
       )
     )
   }
-}
-
-#' Get project tables
-#'
-#' Wrapper for [opalr::opal.project()].
-#'
-#' @inheritParams get_table_permissions
-#'
-#' @returns List of project tables
-#' @keywords internal
-#'
-#' @family Opal
-get_project_tables <- function(x, project) {
-  # verify if project exists
-  project_exists(x, project = project)
-
-  # extract table names associated to `project`
-  project_tables <- opalr::opal.project(x, project) |>
-    getElement("datasource") |>
-    getElement("table") |>
-    unlist()
-
-  # verify if `project_tables` is missing or NULL, if so, print warning message
-  if (all(is.na(project_tables)) || all(is.null(project_tables))) {
-    warning(
-      "The given `project`, does not have any tables associated!",
-      call. = FALSE
-    )
-
-    # return empty list, invisibly
-    return(invisible(list()))
-  }
-
-  # return project tables
-  return(project_tables)
 }
 
 #' Get table permissions

@@ -21,21 +21,6 @@ test_that("is_opal_admin_con detects admin group correctly", {
   opalr::opal.logout(opal_con)
 })
 
-test_that("get_project_tables retrieves real tables from demo server", {
-  # open connection to OBiBa's Opal demo server
-  opal_con <- opal_demo_con()
-  project <- attr(opal_con, "PROJECT")
-
-  tables <- get_project_tables(opal_con, project)
-
-  expect_type(tables, "character")
-  expect_true(length(tables) >= 1)
-  expect_true(all(nzchar(tables)))
-
-  # close connection to OBiBa's Opal demo server
-  opalr::opal.logout(opal_con)
-})
-
 test_that("get_table_permissions errors for non-admin connection", {
   # open connection to OBiBa's Opal demo server
   opal_con <- opal_demo_con(admin = FALSE)

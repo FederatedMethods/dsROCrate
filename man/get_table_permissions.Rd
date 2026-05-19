@@ -20,9 +20,5 @@ Data frame with permissions for each table in \code{tables}.
 \description{
 Wrapper for the \code{\link[opalr:opal.table_perm]{opalr::opal.table_perm()}} function.
 }
-\seealso{
-Other Opal:
-\code{\link[=get_project_tables]{get_project_tables()}}
-}
 \concept{Opal}
 \keyword{internal}
