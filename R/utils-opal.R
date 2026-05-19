@@ -282,18 +282,36 @@ infer_table_resource_lineage <- function(assets_tbl) {
 #'
 #' @noRd
 is_opal_admin_con <- function(x) {
+  # local binding
+  aux <- NULL
+
   # validate connection
   validate_opal_con(x)
 
-  # extract the user profile, `uprofile` from the connection object
-  uprofile <- getElement(x, "uprofile")
+  # condition 1: admin users have access to `opalr::oadmin.user_exists`
+  cond1 <- tryCatch(
+    {
+      aux <- opalr::oadmin.user_exists(x, x$username)
+      TRUE
+    },
+    error = function(e) {
+      FALSE
+    }
+  )
 
-  # extract logged in user's groups
-  groups <- getElement(uprofile, "groups") |>
-    sapply(unlist)
+  # condition 2: admin users have access to `opalr::dsadmin.profile_exists`
+  cond2 <- tryCatch(
+    {
+      aux <- opalr::dsadmin.profile_exists(x, "default")
+      TRUE
+    },
+    error = function(e) {
+      FALSE
+    }
+  )
 
-  # check if the user has admin in their groups
-  if ("admin" %in% groups) {
+  # check all the conditions are met
+  if (all(cond1, cond2)) {
     return(TRUE)
   } else {
     return(FALSE)
@@ -310,34 +328,35 @@ is_opal_admin_con <- function(x) {
 #'
 #' @noRd
 is_opal_audit_con <- function(x) {
+  # local binding
+  aux <- NULL
+
   # validate connection
   validate_opal_con(x)
 
   # condition 1: auditor users don't have access to `opalr::oadmin.user_exists`
   cond1 <- tryCatch(
     {
-      # failure expected
-      opalr::oadmin.user_exists(x, x$username)
-      return(FALSE)
+      aux <- opalr::oadmin.user_exists(x, x$username)
+      FALSE
     },
     error = function(e) {
-      return(TRUE)
+      TRUE
     }
   )
 
   # condition 2: auditor users have access to `opalr::dsadmin.profile_exists`
   cond2 <- tryCatch(
     {
-      # success expected
-      opalr::dsadmin.profile_exists(x, "default")
-      return(TRUE)
+      aux <- opalr::dsadmin.profile_exists(x, "default")
+      TRUE
     },
     error = function(e) {
-      return(FALSE)
+      FALSE
     }
   )
 
-  # check all the conditions
+  # check all the conditions are met
   if (all(cond1, cond2)) {
     return(TRUE)
   } else {
