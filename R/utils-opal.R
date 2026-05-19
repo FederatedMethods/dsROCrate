@@ -343,14 +343,6 @@ map_asset_type <- function(asset_type, meta, url) {
   "DigitalDocument"
 }
 
-normalise_permission <- function(p) {
-  allowed <- c("view", "view-values", "edit", "edit-values", "administrate")
-  if (p %in% allowed) {
-    return(p)
-  }
-  "view"
-}
-
 #' Parse project resources parametres
 #'
 #' @param params_json JSON object with resource params.
