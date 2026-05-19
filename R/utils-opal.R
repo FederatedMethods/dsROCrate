@@ -285,9 +285,6 @@ is_opal_admin_con <- function(x) {
   # local binding
   aux <- NULL
 
-  # validate connection
-  validate_opal_con(x)
-
   # condition 1: admin users have access to `opalr::oadmin.user_exists`
   cond1 <- tryCatch(
     {
@@ -330,9 +327,6 @@ is_opal_admin_con <- function(x) {
 is_opal_audit_con <- function(x) {
   # local binding
   aux <- NULL
-
-  # validate connection
-  validate_opal_con(x)
 
   # condition 1: auditor users don't have access to `opalr::oadmin.user_exists`
   cond1 <- tryCatch(
