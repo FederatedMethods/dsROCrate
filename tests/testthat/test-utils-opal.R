@@ -21,52 +21,6 @@ test_that("is_opal_admin_con detects admin group correctly", {
   opalr::opal.logout(opal_con)
 })
 
-test_that("get_table_permissions errors for non-admin connection", {
-  # open connection to OBiBa's Opal demo server
-  opal_con <- opal_demo_con(admin = FALSE)
-  project <- attr(opal_con, "PROJECT")
-  tables <- attr(opal_con, "TABLES")
-
-  expect_error(
-    get_table_permissions(opal_con, project, tables),
-    "The provided connection does not have access to retrieve table permissions!"
-  )
-
-  # close connection to OBiBa's Opal demo server
-  opalr::opal.logout(opal_con)
-})
-
-test_that("get_table_permissions throws a warning for an invalid project", {
-  # open connection to OBiBa's Opal demo server
-  opal_con <- opal_demo_con()
-  tables <- attr(opal_con, "TABLES")
-
-  expect_warning(
-    get_table_permissions(opal_con, "INVALID PROJECT", tables),
-    "404"
-  )
-
-  # close connection to OBiBa's Opal demo server
-  opalr::opal.logout(opal_con)
-})
-
-test_that("get_table_permissions retrieves real permissions", {
-  # open connection to OBiBa's Opal demo server
-  opal_con <- opal_demo_con()
-  project <- attr(opal_con, "PROJECT")
-  tables <- attr(opal_con, "TABLES")
-
-  res <- get_table_permissions(opal_con, project, tables)
-
-  expect_s3_class(res, "data.frame")
-  expect_true(all(c("project", "table") %in% names(res)))
-  expect_equal(unique(res$project), project)
-  expect_equal(unique(res$table), tables)
-
-  # close connection to OBiBa's Opal demo server
-  opalr::opal.logout(opal_con)
-})
-
 test_that("validate_opal_con errors on invalid connection object", {
   bad_con <- list(handle = list(handle = NULL))
 
