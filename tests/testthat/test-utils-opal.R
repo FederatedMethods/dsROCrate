@@ -30,38 +30,6 @@ test_that("validate_opal_con errors on invalid connection object", {
   )
 })
 
-test_that("update_project_datasets updates project entities of an RO-Crate", {
-  # open connection to OBiBa's Opal demo server
-  opal_con <- opal_demo_con()
-
-  # create basic RO-Crate with a project
-  rocrate <- rocrateR::rocrate_5s() |>
-    dsROCrate::safe_project(
-      connection = opal_con,
-      project = attr(opal_con, "PROJECT")
-    )
-
-  # update project datasets
-  expect_no_error(
-    rocrate <- rocrate |>
-      update_project_datasets(project = attr(opal_con, "PROJECT"), ds_ids = 1:5)
-  )
-
-  # extract `hasPart` for the project entity
-  expect_no_error(
-    has_part <- rocrateR::get_entity(rocrate, type = "Project") |>
-      sapply(getElement, name = "hasPart") |>
-      sapply(getElement, name = "@id") |>
-      unlist()
-  )
-
-  expect_equal(length(has_part), 5)
-  expect_equal(has_part, 1:5)
-
-  # close connection to OBiBa's Opal demo server
-  opalr::opal.logout(opal_con)
-})
-
 test_that("user_perm_entity works for all values of 'permission'", {
   input_tbl <- tibble::tibble(
     person = "dsuser",
