@@ -22,7 +22,6 @@ Wrapper for the \code{\link[opalr:opal.table_perm]{opalr::opal.table_perm()}} fu
 }
 \seealso{
 Other Opal:
-\code{\link[=get_project_details]{get_project_details()}},
 \code{\link[=get_project_tables]{get_project_tables()}}
 }
 \concept{Opal}

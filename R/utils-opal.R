@@ -219,42 +219,6 @@ get_project_assets <- function(x, project, type = c("tables", "resources")) {
   }
 }
 
-#' Get project details (including tables)
-#'
-#' @inheritParams get_table_permissions
-#'
-#' @returns Data frame with project and tables associated
-#' @keywords internal
-#'
-#' @family Opal
-get_project_details <- function(x, project) {
-  project |>
-    lapply(function(p) {
-      tryCatch(
-        {
-          # check if the given project exists
-          project_exists(x, project = p)
-
-          # retrieve tables for the given project
-          project_tables <- get_project_tables(x, p)
-          # check if any tables were found attached to the project
-          if (length(project_tables) < 1) {
-            return(tibble::tibble(project = p, table = NA))
-          }
-          tibble::tibble(
-            project = p,
-            table = project_tables
-          )
-        },
-        error = function(e) {
-          return(tibble::tibble(project = p, table = NA))
-        }
-      )
-    }) |>
-    dplyr::bind_rows() |>
-    dplyr::filter(!is.na(table))
-}
-
 #' Get project tables
 #'
 #' Wrapper for [opalr::opal.project()].

@@ -36,23 +36,6 @@ test_that("get_project_tables retrieves real tables from demo server", {
   opalr::opal.logout(opal_con)
 })
 
-test_that("get_project_details works end-to-end with demo Opal project", {
-  # open connection to OBiBa's Opal demo server
-  opal_con <- opal_demo_con()
-  project <- attr(opal_con, "PROJECT")
-
-  res <- get_project_details(opal_con, project)
-
-  expect_s3_class(res, "data.frame")
-  expect_true("project" %in% names(res))
-  expect_true("table" %in% names(res))
-  expect_true(nrow(res) >= 1)
-  expect_true(all(res$project == project))
-
-  # close connection to OBiBa's Opal demo server
-  opalr::opal.logout(opal_con)
-})
-
 test_that("get_table_permissions errors for non-admin connection", {
   # open connection to OBiBa's Opal demo server
   opal_con <- opal_demo_con(admin = FALSE)
@@ -94,18 +77,6 @@ test_that("get_table_permissions retrieves real permissions", {
   expect_true(all(c("project", "table") %in% names(res)))
   expect_equal(unique(res$project), project)
   expect_equal(unique(res$table), tables)
-
-  # close connection to OBiBa's Opal demo server
-  opalr::opal.logout(opal_con)
-})
-
-test_that("get_project_details handles non-existent project gracefully", {
-  opal_con <- opal_demo_con()
-
-  res <- get_project_details(opal_con, "THIS_PROJECT_DOES_NOT_EXIST_123")
-
-  expect_s3_class(res, "data.frame")
-  expect_equal(nrow(res), 0)
 
   # close connection to OBiBa's Opal demo server
   opalr::opal.logout(opal_con)

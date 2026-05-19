@@ -19,7 +19,6 @@ Wrapper for \code{\link[opalr:opal.project]{opalr::opal.project()}}.
 }
 \seealso{
 Other Opal:
-\code{\link[=get_project_details]{get_project_details()}},
 \code{\link[=get_table_permissions]{get_table_permissions()}}
 }
 \concept{Opal}
