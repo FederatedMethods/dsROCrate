@@ -12,6 +12,9 @@
 #' Returns `TRUE` invisibly if the connection has sufficient permissions.
 #'
 #' @export
+#'
+#' @seealso
+#' \code{vignette("audit-permissions", package = "dsROCrate")}
 check_permissions <- function(x, ...) {
   UseMethod("check_permissions")
 }
