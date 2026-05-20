@@ -104,12 +104,7 @@ safe_data.opal <- function(
   validate_opal_con(x)
 
   # validate that the connection user has administrative or audit rights
-  if (!any(is_opal_audit_con(x), is_opal_admin_con(x))) {
-    stop(
-      "The connection must be done by an user with audit or admin privileges!",
-      call. = FALSE
-    )
-  }
+  check_permissions(x)
 
   # match the assets to be included
   include <- match.arg(include, several.ok = TRUE)

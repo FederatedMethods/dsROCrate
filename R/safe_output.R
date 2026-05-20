@@ -138,12 +138,7 @@ safe_output.opal <- function(
   validate_opal_con(x)
 
   # validate that the connection user has administrative or audit privileges
-  if (!any(is_opal_audit_con(x), is_opal_admin_con(x))) {
-    stop(
-      "The connection must be done by an user with audit or admin privileges!",
-      call. = FALSE
-    )
-  }
+  check_permissions(x)
 
   # verify if `user` is NULL, if so, retrieve information from the RO-crate
   if (is.null(user)) {

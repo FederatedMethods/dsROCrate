@@ -155,12 +155,7 @@ safe_setting.opal <- function(
   validate_opal_con(x)
 
   # validate that the connection user has administrative or audit privileges
-  if (!any(is_opal_audit_con(x), is_opal_admin_con(x))) {
-    stop(
-      "The connection must be done by an user with audit or admin privileges!",
-      call. = FALSE
-    )
-  }
+  check_permissions(x)
 
   # validate profile ----
   if (!opalr::dsadmin.profile_exists(x, profile)) {

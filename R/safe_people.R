@@ -93,12 +93,7 @@ safe_people.opal <- function(
   validate_opal_con(x)
 
   # validate that the connection user has administrative or audit privileges
-  if (!any(is_opal_audit_con(x), is_opal_admin_con(x))) {
-    stop(
-      "The connection must be done by an user with audit or admin privileges!",
-      call. = FALSE
-    )
-  }
+  check_permissions(x)
 
   # attempt to retrieve project entity
   project_id <- id_hash("#project:", project)
