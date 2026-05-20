@@ -10,6 +10,7 @@
 #' @family Armadillo
 #' @usage
 #' \S4method{parse_user_profiles}{armadillo}(x, ..., user)
+#' @noRd
 parse_user_profiles <- function(x, ...) {
   UseMethod("parse_user_profiles")
 }
@@ -45,8 +46,6 @@ parse_user_profiles.opal <- function(x, ..., user) {
 }
 
 # S4 methods ----
-#' @method parse_user_profiles ArmadilloCredentials
-#' @rdname parse_user_profiles
 #' @export
 parse_user_profiles.ArmadilloCredentials <- function(x, ..., user) {
   message("PLACEHOLDER!")
@@ -65,14 +64,7 @@ parse_user_profiles.ArmadilloCredentials <- function(x, ..., user) {
 #' `project` does not exist in the given server.
 #'
 #' @keywords internal
-#' @aliases project_exists,armadillo-method
-#' @family Armadillo
-#' @usage
-#' \S4method{project_exists}{armadillo}(
-#'   x,
-#'   ...,
-#'   project
-#' )
+#' @noRd
 project_exists <- function(x, ...) {
   UseMethod("project_exists")
 }
@@ -93,8 +85,6 @@ project_exists.opal <- function(x, ..., project) {
 }
 
 # S4 methods ----
-#' @method project_exists ArmadilloCredentials
-#' @rdname project_exists
 #' @export
 #' @family Armadillo
 project_exists.ArmadilloCredentials <-

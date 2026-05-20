@@ -21,11 +21,11 @@
 #'
 #' @returns Audit RO-Crate with 5 Safes Components.
 #' @keywords internal
+#' @noRd
 audit_engine <- function(x, ...) {
   UseMethod("audit_engine")
 }
 
-#' @rdname audit_engine
 #' @export
 audit_engine.cr8tor <- function(x, ...) {
   # extract individual components from cr8tor bundle
@@ -46,7 +46,6 @@ audit_engine.cr8tor <- function(x, ...) {
   as_rocrate_audit(audit)
 }
 
-#' @rdname audit_engine
 #' @export
 audit_engine.opal <- function(
   x,
