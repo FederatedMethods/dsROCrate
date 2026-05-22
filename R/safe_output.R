@@ -271,6 +271,9 @@ safe_output.opal <- function(
   ## evaluated functions and tables/symbols mapped
   userlogs_tbl_maps_evals <- userlogs_tbl |>
     dplyr::filter(ds_action %in% c("ASSIGN", "AGGREGATE", "OPEN")) |>
+    # add place-holder column, for when ro records are found
+    dplyr::bind_rows(tibble::tibble(ds_table = NA)) |>
+    dplyr::filter(!is.na(ds_table)) |>
     # create derived `ds_eval` when `ds_action` = 'ASSIGN'
     dplyr::mutate(
       ds_eval = dplyr::coalesce(
