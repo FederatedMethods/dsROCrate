@@ -44,7 +44,7 @@ Imports:
     dplyr,
     DSMolgenisArmadillo,
     jsonlite,
-    opalr,
+    opalr (>= 3.6.1),
     purrr,
     RcppTOML,
     rmarkdown,
