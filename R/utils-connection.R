@@ -103,3 +103,36 @@ project_exists.ArmadilloCredentials <-
       )
     }
   }
+
+#' Validate backend version
+#'
+#' @param x DataSHIELD backend connection object.
+#' @param ... Unused.
+#' @param minimum String with minimum version.
+#'
+#' @returns Logical value indicating if backend version is valid.
+#' @keywords internal
+#' @noRd
+validate_backend_version <- function(x, ...) {
+  UseMethod("validate_backend_version")
+}
+
+#' @export
+validate_backend_version.default <- function(x, ...) {
+  invisible(TRUE)
+}
+
+#' @export
+validate_backend_version.opal <- function(x, minimum = "5.7.2", ...) {
+  if (utils::compareVersion(x$version, minimum) < 0) {
+    stop(
+      sprintf(
+        "Opal >= %s is required, but server version is %s.",
+        minimum,
+        x$version
+      ),
+      call. = FALSE
+    )
+  }
+  invisible(TRUE)
+}
