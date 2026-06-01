@@ -109,7 +109,7 @@ If a dedicated audit user does not already exist:
 con <- opalr::opal.login(
   username = "audit_user",
   password = "secret",
-  url = "https://opal.example.org"
+  url = "https://opal-demo.obiba.org"
 )
 
 dsROCrate::check_permissions(con)
