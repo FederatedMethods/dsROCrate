@@ -136,3 +136,41 @@ validate_backend_version.opal <- function(x, minimum = "5.7.2", ...) {
   }
   invisible(TRUE)
 }
+
+#' Validate backend connection
+#'
+#' @param x DataSHIELD backend connection object.
+#' @param ... Unused.
+#'
+#' @returns Nothing, call for its side effect.
+#' @keywords internal
+#' @noRd
+validate_con <- function(x, ...) {
+  UseMethod("validate_con")
+}
+
+#' @export
+validate_con.default <- function(x, ...) {
+  stop(
+    sprintf(
+      "Unsupported connection type: %s",
+      paste(class(x), collapse = ", ")
+    ),
+    call. = FALSE
+  )
+}
+
+#' @export
+validate_con.opal <- function(x, ...) {
+  tryCatch(
+    {
+      status <- xptr::is_null_xptr(x$handle$handle)
+      if (status) {
+        stop("The given connection is not valid!", call. = FALSE)
+      }
+    },
+    error = function(e) {
+      stop("The given connection is not valid!", call. = FALSE)
+    }
+  )
+}

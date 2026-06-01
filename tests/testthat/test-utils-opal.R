@@ -1,8 +1,8 @@
-test_that("validate_opal_con works with real Opal connection", {
+test_that("validate_con works with real Opal connection", {
   # open connection to OBiBa's Opal demo server
   opal_con <- opal_demo_con()
 
-  expect_no_error(validate_opal_con(opal_con))
+  expect_no_error(validate_con(opal_con))
 
   # close connection to OBiBa's Opal demo server
   opalr::opal.logout(opal_con)
@@ -21,12 +21,12 @@ test_that("is_opal_admin_con detects admin connection correctly", {
   opalr::opal.logout(opal_con)
 })
 
-test_that("validate_opal_con errors on invalid connection object", {
+test_that("validate_con errors on invalid connection object", {
   bad_con <- list(handle = list(handle = NULL))
 
   expect_error(
-    validate_opal_con(bad_con),
-    "connection is not valid"
+    validate_con(bad_con),
+    "Unsupported connection type"
   )
 })
 

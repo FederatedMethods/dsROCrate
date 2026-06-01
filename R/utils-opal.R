@@ -18,6 +18,9 @@ add_asset_permissions_to_crate <- function(
   assets_tbl,
   id_lookup
 ) {
+  # retrieve users (if any), safe_people.* should be executed first
+  safe_people_tbl <- flatten_safe_people(rocrate)
+
   for (i in seq_len(nrow(assets_tbl))) {
     asset <- assets_tbl[i, ]
 
@@ -275,7 +278,7 @@ infer_table_resource_lineage <- function(assets_tbl) {
 
 #' Verify if connection was created by an administrative user
 #'
-#' @inheritParams validate_opal_con
+#' @inheritParams validate_con
 #'
 #' @returns Boolean flag to indicate whether the given connection was created
 #'     by an administrative user.
@@ -318,7 +321,7 @@ is_opal_admin_con <- function(x) {
 
 #' Verify if connection was created by an auditor user
 #'
-#' @inheritParams validate_opal_con
+#' @inheritParams validate_con
 #'
 #' @returns Boolean flag to indicate whether the given connection was created
 #'     by an administrative user.
@@ -533,25 +536,4 @@ user_perm_entity <- function(
   #   })
   purrr::pmap(permission_entities_tbl, rocrateR::entity)
   # rocrateR::entity(as.list(permission_entities_tbl))
-}
-
-#' Validate OBiBa's Opal connection
-#'
-#' @param x Connection to OBiBa's Opal server (see [opalr::opal.login()]).
-#'
-#' @returns Nothing, call for its side effect.
-#' @keywords internal
-#' @noRd
-validate_opal_con <- function(x) {
-  tryCatch(
-    {
-      status <- xptr::is_null_xptr(x$handle$handle)
-      if (status) {
-        stop("The given connection is not valid!", call. = FALSE)
-      }
-    },
-    error = function(e) {
-      stop("The given connection is not valid!", call. = FALSE)
-    }
-  )
 }
