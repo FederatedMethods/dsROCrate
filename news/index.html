@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dsROCrate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
       </span>
     </div>
 
@@ -32,6 +32,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
+      <a href="../articles/audit-permissions.html">Configuring Audit Permissions</a>
+    </li>
+    <li>
       <a href="../articles/deploy-local-datashield-server-with-opal.html">Deploy a local DataSHIELD server with Opal</a>
     </li>
     <li>
@@ -57,14 +60,45 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/v0.0.2/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="development version" id="dsrocrate-development-version">dsROCrate (development version)<a class="anchor" aria-label="anchor" href="#dsrocrate-development-version"></a></h2>
+<h2 class="page-header" data-toc-text="0.1.0" id="dsrocrate-010">dsROCrate 0.1.0<a class="anchor" aria-label="anchor" href="#dsrocrate-010"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-1-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-1-0"></a></h3>
+<ul><li>Added <code><a href="../reference/check_permissions.html">check_permissions()</a></code> support for backend connections, allowing users to verify whether a connection has sufficient privileges to run <code>safe_*</code> auditing functions before execution (<a href="https://github.com/FederatedMethods/dsROCrate/issues/15" class="external-link">#15</a>).</li>
+<li>Permission validation now provides actionable feedback, including guidance on how to configure Opal users and roles when required permissions are missing (<a href="https://github.com/FederatedMethods/dsROCrate/issues/15" class="external-link">#15</a>).</li>
+<li>Added Opal version validation during backend checks to ensure compatibility with APIs required for auditing and permission verification workflows (<a href="https://github.com/FederatedMethods/dsROCrate/issues/22" class="external-link">#22</a>).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="improvements-0-1-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-0-1-0"></a></h3>
+<ul><li>Refactored backend validation into an extensible S3 framework, providing a cleaner architecture for supporting additional backends in future releases (<a href="https://github.com/FederatedMethods/dsROCrate/issues/23" class="external-link">#23</a>).</li>
+<li>Introduced a unified backend validation workflow that standardises connection, version and permission checks across auditing functions (<a href="https://github.com/FederatedMethods/dsROCrate/issues/23" class="external-link">#23</a>).</li>
+<li>Replaced use of <code><a href="https://www.obiba.org/opalr/reference/opal.datasources.html" class="external-link">opalr::opal.datasources()</a></code> with <code><a href="https://www.obiba.org/opalr/reference/opal.projects.html" class="external-link">opalr::opal.projects()</a></code>, reducing the permissions required for metadata extraction and improving compatibility with auditor accounts (<a href="https://github.com/FederatedMethods/dsROCrate/issues/21" class="external-link">#21</a>).</li>
+<li>Updated auditing workflows to support Opal’s <strong>Audit System</strong> role, reducing the need for administrator-level accounts when generating RO-Crates and audit reports (<a href="https://github.com/FederatedMethods/dsROCrate/issues/20" class="external-link">#20</a>).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-0-1-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-1-0"></a></h3>
+<ul><li>Fixed generation of orphaned permission entities in RO-Crates by excluding administrator and auditor permissions from dataset permission records where corresponding user entities are not included (<a href="https://github.com/FederatedMethods/dsROCrate/issues/19" class="external-link">#19</a>).</li>
+<li>Improved consistency between <code><a href="../reference/safe_data.html">safe_data()</a></code> and <code><a href="../reference/safe_people.html">safe_people()</a></code> permission handling (<a href="https://github.com/FederatedMethods/dsROCrate/issues/19" class="external-link">#19</a>).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="documentation-0-1-0">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-1-0"></a></h3>
+<ul><li>Updated deployment vignette to reference the FederatedMethods-maintained DataSHIELD Docker deployment resources and repository structure (<a href="https://github.com/FederatedMethods/dsROCrate/issues/16" class="external-link">#16</a>).</li>
+<li>Updated user documentation to reflect support for Opal’s <strong>Audit System</strong> role and revised permission requirements (<a href="https://github.com/FederatedMethods/dsROCrate/issues/20" class="external-link">#20</a>).</li>
+<li>Reviewed documentation for internal helper functions and adjusted visibility of internal APIs where appropriate (<a href="https://github.com/FederatedMethods/dsROCrate/issues/17" class="external-link">#17</a>).</li>
+<li>Added documentation and examples for backend permission validation workflows (<a href="https://github.com/FederatedMethods/dsROCrate/issues/15" class="external-link">#15</a>).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="internal-changes-0-1-0">Internal Changes<a class="anchor" aria-label="anchor" href="#internal-changes-0-1-0"></a></h3>
+<ul><li>Improved separation of concerns between connection validation, backend capability checks and permission validation (<a href="https://github.com/FederatedMethods/dsROCrate/issues/22" class="external-link">#22</a>, <a href="https://github.com/FederatedMethods/dsROCrate/issues/23" class="external-link">#23</a>).</li>
+<li>Refined internal validation infrastructure to simplify future backend integrations.</li>
+<li>General maintenance, testing and documentation updates.</li>
+</ul></div>
 </div>
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.0.2" id="dsrocrate-002">dsROCrate 0.0.2<a class="anchor" aria-label="anchor" href="#dsrocrate-002"></a></h2>
+<h2 class="page-header" data-toc-text="0.0.2" id="dsrocrate-002">dsROCrate 0.0.2<small>2026-04-27</small><a class="anchor" aria-label="anchor" href="#dsrocrate-002"></a></h2>
 <ul><li>This patch addresses an issue with the vignettes. The <code><a href="../reference/safe_output.html">safe_output.opal()</a></code> S3 generic now uses <code>overwrite = TRUE</code> to update the root (<code>./</code>) entity.</li>
 </ul></div>
     <div class="section level2">

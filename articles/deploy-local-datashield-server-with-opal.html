@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dsROCrate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
       </span>
     </div>
 
@@ -54,6 +54,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/audit-permissions.html">Configuring Audit Permissions</a>
+    </li>
+    <li>
       <a href="../articles/deploy-local-datashield-server-with-opal.html">Deploy a local DataSHIELD server with Opal</a>
     </li>
     <li>
@@ -88,7 +91,7 @@
       <h1 data-toc-skip>Deploy a local DataSHIELD server with Opal</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/v0.0.2/vignettes/deploy-local-datashield-server-with-opal.Rmd" class="external-link"><code>vignettes/deploy-local-datashield-server-with-opal.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/main/vignettes/deploy-local-datashield-server-with-opal.Rmd" class="external-link"><code>vignettes/deploy-local-datashield-server-with-opal.Rmd</code></a></small>
       <div class="hidden name"><code>deploy-local-datashield-server-with-opal.Rmd</code></div>
 
     </div>
@@ -124,15 +127,15 @@ installed and configured Docker on your computer; however, if that’s not
 the case, visit their <a href="https://www.docker.com/get-started/" class="external-link">get
 started with Docker</a> page.</p>
 <div class="section level4">
-<h4 id="set-up">Set up<a class="anchor" aria-label="anchor" href="#set-up"></a>
+<h4 id="setup">Setup<a class="anchor" aria-label="anchor" href="#setup"></a>
 </h4>
 <p>The easiest way to deploy DataSHIELD with docker is by cloning the
-following repo: <a href="https://github.com/OllyButters/datashield_pcr" class="external-link">OllyButters/datashield_pcr</a>.
-Here, you will find a step by step guide, including a very useful <a href="https://github.com/OllyButters/datashield_pcr/blob/main/docker/docker-compose.yml" class="external-link"><code>docker-compose.yml</code></a>
+following repo: <a href="https://github.com/FederatedMethods/datashield_dev_install" class="external-link">FederatedMethods/datashield_dev_install</a>.
+Here, you will find a step by step guide, including a very useful <a href="https://github.com/FederatedMethods/datashield_dev_install/blob/main/docker/docker-compose.yml" class="external-link"><code>docker-compose.yml</code></a>
 file, which you can use out of the box.</p>
 <p>If you are running Linux or macOS, you can run the following
 commands:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/OllyButters/datashield_pcr</span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/FederatedMethods/datashield_dev_install</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="bu">cd</span> datashield_pcr/docker</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="ex">docker</span> compose up <span class="at">-d</span></span></code></pre></div>
 <p>Then you can inspect the Docker GUI, where you should see something
@@ -143,7 +146,7 @@ like the following:</p>
 <div class="section level4">
 <h4 id="open-connection">Open connection<a class="anchor" aria-label="anchor" href="#open-connection"></a>
 </h4>
-<p>By default, the <a href="https://github.com/OllyButters/datashield_pcr/blob/main/docker/docker-compose.yml" class="external-link"><code>docker-compose.yml</code></a>
+<p>By default, the <a href="https://github.com/FederatedMethods/datashield_dev_install/blob/main/docker/docker-compose.yml" class="external-link"><code>docker-compose.yml</code></a>
 file in the repo above defines a demo user, <code>demo_user</code>, with
 the following password: <code>Demo_password1!</code> (edit the variables
 <code>OPAL_DEMO_USER_NAME</code> and
@@ -157,6 +160,56 @@ connection to our local server using these credentials:</p>
 <span><span class="va">TABLES</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CNSIM1"</span><span class="op">)</span></span>
 <span><span class="va">SERVER</span> <span class="op">&lt;-</span> <span class="st">"https://opal-demo.obiba.org"</span></span>
 <span><span class="va">PROFILE</span> <span class="op">&lt;-</span> <span class="st">"demo"</span></span></code></pre></div>
+<hr>
+</div>
+<div class="section level4">
+<h4 id="test-deployment">Test deployment<a class="anchor" aria-label="anchor" href="#test-deployment"></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li><p>On a web browser, navigate to <code>http://localhost:8880</code>
+<!-- @URLok --> and use the credentials on the
+<code>docker-compose.yml</code> to log in (e.g.,
+<code>administrator</code> and <code>password</code>).</p></li>
+<li>
+<p>Inside RStudio (or your preferred IDE), you can test the
+connection to the local server with the following command (note that you
+might need to update the <code>username</code> and
+<code>password</code>):</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">opalr</span><span class="fu">::</span><span class="fu"><a href="https://www.obiba.org/opalr/reference/opal.login.html" class="external-link">opal.login</a></span><span class="op">(</span> </span>
+<span>    username <span class="op">=</span> <span class="st">"administrator"</span>, </span>
+<span>    password <span class="op">=</span> <span class="st">"password"</span>, </span>
+<span>    url <span class="op">=</span> <span class="st">"https://localhost:8843/"</span> </span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>You should see something like the following:
+<code>bash   url: https://localhost:8843     name: localhost     version: 5.2.0     username: administrator</code></p>
+</li>
+<li>
+<p>(Optional) Next, you can attempt running some commands with
+<code>{dsBaseClient}</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span> <span class="co"># for setup only </span></span>
+<span> <span class="fu">DSOpal</span><span class="fu">::</span><span class="fu"><a href="https://datashield.github.io/DSOpal/reference/Opal.html" class="external-link">Opal</a></span><span class="op">(</span><span class="op">)</span> </span>
+<span> <span class="co"># create new login object </span></span>
+<span> <span class="va">builder</span> <span class="op">&lt;-</span> <span class="fu">DSI</span><span class="fu">::</span><span class="fu"><a href="https://datashield.github.io/DSI/reference/newDSLoginBuilder.html" class="external-link">newDSLoginBuilder</a></span><span class="op">(</span><span class="op">)</span> </span>
+<span> <span class="va">builder</span><span class="op">$</span><span class="fu">append</span><span class="op">(</span>server <span class="op">=</span> <span class="st">"study1"</span>, </span>
+<span>                url <span class="op">=</span> <span class="st">"https://localhost:8843/"</span>, </span>
+<span>                user <span class="op">=</span> <span class="st">"administrator"</span>, </span>
+<span>                password <span class="op">=</span> <span class="st">"password"</span>, </span>
+<span>                driver <span class="op">=</span> <span class="st">"OpalDriver"</span><span class="op">)</span> </span>
+<span> <span class="va">logindata</span> <span class="op">&lt;-</span> <span class="va">builder</span><span class="op">$</span><span class="fu">build</span><span class="op">(</span><span class="op">)</span> </span>
+<span> <span class="va">conns</span> <span class="op">&lt;-</span> <span class="fu">DSI</span><span class="fu">::</span><span class="fu"><a href="https://datashield.github.io/DSI/reference/datashield.login.html" class="external-link">datashield.login</a></span><span class="op">(</span>logins <span class="op">=</span> <span class="va">logindata</span><span class="op">)</span> </span>
+<span></span>
+<span> <span class="co"># assign table to symbol, `test` </span></span>
+<span> <span class="fu">DSI</span><span class="fu">::</span><span class="fu"><a href="https://datashield.github.io/DSI/reference/datashield.assign.table.html" class="external-link">datashield.assign.table</a></span><span class="op">(</span><span class="va">conns</span><span class="op">[</span><span class="st">"study1"</span><span class="op">]</span>,  </span>
+<span>                              symbol <span class="op">=</span> <span class="st">"test"</span>, </span>
+<span>                              table <span class="op">=</span> <span class="st">"DEMO.CNSIM1"</span>, </span>
+<span>                              errors.print <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span>
+<span></span>
+<span> <span class="fu">dsBaseClient</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dsBaseClient/man/ds.ls.html" class="external-link">ds.ls</a></span><span class="op">(</span>datasources <span class="op">=</span> <span class="va">conns</span><span class="op">[</span><span class="st">"study1"</span><span class="op">]</span><span class="op">)</span> </span>
+<span> <span class="fu">dsBaseClient</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dsBaseClient/man/ds.summary.html" class="external-link">ds.summary</a></span><span class="op">(</span><span class="st">"test"</span><span class="op">)</span></span></code></pre></div>
+</li>
+</ol>
 </div>
 </div>
   </div>
