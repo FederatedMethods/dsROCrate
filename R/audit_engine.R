@@ -57,7 +57,7 @@ audit_engine.opal <- function(
   path = NULL
 ) {
   # local bindings
-  name <- principal <- NULL
+  name <- permission <- principal <- NULL
 
   # create RO-Create with the 5 safes profile
   crate <- rocrateR::rocrate_5s()

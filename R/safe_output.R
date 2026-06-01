@@ -93,6 +93,7 @@ safe_output.opal <- function(
   # local bindings
   `@timestamp` <- backend <- logger_name <- safe_people_id <- username <- NULL
   ds_action <- ds_eval <- ds_id <- ds_function <- ds_symbol <- ds_table <- NULL
+  is_placeholder <- NULL
 
   # create formatted versions of input dates
   logs_from_is_valid <- FALSE
