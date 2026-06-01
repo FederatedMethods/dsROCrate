@@ -150,12 +150,8 @@ safe_setting.opal <- function(
   # local binding
   Package <- NULL
 
-  # validate connection ----
-  # x is a valid opal connection object
-  validate_opal_con(x)
-
-  # validate that the connection user has administrative or audit privileges
-  check_permissions(x)
+  # validate backend
+  validate_backend(x, ...)
 
   # validate profile ----
   if (!opalr::dsadmin.profile_exists(x, profile)) {

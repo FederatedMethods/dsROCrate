@@ -105,11 +105,8 @@ safe_project.opal <- function(
   # declare local bindings
   created <- lastUpdate <- type <- NULL
 
-  # x is a valid opal connection object
-  validate_opal_con(x)
-
-  # validate that the connection user has administrative or audit privileges
-  check_permissions(x)
+  # validate backend
+  validate_backend(x, ...)
 
   # enforce that `project` is a single value
   if (is.null(project)) {

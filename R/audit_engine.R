@@ -62,11 +62,8 @@ audit_engine.opal <- function(
   # create RO-Create with the 5 safes profile
   crate <- rocrateR::rocrate_5s()
 
-  # x is a valid opal connection object
-  validate_opal_con(x)
-
-  # validate that the connection user has administrative or audit privileges
-  check_permissions(x)
+  # validate backend
+  validate_backend(x, ...)
 
   # if `project` is missing, then ~extract all project names~ error
   if (is.null(project)) {
