@@ -509,7 +509,7 @@ study_crate_v1 <-
     "opal_test" = opalr::opal.login(
       username = USERNAME,
       password = USERPASS,
-      url = "https://opal-test.obiba.org"
+      url = "https://opal-demo.obiba.org"
     ),
     "opal_demo" = opalr::opal.login(
       username = USERNAME,
