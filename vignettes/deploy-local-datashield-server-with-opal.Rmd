@@ -79,7 +79,8 @@ PROFILE <- "demo"
 
 #### Test deployment
 
-1. On a web browser, navigate to http://localhost:8880/#/signin and use the credentials on the `docker-compose.yml` to log in (e.g., `administrator` and `password`).
+1. On a web browser, navigate to `http://localhost:8880` <!-- @URLok --> 
+and use the credentials on the `docker-compose.yml` to log in (e.g., `administrator` and `password`).
        
 2. Inside RStudio (or your preferred IDE), you can test the connection to the local server with the following command (note that you might need to update the `username` and `password`): 
  
