@@ -93,7 +93,7 @@
       <h1 data-toc-skip>Getting Started</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/main/vignettes/getting-started.Rmd" class="external-link"><code>vignettes/getting-started.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/v0.1.0/vignettes/getting-started.Rmd" class="external-link"><code>vignettes/getting-started.Rmd</code></a></small>
       <div class="hidden name"><code>getting-started.Rmd</code></div>
 
     </div>
@@ -699,7 +699,7 @@ using the following commands:</p>
 <span>                         logs_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">8.64E4</span>, <span class="co"># capture the last 24 hours</span></span>
 <span>                         logs_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 132 records... Imported 132 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 170 records... Imported 170 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; Warning: A `path` wasn't provided! The logs will be included in the RO-Crate</span></span>
 <span><span class="co">#&gt; object, under the `content` tag!</span></span></code></pre></div>
@@ -707,21 +707,21 @@ using the following commands:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">basic_rocrate</span><span class="op">)</span> <span class="co"># note that the output will be truncated</span></span>
 <span><span class="va">...</span></span>
 <span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "20260601T133515-dslogs-dsuser.log",</span></span>
+<span><span class="co">#&gt;       "@id": "20260601T141510-dslogs-dsuser.log",</span></span>
 <span><span class="co">#&gt;       "@type": "File",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-06-01 13:35:15",</span></span>
-<span><span class="co">#&gt;       "name": "20260601T133515-dslogs-dsuser.log",</span></span>
-<span><span class="co">#&gt;       "description": "This file contains the raw logs for the user: `dsuser` , between: 2026-05-31 13:35:14 and 2026-06-01 13:35:14",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-06-01 14:15:10",</span></span>
+<span><span class="co">#&gt;       "name": "20260601T141510-dslogs-dsuser.log",</span></span>
+<span><span class="co">#&gt;       "description": "This file contains the raw logs for the user: `dsuser` , between: 2026-05-31 14:15:09 and 2026-06-01 14:15:09",</span></span>
 <span><span class="co">#&gt;       "encodingFormat": "text/plain",</span></span>
 <span><span class="co">#&gt;       "content": [</span></span>
-<span><span class="co">#&gt;         ["[INFO][2026-06-01T07:37:01][OPEN]      created a datashield session 0150d756-3f22-407f-ba1b-245bc8cf5ab0", "[INFO][2026-06-01T07:37:03][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T07:37:03][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T07:37:04][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T07:37:04][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-06-01T07:37:04][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-06-01T07:37:04][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T07:37:04][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T07:37:04][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-06-01T07:37:04][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-06-01T07:37:05][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T07:37:05][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T07:37:05][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T07:37:05][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T07:39:08][OPEN]      created a datashield session 725e11d4-a677-49ed-a8fa-82c58e0b3210", "[INFO][2026-06-01T07:39:08][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T07:39:08][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T07:39:09][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T08:21:05][OPEN]      created a datashield session 924db769-298d-4c7b-bc60-a0b760c03447", "[INFO][2026-06-01T08:21:06][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T08:21:06][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T08:21:07][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T09:24:09][OPEN]      created a datashield session 4b585110-6ab0-458c-8986-363b750a1cc3", "[INFO][2026-06-01T09:24:09][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T09:24:10][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T09:24:10][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T09:24:11][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-06-01T09:24:11][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-06-01T09:24:11][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T09:24:11][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T09:24:11][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-06-01T09:24:11][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-06-01T09:24:11][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T09:24:11][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T09:24:11][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T09:24:11][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T09:49:44][OPEN]      created a datashield session 8923e215-dba7-4d71-8fe5-5840623a40f4", "[INFO][2026-06-01T09:49:44][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T09:49:45][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T09:49:45][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T10:24:03][OPEN]      created a datashield session 2a13ced8-e23d-4448-9aea-a3c7ca47c85c", "[INFO][2026-06-01T10:24:03][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T10:24:04][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T10:24:05][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T10:55:52][OPEN]      created a datashield session 8161f0a4-e17a-4fc3-9184-e4eb0619c270", "[INFO][2026-06-01T10:55:52][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T10:55:53][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T10:55:54][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:14:09][OPEN]      created a datashield session 0544d264-3571-4a22-9f9c-bb6420211846", "[INFO][2026-06-01T12:14:10][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T12:14:10][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:14:11][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:26:11][OPEN]      created a datashield session 1efe277b-f84b-4439-8389-495643436998", "[INFO][2026-06-01T12:26:12][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T12:26:12][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:26:13][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:26:13][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-06-01T12:26:13][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-06-01T12:26:13][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T12:26:13][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T12:26:14][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-06-01T12:26:14][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-06-01T12:26:14][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T12:26:14][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T12:26:14][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T12:26:14][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T12:28:27][OPEN]      created a datashield session a4355c3a-2f5c-4ce5-9238-e7796667f6bb", "[INFO][2026-06-01T12:28:28][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T12:28:28][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:28:29][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:28:42][OPEN]      created a datashield session 65c6807f-91f3-4205-b76a-8cf80ed7f8c7", "[INFO][2026-06-01T12:28:43][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T12:28:44][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:28:45][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:28:46][OPEN]      created a datashield session 0b527e7c-6e88-4aaa-910c-bd7b883c588b", "[INFO][2026-06-01T12:28:47][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T12:28:48][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:28:49][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:29:07][OPEN]      created a datashield session d11f4660-79b1-4e2a-ac0b-c02d7582d5ed", "[INFO][2026-06-01T12:29:08][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T12:29:08][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:29:09][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:29:20][OPEN]      created a datashield session 8555a336-ef38-4619-bb15-14be40930fea", "[INFO][2026-06-01T12:29:21][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T12:29:21][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:29:22][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:56:16][OPEN]      created a datashield session 4eb19c17-e164-45f7-9168-d8b41b3b71cc", "[INFO][2026-06-01T12:56:17][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T12:56:17][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:56:18][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'"]</span></span>
+<span><span class="co">#&gt;         ["[INFO][2026-06-01T07:37:01][OPEN]      created a datashield session 0150d756-3f22-407f-ba1b-245bc8cf5ab0", "[INFO][2026-06-01T07:37:03][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T07:37:03][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T07:37:04][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T07:37:04][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-06-01T07:37:04][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-06-01T07:37:04][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T07:37:04][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T07:37:04][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-06-01T07:37:04][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-06-01T07:37:05][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T07:37:05][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T07:37:05][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T07:37:05][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T07:39:08][OPEN]      created a datashield session 725e11d4-a677-49ed-a8fa-82c58e0b3210", "[INFO][2026-06-01T07:39:08][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T07:39:08][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T07:39:09][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T08:21:05][OPEN]      created a datashield session 924db769-298d-4c7b-bc60-a0b760c03447", "[INFO][2026-06-01T08:21:06][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T08:21:06][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T08:21:07][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T09:24:09][OPEN]      created a datashield session 4b585110-6ab0-458c-8986-363b750a1cc3", "[INFO][2026-06-01T09:24:09][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T09:24:10][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T09:24:10][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T09:24:11][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-06-01T09:24:11][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-06-01T09:24:11][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T09:24:11][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T09:24:11][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-06-01T09:24:11][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-06-01T09:24:11][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T09:24:11][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T09:24:11][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T09:24:11][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T09:49:44][OPEN]      created a datashield session 8923e215-dba7-4d71-8fe5-5840623a40f4", "[INFO][2026-06-01T09:49:44][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T09:49:45][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T09:49:45][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T10:24:03][OPEN]      created a datashield session 2a13ced8-e23d-4448-9aea-a3c7ca47c85c", "[INFO][2026-06-01T10:24:03][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T10:24:04][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T10:24:05][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T10:55:52][OPEN]      created a datashield session 8161f0a4-e17a-4fc3-9184-e4eb0619c270", "[INFO][2026-06-01T10:55:52][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T10:55:53][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T10:55:54][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:14:09][OPEN]      created a datashield session 0544d264-3571-4a22-9f9c-bb6420211846", "[INFO][2026-06-01T12:14:10][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T12:14:10][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:14:11][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:26:11][OPEN]      created a datashield session 1efe277b-f84b-4439-8389-495643436998", "[INFO][2026-06-01T12:26:12][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T12:26:12][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:26:13][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:26:13][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-06-01T12:26:13][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-06-01T12:26:13][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T12:26:13][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T12:26:14][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-06-01T12:26:14][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-06-01T12:26:14][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T12:26:14][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T12:26:14][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T12:26:14][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T12:28:27][OPEN]      created a datashield session a4355c3a-2f5c-4ce5-9238-e7796667f6bb", "[INFO][2026-06-01T12:28:28][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T12:28:28][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:28:29][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:28:42][OPEN]      created a datashield session 65c6807f-91f3-4205-b76a-8cf80ed7f8c7", "[INFO][2026-06-01T12:28:43][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T12:28:44][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:28:45][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:28:46][OPEN]      created a datashield session 0b527e7c-6e88-4aaa-910c-bd7b883c588b", "[INFO][2026-06-01T12:28:47][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T12:28:48][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:28:49][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:29:07][OPEN]      created a datashield session d11f4660-79b1-4e2a-ac0b-c02d7582d5ed", "[INFO][2026-06-01T12:29:08][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T12:29:08][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:29:09][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:29:20][OPEN]      created a datashield session 8555a336-ef38-4619-bb15-14be40930fea", "[INFO][2026-06-01T12:29:21][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T12:29:21][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:29:22][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:56:16][OPEN]      created a datashield session 4eb19c17-e164-45f7-9168-d8b41b3b71cc", "[INFO][2026-06-01T12:56:17][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T12:56:17][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T12:56:18][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T13:36:02][OPEN]      created a datashield session c7dbca69-29c9-4af0-befa-6c73380700c4", "[INFO][2026-06-01T13:36:03][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T13:36:03][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T13:36:04][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T13:36:25][OPEN]      created a datashield session dc4bcd8b-a639-45dd-9804-b3c3e51ebe85", "[INFO][2026-06-01T13:36:26][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T13:36:27][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T13:36:28][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T13:37:14][OPEN]      created a datashield session a12995c1-3463-4864-b2c3-c907f326c155", "[INFO][2026-06-01T13:37:15][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T13:37:15][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T13:37:16][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T13:37:31][OPEN]      created a datashield session 2d0575d5-bbbe-482b-9248-5a09f0697de3", "[INFO][2026-06-01T13:37:32][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T13:37:32][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T13:37:33][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T13:37:49][OPEN]      created a datashield session b925ed7f-a6f8-462e-acf6-7deba35b8727", "[INFO][2026-06-01T13:37:50][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T13:37:50][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T13:37:51][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T14:03:55][OPEN]      created a datashield session cd63e5ca-74e7-4d17-9945-2dca67b9412f", "[INFO][2026-06-01T14:03:56][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T14:03:56][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T14:03:57][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T14:14:30][OPEN]      created a datashield session 69cee646-a72b-4d77-99b3-7fc999ac03b0", "[INFO][2026-06-01T14:14:31][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-06-01T14:14:31][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T14:14:32][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-06-01T14:14:32][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-06-01T14:14:32][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-06-01T14:14:33][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T14:14:33][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T14:14:33][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-06-01T14:14:33][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-06-01T14:14:33][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T14:14:33][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T14:14:33][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-06-01T14:14:33][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'"]</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
 <span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "20260601T133515-dslogs-dsuser_mappings.csv",</span></span>
+<span><span class="co">#&gt;       "@id": "20260601T141510-dslogs-dsuser_mappings.csv",</span></span>
 <span><span class="co">#&gt;       "@type": "File",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-06-01 13:35:15",</span></span>
-<span><span class="co">#&gt;       "name": "20260601T133515-dslogs-dsuser_mappings.csv",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-06-01 14:15:10",</span></span>
+<span><span class="co">#&gt;       "name": "20260601T141510-dslogs-dsuser_mappings.csv",</span></span>
 <span><span class="co">#&gt;       "description": "This file contains mappings and evaluated functions",</span></span>
 <span><span class="co">#&gt;       "encodingFormat": "text/csv",</span></span>
 <span><span class="co">#&gt;       "content": [</span></span>
@@ -1340,6 +1340,271 @@ using the following commands:</p>
 <span><span class="co">#&gt;             "table": "CNSIM.CNSIM1",</span></span>
 <span><span class="co">#&gt;             "session": "4eb19c17-e164-45f7-9168-d8b41b3b71cc",</span></span>
 <span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T13:36:02",</span></span>
+<span><span class="co">#&gt;             "action": "OPEN",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "Open session: c7dbca69-29c9-4af0-befa-6c73380700c4",</span></span>
+<span><span class="co">#&gt;             "fx": "DSI::datashield.login",</span></span>
+<span><span class="co">#&gt;             "session": "c7dbca69-29c9-4af0-befa-6c73380700c4",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T13:36:03",</span></span>
+<span><span class="co">#&gt;             "action": "ASSIGN",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsROCrate_test &lt;- opal[CNSIM.CNSIM1]",</span></span>
+<span><span class="co">#&gt;             "fx": "base::assign",</span></span>
+<span><span class="co">#&gt;             "table": "CNSIM.CNSIM1",</span></span>
+<span><span class="co">#&gt;             "session": "c7dbca69-29c9-4af0-befa-6c73380700c4",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T13:36:04",</span></span>
+<span><span class="co">#&gt;             "action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "fx": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "symbol": "search.filter = NULL, 1L",</span></span>
+<span><span class="co">#&gt;             "table": "CNSIM.CNSIM1",</span></span>
+<span><span class="co">#&gt;             "session": "c7dbca69-29c9-4af0-befa-6c73380700c4",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T13:36:25",</span></span>
+<span><span class="co">#&gt;             "action": "OPEN",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "Open session: dc4bcd8b-a639-45dd-9804-b3c3e51ebe85",</span></span>
+<span><span class="co">#&gt;             "fx": "DSI::datashield.login",</span></span>
+<span><span class="co">#&gt;             "session": "dc4bcd8b-a639-45dd-9804-b3c3e51ebe85",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T13:36:26",</span></span>
+<span><span class="co">#&gt;             "action": "ASSIGN",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsROCrate_test &lt;- opal[CNSIM.CNSIM1]",</span></span>
+<span><span class="co">#&gt;             "fx": "base::assign",</span></span>
+<span><span class="co">#&gt;             "table": "CNSIM.CNSIM1",</span></span>
+<span><span class="co">#&gt;             "session": "dc4bcd8b-a639-45dd-9804-b3c3e51ebe85",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T13:36:28",</span></span>
+<span><span class="co">#&gt;             "action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "fx": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "symbol": "search.filter = NULL, 1L",</span></span>
+<span><span class="co">#&gt;             "table": "CNSIM.CNSIM1",</span></span>
+<span><span class="co">#&gt;             "session": "dc4bcd8b-a639-45dd-9804-b3c3e51ebe85",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T13:37:14",</span></span>
+<span><span class="co">#&gt;             "action": "OPEN",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "Open session: a12995c1-3463-4864-b2c3-c907f326c155",</span></span>
+<span><span class="co">#&gt;             "fx": "DSI::datashield.login",</span></span>
+<span><span class="co">#&gt;             "session": "a12995c1-3463-4864-b2c3-c907f326c155",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T13:37:15",</span></span>
+<span><span class="co">#&gt;             "action": "ASSIGN",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsROCrate_test &lt;- opal[CNSIM.CNSIM1]",</span></span>
+<span><span class="co">#&gt;             "fx": "base::assign",</span></span>
+<span><span class="co">#&gt;             "table": "CNSIM.CNSIM1",</span></span>
+<span><span class="co">#&gt;             "session": "a12995c1-3463-4864-b2c3-c907f326c155",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T13:37:16",</span></span>
+<span><span class="co">#&gt;             "action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "fx": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "symbol": "search.filter = NULL, 1L",</span></span>
+<span><span class="co">#&gt;             "table": "CNSIM.CNSIM1",</span></span>
+<span><span class="co">#&gt;             "session": "a12995c1-3463-4864-b2c3-c907f326c155",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T13:37:31",</span></span>
+<span><span class="co">#&gt;             "action": "OPEN",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "Open session: 2d0575d5-bbbe-482b-9248-5a09f0697de3",</span></span>
+<span><span class="co">#&gt;             "fx": "DSI::datashield.login",</span></span>
+<span><span class="co">#&gt;             "session": "2d0575d5-bbbe-482b-9248-5a09f0697de3",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T13:37:32",</span></span>
+<span><span class="co">#&gt;             "action": "ASSIGN",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsROCrate_test &lt;- opal[CNSIM.CNSIM1]",</span></span>
+<span><span class="co">#&gt;             "fx": "base::assign",</span></span>
+<span><span class="co">#&gt;             "table": "CNSIM.CNSIM1",</span></span>
+<span><span class="co">#&gt;             "session": "2d0575d5-bbbe-482b-9248-5a09f0697de3",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T13:37:33",</span></span>
+<span><span class="co">#&gt;             "action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "fx": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "symbol": "search.filter = NULL, 1L",</span></span>
+<span><span class="co">#&gt;             "table": "CNSIM.CNSIM1",</span></span>
+<span><span class="co">#&gt;             "session": "2d0575d5-bbbe-482b-9248-5a09f0697de3",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T13:37:49",</span></span>
+<span><span class="co">#&gt;             "action": "OPEN",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "Open session: b925ed7f-a6f8-462e-acf6-7deba35b8727",</span></span>
+<span><span class="co">#&gt;             "fx": "DSI::datashield.login",</span></span>
+<span><span class="co">#&gt;             "session": "b925ed7f-a6f8-462e-acf6-7deba35b8727",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T13:37:50",</span></span>
+<span><span class="co">#&gt;             "action": "ASSIGN",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsROCrate_test &lt;- opal[CNSIM.CNSIM1]",</span></span>
+<span><span class="co">#&gt;             "fx": "base::assign",</span></span>
+<span><span class="co">#&gt;             "table": "CNSIM.CNSIM1",</span></span>
+<span><span class="co">#&gt;             "session": "b925ed7f-a6f8-462e-acf6-7deba35b8727",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T13:37:51",</span></span>
+<span><span class="co">#&gt;             "action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "fx": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "symbol": "search.filter = NULL, 1L",</span></span>
+<span><span class="co">#&gt;             "table": "CNSIM.CNSIM1",</span></span>
+<span><span class="co">#&gt;             "session": "b925ed7f-a6f8-462e-acf6-7deba35b8727",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T14:03:55",</span></span>
+<span><span class="co">#&gt;             "action": "OPEN",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "Open session: cd63e5ca-74e7-4d17-9945-2dca67b9412f",</span></span>
+<span><span class="co">#&gt;             "fx": "DSI::datashield.login",</span></span>
+<span><span class="co">#&gt;             "session": "cd63e5ca-74e7-4d17-9945-2dca67b9412f",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T14:03:56",</span></span>
+<span><span class="co">#&gt;             "action": "ASSIGN",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsROCrate_test &lt;- opal[CNSIM.CNSIM1]",</span></span>
+<span><span class="co">#&gt;             "fx": "base::assign",</span></span>
+<span><span class="co">#&gt;             "table": "CNSIM.CNSIM1",</span></span>
+<span><span class="co">#&gt;             "session": "cd63e5ca-74e7-4d17-9945-2dca67b9412f",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T14:03:57",</span></span>
+<span><span class="co">#&gt;             "action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "fx": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "symbol": "search.filter = NULL, 1L",</span></span>
+<span><span class="co">#&gt;             "table": "CNSIM.CNSIM1",</span></span>
+<span><span class="co">#&gt;             "session": "cd63e5ca-74e7-4d17-9945-2dca67b9412f",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T14:14:30",</span></span>
+<span><span class="co">#&gt;             "action": "OPEN",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "Open session: 69cee646-a72b-4d77-99b3-7fc999ac03b0",</span></span>
+<span><span class="co">#&gt;             "fx": "DSI::datashield.login",</span></span>
+<span><span class="co">#&gt;             "session": "69cee646-a72b-4d77-99b3-7fc999ac03b0",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T14:14:31",</span></span>
+<span><span class="co">#&gt;             "action": "ASSIGN",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsROCrate_test &lt;- opal[CNSIM.CNSIM1]",</span></span>
+<span><span class="co">#&gt;             "fx": "base::assign",</span></span>
+<span><span class="co">#&gt;             "table": "CNSIM.CNSIM1",</span></span>
+<span><span class="co">#&gt;             "session": "69cee646-a72b-4d77-99b3-7fc999ac03b0",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T14:14:32",</span></span>
+<span><span class="co">#&gt;             "action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "fx": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "symbol": "search.filter = NULL, 1L",</span></span>
+<span><span class="co">#&gt;             "table": "CNSIM.CNSIM1",</span></span>
+<span><span class="co">#&gt;             "session": "69cee646-a72b-4d77-99b3-7fc999ac03b0",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T14:14:32",</span></span>
+<span><span class="co">#&gt;             "action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "base::exists(\"dsROCrate_test\")",</span></span>
+<span><span class="co">#&gt;             "fx": "base::exists",</span></span>
+<span><span class="co">#&gt;             "symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "table": "CNSIM.CNSIM1",</span></span>
+<span><span class="co">#&gt;             "session": "69cee646-a72b-4d77-99b3-7fc999ac03b0",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T14:14:33",</span></span>
+<span><span class="co">#&gt;             "action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsBase::classDS(\"dsROCrate_test\")",</span></span>
+<span><span class="co">#&gt;             "fx": "dsBase::classDS",</span></span>
+<span><span class="co">#&gt;             "symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "table": "CNSIM.CNSIM1",</span></span>
+<span><span class="co">#&gt;             "session": "69cee646-a72b-4d77-99b3-7fc999ac03b0",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T14:14:33",</span></span>
+<span><span class="co">#&gt;             "action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsBase::isValidDS(dsROCrate_test)",</span></span>
+<span><span class="co">#&gt;             "fx": "dsBase::isValidDS",</span></span>
+<span><span class="co">#&gt;             "symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "table": "CNSIM.CNSIM1",</span></span>
+<span><span class="co">#&gt;             "session": "69cee646-a72b-4d77-99b3-7fc999ac03b0",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T14:14:33",</span></span>
+<span><span class="co">#&gt;             "action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsBase::dimDS(\"dsROCrate_test\")",</span></span>
+<span><span class="co">#&gt;             "fx": "dsBase::dimDS",</span></span>
+<span><span class="co">#&gt;             "symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "table": "CNSIM.CNSIM1",</span></span>
+<span><span class="co">#&gt;             "session": "69cee646-a72b-4d77-99b3-7fc999ac03b0",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-06-01T14:14:33",</span></span>
+<span><span class="co">#&gt;             "action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsBase::colnamesDS(\"dsROCrate_test\")",</span></span>
+<span><span class="co">#&gt;             "fx": "dsBase::colnamesDS",</span></span>
+<span><span class="co">#&gt;             "symbol": "dsROCrate_test",</span></span>
+<span><span class="co">#&gt;             "table": "CNSIM.CNSIM1",</span></span>
+<span><span class="co">#&gt;             "session": "69cee646-a72b-4d77-99b3-7fc999ac03b0",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
 <span><span class="co">#&gt;           }</span></span>
 <span><span class="co">#&gt;         ]</span></span>
 <span><span class="co">#&gt;       ]</span></span>
@@ -1370,7 +1635,7 @@ with the function <code><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.ht
 <span><span class="va">path_to_rocrate_bag</span> <span class="op">&lt;-</span> <span class="va">basic_rocrate</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">rocrateR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.html" class="external-link">bag_rocrate</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">tmp_path_bag</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; RO-Crate successfully 'bagged'!</span></span>
-<span><span class="co">#&gt; For details, see: /tmp/RtmpjP6rUE/dsROCrate-getting-started/rocrate-db29e4363bce196afad94b345f6cf956.zip</span></span></code></pre></div>
+<span><span class="co">#&gt; For details, see: /tmp/RtmpfbIt56/dsROCrate-getting-started/rocrate-833528025b5535344248320c8211fd16.zip</span></span></code></pre></div>
 <p>We can explore the contents with the following commands:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract files in temporary directory</span></span>
@@ -1379,12 +1644,12 @@ with the function <code><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.ht
 <span>  <span class="fu">rocrateR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rocrateR/man/unbag_rocrate.html" class="external-link">unbag_rocrate</a></span><span class="op">(</span>output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmp_path_bag</span>, <span class="st">"ROC"</span><span class="op">)</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># create tree with the files</span></span>
 <span>  <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/dir_tree.html" class="external-link">dir_tree</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpjP6rUE/dsROCrate-getting-started/ROC</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpfbIt56/dsROCrate-getting-started/ROC</span></span></span>
 <span><span class="co">#&gt; ├── bag-info.txt</span></span>
 <span><span class="co">#&gt; ├── bagit.txt</span></span>
 <span><span class="co">#&gt; ├── <span style="color: #0000BB; font-weight: bold;">data</span></span></span>
-<span><span class="co">#&gt; │   ├── 20260601T133515-dslogs-dsuser.log</span></span>
-<span><span class="co">#&gt; │   ├── 20260601T133515-dslogs-dsuser_mappings.csv</span></span>
+<span><span class="co">#&gt; │   ├── 20260601T141510-dslogs-dsuser.log</span></span>
+<span><span class="co">#&gt; │   ├── 20260601T141510-dslogs-dsuser_mappings.csv</span></span>
 <span><span class="co">#&gt; │   └── ro-crate-metadata.json</span></span>
 <span><span class="co">#&gt; ├── manifest-sha512.txt</span></span>
 <span><span class="co">#&gt; └── tagmanifest-sha512.txt</span></span></code></pre></div>
@@ -1414,7 +1679,7 @@ with the function <code><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.ht
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="../reference/audit.html">audit</a></span><span class="op">(</span>user <span class="op">=</span> <span class="st">"dsuser"</span>, project <span class="op">=</span> <span class="st">"CNSIM"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 132 records... Imported 132 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 170 records... Imported 170 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">safe_people_crate_v1</span><span class="op">)</span></span>
@@ -1445,10 +1710,10 @@ with the function <code><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.ht
 <span><span class="co">#&gt;       },</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260601T133523-dslogs-dsuser.log"</span></span>
+<span><span class="co">#&gt;           "@id": "20260601T141521-dslogs-dsuser.log"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260601T133523-dslogs-dsuser_mappings.csv"</span></span>
+<span><span class="co">#&gt;           "@id": "20260601T141521-dslogs-dsuser_mappings.csv"</span></span>
 <span><span class="co">#&gt;         }</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
@@ -1864,13 +2129,165 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 </tr>
 <tr class="even">
 <td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T13:36:03</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T13:36:04</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T13:36:26</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T13:36:28</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T13:37:15</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T13:37:16</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T13:37:32</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T13:37:33</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T13:37:50</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T13:37:51</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T14:03:56</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T14:03:57</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T14:14:31</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T14:14:32</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-06-01T14:14:32</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-06-01T14:14:33</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-06-01T14:14:33</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-06-01T14:14:33</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-06-01T14:14:33</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
 <td align="left">CNSIM2</td>
 <td align="left">read</td>
 <td align="left">dsuser</td>
 <td align="left"></td>
 <td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">CNSIM</td>
 <td align="left">CNSIM3</td>
 <td align="left">read</td>
@@ -1904,19 +2321,19 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="../reference/audit.html">audit</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">"CNSIM"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 132 records... Imported 132 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 170 records... Imported 170 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 132 records... Imported 132 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 170 records... Imported 170 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 132 records... Imported 132 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 170 records... Imported 170 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 132 records... Imported 132 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 170 records... Imported 170 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 132 records... Imported 132 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 170 records... Imported 170 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">safe_project_crate_v1</span><span class="op">)</span></span>
@@ -1947,10 +2364,10 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <span><span class="co">#&gt;       },</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260601T133533-dslogs-dsuser.log"</span></span>
+<span><span class="co">#&gt;           "@id": "20260601T141537-dslogs-dsuser.log"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260601T133533-dslogs-dsuser_mappings.csv"</span></span>
+<span><span class="co">#&gt;           "@id": "20260601T141537-dslogs-dsuser_mappings.csv"</span></span>
 <span><span class="co">#&gt;         }</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
@@ -2368,11 +2785,163 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
 <td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T13:36:03</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T13:36:04</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T13:36:26</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T13:36:28</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T13:37:15</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T13:37:16</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T13:37:32</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T13:37:33</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T13:37:50</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T13:37:51</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T14:03:56</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T14:03:57</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T14:14:31</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T14:14:32</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-06-01T14:14:32</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-06-01T14:14:33</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-06-01T14:14:33</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-06-01T14:14:33</td>
+</tr>
+<tr class="even">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-06-01T14:14:33</td>
+</tr>
+<tr class="odd">
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
 <td align="left">dsuser1</td>
 <td align="left"></td>
 <td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">CNSIM</td>
 <td align="left">CNSIM2</td>
 <td align="left">read</td>
@@ -2380,7 +2949,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left"></td>
 <td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">CNSIM</td>
 <td align="left">CNSIM2</td>
 <td align="left">read</td>
@@ -2388,7 +2957,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left"></td>
 <td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">CNSIM</td>
 <td align="left">CNSIM3</td>
 <td align="left">read</td>
@@ -2396,7 +2965,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left"></td>
 <td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">CNSIM</td>
 <td align="left">CNSIM3</td>
 <td align="left">read</td>
@@ -2440,34 +3009,34 @@ multiple servers)<a class="anchor" aria-label="anchor" href="#list-users-and-dat
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="../reference/audit.html">audit</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">"CNSIM"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 132 records... Imported 132 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 170 records... Imported 170 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 132 records... Imported 132 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 170 records... Imported 170 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 132 records... Imported 132 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 170 records... Imported 170 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 132 records... Imported 132 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 170 records... Imported 170 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 132 records... Imported 132 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 170 records... Imported 170 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 132 records... Imported 132 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 170 records... Imported 170 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 132 records... Imported 132 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 170 records... Imported 170 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 132 records... Imported 132 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 170 records... Imported 170 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 132 records... Imported 132 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 170 records... Imported 170 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 132 records... Imported 132 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 170 records... Imported 170 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">study_crate_v1</span><span class="op">)</span></span>
@@ -2499,10 +3068,10 @@ multiple servers)<a class="anchor" aria-label="anchor" href="#list-users-and-dat
 <span><span class="co">#&gt;       },</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260601T133546-dslogs-dsuser.log"</span></span>
+<span><span class="co">#&gt;           "@id": "20260601T141558-dslogs-dsuser.log"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260601T133546-dslogs-dsuser_mappings.csv"</span></span>
+<span><span class="co">#&gt;           "@id": "20260601T141558-dslogs-dsuser_mappings.csv"</span></span>
 <span><span class="co">#&gt;         }</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
@@ -2542,10 +3111,10 @@ multiple servers)<a class="anchor" aria-label="anchor" href="#list-users-and-dat
 <span><span class="co">#&gt;       },</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260601T133558-dslogs-dsuser.log"</span></span>
+<span><span class="co">#&gt;           "@id": "20260601T141617-dslogs-dsuser.log"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260601T133558-dslogs-dsuser_mappings.csv"</span></span>
+<span><span class="co">#&gt;           "@id": "20260601T141617-dslogs-dsuser_mappings.csv"</span></span>
 <span><span class="co">#&gt;         }</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
@@ -3016,11 +3585,182 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
 <td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T13:36:03</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T13:36:04</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T13:36:26</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T13:36:28</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T13:37:15</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T13:37:16</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T13:37:32</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T13:37:33</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T13:37:50</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T13:37:51</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T14:03:56</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T14:03:57</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T14:14:31</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T14:14:32</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-06-01T14:14:32</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-06-01T14:14:33</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-06-01T14:14:33</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-06-01T14:14:33</td>
+</tr>
+<tr class="even">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-06-01T14:14:33</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_demo</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
 <td align="left">dsuser1</td>
 <td align="left"></td>
 <td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_demo</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM2</td>
@@ -3029,7 +3769,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left"></td>
 <td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_demo</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM2</td>
@@ -3038,7 +3778,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left"></td>
 <td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_demo</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM3</td>
@@ -3047,7 +3787,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left"></td>
 <td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_demo</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM3</td>
@@ -3056,7 +3796,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left"></td>
 <td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3065,7 +3805,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">base::assign</td>
 <td align="left">2026-06-01T07:37:03</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3074,7 +3814,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::lsDS</td>
 <td align="left">2026-06-01T07:37:04</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3083,7 +3823,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">base::exists</td>
 <td align="left">2026-06-01T07:37:04</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3092,7 +3832,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::classDS</td>
 <td align="left">2026-06-01T07:37:04</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3101,7 +3841,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::isValidDS</td>
 <td align="left">2026-06-01T07:37:04</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3110,7 +3850,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::dimDS</td>
 <td align="left">2026-06-01T07:37:05</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3119,7 +3859,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::colnamesDS</td>
 <td align="left">2026-06-01T07:37:05</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3128,7 +3868,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">base::assign</td>
 <td align="left">2026-06-01T07:39:08</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3137,7 +3877,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::lsDS</td>
 <td align="left">2026-06-01T07:39:09</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3146,7 +3886,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">base::assign</td>
 <td align="left">2026-06-01T08:21:06</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3155,7 +3895,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::lsDS</td>
 <td align="left">2026-06-01T08:21:07</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3164,7 +3904,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">base::assign</td>
 <td align="left">2026-06-01T09:24:09</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3173,7 +3913,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::lsDS</td>
 <td align="left">2026-06-01T09:24:10</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3182,7 +3922,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">base::exists</td>
 <td align="left">2026-06-01T09:24:11</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3191,7 +3931,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::classDS</td>
 <td align="left">2026-06-01T09:24:11</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3200,7 +3940,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::isValidDS</td>
 <td align="left">2026-06-01T09:24:11</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3209,7 +3949,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::dimDS</td>
 <td align="left">2026-06-01T09:24:11</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3218,7 +3958,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::colnamesDS</td>
 <td align="left">2026-06-01T09:24:11</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3227,7 +3967,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">base::assign</td>
 <td align="left">2026-06-01T09:49:44</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3236,7 +3976,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::lsDS</td>
 <td align="left">2026-06-01T09:49:45</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3245,7 +3985,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">base::assign</td>
 <td align="left">2026-06-01T10:24:03</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3254,7 +3994,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::lsDS</td>
 <td align="left">2026-06-01T10:24:05</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3263,7 +4003,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">base::assign</td>
 <td align="left">2026-06-01T10:55:52</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3272,7 +4012,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::lsDS</td>
 <td align="left">2026-06-01T10:55:54</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3281,7 +4021,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">base::assign</td>
 <td align="left">2026-06-01T12:14:10</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3290,7 +4030,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::lsDS</td>
 <td align="left">2026-06-01T12:14:11</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3299,7 +4039,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">base::assign</td>
 <td align="left">2026-06-01T12:26:12</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3308,7 +4048,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::lsDS</td>
 <td align="left">2026-06-01T12:26:13</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3317,7 +4057,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">base::exists</td>
 <td align="left">2026-06-01T12:26:13</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3326,7 +4066,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::classDS</td>
 <td align="left">2026-06-01T12:26:13</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3335,7 +4075,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::isValidDS</td>
 <td align="left">2026-06-01T12:26:14</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3344,7 +4084,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::dimDS</td>
 <td align="left">2026-06-01T12:26:14</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3353,7 +4093,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::colnamesDS</td>
 <td align="left">2026-06-01T12:26:14</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3362,7 +4102,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">base::assign</td>
 <td align="left">2026-06-01T12:28:28</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3371,7 +4111,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::lsDS</td>
 <td align="left">2026-06-01T12:28:29</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3380,7 +4120,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">base::assign</td>
 <td align="left">2026-06-01T12:28:43</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3389,7 +4129,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::lsDS</td>
 <td align="left">2026-06-01T12:28:45</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3398,7 +4138,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">base::assign</td>
 <td align="left">2026-06-01T12:28:47</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3407,7 +4147,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::lsDS</td>
 <td align="left">2026-06-01T12:28:49</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3416,7 +4156,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">base::assign</td>
 <td align="left">2026-06-01T12:29:08</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3425,7 +4165,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::lsDS</td>
 <td align="left">2026-06-01T12:29:09</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3434,7 +4174,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">base::assign</td>
 <td align="left">2026-06-01T12:29:21</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3443,7 +4183,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsBase::lsDS</td>
 <td align="left">2026-06-01T12:29:22</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3452,7 +4192,7 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">base::assign</td>
 <td align="left">2026-06-01T12:56:17</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">opal_test</td>
 <td align="left">CNSIM</td>
 <td align="left">CNSIM1</td>
@@ -3460,6 +4200,177 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <td align="left">dsuser</td>
 <td align="left">dsBase::lsDS</td>
 <td align="left">2026-06-01T12:56:18</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_test</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T13:36:03</td>
+</tr>
+<tr class="even">
+<td align="left">opal_test</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T13:36:04</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_test</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T13:36:26</td>
+</tr>
+<tr class="even">
+<td align="left">opal_test</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T13:36:28</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_test</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T13:37:15</td>
+</tr>
+<tr class="even">
+<td align="left">opal_test</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T13:37:16</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_test</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T13:37:32</td>
+</tr>
+<tr class="even">
+<td align="left">opal_test</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T13:37:33</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_test</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T13:37:50</td>
+</tr>
+<tr class="even">
+<td align="left">opal_test</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T13:37:51</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_test</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T14:03:56</td>
+</tr>
+<tr class="even">
+<td align="left">opal_test</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T14:03:57</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_test</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::assign</td>
+<td align="left">2026-06-01T14:14:31</td>
+</tr>
+<tr class="even">
+<td align="left">opal_test</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::lsDS</td>
+<td align="left">2026-06-01T14:14:32</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_test</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">base::exists</td>
+<td align="left">2026-06-01T14:14:32</td>
+</tr>
+<tr class="even">
+<td align="left">opal_test</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::classDS</td>
+<td align="left">2026-06-01T14:14:33</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_test</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::isValidDS</td>
+<td align="left">2026-06-01T14:14:33</td>
+</tr>
+<tr class="even">
+<td align="left">opal_test</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::dimDS</td>
+<td align="left">2026-06-01T14:14:33</td>
+</tr>
+<tr class="odd">
+<td align="left">opal_test</td>
+<td align="left">CNSIM</td>
+<td align="left">CNSIM1</td>
+<td align="left">read</td>
+<td align="left">dsuser</td>
+<td align="left">dsBase::colnamesDS</td>
+<td align="left">2026-06-01T14:14:33</td>
 </tr>
 <tr class="even">
 <td align="left">opal_test</td>
