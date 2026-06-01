@@ -92,6 +92,22 @@ audit_engine.opal <- function(
     # exclude system administrators from the report
     dplyr::filter(!(tolower(name) %in% c("admin", "administrator")))
 
+  # if any users were found, then verify if they are admin/auditors and exclude
+  if (nrow(safe_people_tbl)) {
+    # extract system permissions
+    sys_perms_tbl <- opalr::oadmin.system_perm(x)
+    safe_people_tbl <- tryCatch(
+      {
+        safe_people_tbl |>
+          dplyr::left_join(sys_perms_tbl, by = c("name" = "subject")) |>
+          dplyr::filter(!(permission %in% c("administrate", "audit")))
+      },
+      error = function(e) {
+        tibble::tibble()
+      }
+    )
+  }
+
   if (!is.null(user)) {
     safe_people_tbl <- safe_people_tbl |>
       dplyr::filter(tolower(name) %in% user)

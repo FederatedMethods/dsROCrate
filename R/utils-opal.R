@@ -34,6 +34,12 @@ add_asset_permissions_to_crate <- function(
       next
     }
 
+    # exclude admin and auditors permissions
+    if (nrow(safe_people_tbl)) {
+      perms <- perms |>
+        dplyr::filter(person %in% safe_people_tbl$name)
+    }
+
     # iterate through person permissions for an asset
     for (j in seq_len(nrow(perms))) {
       person <- perms$person[j]
