@@ -1,6 +1,6 @@
 Package: dsROCrate
 Title: 'DataSHIELD' RO-Crate Governance Functions
-Version: 0.0.2
+Version: 0.1.0
 Authors@R: c(
     person(given = "Roberto",
            family = "Villegas-Diaz",
@@ -39,13 +39,12 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-GB
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Imports: 
     digest,
     dplyr,
     DSMolgenisArmadillo,
     jsonlite,
-    opalr,
+    opalr (>= 3.6.1),
     purrr,
     RcppTOML,
     rmarkdown,
@@ -59,3 +58,4 @@ Depends:
 VignetteBuilder: knitr
 URL: https://github.com/FederatedMethods/dsROCrate
 BugReports: https://github.com/FederatedMethods/dsROCrate/issues
+Config/roxygen2/version: 8.0.0
