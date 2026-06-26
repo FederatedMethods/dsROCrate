@@ -267,6 +267,7 @@ safe_project.ArmadilloCredentials <- function(
 
   # retrieve details associated to `project`
   project_details_tbl <- MolgenisArmadillo::armadillo.get_projects_info() |>
-    purrr::list_c() |>
-    tibble::as_tibble()
+    purrr::map(\(x) tibble::tibble(name = x$name, users = unlist(x$users))) |>
+    purrr::list_c()
+  project_details_tbl
 }
