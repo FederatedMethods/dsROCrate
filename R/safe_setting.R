@@ -45,6 +45,15 @@ safe_setting.default <- function(x, ...) {
 
 #' @rdname safe_setting
 #' @export
+safe_setting.ArmadilloCredentials <- function(x, ...) {
+  stop(
+    "`safe_setting()` for the Armadillo backend is not currently implemented!",
+    call. = FALSE
+  )
+}
+
+#' @rdname safe_setting
+#' @export
 safe_setting.character <- function(
   x,
   ...,

@@ -13,6 +13,15 @@ report <- function(x, ...) {
 
 #' @rdname report
 #' @export
+report.ArmadilloCredentials <- function(x, ...) {
+  stop(
+    "The `report()` for the Armadillo backend is not currently implemented!",
+    call. = FALSE
+  )
+}
+
+#' @rdname report
+#' @export
 report.character <- function(
   x,
   ...,

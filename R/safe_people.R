@@ -40,6 +40,15 @@ safe_people.default <- function(x, ...) {
 
 #' @rdname safe_people
 #' @export
+safe_people.ArmadilloCredentials <- function(x, ...) {
+  stop(
+    "`safe_people()` for the Armadillo backend is not currently implemented!",
+    call. = FALSE
+  )
+}
+
+#' @rdname safe_people
+#' @export
 safe_people.character <- function(
   x,
   ...,

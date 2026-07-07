@@ -34,6 +34,17 @@ check_permissions.default <- function(x, ...) {
 }
 
 #' @export
+check_permissions.ArmadilloCredentials <- function(x, ...) {
+  stop(
+    paste0(
+      "`check_permissions()` for the Armadillo backend is ",
+      "not currently implemented!"
+    ),
+    call. = FALSE
+  )
+}
+
+#' @export
 check_permissions.opal <- function(x, ...) {
   is_admin <- FALSE
   is_audit <- FALSE

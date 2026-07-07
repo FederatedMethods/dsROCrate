@@ -43,6 +43,15 @@ safe_output.default <- function(x, ...) {
 
 #' @rdname safe_output
 #' @export
+safe_output.ArmadilloCredentials <- function(x, ...) {
+  stop(
+    "`safe_output()` for the Armadillo backend is not currently implemented!",
+    call. = FALSE
+  )
+}
+
+#' @rdname safe_output
+#' @export
 safe_output.character <- function(
   x,
   ...,

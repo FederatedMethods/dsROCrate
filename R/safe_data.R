@@ -50,6 +50,15 @@ safe_data.default <- function(x, ...) {
 
 #' @rdname safe_data
 #' @export
+safe_data.ArmadilloCredentials <- function(x, ...) {
+  stop(
+    "`safe_data()` for the Armadillo backend is not currently implemented!",
+    call. = FALSE
+  )
+}
+
+#' @rdname safe_data
+#' @export
 safe_data.character <- function(
   x,
   ...,
