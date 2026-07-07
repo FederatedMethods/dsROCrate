@@ -2,11 +2,14 @@
 % Please edit documentation in R/dsROCrate.R
 \name{init}
 \alias{init}
+\alias{init.ArmadilloCredentials}
 \alias{init.opal}
 \alias{init.rocrate}
 \title{Initialise a Five Safes RO-Crate}
 \usage{
 init(x, ...)
+
+\method{init}{ArmadilloCredentials}(x, ...)
 
 \method{init}{opal}(
   x,

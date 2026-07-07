@@ -2,6 +2,7 @@
 % Please edit documentation in R/safe_people.R
 \name{safe_people}
 \alias{safe_people}
+\alias{safe_people.ArmadilloCredentials}
 \alias{safe_people.character}
 \alias{safe_people.opal}
 \alias{safe_people.rocrate}
@@ -14,6 +15,8 @@
 }
 \usage{
 safe_people(x, ...)
+
+\method{safe_people}{ArmadilloCredentials}(x, ...)
 
 \method{safe_people}{character}(
   x,

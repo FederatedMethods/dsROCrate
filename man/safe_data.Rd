@@ -2,6 +2,7 @@
 % Please edit documentation in R/safe_data.R
 \name{safe_data}
 \alias{safe_data}
+\alias{safe_data.ArmadilloCredentials}
 \alias{safe_data.character}
 \alias{safe_data.opal}
 \alias{safe_data.rocrate}
@@ -14,6 +15,8 @@
 }
 \usage{
 safe_data(x, ...)
+
+\method{safe_data}{ArmadilloCredentials}(x, ...)
 
 \method{safe_data}{character}(
   x,

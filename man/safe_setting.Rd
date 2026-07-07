@@ -2,6 +2,7 @@
 % Please edit documentation in R/safe_setting.R
 \name{safe_setting}
 \alias{safe_setting}
+\alias{safe_setting.ArmadilloCredentials}
 \alias{safe_setting.character}
 \alias{safe_setting.cr8tor}
 \alias{safe_setting.opal}
@@ -15,6 +16,8 @@
 }
 \usage{
 safe_setting(x, ...)
+
+\method{safe_setting}{ArmadilloCredentials}(x, ...)
 
 \method{safe_setting}{character}(
   x,

@@ -2,6 +2,7 @@
 % Please edit documentation in R/report.R
 \name{report}
 \alias{report}
+\alias{report.ArmadilloCredentials}
 \alias{report.character}
 \alias{report.default}
 \alias{report.list}
@@ -9,6 +10,8 @@
 \title{Create an RO-Crate report}
 \usage{
 report(x, ...)
+
+\method{report}{ArmadilloCredentials}(x, ...)
 
 \method{report}{character}(
   x,

@@ -2,6 +2,7 @@
 % Please edit documentation in R/safe_output.R
 \name{safe_output}
 \alias{safe_output}
+\alias{safe_output.ArmadilloCredentials}
 \alias{safe_output.character}
 \alias{safe_output.opal}
 \alias{safe_output.rocrate}
@@ -14,6 +15,8 @@
 }
 \usage{
 safe_output(x, ...)
+
+\method{safe_output}{ArmadilloCredentials}(x, ...)
 
 \method{safe_output}{character}(
   x,
