@@ -15,7 +15,11 @@ parse_user_profiles <- function(x, ...) {
   UseMethod("parse_user_profiles")
 }
 
-# S3 methods ----
+#' @export
+parse_user_profiles.ArmadilloCredentials <- function(x, ..., user) {
+  message("PLACEHOLDER!")
+}
+
 #' @export
 #' @family Opal
 parse_user_profiles.opal <- function(x, ..., user) {
@@ -45,12 +49,6 @@ parse_user_profiles.opal <- function(x, ..., user) {
   return(user_prof_tbl)
 }
 
-# S4 methods ----
-#' @export
-parse_user_profiles.ArmadilloCredentials <- function(x, ..., user) {
-  message("PLACEHOLDER!")
-}
-
 #' Verify if project exists
 #'
 #' Wrapper for the [opalr::opal.project_exists()] and
@@ -69,22 +67,6 @@ project_exists <- function(x, ...) {
   UseMethod("project_exists")
 }
 
-# S3 methods ----
-#' @export
-#' @family Opal
-project_exists.opal <- function(x, ..., project) {
-  if (!opalr::opal.project_exists(x, project)) {
-    stop(
-      sprintf(
-        "The `project = '%s'` was not found in the given Opal connection!",
-        project
-      ),
-      call. = FALSE
-    )
-  }
-}
-
-# S4 methods ----
 #' @export
 #' @family Armadillo
 project_exists.ArmadilloCredentials <-
@@ -103,6 +85,20 @@ project_exists.ArmadilloCredentials <-
       )
     }
   }
+
+#' @export
+#' @family Opal
+project_exists.opal <- function(x, ..., project) {
+  if (!opalr::opal.project_exists(x, project)) {
+    stop(
+      sprintf(
+        "The `project = '%s'` was not found in the given Opal connection!",
+        project
+      ),
+      call. = FALSE
+    )
+  }
+}
 
 #' Validate backend
 #'
