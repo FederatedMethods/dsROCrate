@@ -2,9 +2,15 @@
 % Please edit documentation in R/check_permissions.R
 \name{check_permissions}
 \alias{check_permissions}
+\alias{check_permissions.ArmadilloCredentials}
+\alias{check_permissions.opal}
 \title{Check backend connection permissions}
 \usage{
 check_permissions(x, ...)
+
+\method{check_permissions}{ArmadilloCredentials}(x, ...)
+
+\method{check_permissions}{opal}(x, ..., verbose = FALSE)
 }
 \arguments{
 \item{x}{A backend connection object.}

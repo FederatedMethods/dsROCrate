@@ -4,7 +4,6 @@
 \alias{report}
 \alias{report.ArmadilloCredentials}
 \alias{report.character}
-\alias{report.default}
 \alias{report.list}
 \alias{report.rocrate}
 \title{Create an RO-Crate report}
@@ -27,8 +26,6 @@ report(x, ...)
   diag_height = NULL,
   max_line_length = 200
 )
-
-\method{report}{default}(x, ...)
 
 \method{report}{list}(
   x,
