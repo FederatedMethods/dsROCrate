@@ -35,6 +35,7 @@ safe_setting <- function(x, ...) {
   UseMethod("safe_setting")
 }
 
+# @rdname safe_setting
 #' @export
 safe_setting.default <- function(x, ...) {
   stop(

@@ -30,6 +30,7 @@ safe_people <- function(x, ...) {
   UseMethod("safe_people")
 }
 
+# @rdname safe_people
 #' @export
 safe_people.default <- function(x, ...) {
   stop(

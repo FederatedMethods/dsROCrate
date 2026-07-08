@@ -21,6 +21,7 @@ check_permissions <- function(x, ...) {
   UseMethod("check_permissions")
 }
 
+# @rdname check_permissions
 #' @export
 check_permissions.default <- function(x, ...) {
   stop(
@@ -35,6 +36,7 @@ check_permissions.default <- function(x, ...) {
   )
 }
 
+#' @rdname check_permissions
 #' @export
 check_permissions.ArmadilloCredentials <- function(x, ...) {
   stop(
@@ -46,6 +48,7 @@ check_permissions.ArmadilloCredentials <- function(x, ...) {
   )
 }
 
+#' @rdname check_permissions
 #' @export
 check_permissions.opal <- function(x, ..., verbose = FALSE) {
   is_admin <- FALSE

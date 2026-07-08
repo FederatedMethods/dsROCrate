@@ -54,7 +54,7 @@ report.character <- function(
     )
 }
 
-#' @rdname report
+# @rdname report
 #' @export
 report.default <- function(x, ...) {
   stop(

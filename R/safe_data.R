@@ -40,6 +40,7 @@ safe_data <- function(x, ...) {
   UseMethod("safe_data")
 }
 
+# @rdname safe_data
 #' @export
 safe_data.default <- function(x, ...) {
   stop(

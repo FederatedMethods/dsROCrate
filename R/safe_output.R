@@ -33,6 +33,7 @@ safe_output <- function(x, ...) {
   UseMethod("safe_output")
 }
 
+# @rdname safe_output
 #' @export
 safe_output.default <- function(x, ...) {
   stop(

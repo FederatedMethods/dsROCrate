@@ -22,28 +22,11 @@
 #'  \item Research Data Scotland, 2025. "What is the Five Safes framework?".
 #'  <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/>
 #' }
-#'
-#' @aliases safe_project,armadillo-method
-#' @usage
-#' \S4method{safe_project}{armadillo}(
-#'   x,
-#'   ...,
-#'   profile = "default",
-#'   project = NULL,
-#'   rocrate = rocrateR::rocrate_5s(),
-#'   asset_id_suffix = "#asset:",
-#'   project_id_suffix = "#project:",
-#'   path = NULL,
-#'   resources = NULL,
-#'   tables = NULL,
-#'   user = NULL
-#' )
 safe_project <- function(x, ...) {
   UseMethod("safe_project")
 }
 
-# S3 methods ----
-#' @method safe_project default
+# @rdname safe_project
 #' @export
 safe_project.default <- function(x, ...) {
   stop(
@@ -52,7 +35,31 @@ safe_project.default <- function(x, ...) {
   )
 }
 
-#' @method safe_project character
+#' @rdname safe_project
+#' @export
+safe_project.ArmadilloCredentials <- function(
+  x,
+  ...,
+  profile = "default",
+  project = NULL,
+  rocrate = rocrateR::rocrate_5s(),
+  asset_id_suffix = "#asset:",
+  project_id_suffix = "#project:",
+  path = NULL,
+  resources = NULL,
+  tables = NULL,
+  user = NULL
+) {
+  # check if the given `project` exists
+  project_exists(x, project = project)
+
+  # retrieve details associated to `project`
+  project_details_tbl <- MolgenisArmadillo::armadillo.get_projects_info() |>
+    purrr::map(\(x) tibble::tibble(name = x$name, users = unlist(x$users))) |>
+    purrr::list_c()
+  project_details_tbl
+}
+
 #' @rdname safe_project
 #' @export
 safe_project.character <- function(
@@ -86,7 +93,6 @@ safe_project.character <- function(
   )
 }
 
-#' @method safe_project opal
 #' @rdname safe_project
 #' @export
 safe_project.opal <- function(
@@ -209,7 +215,6 @@ safe_project.opal <- function(
   return(rocrate)
 }
 
-#' @method safe_project rocrate
 #' @rdname safe_project
 #' @export
 safe_project.rocrate <- function(
@@ -243,31 +248,4 @@ safe_project.rocrate <- function(
     tables = tables,
     user = user
   )
-}
-
-# S4 methods ----
-#' @method safe_project ArmadilloCredentials
-#' @rdname safe_project
-#' @export
-safe_project.ArmadilloCredentials <- function(
-  x,
-  ...,
-  profile = "default",
-  project = NULL,
-  rocrate = rocrateR::rocrate_5s(),
-  asset_id_suffix = "#asset:",
-  project_id_suffix = "#project:",
-  path = NULL,
-  resources = NULL,
-  tables = NULL,
-  user = NULL
-) {
-  # check if the given `project` exists
-  project_exists(x, project = project)
-
-  # retrieve details associated to `project`
-  project_details_tbl <- MolgenisArmadillo::armadillo.get_projects_info() |>
-    purrr::map(\(x) tibble::tibble(name = x$name, users = unlist(x$users))) |>
-    purrr::list_c()
-  project_details_tbl
 }
