@@ -10,6 +10,9 @@ check_permissions(x, ...)
 \item{x}{A backend connection object.}
 
 \item{...}{Additional arguments passed to methods.}
+
+\item{verbose}{Boolean value used to indicate if a success message should be
+displayed (default: FALSE)}
 }
 \value{
 Returns \code{TRUE} invisibly if the connection has sufficient permissions.
