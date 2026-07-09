@@ -27,7 +27,7 @@ parse_user_profiles.opal <- function(x, ..., user) {
   principal <- userInfo <- NULL
 
   # get user profiles and filter by the current user
-  user_prof_tbl <- opalr::oadmin.user_profiles(x, df = FALSE) |>
+  user_prof_tbl <- backend_users(x, df = FALSE) |>
     dplyr::bind_rows() |>
     dplyr::filter(principal %in% user)
   # extract (if available) `userInfo` which contains additional details
@@ -50,9 +50,6 @@ parse_user_profiles.opal <- function(x, ..., user) {
 }
 
 #' Verify if project exists
-#'
-#' Wrapper for the [opalr::opal.project_exists()] and
-#' [MolgenisArmadillo::armadillo.list_projects()] functions.
 #'
 #' @param x Connection object to backend for DataSHIELD server (e.g., Opal).
 #' @param ... Optional arguments, unused.
@@ -89,7 +86,7 @@ project_exists.ArmadilloCredentials <-
 #' @export
 #' @family Opal
 project_exists.opal <- function(x, ..., project) {
-  if (!opalr::opal.project_exists(x, project)) {
+  if (!backend_project_exists(x, project)) {
     stop(
       sprintf(
         "The `project = '%s'` was not found in the given Opal connection!",

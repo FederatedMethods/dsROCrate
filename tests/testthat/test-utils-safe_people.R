@@ -61,7 +61,7 @@ test_that("extract_safe_people.opal iterates over all returned subject profiles"
   # terminate connection when done with tests
   withr::defer(opalr::opal.logout(opal_con))
 
-  users_raw <- opalr::oadmin.user_profiles(opal_con, df = FALSE)
+  users_raw <- backend_users(opal_con, df = FALSE)
   users_tbl <- dplyr::bind_rows(users_raw)
 
   expect_true(nrow(users_tbl) >= 1)

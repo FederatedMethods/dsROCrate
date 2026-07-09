@@ -3,9 +3,9 @@
 #' Internal function to create audits for various back-ends.
 #'
 #' @param x This can be a connection to a 'DataSHIELD' server (e.g., object with
-#'     the `opal` class, see [opalr::opal.login()]). Alternatively, a governance
-#'     archive file, representing the intent of a project and associated
-#'     governance details.
+#'     the `opal` or `ArmadilloCredentials` classes). Alternatively, a
+#'     governance archive file, representing the intent of a project and
+#'     associated governance details.
 #' @param ... Other optional arguments, see full documentation for details.
 #' @param project String with project name(s) from which to extra Safe Project
 #'     details.
@@ -71,7 +71,7 @@ audit_engine.opal <- function(
   }
 
   # extract list with all projects to verify `project` contains a valid value
-  ds <- opalr::opal.projects(x)
+  ds <- backend_projects(x)
   server_prjs <- ds[, "name"]
   idx <- project %in% server_prjs
   if (!all(idx)) {
@@ -86,7 +86,7 @@ audit_engine.opal <- function(
 
   # Safe People ----
   # get users' details
-  safe_people_tbl <- opalr::oadmin.user_profiles(x, df = FALSE) |>
+  safe_people_tbl <- backend_users(x, df = FALSE) |>
     dplyr::bind_rows() |>
     dplyr::rename(name = principal) |>
     # exclude system administrators from the report
@@ -95,7 +95,7 @@ audit_engine.opal <- function(
   # if any users were found, then verify if they are admin/auditors and exclude
   if (nrow(safe_people_tbl)) {
     # extract system permissions
-    sys_perms_tbl <- opalr::oadmin.system_perm(x)
+    sys_perms_tbl <- backend_sys_perms(x)
     safe_people_tbl <- tryCatch(
       {
         safe_people_tbl |>

@@ -211,7 +211,7 @@ safe_output.opal <- function(
   }
 
   # parse logs
-  userlogs_tbl <- opalr::dsadmin.log(x) |>
+  userlogs_tbl <- backend_logs(x) |>
     tibble::as_tibble() |>
     dplyr::mutate(
       `@timestamp` = as.POSIXct(`@timestamp`, format = "%Y-%m-%dT%H:%M:%S")

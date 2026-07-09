@@ -15,7 +15,7 @@
 #' <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-data-de-identification/>
 #'
 #' @param x This can be a connection to a 'DataSHIELD' server (e.g., object with
-#'     the `opal` class, see [opalr::opal.login()]), an RO-Crate
+#'     the `opal` or `ArmadilloCredentials` classes), an RO-Crate
 #'     ([rocrate][rocrateR::rocrate()] class) or a string with the path to an
 #'     RO-Crate.
 #' @param ... Other optional arguments. See the full documentation,

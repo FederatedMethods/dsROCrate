@@ -128,7 +128,7 @@ safe_project.opal <- function(
   project_id <- id_hash(project_id_suffix, project)
 
   # retrieve details associated to `project`
-  project_details_tbl <- opalr::opal.project(x, project)
+  project_details_tbl <- backend_project(x, project)
 
   # filter out asset entities associated with the project based on the
   # value for `asset_id_suffix`.
@@ -155,7 +155,7 @@ safe_project.opal <- function(
     rocrateR::add_entity(project_entity, overwrite = TRUE)
 
   # Opal permissions ----
-  perms <- opalr::opal.project_perm(x, project)
+  perms <- backend_project_perms(x, project)
 
   project_users <- perms |>
     dplyr::filter(type == "user") |>

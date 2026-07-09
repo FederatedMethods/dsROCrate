@@ -164,7 +164,7 @@ safe_setting.opal <- function(
   validate_backend(x, ...)
 
   # validate profile ----
-  if (!opalr::dsadmin.profile_exists(x, profile)) {
+  if (!backend_profile_exists(x, profile)) {
     stop(
       sprintf("The given profile name, `%s`, does not exist!", profile),
       call. = FALSE
@@ -173,7 +173,7 @@ safe_setting.opal <- function(
 
   # statistical disclosure controls ----
   # extract disclosure settings and create `PropertyValue` entities
-  disc_setting_entities <- opalr::dsadmin.get_options(x, profile = profile) |>
+  disc_setting_entities <- backend_options(x, profile = profile) |>
     tibble::as_tibble() |>
     purrr::pmap(function(name, value, ...) {
       rocrateR::entity(
@@ -200,7 +200,7 @@ safe_setting.opal <- function(
 
   # computational environment ----
   # extract information about R packages installed in the environment
-  pkg_tbl <- opalr::dsadmin.package_descriptions(x) |>
+  pkg_tbl <- backend_packages(x) |>
     tibble::as_tibble()
   pkg_entities <- pkg_tbl |>
     purrr::pmap(function(Package, Version, Description, Author, ...) {
