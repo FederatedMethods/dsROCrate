@@ -61,3 +61,16 @@ exclude_args <- function(..., excluded) {
   # exclude args that shouldn't be passed to the next function
   args[!(arg_names %in% excluded)]
 }
+
+#' Wrapper for [tryCatch]
+#'
+#' @param expr R code to be executed inside `tryCatch`.
+#'
+#' @returns List with value and any resulting error.
+#' @noRd
+.try_load <- function(expr) {
+  tryCatch(
+    list(value = expr, error = NULL),
+    error = function(e) list(value = NULL, error = conditionMessage(e))
+  )
+}
