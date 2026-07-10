@@ -65,21 +65,27 @@ audit.character <- function(x, ..., intent = NULL) {
   }
 
   # attempt loading a `cr8tor` bundle
-  x_obj <- tryCatch(
-    load_cr8tor_bundle(x, ...),
-    error = function(e) NULL
-  )
+  cr8tor_res <- .try_load(load_cr8tor_bundle(x, ...))
+  x_obj <- cr8tor_res$value
+
   # alternatively, attempt loading an RO-Crate
+  rocrate_res <- list(value = NULL, error = NULL)
   if (is.null(x_obj)) {
-    x_obj <- tryCatch(
-      rocrateR::load_rocrate(x, ...),
-      error = function(e) NULL
-    )
+    rocrate_res <- .try_load(rocrateR::load_rocrate(x, ...))
+    x_obj <- rocrate_res$value
   }
 
   if (is.null(x_obj)) {
     stop(
-      "The given path does not point to a valid `cr8tor` archive nor an `rocrate",
+      paste0(
+        "The given path does not point to a valid `cr8tor` archive nor an ",
+        "`rocrate`.\n\n",
+        "  cr8tor bundle error:  ",
+        if (is.null(cr8tor_res$error)) "(not attempted)" else cr8tor_res$error,
+        "\n",
+        "  rocrate error:        ",
+        if (is.null(rocrate_res$error)) "(not attempted)" else rocrate_res$error
+      ),
       call. = FALSE
     )
   }
