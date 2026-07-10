@@ -88,9 +88,7 @@ audit_engine.opal <- function(
   # get users' details
   safe_people_tbl <- backend_users(x, df = FALSE) |>
     dplyr::bind_rows() |>
-    dplyr::rename(name = principal) |>
-    # exclude system administrators from the report
-    dplyr::filter(!(tolower(name) %in% c("admin", "administrator")))
+    dplyr::rename(name = principal)
 
   # if any users were found, then verify if they are admin/auditors and exclude
   if (nrow(safe_people_tbl)) {

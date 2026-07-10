@@ -21,9 +21,22 @@ extract_safe_people.opal <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {
   # extract all users
   opal_users <- backend_users(x, df = FALSE) |>
     dplyr::bind_rows() |>
-    dplyr::rename(name = principal) |>
-    # exclude system administrators from the report
-    dplyr::filter(!(tolower(name) %in% c("admin", "administrator")))
+    dplyr::rename(name = principal)
+
+  if (nrow(opal_users)) {
+    # extract system permissions
+    sys_perms_tbl <- backend_sys_perms(x)
+    opal_users <- tryCatch(
+      {
+        opal_users |>
+          dplyr::left_join(sys_perms_tbl, by = c("name" = "subject")) |>
+          dplyr::filter(!(permission %in% c("administrate", "audit")))
+      },
+      error = function(e) {
+        tibble::tibble()
+      }
+    )
+  }
 
   # cycle through the data source (x) and extract project details
   for (i in seq_len(nrow(opal_users))) {
