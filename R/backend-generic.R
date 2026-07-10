@@ -1,7 +1,3 @@
-backend_groups <- function(x, ...) {
-  UseMethod("backend_groups")
-}
-
 backend_logs <- function(x, ...) {
   UseMethod("backend_logs")
 }
