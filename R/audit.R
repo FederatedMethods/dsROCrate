@@ -47,6 +47,17 @@ audit <- function(x, ...) {
   UseMethod("audit")
 }
 
+#' @export
+audit.default <- function(x, ...) {
+  stop(
+    sprintf(
+      "No `audit()` method exists for objects of class: %s.",
+      paste(class(x), collapse = ", ")
+    ),
+    call. = FALSE
+  )
+}
+
 #' @rdname audit
 #' @export
 audit.ArmadilloCredentials <- function(x, ..., intent = NULL) {

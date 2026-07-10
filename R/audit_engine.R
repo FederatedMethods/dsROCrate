@@ -27,6 +27,17 @@ audit_engine <- function(x, ...) {
 }
 
 #' @export
+audit_engine.default <- function(x, ...) {
+  stop(
+    sprintf(
+      "No `audit_engine()` method exists for objects of class: %s.",
+      paste(class(x), collapse = ", ")
+    ),
+    call. = FALSE
+  )
+}
+
+#' @export
 audit_engine.cr8tor <- function(x, ...) {
   # extract individual components from cr8tor bundle
   audit <- list(
@@ -57,7 +68,7 @@ audit_engine.opal <- function(
   path = NULL
 ) {
   # local bindings
-  name <- permission <- principal <- NULL
+  name <- NULL
 
   # create RO-Create with the 5 safes profile
   crate <- rocrateR::rocrate_5s()
@@ -86,25 +97,7 @@ audit_engine.opal <- function(
 
   # Safe People ----
   # get users' details
-  safe_people_tbl <- backend_users(x, df = FALSE) |>
-    dplyr::bind_rows() |>
-    dplyr::rename(name = principal)
-
-  # if any users were found, then verify if they are admin/auditors and exclude
-  if (nrow(safe_people_tbl)) {
-    # extract system permissions
-    sys_perms_tbl <- backend_sys_perms(x)
-    safe_people_tbl <- tryCatch(
-      {
-        safe_people_tbl |>
-          dplyr::left_join(sys_perms_tbl, by = c("name" = "subject")) |>
-          dplyr::filter(!(permission %in% c("administrate", "audit")))
-      },
-      error = function(e) {
-        tibble::tibble()
-      }
-    )
-  }
+  safe_people_tbl <- filter_safe_people(x)
 
   if (!is.null(user)) {
     safe_people_tbl <- safe_people_tbl |>
