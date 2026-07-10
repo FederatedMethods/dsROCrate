@@ -15,28 +15,8 @@ extract_safe_people <- function(x, ...) {
 
 #' @export
 extract_safe_people.opal <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {
-  # set local binding
-  name <- principal <- NULL
-
-  # extract all users
-  opal_users <- backend_users(x, df = FALSE) |>
-    dplyr::bind_rows() |>
-    dplyr::rename(name = principal)
-
-  if (nrow(opal_users)) {
-    # extract system permissions
-    sys_perms_tbl <- backend_sys_perms(x)
-    opal_users <- tryCatch(
-      {
-        opal_users |>
-          dplyr::left_join(sys_perms_tbl, by = c("name" = "subject")) |>
-          dplyr::filter(!(permission %in% c("administrate", "audit")))
-      },
-      error = function(e) {
-        tibble::tibble()
-      }
-    )
-  }
+  # extract non-admin and non-auditor users
+  opal_users <- filter_safe_people(x)
 
   # cycle through the data source (x) and extract project details
   for (i in seq_len(nrow(opal_users))) {
@@ -110,6 +90,44 @@ extract_safe_people.rocrate <- function(
 
   # return RO-Crate with the Safe People details
   return(rocrate)
+}
+
+filter_safe_people <- function(x, ...) {
+  UseMethod("filter_safe_people")
+}
+
+#' @export
+filter_safe_people.opal <- function(x, ...) {
+  # set local binding
+  name <- permission <- principal <- type <- NULL
+
+  # extract all users
+  opal_users <- backend_users(x, df = FALSE) |>
+    dplyr::bind_rows() |>
+    dplyr::rename(name = principal)
+
+  # extract system permissions
+  sys_perms_tbl <- backend_sys_perms(x)
+
+  # user identities
+  user_identity <- opal_users |>
+    dplyr::transmute(name, subject = name, type = "user")
+
+  # group identities
+  group_identity <- data.frame(
+    name = rep(opal_users$name, lengths(opal_users$groups)),
+    subject = unlist(opal_users$groups, use.names = FALSE),
+    type = "group",
+    stringsAsFactors = FALSE
+  )
+
+  identity_tbl <- dplyr::bind_rows(user_identity, group_identity)
+
+  sys_perms_tbl |>
+    dplyr::right_join(identity_tbl, by = c("subject", "type")) |>
+    dplyr::right_join(opal_users, by = "name") |>
+    dplyr::filter(!(permission %in% c("administrate", "audit"))) |>
+    dplyr::filter(type == "user")
 }
 
 #' Flatten object with Safe People details
