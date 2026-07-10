@@ -65,12 +65,13 @@ exclude_args <- function(..., excluded) {
 #' Wrapper for [tryCatch]
 #'
 #' @param expr R code to be executed inside `tryCatch`.
+#' @param error_val Value to be returned on failure.
 #'
 #' @returns List with value and any resulting error.
 #' @noRd
-.try_load <- function(expr) {
+.try_load <- function(expr, error_val = NULL) {
   tryCatch(
     list(value = expr, error = NULL),
-    error = function(e) list(value = NULL, error = conditionMessage(e))
+    error = function(e) list(value = error_val, error = conditionMessage(e))
   )
 }
