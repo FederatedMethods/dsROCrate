@@ -92,6 +92,14 @@ extract_safe_people.rocrate <- function(
   return(rocrate)
 }
 
+#' Filter Safe People (excluding admin/auditor accounts)
+#'
+#' @inheritParams safe_data
+#'
+#' @returns Tibble with one row per non-admin, non-auditor user account,
+#'     accounting for permissions granted directly or via group membership.
+#' @keywords internal
+#' @noRd
 filter_safe_people <- function(x, ...) {
   UseMethod("filter_safe_people")
 }
@@ -106,28 +114,42 @@ filter_safe_people.opal <- function(x, ...) {
     dplyr::bind_rows() |>
     dplyr::rename(name = principal)
 
-  # extract system permissions
-  sys_perms_tbl <- backend_sys_perms(x)
+  if (nrow(opal_users) == 0) {
+    return(tibble::tibble())
+  }
 
-  # user identities
-  user_identity <- opal_users |>
-    dplyr::transmute(name, subject = name, type = "user")
+  # permission lookups can fail independently of the user list (e.g. a
+  # transient server error) - fall back to an empty Safe People table
+  # rather than letting the failure propagate and abort the whole audit
+  tryCatch(
+    {
+      # extract system permissions
+      sys_perms_tbl <- backend_sys_perms(x)
 
-  # group identities
-  group_identity <- data.frame(
-    name = rep(opal_users$name, lengths(opal_users$groups)),
-    subject = unlist(opal_users$groups, use.names = FALSE),
-    type = "group",
-    stringsAsFactors = FALSE
+      # user identities
+      user_identity <- opal_users |>
+        dplyr::transmute(name, subject = name, type = "user")
+
+      # group identities
+      group_identity <- data.frame(
+        name = rep(opal_users$name, lengths(opal_users$groups)),
+        subject = unlist(opal_users$groups, use.names = FALSE),
+        type = "group",
+        stringsAsFactors = FALSE
+      )
+
+      identity_tbl <- dplyr::bind_rows(user_identity, group_identity)
+
+      sys_perms_tbl |>
+        dplyr::right_join(identity_tbl, by = c("subject", "type")) |>
+        dplyr::right_join(opal_users, by = "name") |>
+        dplyr::filter(!(permission %in% c("administrate", "audit"))) |>
+        dplyr::filter(type == "user")
+    },
+    error = function(e) {
+      tibble::tibble()
+    }
   )
-
-  identity_tbl <- dplyr::bind_rows(user_identity, group_identity)
-
-  sys_perms_tbl |>
-    dplyr::right_join(identity_tbl, by = c("subject", "type")) |>
-    dplyr::right_join(opal_users, by = "name") |>
-    dplyr::filter(!(permission %in% c("administrate", "audit"))) |>
-    dplyr::filter(type == "user")
 }
 
 #' Flatten object with Safe People details
