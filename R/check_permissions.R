@@ -55,12 +55,12 @@ check_permissions.opal <- function(x, ..., verbose = FALSE) {
   is_audit <- FALSE
 
   is_admin <- tryCatch(
-    is_opal_admin_con(x),
+    is_admin_con(x),
     error = function(e) FALSE
   )
 
   is_audit <- tryCatch(
-    is_opal_audit_con(x),
+    is_audit_con(x),
     error = function(e) FALSE
   )
 
