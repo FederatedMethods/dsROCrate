@@ -107,3 +107,33 @@ is_audit_con.opal <- function(x, ...) {
   )
   result
 }
+
+#' @export
+validate_backend_version.opal <- function(x, ..., minimum = "5.7.2") {
+  if (utils::compareVersion(x$version, minimum) < 0) {
+    stop(
+      sprintf(
+        "Opal >= %s is required, but server version is %s.",
+        minimum,
+        x$version
+      ),
+      call. = FALSE
+    )
+  }
+  invisible(TRUE)
+}
+
+#' @export
+validate_con.opal <- function(x, ...) {
+  tryCatch(
+    {
+      status <- xptr::is_null_xptr(x$handle$handle)
+      if (status) {
+        stop("The given connection is not valid!", call. = FALSE)
+      }
+    },
+    error = function(e) {
+      stop("The given connection is not valid!", call. = FALSE)
+    }
+  )
+}

@@ -85,3 +85,44 @@ is_admin_con <- function(x, ...) {
 is_audit_con <- function(x, ...) {
   UseMethod("is_audit_con")
 }
+
+#' Validate backend version
+#'
+#' @param x DataSHIELD backend connection object.
+#' @param ... Unused.
+#' @param minimum String with minimum version.
+#'
+#' @returns Logical value indicating if backend version is valid.
+#' @keywords internal
+#' @noRd
+validate_backend_version <- function(x, ...) {
+  UseMethod("validate_backend_version")
+}
+
+#' @export
+validate_backend_version.default <- function(x, ...) {
+  invisible(TRUE)
+}
+
+#' Validate backend connection
+#'
+#' @param x DataSHIELD backend connection object.
+#' @param ... Unused.
+#'
+#' @returns Nothing, call for its side effect.
+#' @keywords internal
+#' @noRd
+validate_con <- function(x, ...) {
+  UseMethod("validate_con")
+}
+
+#' @export
+validate_con.default <- function(x, ...) {
+  stop(
+    sprintf(
+      "Unsupported connection type: %s",
+      paste(class(x), collapse = ", ")
+    ),
+    call. = FALSE
+  )
+}
