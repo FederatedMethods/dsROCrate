@@ -181,45 +181,25 @@ test_that("audit_engine.opal errors if the `user` filter matches nobody", {
   )
 })
 
-test_that("audit_engine.opal degrades gracefully if system permissions can't be read", {
-  # simulates e.g. a permissions-lookup failure on the server: the join
-  # against system permissions should fall back to an empty Safe People
-  # table rather than propagate the error
+test_that("audit_engine.opal aborts if Safe People details cannot be obtained", {
+  # simulates e.g. a permissions-lookup failure on the server:
+  # `filter_safe_people()` falls back to an empty table internally, and
+  # since an audit is not meaningful without Safe People details,
+  # `audit_engine.opal()` should abort rather than silently producing an
+  # incomplete audit
   local_mocked_bindings(
     validate_backend = function(x, ...) invisible(TRUE),
     backend_projects = function(x, ...) tibble::tibble(name = "PROJECT1"),
     backend_users = function(x, ..., df = FALSE) {
-      list(list(principal = "alice"))
+      list(list(principal = "alice", groups = list(character(0))))
     },
     backend_sys_perms = function(x, ...) stop("500 Internal Server Error")
   )
 
-  calls <- new.env()
-  calls$safe_people <- character()
-
-  local_mocked_bindings(
-    `safe_people.rocrate` = function(
-      x,
-      ...,
-      connection,
-      user,
-      set_author = TRUE,
-      set_project = TRUE
-    ) {
-      calls$safe_people <- c(calls$safe_people, user)
-      x
-    },
-    `safe_project.rocrate` = function(x, ...) x,
-    `safe_data.rocrate` = function(x, ...) x,
-    `safe_output.rocrate` = function(x, ...) x,
-    `safe_setting.opal` = function(x, ..., rocrate) rocrate
-  )
-
   con <- fake_opal_con()
-  result <- audit_engine(con, project = "PROJECT1")
 
-  # no Safe People steps ran (table fell back to empty), but the audit
-  # still completes rather than erroring
-  expect_length(calls$safe_people, 0)
-  expect_s3_class(result, "rocrate")
+  expect_error(
+    audit_engine(con, project = "PROJECT1"),
+    "No Safe People details could be found"
+  )
 })
