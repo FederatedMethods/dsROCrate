@@ -76,7 +76,7 @@ audit_engine.opal <- function(
   # validate backend
   validate_backend(x, ...)
 
-  # if `project` is missing, then ~extract all project names~ error
+  # if `project` is missing, then error
   if (is.null(project)) {
     stop("A `project` name is required!", call. = FALSE)
   }
@@ -98,20 +98,29 @@ audit_engine.opal <- function(
   # Safe People ----
   # get users' details
   safe_people_tbl <- filter_safe_people(x)
-
   if (!is.null(user)) {
     safe_people_tbl <- safe_people_tbl |>
       dplyr::filter(tolower(name) %in% user)
+  }
 
-    if (nrow(safe_people_tbl) == 0) {
-      stop(
+  # an audit report is not meaningful without Safe People details, whether
+  # that's because a `user` filter matched nobody, or because the
+  # permission lookup itself could not be completed
+  if (nrow(safe_people_tbl) == 0) {
+    stop(
+      if (is.null(user)) {
+        paste(
+          "No Safe People details could be found for this project - the",
+          "audit cannot proceed."
+        )
+      } else {
         sprintf(
           "No Safe People details were found for the user: %s!",
           paste0("'", user, "'", collapse = ", ")
-        ),
-        call. = FALSE
-      )
-    }
+        )
+      },
+      call. = FALSE
+    )
   }
 
   crate <- safe_people_tbl$name |>
