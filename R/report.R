@@ -520,8 +520,8 @@ report.rocrate <- function(
       ) |>
       # replace 'NA' in fx & timestamp with empty string
       dplyr::mutate(
-        timestamp = dplyr::case_when(is.na(timestamp) ~ "", T ~ timestamp),
-        fx = dplyr::case_when(is.na(fx) ~ "", T ~ fx)
+        timestamp = dplyr::case_when(is.na(timestamp) ~ "", TRUE ~ timestamp),
+        fx = dplyr::case_when(is.na(fx) ~ "", TRUE ~ fx)
       )
   }
 
