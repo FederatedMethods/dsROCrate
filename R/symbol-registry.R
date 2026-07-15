@@ -51,7 +51,7 @@ register_symbol <- function(registry, symbol) {
 
 #' @export
 register_symbol.symbol_registry <- function(registry, symbol) {
-  registry$symbols[[symbol$symbol]] <- symbol
+  registry$symbols[[symbol$id]] <- symbol
   registry
 }
 
@@ -73,6 +73,6 @@ symbol_registry <- function() {
 
 update_symbol <- function(registry, symbol, ...) {
   # TO BE REVIEWED!!!!
-  registry$symbols[[symbol$symbol]] <- NULL
+  registry$symbols[[symbol$id]] <- NULL
   registry
 }
