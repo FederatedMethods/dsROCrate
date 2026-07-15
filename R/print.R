@@ -47,3 +47,27 @@ print.cr8tor_bundle <- function(x, ...) {
 
   invisible(x)
 }
+
+#' @export
+print.safe_symbol <- function(x, ...) {
+  msg <- "<safe_symbol>"
+
+  msg <- c(msg, paste("Symbol :", x$symbol))
+  msg <- c(msg, paste("Kind   :", x$kind))
+
+  if (!is.null(x$asset)) {
+    msg <- c(msg, paste("Asset  :", x$asset))
+  }
+
+  if (!is.null(x$column)) {
+    msg <- c(msg, paste("Column :", x$column))
+  }
+
+  if (!is.null(x$parent)) {
+    msg <- c(msg, paste("Parent :", x$parent))
+  }
+
+  message(paste0(msg, collapse = "\n"))
+
+  invisible(x)
+}
