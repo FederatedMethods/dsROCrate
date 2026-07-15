@@ -50,6 +50,7 @@ Imports:
     rmarkdown,
     rocrateR (>= 0.1.0),
     tibble,
+    uuid,
     vtree,
     xptr,
     yaml
