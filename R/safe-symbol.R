@@ -3,10 +3,13 @@ new_safe_symbol <- function(
   id = paste0("symbol-", uuid::UUIDgenerate()),
   kind = "unknown",
   asset = NULL,
-  column = NULL,
-  parent = NULL,
+  expr = expr,
+  parents = NULL,
   created_by = NULL,
   created_at = NULL,
+  user = NULL,
+  session = NULL,
+  action = NULL,
   metadata = list()
 ) {
   stopifnot(is.character(symbol))
@@ -18,10 +21,13 @@ new_safe_symbol <- function(
       id = id,
       kind = kind,
       asset = asset,
-      column = column,
-      parent = parent,
+      expr = expr,
+      parents = parents,
       created_by = created_by,
       created_at = created_at,
+      user = user,
+      session = session,
+      action = action,
       metadata = metadata
     ),
     class = "safe_symbol"
@@ -51,24 +57,6 @@ symbol_asset.safe_symbol <- function(x, ...) {
   x$asset
 }
 
-symbol_column <- function(x, ...) {
-  UseMethod("symbol_column")
-}
-
-#' @export
-symbol_column.safe_symbol <- function(x, ...) {
-  x$column
-}
-
-symbol_id <- function(x, ...) {
-  UseMethod("symbol_id")
-}
-
-#' @export
-symbol_id.safe_symbol <- function(x, ...) {
-  x$id
-}
-
 symbol_kind <- function(x, ...) {
   UseMethod("symbol_kind")
 }
@@ -87,11 +75,21 @@ symbol_metadata.safe_symbol <- function(x, ...) {
   x$metadata
 }
 
-symbol_parent <- function(x, ...) {
-  UseMethod("symbol_parent")
+symbol_parents <- function(x, ...) {
+  UseMethod("symbol_parents")
 }
 
 #' @export
-symbol_parent.safe_symbol <- function(x, ...) {
-  x$parent
+symbol_parents.safe_symbol <- function(x, ...) {
+  x$parents
+}
+
+
+symbol_session <- function(x, ...) {
+  UseMethod("symbol_session")
+}
+
+#' @export
+symbol_session.safe_symbol <- function(x, ...) {
+  x$session
 }
