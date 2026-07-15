@@ -49,9 +49,36 @@ register_symbol <- function(registry, symbol) {
   UseMethod("register_symbol")
 }
 
+# #' @export
+# register_symbol.symbol_registry <- function(registry, symbol) {
+#   registry$symbols[[symbol$name]] <- symbol
+#   registry
+# }
+
 #' @export
 register_symbol.symbol_registry <- function(registry, symbol) {
-  registry$symbols[[symbol$id]] <- symbol
+  existing <- registry$symbols[[symbol$symbol]]
+
+  if (is.null(existing)) {
+    registry$symbols[[symbol$symbol]] <- symbol
+    return(registry)
+  }
+
+  # merge information
+  if (is.null(existing$asset)) {
+    existing$asset <- symbol$asset
+  }
+
+  if (is.null(existing$kind)) {
+    existing$kind <- symbol$kind
+  }
+
+  if (is.null(existing$parent)) {
+    existing$parent <- symbol$parent
+  }
+
+  registry$symbols[[symbol$symbol]] <- existing
+
   registry
 }
 
@@ -73,6 +100,6 @@ symbol_registry <- function() {
 
 update_symbol <- function(registry, symbol, ...) {
   # TO BE REVIEWED!!!!
-  registry$symbols[[symbol$id]] <- NULL
+  registry$symbols[[symbol$name]] <- NULL
   registry
 }
