@@ -284,7 +284,7 @@ safe_output.opal <- function(
   userlogs_assign_tbl <- userlogs_tbl |>
     dplyr::filter(ds_action %in% c("ASSIGN"))
 
-  ## reshape the logs into a tible of `symbols`
+  ## reshape the logs into a tibble of `symbols`
   symbols_tbl <- seq_len(nrow(userlogs_assign_tbl)) |>
     purrr::map(function(i) {
       # extract log components
@@ -303,19 +303,38 @@ safe_output.opal <- function(
         kind = ifelse(
           is_expr,
           'expression',
-          ifelse(is_resource, 'resource', ifelse(is_table, 'table', NA))
+          ifelse(
+            is_resource,
+            'resource',
+            ifelse(is_table, 'table', NA_character_)
+          )
         ),
         asset = ifelse(
-          is_expr,
-          ds_eval,
-          ifelse(is_resource, ds_resource, ifelse(is_table, ds_table, NA))
+          is_resource,
+          ds_resource,
+          ifelse(is_table, ds_table, NA_character_)
         ),
-        column = ifelse(
+        expr = ifelse(is_expr, ds_eval, NA_character_),
+        created_by = ifelse(
           is_expr,
-          'ds_eval',
-          ifelse(is_resource, 'ds_resource', ifelse(is_table, 'ds_table', NA))
+          'DSI::datashield.assign.expr',
+          ifelse(
+            is_resource,
+            'DSI::datashield.assign.resource',
+            ifelse(is_table, 'DSI::datashield.assign.table', NA_character_)
+          )
         ),
-        created_at = `@timestamp`
+        parents = find_symbols(
+          ifelse(
+            is_expr,
+            ds_eval,
+            ifelse(is_resource, ds_resource, ifelse(is_table, ds_table, NA))
+          )
+        ),
+        created_at = userlogs_assign_tbl$`@timestamp`[[i]],
+        user = userlogs_assign_tbl$username[[i]],
+        action = userlogs_assign_tbl$ds_action[[i]],
+        session = userlogs_assign_tbl$ds_id[[i]]
       )
     }) |>
     purrr::list_c() |>
@@ -325,6 +344,13 @@ safe_output.opal <- function(
   registry <- symbols_tbl |>
     purrr::pmap(safe_symbol) |>
     purrr::reduce(register_symbol, .init = registry)
+
+  userlogs_tbl |>
+    dplyr::filter(!(ds_action %in% c("ASSIGN"))) |>
+    dplyr::filter(!is.na(ds_eval)) |>
+    purrr::pmap(function(ds_eval, ...) {
+      safe_call(ds_eval)
+    })
 
   # extract list of functions executed
   ## evaluated functions and tables/symbols mapped
