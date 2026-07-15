@@ -1,5 +1,6 @@
 new_safe_symbol <- function(
   symbol,
+  id = paste0("symbol-", uuid::UUIDgenerate()),
   kind = "unknown",
   asset = NULL,
   column = NULL,
@@ -14,6 +15,7 @@ new_safe_symbol <- function(
   structure(
     list(
       symbol = symbol,
+      id = id,
       kind = kind,
       asset = asset,
       column = column,
@@ -56,6 +58,15 @@ symbol_column <- function(x, ...) {
 #' @export
 symbol_column.safe_symbol <- function(x, ...) {
   x$column
+}
+
+symbol_id <- function(x, ...) {
+  UseMethod("symbol_id")
+}
+
+#' @export
+symbol_id.safe_symbol <- function(x, ...) {
+  x$id
 }
 
 symbol_kind <- function(x, ...) {
