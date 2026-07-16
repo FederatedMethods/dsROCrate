@@ -315,6 +315,7 @@ safe_output.opal <- function(
           ifelse(is_table, ds_table, NA_character_)
         ),
         expr = ifelse(is_expr, ds_eval, NA_character_),
+        # expr = if (is_expr) str2lang(ds_eval) else NULL,
         created_by = ifelse(
           is_expr,
           'DSI::datashield.assign.expr',
@@ -345,11 +346,12 @@ safe_output.opal <- function(
     purrr::pmap(safe_symbol) |>
     purrr::reduce(register_symbol, .init = registry)
 
-  userlogs_tbl |>
+  calls_tbl <- userlogs_tbl |>
     dplyr::filter(!(ds_action %in% c("ASSIGN"))) |>
     dplyr::filter(!is.na(ds_eval)) |>
     purrr::pmap(function(ds_eval, ...) {
-      safe_call(ds_eval)
+      safe_call(ds_eval) |>
+        enrich_call(registry = registry)
     })
 
   # extract list of functions executed
