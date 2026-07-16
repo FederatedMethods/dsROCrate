@@ -57,8 +57,18 @@ print.safe_call <- function(x, ...) {
     msg <- c(msg, "Arguments:")
     msg <- c(
       msg,
-      paste0("    ", names(x$args), " = ", unlist(x$args), collapse = "\n")
+      purrr::map2(x$args, names(x$args), function(arg_val, arg_name) {
+        if ("safe_symbol" %in% class(arg_val)) {
+          paste0("    ", arg_name, " = ", arg_val$symbol, collapse = "\n")
+        } else {
+          paste0("    ", arg_name, " = ", unlist(arg_val), collapse = "\n")
+        }
+      })
     )
+    # msg <- c(
+    #   msg,
+    #   paste0("    ", names(x$args), " = ", unlist(x$args), collapse = "\n")
+    # )
   }
 
   message(paste0(msg, collapse = "\n"))
