@@ -210,7 +210,7 @@ safe_output.opal <- function(
     return(rocrate)
   }
 
-  # start symbol registry
+  # initialise symbol registry
   registry <- symbol_registry()
 
   # parse logs
@@ -346,9 +346,10 @@ safe_output.opal <- function(
     purrr::pmap(safe_symbol) |>
     purrr::reduce(register_symbol, .init = registry)
 
-  calls_tbl <- userlogs_tbl |>
-    dplyr::filter(!(ds_action %in% c("ASSIGN"))) |>
-    dplyr::filter(!is.na(ds_eval)) |>
+  # parse aggregate function calls into list of safe_call objects
+  calls_lst <- userlogs_tbl |>
+    dplyr::filter((ds_action %in% c("AGGREGATE"))) |>
+    # dplyr::filter(!is.na(ds_eval)) |>
     purrr::pmap(function(ds_eval, ...) {
       safe_call(ds_eval) |>
         enrich_call(registry = registry)
