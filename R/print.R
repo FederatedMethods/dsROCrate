@@ -49,9 +49,28 @@ print.cr8tor_bundle <- function(x, ...) {
 }
 
 #' @export
+print.safe_call <- function(x, ...) {
+  msg <- "<safe_call>"
+  msg <- c(msg, paste("Function:", paste0(x$package, "::", x$fx)))
+
+  if (length(x$args)) {
+    msg <- c(msg, "Arguments:")
+    msg <- c(
+      msg,
+      paste0("    ", names(x$args), " = ", unlist(x$args), collapse = "\n")
+    )
+  }
+
+  message(paste0(msg, collapse = "\n"))
+
+  invisible(x)
+}
+
+#' @export
 print.safe_symbol <- function(x, ...) {
   msg <- "<safe_symbol>"
 
+  msg <- c(msg, paste("ID     :", x$id))
   msg <- c(msg, paste("Symbol :", x$symbol))
   msg <- c(msg, paste("Kind   :", x$kind))
 
