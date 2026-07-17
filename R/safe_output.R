@@ -351,9 +351,24 @@ safe_output.opal <- function(
     dplyr::filter((ds_action %in% c("AGGREGATE"))) |>
     # dplyr::filter(!is.na(ds_eval)) |>
     purrr::pmap(function(ds_eval, ...) {
-      safe_call(ds_eval) |>
+      safe_call(ds_eval, ...) |>
         enrich_call(registry = registry)
     })
+
+  # convert list of calls into tibble
+  purrr::map(calls_lst, \(x) {
+    tibble::tibble(
+      timestamp = format(x$created_at, '%Y-%m-%dT%H:%M:%S'),
+      action = "AGGREGATE",
+      user = x$user,
+      r_cmd = x$original,
+      fx = paste0(x$package, x$namespace, x$fx),
+      args = list(x$args),
+      session = x$session,
+      profile = x$profile
+    )
+  }) |>
+    purrr::list_c()
 
   # extract list of functions executed
   ## evaluated functions and tables/symbols mapped
