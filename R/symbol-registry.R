@@ -49,57 +49,58 @@ register_symbol <- function(registry, symbol) {
   UseMethod("register_symbol")
 }
 
-# #' @export
-# register_symbol.symbol_registry <- function(registry, symbol) {
-#   registry$symbols[[symbol$name]] <- symbol
-#   registry
-# }
-
 #' @export
 register_symbol.symbol_registry <- function(registry, symbol) {
-  existing <- registry$symbols[[symbol$symbol]]
+  stopifnot(inherits(symbol, "safe_symbol"))
 
-  if (is.null(existing)) {
-    registry$symbols[[symbol$symbol]] <- symbol
-    return(registry)
-  }
+  registry$symbols <- dplyr::bind_rows(
+    registry$symbols,
+    tibble::as_tibble(symbol)
+  )
 
-  # merge information
-  if (is.null(existing$asset)) {
-    existing$asset <- symbol$asset
-  }
-
-  if (is.null(existing$kind)) {
-    existing$kind <- symbol$kind
-  }
-
-  if (is.null(existing$parent)) {
-    existing$parent <- symbol$parent
-  }
-
-  registry$symbols[[symbol$symbol]] <- existing
+  # existing <- registry$symbols[[symbol$symbol]]
+  #
+  # registry$symbols[[symbol$symbol]] <- existing
 
   registry
 }
 
-resolve_symbol.symbol_registry <- function(registry, symbol) {
-  current <- lookup_symbol(registry, symbol)
+# resolve_symbol.symbol_registry <- function(
+resolve_symbol <- function(
+  registry,
+  symbol,
+  timestamp,
+  session = NULL,
+  user = NULL
+) {
+  # current <- lookup_symbol(registry, symbol)
+  #
+  # while (
+  #   !is.null(current) && is.null(current$asset) && !is.null(current$parent)
+  # ) {
+  #   current <- lookup_symbol(registry, current$parent)
+  # }
+  #
+  # current
+  x <- registry$symbols |>
+    dplyr::filter(symbol == !!symbol, created_at <= !!timestamp)
 
-  while (
-    !is.null(current) && is.null(current$asset) && !is.null(current$parent)
-  ) {
-    current <- lookup_symbol(registry, current$parent)
+  if (!is.null(session)) {
+    x <- dplyr::filter(x, session == !!session)
   }
 
-  current
+  if (!is.null(user)) {
+    x <- dplyr::filter(x, user == !!user)
+  }
+
+  if (nrow(x) == 0) {
+    return(NULL)
+  }
+
+  x |>
+    dplyr::slice_max(created_at, n = 1)
 }
 
 symbol_registry <- function() {
   new_symbol_registry()
-}
-
-update_symbol <- function(registry, symbol, ...) {
-  # TO BE REVIEWED!!!!
-  registry$symbols[[symbol$name]] <- NULL
-  registry
 }
