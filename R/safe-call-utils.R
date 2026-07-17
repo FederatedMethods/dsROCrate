@@ -45,8 +45,38 @@ call_package.safe_call <- function(x, ...) {
   x$package
 }
 
+enrich_argument <- function(arg, registry, timestamp, session) {
+  if (!is.character(arg) || length(arg) != 1) {
+    return(arg)
+  }
+
+  symbol <- resolve_symbol(
+    registry,
+    symbol = arg,
+    timestamp = timestamp,
+    session = session
+  )
+
+  if (is.null(symbol)) {
+    return(arg)
+  }
+
+  safe_reference(
+    symbol = symbol$symbol,
+    symbol_id = symbol$id
+  )
+}
+
 enrich_call <- function(call, registry) {
-  call$args <- lapply(call$args, resolve_argument, registry = registry)
+  # call$args <- lapply(call$args, resolve_argument, registry = registry)
+  call$args <- purrr::map(
+    call$args,
+    enrich_argument,
+    registry = registry,
+    timestamp = call$created_at,
+    session = call$session
+  )
+
   call
 }
 
@@ -94,8 +124,7 @@ parse_call <- function(fx_call) {
     package = info$package,
     namespace = info$namespace,
     fx = info$fx,
-    args = args,
-    expr = fx_call
+    args = args
   )
 }
 
