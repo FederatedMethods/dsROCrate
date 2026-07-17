@@ -1,24 +1,43 @@
+#' @export
+as.data.frame.safe_symbol <- function(x, ...) {
+  data.frame(
+    id = x$id,
+    symbol = x$symbol,
+    kind = x$kind,
+    asset = x$asset,
+    expr = x$expr,
+    # parents = x$parents,
+    created_by = x$created_by,
+    created_at = x$created_at,
+    user = x$user,
+    session = x$session,
+    action = x$action,
+    # metadata = x$metadata,
+    stringsAsFactors = FALSE
+  )
+}
+
 new_safe_symbol <- function(
   symbol,
-  id = paste0("symbol-", uuid::UUIDgenerate()),
   kind = "unknown",
-  asset = NULL,
-  expr = expr,
-  parents = NULL,
-  created_by = NULL,
-  created_at = NULL,
-  user = NULL,
-  session = NULL,
-  action = NULL,
-  metadata = list()
+  asset = NA_character_,
+  expr = NA_character_,
+  parents = list(),
+  created_by = NA_character_,
+  created_at = Sys.time(),
+  user = NA_character_,
+  session = NA_character_,
+  action = NA_character_,
+  metadata = list(),
+  id = paste0("symbol-", uuid::UUIDgenerate())
 ) {
   stopifnot(is.character(symbol))
   stopifnot(length(symbol) == 1)
 
   structure(
     list(
-      symbol = symbol,
       id = id,
+      symbol = symbol,
       kind = kind,
       asset = asset,
       expr = expr,
