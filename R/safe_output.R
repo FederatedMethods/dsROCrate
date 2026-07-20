@@ -325,13 +325,14 @@ safe_output.opal <- function(
             ifelse(is_table, 'DSI::datashield.assign.table', NA_character_)
           )
         ),
-        parents = find_symbols(
-          ifelse(
-            is_expr,
-            ds_eval,
-            ifelse(is_resource, ds_resource, ifelse(is_table, ds_table, NA))
-          )
-        ),
+        parents = NA_character_,
+        # parents = find_symbols(
+        #   ifelse(
+        #     is_expr,
+        #     ds_eval,
+        #     ifelse(is_resource, ds_resource, ifelse(is_table, ds_table, NA))
+        #   )
+        # ),
         created_at = userlogs_assign_tbl$`@timestamp`[[i]],
         user = userlogs_assign_tbl$username[[i]],
         action = userlogs_assign_tbl$ds_action[[i]],
@@ -346,6 +347,22 @@ safe_output.opal <- function(
     purrr::pmap(safe_symbol) |>
     purrr::reduce(register_symbol, .init = registry)
 
+  # ## update parents
+  # registry$symbols <- seq_len(nrow(registry$symbols)) |>
+  #   purrr::map(function(r) {
+  #     registry$symbols[r, ] |>
+  #       dplyr::mutate(
+  #         parents = resolve_symbol(
+  #           registry,
+  #           ifelse(kind == "expression", expr, asset),
+  #           created_at,
+  #           session,
+  #           user
+  #         )
+  #       )
+  #   }) |>
+  #   purrr::list_c()
+
   # parse aggregate function calls into list of safe_call objects
   calls_lst <- userlogs_tbl |>
     dplyr::filter((ds_action %in% c("AGGREGATE"))) |>
@@ -356,7 +373,7 @@ safe_output.opal <- function(
     })
 
   # convert list of calls into tibble
-  purrr::map(calls_lst, \(x) {
+  calls_tbl <- purrr::map(calls_lst, \(x) {
     tibble::tibble(
       timestamp = format(x$created_at, '%Y-%m-%dT%H:%M:%S'),
       action = "AGGREGATE",
@@ -364,6 +381,25 @@ safe_output.opal <- function(
       r_cmd = x$original,
       fx = paste0(x$package, x$namespace, x$fx),
       args = list(x$args),
+      symbol = NA,
+      table = x$args |>
+        purrr::map(function(x) {
+          if (is.list(x)) {
+            aux <- registry$symbols |>
+              dplyr::filter(id == x$symbol_id)
+            if (is.null(aux)) {
+              return(NA_character_)
+            }
+            # recursively find root symbol based on the `parents` column
+            # while (!is.null(aux$parent)) {
+            #   aux <-
+            # }
+            if (aux$kind != "expression") {
+              return(aux$asset)
+            }
+          }
+          NA_character_
+        }),
       session = x$session,
       profile = x$profile
     )
