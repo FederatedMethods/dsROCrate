@@ -406,76 +406,165 @@ safe_output.opal <- function(
   }) |>
     purrr::list_c()
 
-  # extract list of functions executed
-  ## evaluated functions and tables/symbols mapped
-  userlogs_tbl_maps_evals <- userlogs_tbl |>
-    dplyr::filter(ds_action %in% c("ASSIGN", "AGGREGATE", "OPEN")) |>
-    # add place-holder column, for when ro records are found
-    dplyr::bind_rows(tibble::tibble(ds_table = NA, is_placeholder = TRUE)) |>
-    dplyr::filter(is.na(is_placeholder)) |>
-    # create derived `ds_eval` when `ds_action` = 'ASSIGN'
+  # combine function calls with symbol's registry
+  calls_symbols_tbl <- calls_tbl |>
+    dplyr::select(-symbol) |>
     dplyr::mutate(
-      ds_eval = dplyr::coalesce(
-        ds_eval,
-        paste0(ds_symbol, " <- opal[", ds_table, "]")
-      ),
-      # attach session ID, `ds_id`, if `ds_eval` if `ds_action == 'OPEN'`
-      ds_eval = ifelse(
-        ds_action == "OPEN",
-        paste0("Open session: ", ds_id),
-        ds_eval
+      args = purrr::map(
+        args,
+        ~ purrr::imap_dfr(.x, function(arg, nm) {
+          if (!inherits(arg, "safe_reference")) {
+            tibble::tibble(
+              argument = nm,
+              value = list(arg),
+              symbol_id = NA_character_,
+              symbol = NA_character_,
+              column = NA_character_
+            )
+          } else {
+            tibble::tibble(
+              argument = nm,
+              value = list(arg),
+              symbol_id = arg$symbol_id,
+              symbol = arg$symbol,
+              column = arg$column
+            )
+          }
+        })
       )
     ) |>
-    dplyr::distinct(
-      ds_id,
-      username,
-      ds_action,
-      ds_eval,
-      ds_table,
-      `@timestamp`
+    # tidyr::unnest(args) |>
+    (\(x) {
+      purrr::map2(
+        split(x |> dplyr::select(-args), seq_len(nrow(x))),
+        x$args,
+        dplyr::bind_cols
+      )
+    })() |>
+    purrr::list_c() |>
+    dplyr::left_join(
+      registry$symbols,
+      by = c("symbol_id" = "id"),
+      suffix = c("", "_registry")
     ) |>
-    # refill values for ds_table, based on ds_id
-    dplyr::group_by(ds_id) |>
-    dplyr::mutate(
-      ds_table = refill_vec(ds_table)
-    ) |>
-    dplyr::ungroup() |>
+    # add column with backend
+    dplyr::mutate(backend = "OBiBa's Opal") |>
+    # subset columns
+    dplyr::select(
+      timestamp,
+      action,
+      user,
+      r_cmd,
+      fx,
+      symbol,
+      kind,
+      asset,
+      expr,
+      # table = ds_table,
+      session,
+      backend
+    )
+
+  # extract session details
+  session_tbl <- userlogs_tbl |>
+    dplyr::filter((ds_action %in% c("OPEN"))) |>
     dplyr::mutate(
       # format timestamp
-      `@timestamp` = format(`@timestamp`, '%Y-%m-%dT%H:%M:%S'),
-      # extract function name from ds_eval
-      ds_function = ds_eval |>
-        gsub(pattern = "(?=\\().*$", replacement = "", perl = TRUE),
-      # extract symbol/object from ds_eval
-      ds_symbol = ds_eval |>
-        gsub(pattern = "^.*(?<=\\()", replacement = "", perl = TRUE) |>
-        gsub(pattern = "(?=\\)).*$", replacement = "", perl = TRUE) |>
-        gsub(pattern = '"|\'', replacement = "", perl = TRUE) |>
-        gsub(pattern = "(?=\\$).*", replacement = "", perl = TRUE),
-      # autofill `ds_function` when `ds_action` = 'ASSIGN'
-      ds_function = ifelse(ds_symbol == ds_eval, "base::assign", ds_function),
-      # set `ds_function = 'DSI::datashield.login'` if `ds_action == 'OPEN'`
-      ds_function = ifelse(
-        ds_action == "OPEN",
-        "DSI::datashield.login",
-        ds_function
-      ),
-      ds_symbol = ifelse(ds_symbol == ds_eval, NA, ds_symbol),
-      # add column with backend
-      backend = "OBiBa's Opal",
-      .before = 1
+      timestamp = format(`@timestamp`, '%Y-%m-%dT%H:%M:%S'),
+      # attach session ID, `ds_id`, if `ds_action == 'OPEN'`
+      ds_eval = paste0("Open session: ", ds_id),
+      # set `ds_function = 'DSI::datashield.login'`
+      ds_function = "DSI::datashield.login",
+      backend = "OBiBa's Opal"
     ) |>
     dplyr::select(
-      timestamp = `@timestamp`,
+      timestamp,
       action = ds_action,
       user = username,
       r_cmd = ds_eval,
       fx = ds_function,
-      symbol = ds_symbol,
-      table = ds_table,
       session = ds_id,
       backend
     )
+
+  # combine the logs
+  userlogs_tbl_maps_evals <- calls_symbols_tbl |>
+    dplyr::distinct() |>
+    dplyr::mutate(log_id = dplyr::row_number()) |>
+    dplyr::bind_rows(session_tbl) |>
+    dplyr::arrange(timestamp, log_id) |>
+    dplyr::select(-log_id)
+
+  # # extract list of functions executed
+  # ## evaluated functions and tables/symbols mapped
+  # userlogs_tbl_maps_evals <- userlogs_tbl |>
+  #   dplyr::filter(ds_action %in% c("ASSIGN", "AGGREGATE", "OPEN")) |>
+  #   # add place-holder column, for when ro records are found
+  #   dplyr::bind_rows(tibble::tibble(ds_table = NA, is_placeholder = TRUE)) |>
+  #   dplyr::filter(is.na(is_placeholder)) |>
+  #   # create derived `ds_eval` when `ds_action` = 'ASSIGN'
+  #   dplyr::mutate(
+  #     ds_eval = dplyr::coalesce(
+  #       ds_eval,
+  #       paste0(ds_symbol, " <- opal[", ds_table, "]")
+  #     ),
+  #     # attach session ID, `ds_id`, if `ds_eval` if `ds_action == 'OPEN'`
+  #     ds_eval = ifelse(
+  #       ds_action == "OPEN",
+  #       paste0("Open session: ", ds_id),
+  #       ds_eval
+  #     )
+  #   ) |>
+  #   dplyr::distinct(
+  #     ds_id,
+  #     username,
+  #     ds_action,
+  #     ds_eval,
+  #     ds_table,
+  #     `@timestamp`
+  #   ) |>
+  #   # refill values for ds_table, based on ds_id
+  #   dplyr::group_by(ds_id) |>
+  #   dplyr::mutate(
+  #     ds_table = refill_vec(ds_table)
+  #   ) |>
+  #   dplyr::ungroup() |>
+  #   dplyr::mutate(
+  #     # format timestamp
+  #     `@timestamp` = format(`@timestamp`, '%Y-%m-%dT%H:%M:%S'),
+  #     # extract function name from ds_eval
+  #     ds_function = ds_eval |>
+  #       gsub(pattern = "(?=\\().*$", replacement = "", perl = TRUE),
+  #     # extract symbol/object from ds_eval
+  #     ds_symbol = ds_eval |>
+  #       gsub(pattern = "^.*(?<=\\()", replacement = "", perl = TRUE) |>
+  #       gsub(pattern = "(?=\\)).*$", replacement = "", perl = TRUE) |>
+  #       gsub(pattern = '"|\'', replacement = "", perl = TRUE) |>
+  #       gsub(pattern = "(?=\\$).*", replacement = "", perl = TRUE),
+  #     # autofill `ds_function` when `ds_action` = 'ASSIGN'
+  #     ds_function = ifelse(ds_symbol == ds_eval, "base::assign", ds_function),
+  #     # set `ds_function = 'DSI::datashield.login'` if `ds_action == 'OPEN'`
+  #     ds_function = ifelse(
+  #       ds_action == "OPEN",
+  #       "DSI::datashield.login",
+  #       ds_function
+  #     ),
+  #     ds_symbol = ifelse(ds_symbol == ds_eval, NA, ds_symbol),
+  #     # add column with backend
+  #     backend = "OBiBa's Opal",
+  #     .before = 1
+  #   ) |>
+  #   dplyr::select(
+  #     timestamp = `@timestamp`,
+  #     action = ds_action,
+  #     user = username,
+  #     r_cmd = ds_eval,
+  #     fx = ds_function,
+  #     symbol = ds_symbol,
+  #     table = ds_table,
+  #     session = ds_id,
+  #     backend
+  #   )
 
   log_maps_filename <- paste0(
     format(Sys.time(), "%Y%m%dT%H%M%S"),
