@@ -53,6 +53,10 @@ register_symbol <- function(registry, symbol) {
 register_symbol.symbol_registry <- function(registry, symbol) {
   stopifnot(inherits(symbol, "safe_symbol"))
 
+  # append dependent symbols
+  symbol$depends_on <-
+    resolve_dependencies(symbol$expr, registry)
+
   registry$symbols <- dplyr::bind_rows(
     registry$symbols,
     tibble::as_tibble(symbol)
