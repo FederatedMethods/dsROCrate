@@ -3,10 +3,11 @@ as_tibble.safe_symbol <- function(x, ...) {
   tibble::tibble(
     id = x$id,
     symbol = x$symbol,
+    version = x$version,
     kind = x$kind,
     asset = x$asset,
     expr = x$expr,
-    depends_on = list(x$depends_on),
+    depends_on = x$depends_on,
     created_by = x$created_by,
     created_at = x$created_at,
     user = x$user,
@@ -19,6 +20,7 @@ as_tibble.safe_symbol <- function(x, ...) {
 
 new_safe_symbol <- function(
   symbol,
+  version = -999,
   kind = "unknown",
   asset = NA_character_,
   expr = NA_character_,
@@ -38,6 +40,7 @@ new_safe_symbol <- function(
     list(
       id = id,
       symbol = symbol,
+      version = version,
       kind = kind,
       asset = asset,
       expr = expr,
