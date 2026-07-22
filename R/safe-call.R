@@ -12,9 +12,6 @@ as.data.frame.safe_call <- function(x, ...) {
   )
 }
 
-#' Construct a safe_call
-#'
-#' @keywords internal
 new_safe_call <- function(
   original,
   package,
