@@ -39,34 +39,7 @@ find_symbols <- function(expr) {
   refs
 }
 
-find_symbol_asset <- function(symbol_id, registry) {
-  sym <- registry$symbols |>
-    dplyr::filter(id == symbol_id)
-
-  if (!nrow(sym)) {
-    return(NA_character_)
-  }
-
-  if (sym$kind == "table") {
-    return(sym$asset)
-  }
-
-  deps <- resolve_dependencies(sym$expr, registry)
-
-  if (!nrow(deps)) {
-    return(NA_character_)
-  }
-
-  assets <- purrr::map_chr(
-    deps$symbol_id,
-    find_symbol_asset,
-    registry = registry
-  )
-
-  unique(stats::na.omit(assets))
-}
-
-resolve_dependencies <- function(expr, registry, visited = character()) {
+resolve_dependencies <- function(expr, registry) {
   if (is.null(expr) || is.na(expr)) {
     return(tibble::tibble())
   }
@@ -77,37 +50,74 @@ resolve_dependencies <- function(expr, registry, visited = character()) {
     return(tibble::tibble())
   }
 
-  deps <- purrr::map_dfr(refs, tibble::as_tibble) |>
-    dplyr::left_join(
-      registry$symbols |>
-        dplyr::select(symbol_id = id, symbol, kind, asset, expr),
-      by = "symbol"
+  purrr::map_dfr(refs, function(ref) {
+    sym <- lookup_symbol(ref$symbol, registry)
+
+    tibble::tibble(
+      symbol_id = if (nrow(sym)) sym$id else NA_character_,
+      symbol = ref$symbol,
+      column = ref$column,
+      kind = if (nrow(sym)) sym$kind else NA_character_,
+      asset = if (nrow(sym)) sym$asset else NA_character_
+    )
+  })
+}
+
+resolve_provenance <- function(symbol_id, registry, visited = character()) {
+  if (symbol_id %in% visited) {
+    return(tibble::tibble())
+  }
+
+  sym <- registry$symbols |>
+    dplyr::filter(id == symbol_id)
+
+  deps <- sym$depends_on[[1]]
+
+  if (!nrow(deps)) {
+    return(tibble::tibble())
+  }
+
+  children <-
+    purrr::map_dfr(
+      deps$symbol_id,
+      resolve_provenance,
+      registry = registry,
+      visited = c(visited, symbol_id)
     )
 
-  deps <- deps |>
-    dplyr::mutate(
-      parents = purrr::map(
-        symbol_id,
-        function(symbol_id) {
-          if (is.na(symbol_id) || symbol_id %in% visited) {
-            return(tibble::tibble())
-          }
+  dplyr::bind_rows(deps, children)
+}
 
-          sym <- registry$symbols |>
-            dplyr::filter(id == symbol_id)
+resolve_symbol_asset <- function(symbol_id, registry) {
+  sym <- registry$symbols |>
+    dplyr::filter(id == !!symbol_id)
 
-          if (!nrow(sym) || sym$kind != "expression") {
-            return(tibble::tibble())
-          }
+  if (!nrow(sym)) {
+    return(NA_character_)
+  }
 
-          resolve_dependencies(
-            expr = sym$expr,
-            registry = registry,
-            visited = c(visited, symbol_id)
-          )
-        }
-      )
-    )
+  # direct asset
+  if (sym$kind %in% c("table", "resource")) {
+    return(sym$asset)
+  }
 
-  deps
+  # expression: follow dependencies
+  deps <- resolve_provenance(
+    symbol_id,
+    registry
+  )
+
+  if (!nrow(deps)) {
+    return(NA_character_)
+  }
+
+  assets <- deps |>
+    dplyr::filter(kind %in% c("table", "resource")) |>
+    dplyr::pull(asset)
+
+  if (!length(assets)) {
+    return(NA_character_)
+  }
+
+  paste(unique(stats::na.omit(assets)), collapse = ";")
 }
