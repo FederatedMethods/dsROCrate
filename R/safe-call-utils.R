@@ -9,42 +9,6 @@ as.data.frame.safe_call <- function(x, ...) {
   )
 }
 
-call_args <- function(x, ...) {
-  UseMethod("call_args")
-}
-
-#' @export
-call_args.safe_call <- function(x, ...) {
-  x$args
-}
-
-call_fx <- function(x, ...) {
-  UseMethod("call_fx")
-}
-
-#' @export
-call_fx.safe_call <- function(x, ...) {
-  x$fx
-}
-
-call_original <- function(x, ...) {
-  UseMethod("call_original")
-}
-
-#' @export
-call_original.safe_call <- function(x, ...) {
-  x$original
-}
-
-call_package <- function(x, ...) {
-  UseMethod("call_package")
-}
-
-#' @export
-call_package.safe_call <- function(x, ...) {
-  x$package
-}
-
 enrich_argument <- function(arg, registry, timestamp, session) {
   if (!is.character(arg) || length(arg) != 1) {
     return(arg)
