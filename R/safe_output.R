@@ -325,14 +325,6 @@ safe_output.opal <- function(
             ifelse(is_table, 'DSI::datashield.assign.table', NA_character_)
           )
         ),
-        # parents = NA_character_,
-        # parents = find_symbols(
-        #   ifelse(
-        #     is_expr,
-        #     ds_eval,
-        #     ifelse(is_resource, ds_resource, ifelse(is_table, ds_table, NA))
-        #   )
-        # ),
         created_at = userlogs_assign_tbl$`@timestamp`[[i]],
         user = userlogs_assign_tbl$username[[i]],
         action = userlogs_assign_tbl$ds_action[[i]],
@@ -368,21 +360,10 @@ safe_output.opal <- function(
       symbol = NA,
       table = x$args |>
         purrr::map(function(x) {
-          if (is.list(x)) {
-            aux <- registry$symbols |>
-              dplyr::filter(id == x$symbol_id)
-            if (is.null(aux)) {
-              return(NA_character_)
-            }
-            # recursively find root symbol based on the `parents` column
-            # while (!is.null(aux$parent)) {
-            #   aux <-
-            # }
-            if (aux$kind != "expression") {
-              return(aux$asset)
-            }
+          if (!inherits(x, "safe_reference")) {
+            return(NA_character_)
           }
-          NA_character_
+          resolve_symbol_asset(x$symbol_id, registry)
         }),
       session = x$session,
       profile = x$profile
@@ -417,7 +398,6 @@ safe_output.opal <- function(
         })
       )
     ) |>
-    # tidyr::unnest(args) |>
     (\(x) {
       purrr::map2(
         split(x |> dplyr::select(-args), seq_len(nrow(x))),
@@ -430,6 +410,17 @@ safe_output.opal <- function(
       registry$symbols,
       by = c("symbol_id" = "id"),
       suffix = c("", "_registry")
+    ) |>
+    dplyr::mutate(
+      asset = dplyr::if_else(
+        kind == "expression",
+        purrr::map_chr(
+          symbol_id,
+          resolve_symbol_asset,
+          registry = registry
+        ),
+        asset
+      )
     ) |>
     # add column with backend
     dplyr::mutate(backend = "OBiBa's Opal") |>
