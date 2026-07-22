@@ -36,35 +36,52 @@ new_symbol_registry <- function(symbols = list()) {
   )
 }
 
-lookup_symbol <- function(registry, name) {
-  UseMethod("lookup_symbol")
-}
+lookup_symbol <- function(symbol, registry, session = NULL) {
+  out <- registry$symbols
 
-#' @export
-lookup_symbol.symbol_registry <- function(registry, name) {
-  registry$symbols[[name]]
+  if (!is.null(session)) {
+    out <- dplyr::filter(out, session == !!session)
+  }
+
+  out |>
+    dplyr::filter(symbol == !!symbol) |>
+    dplyr::arrange(dplyr::desc(version)) |>
+    dplyr::slice(1)
 }
 
 register_symbol <- function(registry, symbol) {
-  UseMethod("register_symbol")
-}
-
-#' @export
-register_symbol.symbol_registry <- function(registry, symbol) {
+  # local bindings
+  aux <- NULL
   stopifnot(inherits(symbol, "safe_symbol"))
 
-  # append dependent symbols
-  symbol$depends_on <-
-    resolve_dependencies(symbol$expr, registry)
+  # extract current version of symbol
+  if (nrow(registry$symbols) == 0 || length(registry$symbols) == 0) {
+    current_version <- 0
+  } else {
+    aux <- registry$symbols |>
+      dplyr::filter(
+        session == !!symbol$session,
+        symbol == !!symbol$symbol
+      )
+    if (nrow(aux)) {
+      current_version <- aux |>
+        dplyr::summarise(
+          version = dplyr::coalesce(max(version), 0L)
+        ) |>
+        dplyr::pull(version)
+    } else {
+      current_version <- 0
+    }
+  }
+
+  symbol$version <- current_version + 1L
+
+  symbol$depends_on <- list(resolve_dependencies(symbol$expr, registry))
 
   registry$symbols <- dplyr::bind_rows(
     registry$symbols,
     tibble::as_tibble(symbol)
   )
-
-  # existing <- registry$symbols[[symbol$symbol]]
-  #
-  # registry$symbols[[symbol$symbol]] <- existing
 
   registry
 }
