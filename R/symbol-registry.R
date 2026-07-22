@@ -51,7 +51,7 @@ lookup_symbol <- function(symbol, registry, session = NULL) {
 
 register_symbol <- function(registry, symbol) {
   # local bindings
-  aux <- NULL
+  aux <- session <- NULL
   stopifnot(inherits(symbol, "safe_symbol"))
 
   # extract current version of symbol
@@ -86,7 +86,6 @@ register_symbol <- function(registry, symbol) {
   registry
 }
 
-# resolve_symbol.symbol_registry <- function(
 resolve_symbol <- function(
   registry,
   symbol,
@@ -94,15 +93,9 @@ resolve_symbol <- function(
   session = NULL,
   user = NULL
 ) {
-  # current <- lookup_symbol(registry, symbol)
-  #
-  # while (
-  #   !is.null(current) && is.null(current$asset) && !is.null(current$parent)
-  # ) {
-  #   current <- lookup_symbol(registry, current$parent)
-  # }
-  #
-  # current
+  # local binding
+  created_at <- NULL
+
   x <- registry$symbols |>
     dplyr::filter(symbol == !!symbol, created_at <= !!timestamp)
 

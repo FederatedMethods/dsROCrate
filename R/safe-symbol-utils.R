@@ -64,6 +64,9 @@ resolve_dependencies <- function(expr, registry) {
 }
 
 resolve_provenance <- function(symbol_id, registry, visited = character()) {
+  # local bindings
+  id <- NULL
+
   if (symbol_id %in% visited) {
     return(tibble::tibble())
   }
@@ -89,6 +92,9 @@ resolve_provenance <- function(symbol_id, registry, visited = character()) {
 }
 
 resolve_symbol_asset <- function(symbol_id, registry) {
+  # local binding
+  asset <- id <- kind <- NULL
+
   sym <- registry$symbols |>
     dplyr::filter(id == !!symbol_id)
 
