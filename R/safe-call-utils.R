@@ -146,29 +146,6 @@ parse_function <- function(fx) {
   )
 }
 
-resolve_argument <- function(registry, x) {
-  if (!is.character(x) || length(x) != 1) {
-    return(x)
-  }
-
-  # exact symbol
-  if (has_symbol(registry, x)) {
-    return(lookup_symbol(registry, x))
-  }
-
-  # symbol$column
-  if (grepl("\\$", x)) {
-    pieces <- strsplit(x, "\\$", fixed = FALSE)[[1]]
-
-    if (has_symbol(registry, pieces[1])) {
-      sym <- lookup_symbol(registry, pieces[1])
-      sym$column <- pieces[2]
-      return(sym)
-    }
-  }
-  x
-}
-
 simplify_argument <- function(x) {
   if (is.atomic(x) || is.character(x)) {
     return(x)
