@@ -805,17 +805,31 @@ load_cr8tor_bundle <- function(x, ...) {
   tmp <- tempfile("cr8tor_")
   dir.create(tmp, recursive = TRUE, showWarnings = FALSE)
 
-  utils::unzip(x, exdir = tmp)
+  ok <- tryCatch(
+    {
+      utils::unzip(x, exdir = tmp)
+      TRUE
+    },
+    warning = function(w) FALSE,
+    error = function(e) FALSE
+  )
+
+  if (!ok) {
+    stop("Not a valid cr8tor bundle.", call. = FALSE)
+  }
+
+  # get root directory for bag
+  bagit_root <- find_bagit_root(tmp)
 
   # load RO-Crate layer
   rocrate <- rocrateR::load_rocrate(
-    x, #file.path(tmp, "bagit"),
+    bagit_root,
     load_content = TRUE,
     ...
   )
 
-  tmp_root <- find_bagit_root(tmp) |>
-    dirname()
+  # get base dir
+  tmp_root <- dirname(bagit_root)
 
   # parse resources layer
   res_dir <- file.path(tmp_root, "resources")
