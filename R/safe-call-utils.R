@@ -46,29 +46,55 @@ enrich_call <- function(call, registry) {
 
 get_function <- function(info) {
   if (is.null(info$package)) {
-    return(get(info$fx, mode = "function"))
+    return(
+      tryCatch(get(info$fx, mode = "function"), error = function(e) NULL)
+    )
   }
 
-  get(info$fx, envir = asNamespace(info$package), mode = "function")
+  tryCatch(
+    get(info$fx, envir = asNamespace(info$package), mode = "function"),
+    error = function(e) NULL
+  )
 }
 
 parse_arguments <- function(fx_call, info, expand.dots = FALSE) {
   supplied <- as.list(fx_call[-1])
   supplied_names <- names(supplied)
 
-  # Recover function object
+  # (attempt to) recover function object
   fun_obj <- get_function(info)
 
-  # Expand names
-  matched <- match.call(
-    definition = fun_obj,
-    call = fx_call,
-    expand.dots = expand.dots
+  matched <- tryCatch(
+    if (is.null(fun_obj)) {
+      NULL
+    } else {
+      match.call(
+        definition = fun_obj,
+        call = fx_call,
+        expand.dots = expand.dots
+      )
+    },
+    error = function(e) NULL
   )
 
-  matched <- as.list(matched[-1])
+  if (is.null(matched)) {
+    # fall back to the supplied arguments if matching failed
+    matched <- supplied
 
-  # Evaluate constants only
+    # attach arg names
+    if (is.null(supplied_names)) {
+      supplied_names <- rep("", length(supplied))
+    }
+    missing <- supplied_names == ""
+
+    supplied_names[missing] <- paste0("..", which(missing))
+
+    names(matched) <- supplied_names
+  } else {
+    matched <- as.list(matched[-1])
+  }
+
+  # evaluate constants only
   matched <- lapply(matched, simplify_argument)
 
   matched
