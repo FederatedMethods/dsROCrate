@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dsROCrate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
       </span>
     </div>
 
@@ -60,7 +60,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Safe Project details</h1>
-    <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/v0.1.0/R/safe_project.R" class="external-link"><code>R/safe_project.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/main/R/safe_project.R" class="external-link"><code>R/safe_project.R</code></a></small>
     <div class="hidden name"><code>safe_project.Rd</code></div>
     </div>
 
@@ -69,7 +69,9 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S4 method for class 'armadillo'</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">safe_project</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'ArmadilloCredentials'</span></span>
 <span><span class="fu">safe_project</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
 <span>  <span class="va">...</span>,</span>
@@ -127,21 +129,6 @@
 <span>  resources <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"resources"</span><span class="op">)</span>,</span>
 <span>  tables <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"tables"</span><span class="op">)</span>,</span>
 <span>  user <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"user"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S3 method for class 'ArmadilloCredentials'</span></span>
-<span><span class="fu">safe_project</span><span class="op">(</span></span>
-<span>  <span class="va">x</span>,</span>
-<span>  <span class="va">...</span>,</span>
-<span>  profile <span class="op">=</span> <span class="st">"default"</span>,</span>
-<span>  project <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  rocrate <span class="op">=</span> <span class="fu">rocrateR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rocrateR/man/rocrate_5s.html" class="external-link">rocrate_5s</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  asset_id_suffix <span class="op">=</span> <span class="st">"#asset:"</span>,</span>
-<span>  project_id_suffix <span class="op">=</span> <span class="st">"#project:"</span>,</span>
-<span>  path <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  resources <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  tables <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  user <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -157,7 +144,7 @@
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>This can be a connection to a 'DataSHIELD' server (e.g., object with
-the <code>opal</code> class, see <code><a href="https://www.obiba.org/opalr/reference/opal.login.html" class="external-link">opalr::opal.login()</a></code>), an RO-Crate
+the <code>opal</code> or <code>ArmadilloCredentials</code> classes), an RO-Crate
 (<a href="https://rdrr.io/pkg/rocrateR/man/rocrate.html" class="external-link">rocrate</a> class) or a string with the path to an
 RO-Crate.</p></dd>
 
@@ -175,6 +162,12 @@ RO-Crate.</p></dd>
 <dd><p>String with the name of the Safe Project.</p></dd>
 
 
+<dt id="arg-rocrate">rocrate<a class="anchor" aria-label="anchor" href="#arg-rocrate"></a></dt>
+<dd><p>RO-Crate object. Optional, if <code>x</code> is either an RO-Crate
+object or a path to a valid RO-Crate. If so, then <code>connection</code> is
+required (default: <code><a href="https://rdrr.io/pkg/rocrateR/man/rocrate_5s.html" class="external-link">rocrateR::rocrate_5s()</a></code>).</p></dd>
+
+
 <dt id="arg-asset-id-suffix">asset_id_suffix<a class="anchor" aria-label="anchor" href="#arg-asset-id-suffix"></a></dt>
 <dd><p>String with ID suffix for the tables/datasets
 entities in the RO-Crate (default: <code>"#asset:"</code>).</p></dd>
@@ -183,12 +176,6 @@ entities in the RO-Crate (default: <code>"#asset:"</code>).</p></dd>
 <dt id="arg-project-id-suffix">project_id_suffix<a class="anchor" aria-label="anchor" href="#arg-project-id-suffix"></a></dt>
 <dd><p>String with ID suffix for the project entities
 in the RO-Crate (default: <code>"#project:"</code>).</p></dd>
-
-
-<dt id="arg-connection">connection<a class="anchor" aria-label="anchor" href="#arg-connection"></a></dt>
-<dd><p>Connection object for the 'DataSHIELD' server where the
-values will be extracted from (e.g., OBiBa's Opal). Optional, if <code>x</code> is
-set to a connection object. If so, then <code>rocrate</code> is required.</p></dd>
 
 
 <dt id="arg-path">path<a class="anchor" aria-label="anchor" href="#arg-path"></a></dt>
@@ -215,10 +202,10 @@ the Safe People, it must include <code>@id</code> and <code>name</code> entries.
 this can be a string with the <code>name</code> of the current user.</p></dd>
 
 
-<dt id="arg-rocrate">rocrate<a class="anchor" aria-label="anchor" href="#arg-rocrate"></a></dt>
-<dd><p>RO-Crate object. Optional, if <code>x</code> is either an RO-Crate
-object or a path to a valid RO-Crate. If so, then <code>connection</code> is
-required (default: <code><a href="https://rdrr.io/pkg/rocrateR/man/rocrate_5s.html" class="external-link">rocrateR::rocrate_5s()</a></code>).</p></dd>
+<dt id="arg-connection">connection<a class="anchor" aria-label="anchor" href="#arg-connection"></a></dt>
+<dd><p>Connection object for the 'DataSHIELD' server where the
+values will be extracted from (e.g., OBiBa's Opal). Optional, if <code>x</code> is
+set to a connection object. If so, then <code>rocrate</code> is required.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -247,7 +234,7 @@ ethical purposes serving a public good.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
       </footer></div>

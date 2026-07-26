@@ -18,7 +18,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dsROCrate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
       </span>
     </div>
 
@@ -61,7 +61,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Check backend connection permissions</h1>
-    <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/v0.1.0/R/check_permissions.R" class="external-link"><code>R/check_permissions.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/main/R/check_permissions.R" class="external-link"><code>R/check_permissions.R</code></a></small>
     <div class="hidden name"><code>check_permissions.Rd</code></div>
     </div>
 
@@ -71,7 +71,13 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">check_permissions</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">check_permissions</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'ArmadilloCredentials'</span></span>
+<span><span class="fu">check_permissions</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'opal'</span></span>
+<span><span class="fu">check_permissions</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -84,6 +90,11 @@
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Additional arguments passed to methods.</p></dd>
+
+
+<dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
+<dd><p>Boolean value used to indicate if a success message should be
+displayed (default: FALSE)</p></dd>
 
 </dl></div>
     <div id="value">
@@ -111,7 +122,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
       </footer></div>
