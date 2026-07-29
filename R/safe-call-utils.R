@@ -9,6 +9,17 @@ as.data.frame.safe_call <- function(x, ...) {
   )
 }
 
+#' Enrich argument from function call
+#'
+#' @param arg String with argument.
+#' @param registry Symbol registry object.
+#' @param timestamp Timestamp to map the symbol details.
+#' @param session String with session ID.
+#'
+#' @returns `safe_reference` object.
+#' @keywords internal
+#'
+#' @noRd
 enrich_argument <- function(arg, registry, timestamp, session) {
   if (!is.character(arg) || length(arg) != 1) {
     return(arg)
@@ -31,8 +42,17 @@ enrich_argument <- function(arg, registry, timestamp, session) {
   )
 }
 
+#' Enrich function call
+#'
+#' @param call Function call.
+#' @param registry Symbol registry object.
+#'
+#' @returns Updated function call with enrich arguments.
+#' @keywords internal
+#'
+#' @noRd
 enrich_call <- function(call, registry) {
-  # call$args <- lapply(call$args, resolve_argument, registry = registry)
+  # call `enrich_argument` for each argument in the function call
   call$args <- purrr::map(
     call$args,
     enrich_argument,
@@ -44,6 +64,14 @@ enrich_call <- function(call, registry) {
   call
 }
 
+#' Get function details
+#'
+#' @param info List with details for function call.
+#'
+#' @returns Function invoked in function call.
+#' @keywords internal
+#'
+#' @noRd
 get_function <- function(info) {
   if (is.null(info$package)) {
     return(
@@ -57,6 +85,16 @@ get_function <- function(info) {
   )
 }
 
+#' Parse arguments from a function call
+#'
+#' @param fx_call R function call.
+#' @param info List with details from the function call.
+#' @param expand.dots Boolean flag to indicate whether to expand dot args.
+#'
+#' @returns List with simplified arguments.
+#' @keywords internal
+#'
+#' @noRd
 parse_arguments <- function(fx_call, info, expand.dots = FALSE) {
   supplied <- as.list(fx_call[-1])
   supplied_names <- names(supplied)
@@ -100,6 +138,14 @@ parse_arguments <- function(fx_call, info, expand.dots = FALSE) {
   matched
 }
 
+#' Parse function call
+#'
+#' @param fx_call R function call.
+#'
+#' @returns List with properties extracted from `fx_call`.
+#' @keywords internal
+#'
+#' @noRd
 parse_call <- function(fx_call) {
   fx <- fx_call[[1]]
 
@@ -118,6 +164,14 @@ parse_call <- function(fx_call) {
   )
 }
 
+#' Parse function
+#'
+#' @param fx R function call.
+#'
+#' @returns List with function properties
+#' @keywords internal
+#'
+#' @noRd
 parse_function <- function(fx) {
   if (is.call(fx) && identical(fx[[1]], as.name("::"))) {
     return(
@@ -136,6 +190,14 @@ parse_function <- function(fx) {
   )
 }
 
+#' Simplify argument
+#'
+#' @param x Object with argument from function call.
+#'
+#' @returns Simplified argument object.
+#' @keywords internal
+#'
+#' @noRd
 simplify_argument <- function(x) {
   if (is.atomic(x) || is.character(x)) {
     return(x)
