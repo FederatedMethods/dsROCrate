@@ -1,6 +1,6 @@
 Package: dsROCrate
 Title: 'DataSHIELD' RO-Crate Governance Functions
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: c(
     person(given = "Roberto",
            family = "Villegas-Diaz",
