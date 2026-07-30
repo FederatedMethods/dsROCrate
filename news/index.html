@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dsROCrate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
       </span>
     </div>
 
@@ -60,11 +60,31 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/v0.2.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.2.0" id="dsrocrate-020">dsROCrate 0.2.0<a class="anchor" aria-label="anchor" href="#dsrocrate-020"></a></h2>
+<h2 class="page-header" data-toc-text="0.2.1" id="dsrocrate-021">dsROCrate 0.2.1<a class="anchor" aria-label="anchor" href="#dsrocrate-021"></a></h2>
+<div class="section level3">
+<h3 id="bug-fixes-0-2-1">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-1"></a></h3>
+<ul><li>Removed a duplicate, conflicting definition of <code>as.data.frame.safe_call()</code> (two files each defined this S3 method with different output columns; only one could ever take effect, silently). The <code>safe-call.R</code> version — timestamp, user, r_cmd, fx, args, session, profile — is now the sole implementation.</li>
+<li>Fixed <code>print.safe_symbol()</code> referencing stale <code>column</code>/<code>parent</code> fields left over from before the 0.2.0 symbol-model refactor; it now correctly displays the symbol’s <code>asset</code>, <code>expr</code>, and <code>session</code> (guarding on both <code>NULL</code> and <code>NA</code>, since these fields default to <code>NA_character_</code>).</li>
+<li>Fixed <code>as.data.frame.symbol_registry()</code>, which previously iterated over the columns of the underlying tibble instead of its rows (via <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply()</a></code> on a data frame), causing it to error whenever called on a non-empty registry. It also referenced non-existent <code>parent</code>/<code>column</code> fields. The method now simply returns <code>x$symbols</code> coerced to a data frame, which already carries the correct columns.</li>
+<li>Fixed <code>register_symbol()</code> erroring on a brand-new, empty registry (the very first symbol registered in any session): the emptiness check compared <code><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow()</a></code> of a plain, pre-tibble <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> before checking <code><a href="https://rdrr.io/r/base/length.html" class="external-link">length()</a></code>, producing a zero-length logical passed to <code>||</code>. The <code><a href="https://rdrr.io/r/base/length.html" class="external-link">length()</a></code> check is now evaluated first, so it short-circuits correctly.</li>
+<li>Fixed <code>as.data.frame.safe_call()</code>’s <code>args</code> column having an unstable name and shape depending on how many arguments the underlying call had (a single-argument call collapsed the column into one named after that argument, e.g. <code>x</code>; multiple arguments spread into several columns instead of one). The argument list is now wrapped with <code>I(list(...))</code> so it always appears as a single, reliably-named <code>args</code> list-column.</li>
+<li>Added regression tests for <code>safe_call()</code>/<code>as.data.frame.safe_call()</code>, <code>print.safe_symbol()</code>, and <code>register_symbol()</code>/<code>as.data.frame.symbol_registry()</code>, none of which previously had any test coverage.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="internal-changes-0-2-1">Internal Changes<a class="anchor" aria-label="anchor" href="#internal-changes-0-2-1"></a></h3>
+<ul><li>Removed unused internal helpers: <code>has_symbol()</code>/<code>has_symbol.symbol_registry()</code> (and its S3 export) and <code>safe_symbol_reference()</code>/<code>new_safe_symbol_reference()</code>, none of which were called anywhere in the package.</li>
+<li>Removed leftover commented-out code from <code>safe_symbol()</code> and <code>print.safe_call()</code>.</li>
+<li>Added roxygen2 documentation (<code>@param</code>, <code>@returns</code>, <code>@keywords internal</code>, <code>@noRd</code>) and explanatory comments to the internal symbol-tracking functions introduced in 0.2.0 (<code>safe_call()</code>, <code>safe_symbol()</code>, <code>safe_reference()</code>, <code>symbol_registry()</code>, and their supporting utilities), with no change in behaviour.</li>
+<li>Updated spell-check <code>WORDLIST</code>.</li>
+<li>Re-rendered vignettes to refresh example output.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.2.0" id="dsrocrate-020">dsROCrate 0.2.0<small>2026-07-26</small><a class="anchor" aria-label="anchor" href="#dsrocrate-020"></a></h2>
 <div class="section level3">
 <h3 id="breaking-changes-0-2-0">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-2-0"></a></h3>
 <ul><li>The audit log tibble returned via <code><a href="../reference/safe_output.html">safe_output()</a></code> no longer includes a <code>table</code> column. It has been replaced by three more granular columns: <code>kind</code> (whether the tracked object is a <code>table</code>, <code>resource</code> or <code>expression</code>), <code>asset</code> (the resolved table/resource name) and <code>expr</code> (the associated R expression, when applicable). Code that reads the <code>table</code> column directly will need to be updated.</li>
