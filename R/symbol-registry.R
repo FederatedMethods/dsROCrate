@@ -6,11 +6,18 @@ as.data.frame.symbol_registry <- function(x, ...) {
       x$symbols,
       function(sym) {
         data.frame(
+          id = sym$symbol,
           symbol = sym$symbol,
+          version = sym$version,
           kind = sym$kind,
           asset = sym$asset,
-          parent = sym$parent,
-          column = sym$column,
+          expr = sym$expr,
+          depends_on = sym$depends_on,
+          created_by = sym$created_by,
+          created_at = sym$created_at,
+          user = sym$user,
+          session = sym$session,
+          action = sym$action,
           stringsAsFactors = FALSE
         )
       }
