@@ -1,4 +1,12 @@
-# dsROCrate (development version)
+# dsROCrate 0.2.1
+
+## Internal Changes
+
+* Removed unused internal helpers: `has_symbol()`/`has_symbol.symbol_registry()` (and its S3 export) and `safe_symbol_reference()`/`new_safe_symbol_reference()`, none of which were called anywhere in the package.
+* Removed leftover commented-out code from `safe_symbol()`.
+* Added roxygen2 documentation (`@param`, `@returns`, `@keywords internal`, `@noRd`) and explanatory comments to the internal symbol-tracking functions introduced in 0.2.0 (`safe_call()`, `safe_symbol()`, `safe_reference()`, `symbol_registry()`, and their supporting utilities), with no change in behaviour.
+* Updated spell-check `WORDLIST`.
+* Re-rendered vignettes to refresh example output.
 
 # dsROCrate 0.2.0
 
