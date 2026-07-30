@@ -1,14 +1,3 @@
-#' @export
-as.data.frame.safe_call <- function(x, ...) {
-  data.frame(
-    package = x$package,
-    fx = x$fx,
-    argument = names(x$args),
-    value = vapply(x$args, toString, character(1)),
-    stringsAsFactors = FALSE
-  )
-}
-
 #' Enrich argument from function call
 #'
 #' @param arg String with argument.
@@ -89,7 +78,8 @@ get_function <- function(info) {
 #'
 #' @param fx_call R function call.
 #' @param info List with details from the function call.
-#' @param expand.dots Boolean flag to indicate whether to expand dot args.
+#' @param expand.dots Boolean flag. Should arguments matching `...` in the call
+#'     be included or left as a `...` argument?
 #'
 #' @returns List with simplified arguments.
 #' @keywords internal
