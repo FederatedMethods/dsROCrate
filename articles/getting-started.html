@@ -93,7 +93,7 @@
       <h1 data-toc-skip>Getting Started</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/main/vignettes/getting-started.Rmd" class="external-link"><code>vignettes/getting-started.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/v0.2.1/vignettes/getting-started.Rmd" class="external-link"><code>vignettes/getting-started.Rmd</code></a></small>
       <div class="hidden name"><code>getting-started.Rmd</code></div>
 
     </div>
@@ -687,7 +687,7 @@ using the following commands:</p>
 <span>                         logs_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">8.64E4</span>, <span class="co"># capture the last 24 hours</span></span>
 <span>                         logs_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 98 records... Imported 98 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 118 records... Imported 118 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; Warning: A `path` wasn't provided! The logs will be included in the RO-Crate</span></span>
 <span><span class="co">#&gt; object, under the `content` tag!</span></span></code></pre></div>
@@ -695,21 +695,21 @@ using the following commands:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">basic_rocrate</span><span class="op">)</span> <span class="co"># note that the output will be truncated</span></span>
 <span><span class="va">...</span></span>
 <span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "20260730T124705-dslogs-dsuser.log",</span></span>
+<span><span class="co">#&gt;       "@id": "20260730T124953-dslogs-dsuser.log",</span></span>
 <span><span class="co">#&gt;       "@type": "File",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-07-30 12:47:05",</span></span>
-<span><span class="co">#&gt;       "name": "20260730T124705-dslogs-dsuser.log",</span></span>
-<span><span class="co">#&gt;       "description": "This file contains the raw logs for the user: `dsuser` , between: 2026-07-29 12:47:04 and 2026-07-30 12:47:04",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-07-30 12:49:53",</span></span>
+<span><span class="co">#&gt;       "name": "20260730T124953-dslogs-dsuser.log",</span></span>
+<span><span class="co">#&gt;       "description": "This file contains the raw logs for the user: `dsuser` , between: 2026-07-29 12:49:52 and 2026-07-30 12:49:52",</span></span>
 <span><span class="co">#&gt;       "encodingFormat": "text/plain",</span></span>
 <span><span class="co">#&gt;       "content": [</span></span>
-<span><span class="co">#&gt;         ["[INFO][2026-07-30T09:50:52][OPEN]      created a datashield session 9a543800-53d8-4d32-99d3-445b4ef2b29d", "[INFO][2026-07-30T09:50:54][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T09:50:54][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T09:50:55][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T09:50:55][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-07-30T09:50:55][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-07-30T09:50:55][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-07-30T09:50:55][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-07-30T09:50:55][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-07-30T09:50:55][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-07-30T09:50:56][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-07-30T09:50:56][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-07-30T09:50:56][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-07-30T09:50:56][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-07-30T10:01:17][OPEN]      created a datashield session 33f2f1f9-fd65-4b7f-a2f7-cd7eda3da041", "[INFO][2026-07-30T10:01:18][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T10:01:18][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T10:01:19][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T10:16:52][OPEN]      created a datashield session 91aacd86-c4fb-450d-a22e-92c356c1d131", "[INFO][2026-07-30T10:16:52][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T10:16:52][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T10:16:53][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T10:38:31][OPEN]      created a datashield session 22184098-5a9c-436b-a5cd-b5466f933e5f", "[INFO][2026-07-30T10:38:31][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T10:38:31][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T10:38:32][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T10:59:04][OPEN]      created a datashield session 8f7e7eeb-4cc5-4638-9b77-405ccd612d40", "[INFO][2026-07-30T10:59:05][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T10:59:05][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T10:59:06][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T11:05:56][OPEN]      created a datashield session 2d142477-eae2-4998-a030-88ab16ab94b9", "[INFO][2026-07-30T11:05:56][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T11:05:57][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T11:05:58][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T11:22:01][OPEN]      created a datashield session e3735d27-3199-416b-ba8d-d93b71d151b0", "[INFO][2026-07-30T11:22:02][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T11:22:02][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T11:22:03][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:02:28][OPEN]      created a datashield session bfcf1fc1-56dc-4eeb-90c6-1519b7842061", "[INFO][2026-07-30T12:02:28][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T12:02:29][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:02:30][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:03:08][OPEN]      created a datashield session ec572047-d975-4832-b886-92e9429fdcf4", "[INFO][2026-07-30T12:03:09][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T12:03:10][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:03:11][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:04:20][OPEN]      created a datashield session bb307bc6-2da3-4bf0-b0d9-90d9b400d044", "[INFO][2026-07-30T12:04:21][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T12:04:22][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:04:23][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:04:24][OPEN]      created a datashield session 0a6708b1-7cb0-4164-9c2b-1ad519aa341b", "[INFO][2026-07-30T12:04:25][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T12:04:25][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:04:26][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:04:43][OPEN]      created a datashield session 82c6c25f-18be-4f38-99d1-7a9e4ccd0cf4", "[INFO][2026-07-30T12:04:44][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T12:04:44][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:04:45][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:05:29][OPEN]      created a datashield session 244f220e-36be-4f64-a784-f6b897f1d2ed", "[INFO][2026-07-30T12:05:30][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T12:05:30][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:05:31][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'"]</span></span>
+<span><span class="co">#&gt;         ["[INFO][2026-07-30T09:50:52][OPEN]      created a datashield session 9a543800-53d8-4d32-99d3-445b4ef2b29d", "[INFO][2026-07-30T09:50:54][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T09:50:54][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T09:50:55][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T09:50:55][PARSE]     parsed 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-07-30T09:50:55][AGGREGATE] evaluated 'base::exists(\"dsROCrate_test\")'", "[INFO][2026-07-30T09:50:55][PARSE]     parsed 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-07-30T09:50:55][AGGREGATE] evaluated 'dsBase::classDS(\"dsROCrate_test\")'", "[INFO][2026-07-30T09:50:55][PARSE]     parsed 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-07-30T09:50:55][AGGREGATE] evaluated 'dsBase::isValidDS(dsROCrate_test)'", "[INFO][2026-07-30T09:50:56][PARSE]     parsed 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-07-30T09:50:56][AGGREGATE] evaluated 'dsBase::dimDS(\"dsROCrate_test\")'", "[INFO][2026-07-30T09:50:56][PARSE]     parsed 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-07-30T09:50:56][AGGREGATE] evaluated 'dsBase::colnamesDS(\"dsROCrate_test\")'", "[INFO][2026-07-30T10:01:17][OPEN]      created a datashield session 33f2f1f9-fd65-4b7f-a2f7-cd7eda3da041", "[INFO][2026-07-30T10:01:18][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T10:01:18][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T10:01:19][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T10:16:52][OPEN]      created a datashield session 91aacd86-c4fb-450d-a22e-92c356c1d131", "[INFO][2026-07-30T10:16:52][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T10:16:52][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T10:16:53][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T10:38:31][OPEN]      created a datashield session 22184098-5a9c-436b-a5cd-b5466f933e5f", "[INFO][2026-07-30T10:38:31][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T10:38:31][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T10:38:32][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T10:59:04][OPEN]      created a datashield session 8f7e7eeb-4cc5-4638-9b77-405ccd612d40", "[INFO][2026-07-30T10:59:05][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T10:59:05][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T10:59:06][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T11:05:56][OPEN]      created a datashield session 2d142477-eae2-4998-a030-88ab16ab94b9", "[INFO][2026-07-30T11:05:56][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T11:05:57][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T11:05:58][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T11:22:01][OPEN]      created a datashield session e3735d27-3199-416b-ba8d-d93b71d151b0", "[INFO][2026-07-30T11:22:02][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T11:22:02][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T11:22:03][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:02:28][OPEN]      created a datashield session bfcf1fc1-56dc-4eeb-90c6-1519b7842061", "[INFO][2026-07-30T12:02:28][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T12:02:29][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:02:30][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:03:08][OPEN]      created a datashield session ec572047-d975-4832-b886-92e9429fdcf4", "[INFO][2026-07-30T12:03:09][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T12:03:10][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:03:11][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:04:20][OPEN]      created a datashield session bb307bc6-2da3-4bf0-b0d9-90d9b400d044", "[INFO][2026-07-30T12:04:21][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T12:04:22][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:04:23][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:04:24][OPEN]      created a datashield session 0a6708b1-7cb0-4164-9c2b-1ad519aa341b", "[INFO][2026-07-30T12:04:25][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T12:04:25][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:04:26][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:04:43][OPEN]      created a datashield session 82c6c25f-18be-4f38-99d1-7a9e4ccd0cf4", "[INFO][2026-07-30T12:04:44][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T12:04:44][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:04:45][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:05:29][OPEN]      created a datashield session 244f220e-36be-4f64-a784-f6b897f1d2ed", "[INFO][2026-07-30T12:05:30][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T12:05:30][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:05:31][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:48:35][OPEN]      created a datashield session 1b8e7eba-8471-4538-ada3-1dd5f0219176", "[INFO][2026-07-30T12:48:36][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T12:48:36][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:48:37][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:48:48][OPEN]      created a datashield session 1ec9fb68-4a72-4538-bbc7-50779bc62eb4", "[INFO][2026-07-30T12:48:49][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T12:48:50][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:48:51][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:48:55][OPEN]      created a datashield session bd667d7f-70a5-44d2-82f8-c6a37bdcf454", "[INFO][2026-07-30T12:48:56][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T12:48:56][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:48:57][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:49:25][OPEN]      created a datashield session 0ef5b119-5fbc-4962-92b4-b67eda7b7b0a", "[INFO][2026-07-30T12:49:26][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T12:49:26][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:49:27][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:49:29][OPEN]      created a datashield session 70fc9460-587b-4742-b820-98b8279ff13d", "[INFO][2026-07-30T12:49:29][ASSIGN]    created symbol 'dsROCrate_test' from: 'dsROCrate_test &lt;- opal[CNSIM.CNSIM1]'", "[INFO][2026-07-30T12:49:30][PARSE]     parsed 'dsBase::lsDS(search.filter = NULL, 1L)'", "[INFO][2026-07-30T12:49:31][AGGREGATE] evaluated 'dsBase::lsDS(search.filter = NULL, 1L)'"]</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
 <span><span class="co">#&gt;     {</span></span>
-<span><span class="co">#&gt;       "@id": "20260730T124705-dslogs-dsuser_mappings.csv",</span></span>
+<span><span class="co">#&gt;       "@id": "20260730T124953-dslogs-dsuser_mappings.csv",</span></span>
 <span><span class="co">#&gt;       "@type": "File",</span></span>
-<span><span class="co">#&gt;       "dateModified": "2026-07-30 12:47:05",</span></span>
-<span><span class="co">#&gt;       "name": "20260730T124705-dslogs-dsuser_mappings.csv",</span></span>
+<span><span class="co">#&gt;       "dateModified": "2026-07-30 12:49:53",</span></span>
+<span><span class="co">#&gt;       "name": "20260730T124953-dslogs-dsuser_mappings.csv",</span></span>
 <span><span class="co">#&gt;       "description": "This file contains mappings and evaluated functions",</span></span>
 <span><span class="co">#&gt;       "encodingFormat": "text/csv",</span></span>
 <span><span class="co">#&gt;       "content": [</span></span>
@@ -1007,6 +1007,96 @@ using the following commands:</p>
 <span><span class="co">#&gt;             "fx": "dsBase::lsDS",</span></span>
 <span><span class="co">#&gt;             "session": "244f220e-36be-4f64-a784-f6b897f1d2ed",</span></span>
 <span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-07-30T12:48:35",</span></span>
+<span><span class="co">#&gt;             "action": "OPEN",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "Open session: 1b8e7eba-8471-4538-ada3-1dd5f0219176",</span></span>
+<span><span class="co">#&gt;             "fx": "DSI::datashield.login",</span></span>
+<span><span class="co">#&gt;             "session": "1b8e7eba-8471-4538-ada3-1dd5f0219176",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-07-30T12:48:37",</span></span>
+<span><span class="co">#&gt;             "action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "fx": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "session": "1b8e7eba-8471-4538-ada3-1dd5f0219176",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-07-30T12:48:48",</span></span>
+<span><span class="co">#&gt;             "action": "OPEN",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "Open session: 1ec9fb68-4a72-4538-bbc7-50779bc62eb4",</span></span>
+<span><span class="co">#&gt;             "fx": "DSI::datashield.login",</span></span>
+<span><span class="co">#&gt;             "session": "1ec9fb68-4a72-4538-bbc7-50779bc62eb4",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-07-30T12:48:51",</span></span>
+<span><span class="co">#&gt;             "action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "fx": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "session": "1ec9fb68-4a72-4538-bbc7-50779bc62eb4",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-07-30T12:48:55",</span></span>
+<span><span class="co">#&gt;             "action": "OPEN",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "Open session: bd667d7f-70a5-44d2-82f8-c6a37bdcf454",</span></span>
+<span><span class="co">#&gt;             "fx": "DSI::datashield.login",</span></span>
+<span><span class="co">#&gt;             "session": "bd667d7f-70a5-44d2-82f8-c6a37bdcf454",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-07-30T12:48:57",</span></span>
+<span><span class="co">#&gt;             "action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "fx": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "session": "bd667d7f-70a5-44d2-82f8-c6a37bdcf454",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-07-30T12:49:25",</span></span>
+<span><span class="co">#&gt;             "action": "OPEN",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "Open session: 0ef5b119-5fbc-4962-92b4-b67eda7b7b0a",</span></span>
+<span><span class="co">#&gt;             "fx": "DSI::datashield.login",</span></span>
+<span><span class="co">#&gt;             "session": "0ef5b119-5fbc-4962-92b4-b67eda7b7b0a",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-07-30T12:49:27",</span></span>
+<span><span class="co">#&gt;             "action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "fx": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "session": "0ef5b119-5fbc-4962-92b4-b67eda7b7b0a",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-07-30T12:49:29",</span></span>
+<span><span class="co">#&gt;             "action": "OPEN",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "Open session: 70fc9460-587b-4742-b820-98b8279ff13d",</span></span>
+<span><span class="co">#&gt;             "fx": "DSI::datashield.login",</span></span>
+<span><span class="co">#&gt;             "session": "70fc9460-587b-4742-b820-98b8279ff13d",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
+<span><span class="co">#&gt;           },</span></span>
+<span><span class="co">#&gt;           {</span></span>
+<span><span class="co">#&gt;             "timestamp": "2026-07-30T12:49:31",</span></span>
+<span><span class="co">#&gt;             "action": "AGGREGATE",</span></span>
+<span><span class="co">#&gt;             "user": "dsuser",</span></span>
+<span><span class="co">#&gt;             "r_cmd": "dsBase::lsDS(search.filter = NULL, 1L)",</span></span>
+<span><span class="co">#&gt;             "fx": "dsBase::lsDS",</span></span>
+<span><span class="co">#&gt;             "session": "70fc9460-587b-4742-b820-98b8279ff13d",</span></span>
+<span><span class="co">#&gt;             "backend": "OBiBa's Opal"</span></span>
 <span><span class="co">#&gt;           }</span></span>
 <span><span class="co">#&gt;         ]</span></span>
 <span><span class="co">#&gt;       ]</span></span>
@@ -1037,7 +1127,7 @@ with the function <code><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.ht
 <span><span class="va">path_to_rocrate_bag</span> <span class="op">&lt;-</span> <span class="va">basic_rocrate</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">rocrateR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.html" class="external-link">bag_rocrate</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">tmp_path_bag</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; RO-Crate successfully 'bagged'!</span></span>
-<span><span class="co">#&gt; For details, see: /tmp/Rtmp787ebS/dsROCrate-getting-started/rocrate-35671bb5db139c47e513c029e5d60860.zip</span></span></code></pre></div>
+<span><span class="co">#&gt; For details, see: /tmp/RtmpEgkLdQ/dsROCrate-getting-started/rocrate-48ced450ceaa98e5cc179573c8a8cbd7.zip</span></span></code></pre></div>
 <p>We can explore the contents with the following commands:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract files in temporary directory</span></span>
@@ -1046,12 +1136,12 @@ with the function <code><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.ht
 <span>  <span class="fu">rocrateR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rocrateR/man/unbag_rocrate.html" class="external-link">unbag_rocrate</a></span><span class="op">(</span>output <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmp_path_bag</span>, <span class="st">"ROC"</span><span class="op">)</span>, quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># create tree with the files</span></span>
 <span>  <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/dir_tree.html" class="external-link">dir_tree</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/tmp/Rtmp787ebS/dsROCrate-getting-started/ROC</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpEgkLdQ/dsROCrate-getting-started/ROC</span></span></span>
 <span><span class="co">#&gt; ├── bag-info.txt</span></span>
 <span><span class="co">#&gt; ├── bagit.txt</span></span>
 <span><span class="co">#&gt; ├── <span style="color: #0000BB; font-weight: bold;">data</span></span></span>
-<span><span class="co">#&gt; │   ├── 20260730T124705-dslogs-dsuser.log</span></span>
-<span><span class="co">#&gt; │   ├── 20260730T124705-dslogs-dsuser_mappings.csv</span></span>
+<span><span class="co">#&gt; │   ├── 20260730T124953-dslogs-dsuser.log</span></span>
+<span><span class="co">#&gt; │   ├── 20260730T124953-dslogs-dsuser_mappings.csv</span></span>
 <span><span class="co">#&gt; │   └── ro-crate-metadata.json</span></span>
 <span><span class="co">#&gt; ├── manifest-sha512.txt</span></span>
 <span><span class="co">#&gt; └── tagmanifest-sha512.txt</span></span></code></pre></div>
@@ -1081,7 +1171,7 @@ with the function <code><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.ht
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="../reference/audit.html">audit</a></span><span class="op">(</span>user <span class="op">=</span> <span class="st">"dsuser"</span>, project <span class="op">=</span> <span class="st">"CNSIM"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 98 records... Imported 98 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 118 records... Imported 118 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">safe_people_crate_v1</span><span class="op">)</span></span>
@@ -1112,10 +1202,10 @@ with the function <code><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.ht
 <span><span class="co">#&gt;       },</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260730T124713-dslogs-dsuser.log"</span></span>
+<span><span class="co">#&gt;           "@id": "20260730T125000-dslogs-dsuser.log"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260730T124714-dslogs-dsuser_mappings.csv"</span></span>
+<span><span class="co">#&gt;           "@id": "20260730T125001-dslogs-dsuser_mappings.csv"</span></span>
 <span><span class="co">#&gt;         }</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
@@ -1251,19 +1341,19 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="../reference/audit.html">audit</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">"CNSIM"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 98 records... Imported 98 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 118 records... Imported 118 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 98 records... Imported 98 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 118 records... Imported 118 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 98 records... Imported 98 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 118 records... Imported 118 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 98 records... Imported 98 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 118 records... Imported 118 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 98 records... Imported 98 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 118 records... Imported 118 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">safe_project_crate_v1</span><span class="op">)</span></span>
@@ -1294,10 +1384,10 @@ RO-Crate, using the <code><a href="../reference/report.html">dsROCrate::report</
 <span><span class="co">#&gt;       },</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260730T124727-dslogs-dsuser.log"</span></span>
+<span><span class="co">#&gt;           "@id": "20260730T125011-dslogs-dsuser.log"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260730T124727-dslogs-dsuser_mappings.csv"</span></span>
+<span><span class="co">#&gt;           "@id": "20260730T125012-dslogs-dsuser_mappings.csv"</span></span>
 <span><span class="co">#&gt;         }</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
@@ -1491,34 +1581,34 @@ multiple servers)<a class="anchor" aria-label="anchor" href="#list-users-and-dat
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="../reference/audit.html">audit</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">"CNSIM"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 98 records... Imported 98 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 118 records... Imported 118 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 98 records... Imported 98 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 118 records... Imported 118 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 98 records... Imported 98 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 118 records... Imported 118 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 98 records... Imported 98 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 118 records... Imported 118 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 98 records... Imported 98 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 118 records... Imported 118 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 98 records... Imported 98 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 118 records... Imported 118 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 98 records... Imported 98 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 118 records... Imported 118 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 98 records... Imported 98 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 118 records... Imported 118 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 98 records... Imported 98 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 118 records... Imported 118 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span><span class="co">#&gt; opening file input connection.</span></span>
-<span><span class="co">#&gt;  Found 98 records... Imported 98 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 118 records... Imported 118 records. Simplifying...</span></span>
 <span><span class="co">#&gt; closing file input connection.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">study_crate_v1</span><span class="op">)</span></span>
@@ -1550,10 +1640,10 @@ multiple servers)<a class="anchor" aria-label="anchor" href="#list-users-and-dat
 <span><span class="co">#&gt;       },</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260730T124743-dslogs-dsuser.log"</span></span>
+<span><span class="co">#&gt;           "@id": "20260730T125025-dslogs-dsuser.log"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260730T124744-dslogs-dsuser_mappings.csv"</span></span>
+<span><span class="co">#&gt;           "@id": "20260730T125026-dslogs-dsuser_mappings.csv"</span></span>
 <span><span class="co">#&gt;         }</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
@@ -1593,10 +1683,10 @@ multiple servers)<a class="anchor" aria-label="anchor" href="#list-users-and-dat
 <span><span class="co">#&gt;       },</span></span>
 <span><span class="co">#&gt;       "hasPart": [</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260730T124759-dslogs-dsuser.log"</span></span>
+<span><span class="co">#&gt;           "@id": "20260730T125039-dslogs-dsuser.log"</span></span>
 <span><span class="co">#&gt;         },</span></span>
 <span><span class="co">#&gt;         {</span></span>
-<span><span class="co">#&gt;           "@id": "20260730T124759-dslogs-dsuser_mappings.csv"</span></span>
+<span><span class="co">#&gt;           "@id": "20260730T125039-dslogs-dsuser_mappings.csv"</span></span>
 <span><span class="co">#&gt;         }</span></span>
 <span><span class="co">#&gt;       ]</span></span>
 <span><span class="co">#&gt;     },</span></span>
