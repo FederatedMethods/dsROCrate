@@ -1,28 +1,6 @@
 #' @export
 as.data.frame.symbol_registry <- function(x, ...) {
-  do.call(
-    rbind,
-    lapply(
-      x$symbols,
-      function(sym) {
-        data.frame(
-          id = sym$symbol,
-          symbol = sym$symbol,
-          version = sym$version,
-          kind = sym$kind,
-          asset = sym$asset,
-          expr = sym$expr,
-          depends_on = sym$depends_on,
-          created_by = sym$created_by,
-          created_at = sym$created_at,
-          user = sym$user,
-          session = sym$session,
-          action = sym$action,
-          stringsAsFactors = FALSE
-        )
-      }
-    )
-  )
+  as.data.frame(x$symbols)
 }
 
 #' Create new `symbol_registry` object
