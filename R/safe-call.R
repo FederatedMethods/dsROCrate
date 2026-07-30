@@ -5,7 +5,7 @@ as.data.frame.safe_call <- function(x, ...) {
     user = x$user,
     r_cmd = x$original,
     fx = paste0(x$package, x$namespace, x$fx),
-    args = x$args,
+    args = I(list(x$args)),
     session = x$session,
     profile = x$profile,
     stringsAsFactors = FALSE
