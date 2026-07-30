@@ -53,7 +53,7 @@ register_symbol <- function(registry, symbol) {
   stopifnot(inherits(symbol, "safe_symbol"))
 
   # extract current version of symbol
-  if (nrow(registry$symbols) == 0 || length(registry$symbols) == 0) {
+  if (length(registry$symbols) == 0 || nrow(registry$symbols) == 0) {
     current_version <- 0
   } else {
     aux <- registry$symbols |>
