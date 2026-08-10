@@ -223,6 +223,7 @@ safe_output.opal <- function(
     # filter logs
     dplyr::filter(`@timestamp` >= logs_from, `@timestamp` <= logs_to) |>
     dplyr::filter(logger_name == "datashield.user") |>
+    dplyr::filter(ds_profile == profile) |>
     dplyr::filter(username %in% user)
 
   userlogs <- NULL
