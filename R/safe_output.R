@@ -217,6 +217,7 @@ safe_output.opal <- function(
   # parse logs
   userlogs_tbl <- backend_logs(x) |>
     tibble::as_tibble() |>
+    dplyr::bind_rows(tibble::tibble(ds_profile = "-999999")) |>
     dplyr::mutate(
       `@timestamp` = as.POSIXct(`@timestamp`, format = "%Y-%m-%dT%H:%M:%S")
     ) |>
