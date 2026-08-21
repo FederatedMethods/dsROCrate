@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dsROCrate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.2</span>
       </span>
     </div>
 
@@ -60,11 +60,22 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/v0.2.1/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.2.1" id="dsrocrate-021">dsROCrate 0.2.1<a class="anchor" aria-label="anchor" href="#dsrocrate-021"></a></h2>
+<h2 class="page-header" data-toc-text="0.2.2" id="dsrocrate-022">dsROCrate 0.2.2<a class="anchor" aria-label="anchor" href="#dsrocrate-022"></a></h2>
+<div class="section level3">
+<h3 id="bug-fixes-0-2-2">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-2"></a></h3>
+<ul><li>Fixed an issue in <code><a href="../reference/safe_output.html">safe_output()</a></code> where Opal audit logs containing no <code>AGGREGATE</code> events could cause the audit pipeline to fail when constructing the calls table.</li>
+<li>
+<code><a href="../reference/safe_output.html">safe_output()</a></code> now handles audit sessions with logs but no <code>AGGREGATE</code> calls gracefully, returning an empty calls table rather than attempting to operate on <code>NULL</code>.</li>
+<li>Fixed an issue where an RO-Crate without an explicit Opal profile attribute could cause safe_output() to fail when filtering audit logs. The default “default” Opal profile is now used when no profile is supplied.</li>
+<li>Improved robustness of provenance extraction for audit sessions with incomplete or limited audit activity.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.2.1" id="dsrocrate-021">dsROCrate 0.2.1<small>2026-07-30</small><a class="anchor" aria-label="anchor" href="#dsrocrate-021"></a></h2>
 <div class="section level3">
 <h3 id="bug-fixes-0-2-1">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-1"></a></h3>
 <ul><li>Removed a duplicate, conflicting definition of <code>as.data.frame.safe_call()</code> (two files each defined this S3 method with different output columns; only one could ever take effect, silently). The <code>safe-call.R</code> version — timestamp, user, r_cmd, fx, args, session, profile — is now the sole implementation.</li>

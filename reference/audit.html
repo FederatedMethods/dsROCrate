@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dsROCrate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.2</span>
       </span>
     </div>
 
@@ -60,7 +60,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create an audit RO-Crate</h1>
-    <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/v0.2.1/R/audit.R" class="external-link"><code>R/audit.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/main/R/audit.R" class="external-link"><code>R/audit.R</code></a></small>
     <div class="hidden name"><code>audit.Rd</code></div>
     </div>
 
@@ -88,7 +88,10 @@
 <span>  <span class="va">x</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  intent <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  profile <span class="op">=</span> <span class="st">"default"</span>,</span>
 <span>  project <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  resources <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  tables <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  user <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  logs_from <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>,</span>
 <span>  logs_to <span class="op">=</span> <span class="cn">Inf</span>,</span>
@@ -120,9 +123,25 @@
 intent of a project. It takes the same types as <code>x</code>.</p></dd>
 
 
+<dt id="arg-profile">profile<a class="anchor" aria-label="anchor" href="#arg-profile"></a></dt>
+<dd><p>String with profile name (used for OBiBa's Opal backend).</p></dd>
+
+
 <dt id="arg-project">project<a class="anchor" aria-label="anchor" href="#arg-project"></a></dt>
-<dd><p>String with project name(s) from which to extra Safe Project
+<dd><p>String with project name(s) from which to extract Safe Project
 details.</p></dd>
+
+
+<dt id="arg-resources">resources<a class="anchor" aria-label="anchor" href="#arg-resources"></a></dt>
+<dd><p>Vector of strings with the names of the resources, part of
+<code>project</code>. Optional, if not provided, all the resources associated to
+<code>project</code> will be included in the RO-Crate.</p></dd>
+
+
+<dt id="arg-tables">tables<a class="anchor" aria-label="anchor" href="#arg-tables"></a></dt>
+<dd><p>Vector of strings with the names of the tables/datasets, part
+of <code>project</code>. Optional, if not provided, all the tables/datasets
+associated to <code>project</code> will be included in the RO-Crate.</p></dd>
 
 
 <dt id="arg-user">user<a class="anchor" aria-label="anchor" href="#arg-user"></a></dt>
