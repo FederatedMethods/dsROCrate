@@ -352,27 +352,7 @@ safe_output.opal <- function(
     })
 
   # convert list of calls into tibble
-  calls_tbl <- purrr::map(calls_lst, \(x) {
-    tibble::tibble(
-      timestamp = format(x$created_at, '%Y-%m-%dT%H:%M:%S'),
-      action = "AGGREGATE",
-      user = x$user,
-      r_cmd = x$original,
-      fx = paste0(x$package, x$namespace, x$fx),
-      args = list(x$args),
-      symbol = NA,
-      table = x$args |>
-        purrr::map(function(x) {
-          if (!inherits(x, "safe_reference")) {
-            return(NA_character_)
-          }
-          resolve_symbol_asset(x$symbol_id, registry)
-        }),
-      session = x$session,
-      profile = x$profile
-    )
-  }) |>
-    purrr::list_c()
+  calls_tbl <- calls_to_tbl(calls_lst, registry)
 
   # combine function calls with symbol's registry
   calls_symbols_tbl <- calls_tbl |>
