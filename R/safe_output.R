@@ -104,7 +104,11 @@ safe_output.opal <- function(
   `@timestamp` <- backend <- logger_name <- safe_people_id <- username <- NULL
   ds_action <- ds_eval <- ds_id <- ds_function <- ds_symbol <- ds_table <- NULL
   asset <- action <- is_placeholder <- kind <- symbol_id <- timestamp <- NULL
-  expr <- fx <- log_id <- r_cmd <- session <- symbol <- NULL
+  ds_profile <- expr <- fx <- log_id <- r_cmd <- session <- symbol <- NULL
+
+  if (is.null(profile)) {
+    profile <- "default"
+  }
 
   # create formatted versions of input dates
   logs_from_is_valid <- FALSE
