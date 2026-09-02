@@ -230,7 +230,8 @@ safe_output.opal <- function(
     dplyr::filter(`@timestamp` >= logs_from, `@timestamp` <= logs_to) |>
     dplyr::filter(logger_name == "datashield.user") |>
     dplyr::filter(ds_profile == profile) |>
-    dplyr::filter(username %in% user)
+    dplyr::filter(username %in% user) |>
+    (\(.) dplyr::mutate(., id = uuid::UUIDgenerate(n = nrow(.)), .before = 1))()
 
   userlogs <- NULL
   if (nrow(userlogs_tbl) > 0) {
@@ -296,6 +297,7 @@ safe_output.opal <- function(
   symbols_tbl <- seq_len(nrow(userlogs_assign_tbl)) |>
     purrr::map(function(i) {
       # extract log components
+      id <- getElement(userlogs_assign_tbl[i, ], "id")
       ds_eval <- getElement(userlogs_assign_tbl[i, ], "ds_eval")
       ds_resource <- getElement(userlogs_assign_tbl[i, ], "ds_resource")
       ds_symbol <- getElement(userlogs_assign_tbl[i, ], "ds_symbol")
@@ -307,6 +309,7 @@ safe_output.opal <- function(
       is_table <- !is.null(ds_table) && !is.na(ds_table)
 
       tibble::tibble(
+        id = id,
         symbol = ds_symbol,
         kind = ifelse(
           is_expr,
@@ -414,6 +417,7 @@ safe_output.opal <- function(
     dplyr::mutate(backend = "OBiBa's Opal") |>
     # subset columns
     dplyr::select(
+      id,
       timestamp,
       action,
       user,
@@ -442,6 +446,7 @@ safe_output.opal <- function(
       backend = "OBiBa's Opal"
     ) |>
     dplyr::select(
+      id,
       timestamp,
       action = ds_action,
       user = username,
