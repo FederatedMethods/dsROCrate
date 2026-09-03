@@ -231,7 +231,7 @@ safe_output.opal <- function(
     dplyr::filter(logger_name == "datashield.user") |>
     dplyr::filter(ds_profile == profile) |>
     dplyr::filter(username %in% user) |>
-    (\(.) dplyr::mutate(., id = uuid::UUIDgenerate(n = nrow(.)), .before = 1))()
+    dplyr::mutate(id = paste0("", dplyr::row_number()))
 
   userlogs <- NULL
   if (nrow(userlogs_tbl) > 0) {
@@ -456,13 +456,39 @@ safe_output.opal <- function(
       backend
     )
 
+  # parse symbols to log entries
+  assign_tbl <- symbols_tbl |>
+    dplyr::transmute(
+      id,
+      timestamp = format(created_at, "%Y-%m-%dT%H:%M:%S"),
+      action = action,
+      user,
+      r_cmd = dplyr::case_when(
+        kind == "table" ~ paste0(symbol, " <- opal[", asset, "]"),
+        kind == "resource" ~ paste0(symbol, " <- opal[", asset, "]"),
+        kind == "expression" ~ expr,
+        TRUE ~ NA_character_
+      ),
+      fx = created_by,
+      symbol,
+      column = NA_character_,
+      kind,
+      asset,
+      expr,
+      session,
+      backend = "OBiBa's Opal"
+    )
+
   # combine the logs
-  userlogs_tbl_maps_evals <- calls_symbols_tbl |>
+  userlogs_tbl_maps_evals <- dplyr::bind_rows(
+    assign_tbl,
+    calls_symbols_tbl,
+    session_tbl
+  ) |>
     dplyr::distinct() |>
-    dplyr::mutate(log_id = dplyr::row_number()) |>
-    dplyr::bind_rows(session_tbl) |>
-    dplyr::arrange(timestamp, log_id) |>
-    dplyr::select(-log_id)
+    dplyr::arrange(as.numeric(id), timestamp) |>
+    # regenerate unique operation IDs
+    (\(.) dplyr::mutate(., id = uuid::UUIDgenerate(n = nrow(.)), .before = 1))()
 
   log_maps_filename <- paste0(
     format(Sys.time(), "%Y%m%dT%H%M%S"),
