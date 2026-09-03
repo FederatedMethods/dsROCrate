@@ -488,7 +488,18 @@ safe_output.opal <- function(
     dplyr::distinct() |>
     dplyr::arrange(as.numeric(id), timestamp) |>
     # regenerate unique operation IDs
-    (\(.) dplyr::mutate(., id = uuid::UUIDgenerate(n = nrow(.)), .before = 1))()
+    (\(.) {
+      dplyr::left_join(
+        .,
+        tibble::tibble(
+          id = unique(.$id),
+          uuid = uuid::UUIDgenerate(n = length(id))
+        ),
+        by = "id"
+      )
+    })() |>
+    dplyr::mutate(id = uuid) |>
+    dplyr::select(-uuid)
 
   log_maps_filename <- paste0(
     format(Sys.time(), "%Y%m%dT%H%M%S"),
