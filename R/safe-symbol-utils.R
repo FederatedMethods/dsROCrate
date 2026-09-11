@@ -102,7 +102,7 @@ resolve_provenance <- function(symbol_id, registry, visited = character()) {
   # local bindings
   id <- NULL
 
-  if (symbol_id %in% visited) {
+  if (symbol_id %in% visited || is.na(symbol_id)) {
     return(tibble::tibble())
   }
 
