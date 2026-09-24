@@ -1,6 +1,6 @@
 Package: dsROCrate
 Title: 'DataSHIELD' RO-Crate Governance Functions
-Version: 0.2.2
+Version: 0.2.3
 Authors@R: c(
     person(given = "Roberto",
            family = "Villegas-Diaz",
@@ -59,4 +59,4 @@ Depends:
 VignetteBuilder: knitr
 URL: https://github.com/FederatedMethods/dsROCrate
 BugReports: https://github.com/FederatedMethods/dsROCrate/issues
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0
