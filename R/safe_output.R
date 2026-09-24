@@ -222,7 +222,7 @@ safe_output.opal <- function(
   # parse logs
   userlogs_tbl <- backend_logs(x) |>
     tibble::as_tibble() |>
-    dplyr::bind_rows(tibble::tibble(ds_profile = "-999999")) |>
+    dplyr::bind_rows(tibble::tibble(ds_profile = character())) |>
     dplyr::mutate(
       `@timestamp` = as.POSIXct(`@timestamp`, format = "%Y-%m-%dT%H:%M:%S")
     ) |>
@@ -289,6 +289,20 @@ safe_output.opal <- function(
   )
 
   # update symbol registry
+  ## check if Opal 6.0+ is available
+  opal_6_available <- tryCatch(
+    {
+      validate_backend_version(x, minimum = "6.0")
+      TRUE
+    },
+    error = function(e) FALSE
+  )
+  ## extract 'RESOLVE' operations from the logs
+  userlogs_resolve_tbl <- NULL
+  if (opal_6_available) {
+    userlogs_resolve_tbl <- userlogs_tbl |>
+      dplyr::filter(ds_action %in% c("RESOLVE"))
+  }
   ## extract 'ASSIGN' operations from the logs
   userlogs_assign_tbl <- userlogs_tbl |>
     dplyr::filter(ds_action %in% c("ASSIGN"))
@@ -344,6 +358,69 @@ safe_output.opal <- function(
     }) |>
     purrr::list_c() |>
     dplyr::distinct()
+
+  ## reshape RESOLVE operations into log entries
+  resolve_tbl <- tibble::tibble(
+    id = character(),
+    timestamp = character(),
+    action = character(),
+    user = character(),
+    r_cmd = character(),
+    fx = character(),
+    symbol = character(),
+    column = character(),
+    kind = character(),
+    asset = character(),
+    expr = character(),
+    session = character(),
+    backend = character()
+  )
+
+  if (!is.null(userlogs_resolve_tbl) && nrow(userlogs_resolve_tbl) > 0) {
+    resolve_tbl <- userlogs_resolve_tbl |>
+      # insert column placeholders for ds_resource and ds_table
+      dplyr::bind_rows(tibble::tibble(
+        ds_resource = character(),
+        ds_table = character()
+      )) |>
+      dplyr::transmute(
+        id,
+        timestamp = format(`@timestamp`, "%Y-%m-%dT%H:%M:%S"),
+        action = ds_action,
+        user = username,
+        r_cmd = dplyr::case_when(
+          !is.na(ds_resource) ~ paste0(
+            "RESOLVE ",
+            ds_resource,
+            " -> ",
+            ds_symbol
+          ),
+          !is.na(ds_table) ~ paste0(
+            "RESOLVE ",
+            ds_table,
+            " -> ",
+            ds_symbol
+          ),
+          TRUE ~ NA_character_
+        ),
+        fx = NA_character_,
+        symbol = ds_symbol,
+        column = NA_character_,
+        kind = dplyr::case_when(
+          !is.na(ds_resource) ~ "resource",
+          !is.na(ds_table) ~ "table",
+          TRUE ~ NA_character_
+        ),
+        asset = dplyr::case_when(
+          !is.na(ds_resource) ~ ds_resource,
+          !is.na(ds_table) ~ ds_table,
+          TRUE ~ NA_character_
+        ),
+        expr = NA_character_,
+        session = ds_id,
+        backend = "OBiBa's Opal"
+      )
+  }
 
   ## add symbols to registry
   registry <- symbols_tbl |>
@@ -481,6 +558,7 @@ safe_output.opal <- function(
 
   # combine the logs
   userlogs_tbl_maps_evals <- dplyr::bind_rows(
+    resolve_tbl,
     assign_tbl,
     calls_symbols_tbl,
     session_tbl
