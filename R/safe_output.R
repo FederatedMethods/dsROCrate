@@ -436,79 +436,97 @@ safe_output.opal <- function(
         enrich_call(registry = registry)
     })
 
-  # convert list of calls into tibble
-  calls_tbl <- calls_to_tbl(calls_lst, registry)
-
-  # combine function calls with symbol's registry
-  calls_symbols_tbl <- calls_tbl |>
-    dplyr::select(-symbol) |>
-    dplyr::mutate(
-      args = purrr::map(
-        args,
-        ~ purrr::imap_dfr(.x, function(arg, nm) {
-          if (!inherits(arg, "safe_reference")) {
-            tibble::tibble(
-              argument = nm,
-              value = list(arg),
-              symbol_id = NA_character_,
-              symbol = NA_character_,
-              column = NA_character_
-            )
-          } else {
-            tibble::tibble(
-              argument = nm,
-              value = list(arg),
-              symbol_id = arg$symbol_id,
-              symbol = arg$symbol,
-              column = arg$column
-            )
-          }
-        })
-      )
-    ) |>
-    (\(x) {
-      purrr::map2(
-        split(x |> dplyr::select(-args), seq_len(nrow(x))),
-        x$args,
-        dplyr::bind_cols
-      )
-    })() |>
-    purrr::list_c() |>
-    dplyr::left_join(
-      registry$symbols,
-      by = c("symbol_id" = "id"),
-      suffix = c("", "_registry")
-    ) |>
-    dplyr::mutate(
-      asset = dplyr::if_else(
-        kind == "expression",
-        purrr::map_chr(
-          symbol_id,
-          resolve_symbol_asset,
-          registry = registry
-        ),
-        asset
-      )
-    ) |>
-    # add column with backend
-    dplyr::mutate(backend = "OBiBa's Opal") |>
-    # subset columns
-    dplyr::select(
-      id,
-      timestamp,
-      action,
-      user,
-      r_cmd,
-      fx,
-      symbol,
-      column,
-      kind,
-      asset,
-      expr,
-      # table = ds_table,
-      session,
-      backend
+  if (length(calls_lst) == 0) {
+    calls_symbols_tbl <- tibble::tibble(
+      id = character(),
+      timestamp = character(),
+      action = character(),
+      user = character(),
+      r_cmd = character(),
+      fx = character(),
+      symbol = character(),
+      column = character(),
+      kind = character(),
+      asset = character(),
+      expr = character(),
+      session = character(),
+      backend = character()
     )
+  } else {
+    # convert list of calls into tibble
+    calls_tbl <- calls_to_tbl(calls_lst, registry)
+
+    # combine function calls with symbol's registry
+    calls_symbols_tbl <- calls_tbl |>
+      dplyr::select(-symbol) |>
+      dplyr::mutate(
+        args = purrr::map(
+          args,
+          ~ purrr::imap_dfr(.x, function(arg, nm) {
+            if (!inherits(arg, "safe_reference")) {
+              tibble::tibble(
+                argument = nm,
+                value = list(arg),
+                symbol_id = NA_character_,
+                symbol = NA_character_,
+                column = NA_character_
+              )
+            } else {
+              tibble::tibble(
+                argument = nm,
+                value = list(arg),
+                symbol_id = arg$symbol_id,
+                symbol = arg$symbol,
+                column = arg$column
+              )
+            }
+          })
+        )
+      ) |>
+      (\(x) {
+        purrr::map2(
+          split(x |> dplyr::select(-args), seq_len(nrow(x))),
+          x$args,
+          dplyr::bind_cols
+        )
+      })() |>
+      purrr::list_c() |>
+      dplyr::left_join(
+        registry$symbols,
+        by = c("symbol_id" = "id"),
+        suffix = c("", "_registry")
+      ) |>
+      dplyr::mutate(
+        asset = dplyr::if_else(
+          kind == "expression",
+          purrr::map_chr(
+            symbol_id,
+            resolve_symbol_asset,
+            registry = registry
+          ),
+          asset
+        )
+      ) |>
+      # add column with backend
+      dplyr::mutate(backend = "OBiBa's Opal") |>
+      # subset columns
+      dplyr::select(
+        id,
+        timestamp,
+        action,
+        user,
+        r_cmd,
+        fx,
+        symbol,
+        column,
+        kind,
+        asset,
+        expr,
+        # table = ds_table,
+        session,
+        backend
+      )
+  }
 
   # extract session details
   session_tbl <- userlogs_tbl |>
