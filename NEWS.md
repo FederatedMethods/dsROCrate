@@ -1,5 +1,9 @@
 # dsROCrate (development version)
 
+## New features
+
+* `safe_output()` now preserves Opal 6.0 `RESOLVE` operations independently of `ASSIGN` operations, including the resolved symbol and source table/resource for provenance.
+
 # dsROCrate 0.2.2
 
 ## Bug fixes
