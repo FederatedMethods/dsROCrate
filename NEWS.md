@@ -16,7 +16,7 @@
 * Fixed `safe_output()` failing when an audit session contains no `ASSIGN` operations: an empty, correctly typed symbols table is now used.
 * Fixed `safe_output()` failing when no function calls could be reconstructed from the logs: an empty, correctly typed calls table is now used.
 * `safe_output()` no longer injects a placeholder row (`ds_profile = "-999999"`) into the parsed logs; a zero-row typed tibble is used to guarantee the `ds_profile` column exists instead.
-* Fixed `resolve_dependencies()` erroring on an empty symbol registry, and `resolve_provenance()` erroring when given an `NA` symbol ID. Both now return an empty tibble.
+* Fixed `resolve_dependencies()` failing on an empty symbol registry, and `resolve_provenance()` failing when given an `NA` symbol ID. Both now return an empty tibble.
 * `validate_backend_version()` (opal method) no longer emits warnings from `utils::compareVersion()`.
 
 ## Internal Changes
