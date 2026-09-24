@@ -70,7 +70,7 @@ resolve_dependencies <- function(expr, registry) {
   # find symbols for the given expression
   refs <- find_symbols(expr)
 
-  if (is.null(refs)) {
+  if (is.null(refs) || !length(registry$symbols)) {
     return(tibble::tibble())
   }
 
