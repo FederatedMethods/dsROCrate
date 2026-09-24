@@ -308,56 +308,70 @@ safe_output.opal <- function(
     dplyr::filter(ds_action %in% c("ASSIGN"))
 
   ## reshape the logs into a tibble of `symbols`
-  symbols_tbl <- seq_len(nrow(userlogs_assign_tbl)) |>
-    purrr::map(function(i) {
-      # extract log components
-      id <- getElement(userlogs_assign_tbl[i, ], "id")
-      ds_eval <- getElement(userlogs_assign_tbl[i, ], "ds_eval")
-      ds_resource <- getElement(userlogs_assign_tbl[i, ], "ds_resource")
-      ds_symbol <- getElement(userlogs_assign_tbl[i, ], "ds_symbol")
-      ds_table <- getElement(userlogs_assign_tbl[i, ], "ds_table")
+  symbols_tbl <- if (nrow(userlogs_assign_tbl) == 0) {
+    tibble::tibble(
+      id = character(),
+      symbol = character(),
+      kind = character(),
+      asset = character(),
+      expr = character(),
+      created_by = character(),
+      created_at = as.POSIXct(character()),
+      user = character(),
+      action = character(),
+      session = character()
+    )
+  } else {
+    seq_len(nrow(userlogs_assign_tbl)) |>
+      purrr::map(function(i) {
+        # extract log components
+        id <- getElement(userlogs_assign_tbl[i, ], "id")
+        ds_eval <- getElement(userlogs_assign_tbl[i, ], "ds_eval")
+        ds_resource <- getElement(userlogs_assign_tbl[i, ], "ds_resource")
+        ds_symbol <- getElement(userlogs_assign_tbl[i, ], "ds_symbol")
+        ds_table <- getElement(userlogs_assign_tbl[i, ], "ds_table")
 
-      # evaluate which fields are populated
-      is_expr <- !is.null(ds_eval) && !is.na(ds_eval)
-      is_resource <- !is.null(ds_resource) && !is.na(ds_resource)
-      is_table <- !is.null(ds_table) && !is.na(ds_table)
+        # evaluate which fields are populated
+        is_expr <- !is.null(ds_eval) && !is.na(ds_eval)
+        is_resource <- !is.null(ds_resource) && !is.na(ds_resource)
+        is_table <- !is.null(ds_table) && !is.na(ds_table)
 
-      tibble::tibble(
-        id = id,
-        symbol = ds_symbol,
-        kind = ifelse(
-          is_expr,
-          'expression',
-          ifelse(
+        tibble::tibble(
+          id = id,
+          symbol = ds_symbol,
+          kind = ifelse(
+            is_expr,
+            'expression',
+            ifelse(
+              is_resource,
+              'resource',
+              ifelse(is_table, 'table', NA_character_)
+            )
+          ),
+          asset = ifelse(
             is_resource,
-            'resource',
-            ifelse(is_table, 'table', NA_character_)
-          )
-        ),
-        asset = ifelse(
-          is_resource,
-          ds_resource,
-          ifelse(is_table, ds_table, NA_character_)
-        ),
-        expr = ifelse(is_expr, ds_eval, NA_character_),
-        # expr = if (is_expr) str2lang(ds_eval) else NULL,
-        created_by = ifelse(
-          is_expr,
-          'DSI::datashield.assign.expr',
-          ifelse(
-            is_resource,
-            'DSI::datashield.assign.resource',
-            ifelse(is_table, 'DSI::datashield.assign.table', NA_character_)
-          )
-        ),
-        created_at = userlogs_assign_tbl$`@timestamp`[[i]],
-        user = userlogs_assign_tbl$username[[i]],
-        action = userlogs_assign_tbl$ds_action[[i]],
-        session = userlogs_assign_tbl$ds_id[[i]]
-      )
-    }) |>
-    purrr::list_c() |>
-    dplyr::distinct()
+            ds_resource,
+            ifelse(is_table, ds_table, NA_character_)
+          ),
+          expr = ifelse(is_expr, ds_eval, NA_character_),
+          created_by = ifelse(
+            is_expr,
+            'DSI::datashield.assign.expr',
+            ifelse(
+              is_resource,
+              'DSI::datashield.assign.resource',
+              ifelse(is_table, 'DSI::datashield.assign.table', NA_character_)
+            )
+          ),
+          created_at = userlogs_assign_tbl$`@timestamp`[[i]],
+          user = userlogs_assign_tbl$username[[i]],
+          action = userlogs_assign_tbl$ds_action[[i]],
+          session = userlogs_assign_tbl$ds_id[[i]]
+        )
+      }) |>
+      dplyr::bind_rows() |>
+      dplyr::distinct()
+  }
 
   ## reshape RESOLVE operations into log entries
   resolve_tbl <- tibble::tibble(
