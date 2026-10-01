@@ -1,4 +1,16 @@
-# dsROCrate (development version)
+# dsROCrate 0.2.4
+
+## Bug fixes
+
+* Fixed the symbol registry lookup so it always returns a single row when several
+  symbols share the same `created_at` timestamp (`dplyr::slice_max()` now uses
+  `with_ties = FALSE`).
+
+## Internal Changes
+
+* `safe_output()` tests covering `RESOLVE`/`ASSIGN` operations now set `logs_from`
+  and `logs_to` explicitly, so they no longer depend on the time they are run.
+* Rebuilt the `getting-started` vignette against the current Opal demo server (6.0.1).
 
 # dsROCrate 0.2.3
 
