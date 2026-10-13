@@ -2,9 +2,7 @@
 #'
 #' @param x This can be an RO-Crate ([rocrate][rocrateR::rocrate()] class) or a
 #'     string with the path to an RO-Crate.
-#' @param ... Other optional arguments. See the full documentation,
-#'     [`?dsROCrate::report`][report()].
-#'
+#' @param ... Other optional arguments. See the full documentation.
 #' @returns RO-Crate report as markdown (.md) file and/or HTML.
 #' @export
 report <- function(x, ...) {

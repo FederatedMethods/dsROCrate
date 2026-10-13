@@ -18,8 +18,7 @@
 #'     the `opal` or `ArmadilloCredentials` classes), an RO-Crate
 #'     ([rocrate][rocrateR::rocrate()] class) or a string with the path to an
 #'     RO-Crate.
-#' @param ... Other optional arguments. See the full documentation,
-#'     [`?dsROCrate::safe_data`][safe_data()].
+#' @param ... Other optional arguments. See the full documentation.
 #' @param include Vector of strings with types of assets to be included, either
 #'     `"resources"`, `"tables"` or both.
 #' @param asset_id_suffix String with ID suffix for the tables/datasets

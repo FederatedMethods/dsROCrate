@@ -10,8 +10,7 @@
 #' whether they are comfortable preparing data for the researcher to use for
 #' ethical purposes serving a public good.
 #'
-#' @param ... Other optional arguments. See the full documentation,
-#'     [`?dsROCrate::safe_project`][safe_project()].
+#' @param ... Other optional arguments. See the full documentation.
 #' @inheritParams safe_data
 #'
 #' @returns Updated RO-Crate object with Safe Project information.

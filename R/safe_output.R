@@ -13,8 +13,7 @@
 #' methods and standards for output checking that are accredited by the UK
 #' Statistics Authority.
 #'
-#' @param ... Other optional arguments. See the full documentation,
-#'     [`?dsROCrate::safe_output`][safe_output()].
+#' @param ... Other optional arguments. See the full documentation.
 #' @param logs_to Upper limit timestamp to filter out the outputs generated
 #'     (default: `Sys.time()`, current system time).
 #' @param logs_from Lower limit timestamp to filter out the outputs generated

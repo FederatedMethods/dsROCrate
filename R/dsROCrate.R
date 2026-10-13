@@ -6,8 +6,7 @@
 #'     the `opal` or `ArmadilloCredentials` classes), an RO-Crate
 #'     ([rocrate][rocrateR::rocrate()] class) or a string with the path to an
 #'     RO-Crate.
-#' @param ... Other optional arguments. See the full documentation,
-#'     [`?dsROCrate::init`][init()].
+#' @param ... Other optional arguments. See the full documentation.
 #' @param connection Connection object for the 'DataSHIELD' server where the
 #'     values will be extracted from (e.g., OBiBa's Opal). Optional, if `x` is
 #'     set to a connection object. If so, then `rocrate` is required.
