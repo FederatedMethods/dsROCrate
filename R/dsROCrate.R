@@ -16,7 +16,7 @@
 #' @param path String with path pointing to the root of the RO-Crate. This will
 #'     be used to store log files. If not provided, logs will be stored within
 #'     the RO-Crate returned by this function.
-#' @param profile String with profile name (used for OBiBa's Opal backend).
+#' @param profile String with profile name.
 #' @param project String with the name of the [Safe Project][safe_project()].
 #' @param resources Vector of strings with the names of the resources, part of
 #'     `project`. Optional, if not provided, all the resources associated to

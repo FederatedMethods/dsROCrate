@@ -24,13 +24,13 @@
 #'         \item a _connection_ to a DataSHIELD server (e.g., OBiBa's Opal).
 #'         \item a _path_ pointing to an RO-Crate OR a `cr8tor` archive /
 #'         governance bundle.
-#'         \item an _RO-Crate_ object. If so, returns the input object.
+#'         \item an _RO-Crate_ object. If so, returns the input obe
 #'     }
 #'     Alternatively, a list of any of the above.
 #' @param ... Additional arguments.
 #' @param intent Additional object with governance bundle/specification of the
 #'     intent of a project. It takes the same types as `x`.
-#' @param profile String with profile name (used for OBiBa's Opal backend).
+#' @param profile String with profile name.
 #' @param project String with project name(s) from which to extract Safe Project
 #'     details.
 #' @param resources Vector of strings with the names of the resources, part of
