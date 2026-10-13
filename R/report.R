@@ -48,7 +48,9 @@ report.character <- function(
       include_user_perm = include_user_perm,
       diag_title = diag_title,
       diag_width = diag_width,
-      diag_height = diag_height
+      diag_height = diag_height,
+      max_line_length = max_line_length,
+      ...
     )
 }
 
@@ -330,7 +332,7 @@ report.rocrate <- function(
   if (!dir.exists(dirname(filepath))) {
     stop(
       "The given file path directory does not exist. Try running the following",
-      "command first:\n\t`mkdir -r",
+      "command first:\n\t`mkdir -p",
       dirname(filepath),
       "`",
       call. = FALSE
