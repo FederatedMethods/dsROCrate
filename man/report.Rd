@@ -62,8 +62,7 @@ report(x, ...)
 \item{x}{This can be an RO-Crate (\link[rocrateR:rocrate]{rocrate} class) or a
 string with the path to an RO-Crate.}
 
-\item{...}{Other optional arguments. See the full documentation,
-\code{\link[=report]{?dsROCrate::report}}.}
+\item{...}{Other optional arguments. See the full documentation.}
 
 \item{title}{String with title for the report (default: 'DataSHIELD Report').}
 
