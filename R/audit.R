@@ -1,7 +1,7 @@
 #' Create an audit RO-Crate
 #'
-#' Create an audit RO-Crate following the 5 Safes Principles. Unless the given
-#' object is already an RO-Crate, in which case it returns the input object.
+#' Create an audit RO-Crate from a server connection. If given an RO-Crate,
+#' it is returned unchanged.
 #'
 #' This function handles various audit types, which will be dispatched based on
 #' the input object. If the input object is
@@ -24,7 +24,7 @@
 #'         \item a _connection_ to a DataSHIELD server (e.g., OBiBa's Opal).
 #'         \item a _path_ pointing to an RO-Crate OR a `cr8tor` archive /
 #'         governance bundle.
-#'         \item an _RO-Crate_ object. If so, returns the input obe
+#'         \item an _RO-Crate_ object. If so, returns the input object.
 #'     }
 #'     Alternatively, a list of any of the above.
 #' @param ... Additional arguments.
