@@ -2,7 +2,7 @@
 #'
 #' @param x This can be an RO-Crate ([rocrate][rocrateR::rocrate()] class) or a
 #'     string with the path to an RO-Crate.
-#' @param ... Other optional arguments. See the full documentation.
+#' @inheritParams shared_params
 #' @returns RO-Crate report as markdown (.md) file and/or HTML.
 #' @export
 report <- function(x, ...) {
@@ -63,13 +63,11 @@ report.default <- function(x, ...) {
   )
 }
 
-#' @param study_name String with the study name.
 #' @rdname report
 #' @export
 report.list <- function(
   x,
   ...,
-  study_name,
   title = "DataSHIELD Report",
   filepath = tempfile(fileext = ".md"),
   render = TRUE,
