@@ -1,6 +1,8 @@
 #' @export
 backend_logs.opal <- function(x, ...) {
-  opalr::dsadmin.log(x, ...)
+  suppressMessages(
+    opalr::dsadmin.log(x, ...)
+  )
 }
 
 #' @export
