@@ -352,7 +352,7 @@ safe_time <- function(x) {
     return(character(1))
   }
   tryCatch(
-    format(as.POSIXct(x), "%Y-%m-%dT%H:%M:%SZ"),
+    format_utc(as.POSIXct(x)),
     error = function(e) character(1)
   )
 }

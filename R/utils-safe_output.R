@@ -29,7 +29,7 @@ calls_to_tbl <- function(calls, registry) {
   purrr::map(calls, \(x) {
     tibble::tibble(
       id = x$id,
-      timestamp = format(x$created_at, "%Y-%m-%dT%H:%M:%S"),
+      timestamp = format_utc(x$created_at),
       action = "AGGREGATE",
       user = x$user,
       r_cmd = x$original,
