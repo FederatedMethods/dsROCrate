@@ -98,7 +98,7 @@ audit_engine.opal <- function(
 
   # extract list with all projects to verify `project` contains a valid value
   ds <- backend_projects(x)
-  server_prjs <- ds[, "name"]
+  server_prjs <- ds$name
   idx <- project %in% server_prjs
   if (!all(idx)) {
     stop(

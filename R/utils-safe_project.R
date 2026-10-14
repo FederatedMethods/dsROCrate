@@ -24,7 +24,7 @@ extract_safe_project.opal <- function(
 
   # cycle through the data source (x) and extract project details
   for (i in seq_len(nrow(ds))) {
-    project <- ds[i, "name"]
+    project <- ds$name[i]
     if (!is.na(project) && !is.null(project)) {
       suppressWarnings({
         rocrate <- rocrate |>
