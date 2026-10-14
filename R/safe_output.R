@@ -141,12 +141,20 @@ safe_output.opal <- function(
   logs_from_formatted <- ifelse(
     is.infinite(logs_from),
     "ALL",
-    format(as.POSIXct(logs_from), '%Y-%m-%d %H:%M:%S')
+    ifelse(
+      is_valid_posixct(logs_from),
+      format(as.POSIXct(logs_from), '%Y-%m-%d %H:%M:%S'),
+      format(as.POSIXct(sub("Z$", "", logs_from)), '%Y-%m-%d %H:%M:%S')
+    )
   )
   logs_to_formatted <- ifelse(
     is.infinite(logs_to),
     "ALL",
-    format(as.POSIXct(logs_to), '%Y-%m-%d %H:%M:%S')
+    ifelse(
+      is_valid_posixct(logs_to),
+      format(as.POSIXct(logs_to), '%Y-%m-%d %H:%M:%S'),
+      format(as.POSIXct(sub("Z$", "", logs_to)), '%Y-%m-%d %H:%M:%S')
+    )
   )
 
   # validate backend
