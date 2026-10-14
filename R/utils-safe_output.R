@@ -54,7 +54,6 @@ calls_to_tbl <- function(calls, registry) {
 #'
 #' @inheritParams safe_data
 #' @inheritParams safe_output
-#' @param ... Other optional arguments. See the full documentation.
 #' @param rocrate (Optional) RO-Crate object to update with Safe Output details.
 #' @param id (Optional) Vector with `@id` strings for Safe Output entity(ies)
 #'     to be extracted from the given RO-Crate, `x`.

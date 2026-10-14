@@ -8,7 +8,6 @@
 #' The access service provider may require the researcher to sign a statement
 #' that they know and understand the regulations of the TRE.
 #'
-#' @param ... Other optional arguments. See the full documentation.
 #' @param user_id_suffix String with ID suffix for the people/user
 #'     entities in the RO-Crate (default: `"#person:"`).
 #' @param set_author Boolean flag to indicate if the current user should be
