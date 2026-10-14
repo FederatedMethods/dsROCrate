@@ -10,7 +10,6 @@
 #' whether they are comfortable preparing data for the researcher to use for
 #' ethical purposes serving a public good.
 #'
-#' @param ... Other optional arguments. See the full documentation.
 #' @inheritParams safe_data
 #'
 #' @returns Updated RO-Crate object with Safe Project information.
@@ -166,9 +165,7 @@ safe_project.opal <- function(
 
   if (!is.null(people)) {
     for (p in people) {
-      user <- p$name
-
-      if (user %in% project_users) {
+      if (!is.null(p$name) && (p$name %in% project_users)) {
         rocrate <- append_entity_ref(
           rocrate,
           id = p[["@id"]],
