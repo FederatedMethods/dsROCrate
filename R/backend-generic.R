@@ -22,10 +22,6 @@ backend_project_exists <- function(x, ...) {
   UseMethod("backend_project_exists")
 }
 
-backend_project_members <- function(x, ...) {
-  UseMethod("backend_project_members")
-}
-
 backend_project_perms <- function(x, ...) {
   UseMethod("backend_project_perms")
 }

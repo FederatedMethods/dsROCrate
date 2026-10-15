@@ -31,53 +31,6 @@ backend_project_exists.opal <- function(x, ...) {
 }
 
 #' @export
-backend_project_members.opal <- function(
-  x,
-  ...,
-  project,
-  tables = NULL,
-  resources = NULL
-) {
-  if (is.null(tables)) {
-    tables <- get_project_assets(x, project, "tables")$name
-  }
-  if (is.null(resources)) {
-    resources <- get_project_assets(x, project, "resources")$name
-  }
-
-  project_level <- backend_project_perms(x, project) |>
-    dplyr::transmute(
-      subject,
-      type,
-      permission,
-      via = "project",
-      asset = NA_character_
-    )
-
-  asset_level <- function(assets, fn, via) {
-    purrr::map(assets, \(a) {
-      p <- fn(x, project, a)
-      if (length(p$subject)) {
-        tibble::tibble(
-          subject = p$subject,
-          type = p$type,
-          permission = p$permission,
-          via = via,
-          asset = a
-        )
-      }
-    }) |>
-      dplyr::bind_rows()
-  }
-
-  dplyr::bind_rows(
-    project_level,
-    asset_level(tables, backend_table_perms, "table"),
-    asset_level(resources, backend_resource_perms, "resource")
-  )
-}
-
-#' @export
 backend_project_perms.opal <- function(x, ...) {
   opalr::opal.project_perm(x, ...)
 }

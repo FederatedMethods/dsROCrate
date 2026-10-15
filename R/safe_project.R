@@ -153,6 +153,8 @@ safe_project.opal <- function(
     rocrateR::add_entity(project_entity, overwrite = TRUE)
 
   # Opal permissions ----
+  # TODO(#42): derive project membership with `backend_project_members()` and
+  # share it (and the assets) across the safe_*() functions.
   perms <- backend_project_perms(x, project)
 
   project_users <- perms |>
