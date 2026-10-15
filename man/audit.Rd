@@ -42,7 +42,7 @@ audit(x, ...)
 \item a \emph{connection} to a DataSHIELD server (e.g., OBiBa's Opal).
 \item a \emph{path} pointing to an RO-Crate OR a \code{cr8tor} archive /
 governance bundle.
-\item an \emph{RO-Crate} object. If so, returns the input obe
+\item an \emph{RO-Crate} object. If so, returns the input object.
 }
 Alternatively, a list of any of the above.}
 
@@ -81,8 +81,8 @@ the RO-Crate returned by this function.}
 RO-Crate with audit details.
 }
 \description{
-Create an audit RO-Crate following the 5 Safes Principles. Unless the given
-object is already an RO-Crate, in which case it returns the input object.
+Create an audit RO-Crate from a server connection. If given an RO-Crate,
+it is returned unchanged.
 }
 \details{
 This function handles various audit types, which will be dispatched based on

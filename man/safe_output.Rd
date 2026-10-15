@@ -66,7 +66,8 @@ the \code{opal} or \code{ArmadilloCredentials} classes), an RO-Crate
 (\link[rocrateR:rocrate]{rocrate} class) or a string with the path to an
 RO-Crate.}
 
-\item{...}{Other optional arguments. See the full documentation.}
+\item{...}{Further arguments passed on to the methods, which are documented
+as separate arguments below.}
 
 \item{path}{String with path pointing to the root of the RO-Crate. This will
 be used to store log files. If not provided, logs will be stored within

@@ -41,7 +41,8 @@ the \code{opal} or \code{ArmadilloCredentials} classes), an RO-Crate
 (\link[rocrateR:rocrate]{rocrate} class) or a string with the path to an
 RO-Crate.}
 
-\item{...}{Other optional arguments. See the full documentation.}
+\item{...}{Further arguments passed on to the methods, which are documented
+as separate arguments below.}
 
 \item{rocrate}{RO-Crate object. Optional, if \code{x} is either an RO-Crate
 object or a path to a valid RO-Crate. If so, then \code{connection} is
