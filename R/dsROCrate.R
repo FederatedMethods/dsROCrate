@@ -101,6 +101,3 @@ init.rocrate <- function(
     user = user
   )
 }
-
-# helper functions ----
-`%||%` <- function(a, b) if (!is.null(a) && !is.na(a) && a != "") a else b
