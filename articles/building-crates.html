@@ -97,7 +97,7 @@
       <h1 data-toc-skip>Building an RO-Crate Step by Step</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/main/vignettes/building-crates.Rmd" class="external-link"><code>vignettes/building-crates.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/v0.2.4/vignettes/building-crates.Rmd" class="external-link"><code>vignettes/building-crates.Rmd</code></a></small>
       <div class="hidden name"><code>building-crates.Rmd</code></div>
 
     </div>
@@ -368,7 +368,7 @@ the symbols, tables and columns it used. Set the period with
 <span>    logs_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">24</span> <span class="op">*</span> <span class="fl">60</span><span class="op">^</span><span class="fl">2</span>,</span>
 <span>    logs_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="co">#&gt;  Found 291 records... Imported 291 records. Simplifying...</span></span>
+<span><span class="co">#&gt;  Found 359 records... Imported 359 records. Simplifying...</span></span>
 <span><span class="co">#&gt; Warning: A `path` wasn't provided! The logs will be included in the RO-Crate</span></span>
 <span><span class="co">#&gt; object, under the `content` tag!</span></span>
 <span></span>
@@ -434,7 +434,7 @@ about it. To store them as files instead, call
 <span><span class="va">path_to_rocrate_bag</span> <span class="op">&lt;-</span> <span class="va">crate</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">rocrateR</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rocrateR/man/bag_rocrate.html" class="external-link">bag_rocrate</a></span><span class="op">(</span>path <span class="op">=</span> <span class="va">tmp_path_bag</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; RO-Crate successfully 'bagged'!</span></span>
-<span><span class="co">#&gt; For details, see: /tmp/RtmpCOduX8/dsROCrate-building-crates/rocrate-93b08d9589520539f93eaed6e20b4df5.zip</span></span></code></pre></div>
+<span><span class="co">#&gt; For details, see: /tmp/RtmpuYr7so/dsROCrate-building-crates/rocrate-ffbbf0f6db866051ffbfe733f0a0e121.zip</span></span></code></pre></div>
 <p>and its contents explored with:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">path_to_rocrate_bag</span> <span class="op">|&gt;</span></span>
@@ -443,12 +443,12 @@ about it. To store them as files instead, call
 <span>    quiet <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/dir_tree.html" class="external-link">dir_tree</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpCOduX8/dsROCrate-building-crates/ROC</span></span></span>
+<span><span class="co">#&gt; <span style="color: #0000BB; font-weight: bold;">/tmp/RtmpuYr7so/dsROCrate-building-crates/ROC</span></span></span>
 <span><span class="co">#&gt; ├── bag-info.txt</span></span>
 <span><span class="co">#&gt; ├── bagit.txt</span></span>
 <span><span class="co">#&gt; ├── <span style="color: #0000BB; font-weight: bold;">data</span></span></span>
-<span><span class="co">#&gt; │   ├── 20261019T115740-dslogs-dsuser.log</span></span>
-<span><span class="co">#&gt; │   ├── 20261019T115741-dslogs-dsuser_mappings.csv</span></span>
+<span><span class="co">#&gt; │   ├── 20261019T120017-dslogs-dsuser.log</span></span>
+<span><span class="co">#&gt; │   ├── 20261019T120018-dslogs-dsuser_mappings.csv</span></span>
 <span><span class="co">#&gt; │   └── ro-crate-metadata.json</span></span>
 <span><span class="co">#&gt; ├── manifest-sha512.txt</span></span>
 <span><span class="co">#&gt; └── tagmanifest-sha512.txt</span></span></code></pre></div>
