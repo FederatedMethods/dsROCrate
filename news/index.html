@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dsROCrate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.4</span>
       </span>
     </div>
 
@@ -33,6 +33,12 @@
   </a>
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/audit-permissions.html">Configuring Audit Permissions</a>
+    </li>
+    <li>
+      <a href="../articles/auditing-studies.html">Auditing Studies Across Several Servers</a>
+    </li>
+    <li>
+      <a href="../articles/building-crates.html">Building an RO-Crate Step by Step</a>
     </li>
     <li>
       <a href="../articles/deploy-local-datashield-server-with-opal.html">Deploy a local DataSHIELD server with Opal</a>
@@ -60,9 +66,55 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/v0.2.3/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.2.4" id="dsrocrate-024">dsROCrate 0.2.4<small>2026-10-16</small><a class="anchor" aria-label="anchor" href="#dsrocrate-024"></a></h2>
+<div class="section level3">
+<h3 id="bug-fixes-0-2-4">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-4"></a></h3>
+<ul><li>Fixed <code><a href="../reference/safe_output.html">safe_output()</a></code> reading Opal log timestamps in the local time zone instead of UTC. Opal returns UTC timestamps in ISO 8601 format (e.g., <code>2026-10-13T04:26:14.076Z</code>); they are now parsed as UTC, including fractional seconds and <code>Z</code>/<code>+hh:mm</code> offsets. Previously, on machines whose time zone was not UTC, the <code>logs_from</code>/<code>logs_to</code> window could drop recent log entries (or include old ones).</li>
+<li>Fixed <code><a href="../reference/safe_project.html">safe_project()</a></code> overwriting the <code>user</code> attribute stored in the returned RO-Crate: a loop variable shadowed the <code>user</code> argument.</li>
+<li>Fixed table lineage links (<code>isBasedOn</code>) between tables and resources being written to <code>rocrate$graph</code> instead of <code>rocrate$`@graph`</code>, so they are now recorded in the RO-Crate graph.</li>
+<li>Fixed the symbol registry lookup so it always returns a single row when several symbols share the same <code>created_at</code> timestamp (<code><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">dplyr::slice_max()</a></code> now uses <code>with_ties = FALSE</code>).</li>
+<li>
+<code><a href="../reference/report.html">report()</a></code> (path method) now forwards <code>max_line_length</code> and <code>...</code> to the RO-Crate method; previously <code>max_line_length</code> was silently ignored.</li>
+<li>The error shown when the report directory does not exist now suggests <code>mkdir -p</code> (was <code>mkdir -r</code>).</li>
+<li>
+<code><a href="../reference/audit.html">audit()</a></code> and <code>extract_safe_project()</code> (opal method) now read project names with <code>$name</code>, so they work whether <code>backend_projects()</code> returns a data frame or a tibble.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="changes-0-2-4">Changes<a class="anchor" aria-label="anchor" href="#changes-0-2-4"></a></h3>
+<ul><li>Timestamps written by <code><a href="../reference/safe_output.html">safe_output()</a></code> (the audit log tibble, the <code>_mappings.csv</code> file, and <code><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame()</a></code> of <code>safe_call</code> objects) are now ISO 8601 in UTC with a trailing <code>Z</code> (e.g., <code>2026-07-01T10:00:00Z</code>). Code that compares these values as strings will need to be updated.</li>
+<li>
+<code><a href="../reference/safe_output.html">safe_output()</a></code>: <code>logs_from</code> and <code>logs_to</code> accept <code>POSIXct</code> values or date-time strings, with or without a <code>Z</code>/UTC offset. Strings without an offset are interpreted as UTC, and <code>Inf</code>/<code>-Inf</code> still mean “no limit”.</li>
+<li>
+<code><a href="../reference/report.html">report()</a></code> for a list of RO-Crates no longer has the unused <code>study_name</code> argument.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="documentation-0-2-4">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-2-4"></a></h3>
+<ul><li>Split the <code>getting-started</code> vignette into three. <code>getting-started</code> now covers connecting, <code><a href="../reference/check_permissions.html">check_permissions()</a></code>, <code><a href="../reference/audit.html">audit()</a></code> and <code><a href="../reference/report.html">report()</a></code>; the new <code>building-crates</code> vignette shows the step-by-step workflow with <code><a href="../reference/init.html">init()</a></code> and the <code>safe_*()</code> functions (including saving the RO-Crate); and the new <code>auditing-studies</code> vignette shows how to audit several servers as one study.</li>
+<li>
+<code>audit-permissions</code> vignette: explains how the permission check works, lists the common error messages with their likely causes, and gives the minimum Opal version (5.7.2).</li>
+<li>
+<code>deploy-local-datashield-server-with-opal</code> vignette: corrected the clone directory, added the demo accounts, the Opal version requirement, an audit example and instructions to stop the server, and removed unused code.</li>
+<li>Vignettes now only run their examples when the public Opal demo server can be reached; otherwise the code is shown but not evaluated.</li>
+<li>README: added the supported-backend and requirements table, a guide on which function to use, <code><a href="../reference/check_permissions.html">check_permissions()</a></code> in the quick start, and a list of all vignettes.</li>
+<li>Reference documentation: the description of <code>...</code> is now defined once (<code>shared_params</code>) and inherited by the functions, the documented default of <code>user_id_suffix</code> was corrected (<code>"#person:"</code>), the Opal-specific wording was removed from the <code>profile</code> argument, and stray formatting in the <code><a href="../reference/audit.html">audit()</a></code> documentation was fixed.</li>
+<li>Updated spell-check <code>WORDLIST</code>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="internal-changes-0-2-4">Internal Changes<a class="anchor" aria-label="anchor" href="#internal-changes-0-2-4"></a></h3>
+<ul><li>Added <code>parse_utc()</code>, <code>parse_utc_limit()</code>, <code>format_utc()</code> and <code>fmt_limit()</code> (<code>utils-date.R</code>) so that all timestamps are parsed and formatted the same way. They replace <code>is_valid_posixct()</code>.</li>
+<li>
+<code>backend_logs()</code> (opal method) now returns <code>@timestamp</code> as <code>POSIXct</code> (UTC) and suppresses the progress messages printed by <code>opalr</code>. Other backends are expected to return <code>POSIXct</code> timestamps.</li>
+<li>Added tests for <code>parse_utc()</code>, run under a non-UTC time zone.</li>
+<li>
+<code><a href="../reference/safe_output.html">safe_output()</a></code> tests covering <code>RESOLVE</code>/<code>ASSIGN</code> operations now set <code>logs_from</code> and <code>logs_to</code> explicitly, so they no longer depend on the time they are run.</li>
+<li>Test mocks now use <code>type = "group"</code> for group permissions, matching the values returned by Opal, and the <code><a href="../reference/report.html">report()</a></code> tests no longer pass <code>study_name</code>.</li>
+<li>Rebuilt the vignettes against the current Opal demo server (6.0.1).</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.2.3" id="dsrocrate-023">dsROCrate 0.2.3<small>2026-09-24</small><a class="anchor" aria-label="anchor" href="#dsrocrate-023"></a></h2>
 <div class="section level3">

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dsROCrate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.4</span>
       </span>
     </div>
 
@@ -33,6 +33,12 @@
   </a>
   <ul class="dropdown-menu" role="menu"><li>
       <a href="../articles/audit-permissions.html">Configuring Audit Permissions</a>
+    </li>
+    <li>
+      <a href="../articles/auditing-studies.html">Auditing Studies Across Several Servers</a>
+    </li>
+    <li>
+      <a href="../articles/building-crates.html">Building an RO-Crate Step by Step</a>
     </li>
     <li>
       <a href="../articles/deploy-local-datashield-server-with-opal.html">Deploy a local DataSHIELD server with Opal</a>
@@ -60,7 +66,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Safe People details</h1>
-    <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/v0.2.3/R/safe_people.R" class="external-link"><code>R/safe_people.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/FederatedMethods/dsROCrate/blob/main/R/safe_people.R" class="external-link"><code>R/safe_people.R</code></a></small>
     <div class="hidden name"><code>safe_people.Rd</code></div>
     </div>
 
@@ -141,8 +147,8 @@ RO-Crate.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Other optional arguments. See the full documentation,
-<code>?dsROCrate::safe_people</code>.</p></dd>
+<dd><p>Further arguments passed on to the methods, which are documented
+as separate arguments below.</p></dd>
 
 
 <dt id="arg-user">user<a class="anchor" aria-label="anchor" href="#arg-user"></a></dt>
@@ -152,8 +158,8 @@ this can be a string with the <code>name</code> of the current user.</p></dd>
 
 
 <dt id="arg-user-id-suffix">user_id_suffix<a class="anchor" aria-label="anchor" href="#arg-user-id-suffix"></a></dt>
-<dd><p>String with ID suffix for the tables/datasets
-entities in the RO-Crate (default: <code>"#dataset:"</code>).</p></dd>
+<dd><p>String with ID suffix for the people/user
+entities in the RO-Crate (default: <code>"#person:"</code>).</p></dd>
 
 
 <dt id="arg-set-author">set_author<a class="anchor" aria-label="anchor" href="#arg-set-author"></a></dt>
@@ -179,7 +185,7 @@ the RO-Crate returned by this function.</p></dd>
 
 
 <dt id="arg-profile">profile<a class="anchor" aria-label="anchor" href="#arg-profile"></a></dt>
-<dd><p>String with profile name (used for OBiBa's Opal backend).</p></dd>
+<dd><p>String with profile name.</p></dd>
 
 
 <dt id="arg-project">project<a class="anchor" aria-label="anchor" href="#arg-project"></a></dt>

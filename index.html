@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">dsROCrate</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.4</span>
       </span>
     </div>
 
@@ -57,6 +57,12 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="articles/audit-permissions.html">Configuring Audit Permissions</a>
+    </li>
+    <li>
+      <a href="articles/auditing-studies.html">Auditing Studies Across Several Servers</a>
+    </li>
+    <li>
+      <a href="articles/building-crates.html">Building an RO-Crate Step by Step</a>
     </li>
     <li>
       <a href="articles/deploy-local-datashield-server-with-opal.html">Deploy a local DataSHIELD server with Opal</a>
@@ -97,17 +103,7 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p><a href="https://github.com/FederatedMethods/dsROCrate" class="external-link">dsROCrate</a> provides tools to capture, structure and audit DataSHIELD analyses using the RO-Crate standard. It enables reproducible governance of federated analyses by packaging inputs, outputs, metadata, and audit information into a consistent, portable format.</p>
-</div>
-<div class="section level2">
-<h2 id="key-features">Key Features<a class="anchor" aria-label="anchor" href="#key-features"></a>
-</h2>
-<ul>
-<li>Create RO-Crates for DataSHIELD workflows</li>
-<li>Capture project metadata, data references and analysis outputs</li>
-<li>Record and audit disclosure control processes</li>
-<li>Support reproducibility and governance in federated environments</li>
-</ul>
+<p><a href="https://github.com/FederatedMethods/dsROCrate" class="external-link">dsROCrate</a> provides tools to capture, structure and audit <a href="https://datashield.org" class="external-link">DataSHIELD</a> analyses using the <a href="https://www.researchobject.org/ro-crate/" class="external-link">RO-Crate</a> standard and the <a href="https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/" class="external-link">Five Safes</a> framework. It enables reproducible governance of federated analyses by packaging inputs, outputs, metadata and audit information into a consistent, portable format, and turns the result into a human-readable report.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -121,8 +117,83 @@
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"FederatedMethods/dsROCrate@dev"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
+<h2 id="requirements">Requirements<a class="anchor" aria-label="anchor" href="#requirements"></a>
+</h2>
+<table class="table">
+<colgroup>
+<col width="25%">
+<col width="25%">
+<col width="25%">
+<col width="25%">
+</colgroup>
+<thead><tr>
+<th>Backend</th>
+<th>Status</th>
+<th>Minimum version</th>
+<th>Account needed</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><a href="https://www.obiba.org/pages/products/opal/" class="external-link">OBiBa Opal</a></td>
+<td>Supported</td>
+<td>5.7.2 (6.0 to capture <code>RESOLVE</code> operations in the outputs)</td>
+<td>Administrator, or a user with the <code>Audit system</code> permission</td>
+</tr>
+<tr>
+<td><a href="https://molgenis.github.io/molgenis-service-armadillo/" class="external-link">MOLGENIS Armadillo</a></td>
+<td>In development</td>
+<td>–</td>
+<td>–</td>
+</tr>
+</tbody>
+</table>
+<p>Auditing reads server-wide information (users, system permissions, DataSHIELD settings and logs), so a standard analyst account is not enough. We recommend a dedicated auditor account, see <code><a href="articles/audit-permissions.html">vignette("audit-permissions", package = "dsROCrate")</a></code>.</p>
+</div>
+<div class="section level2">
+<h2 id="key-features">Key Features<a class="anchor" aria-label="anchor" href="#key-features"></a>
+</h2>
+<ul>
+<li>Create RO-Crates for DataSHIELD workflows</li>
+<li>Capture project metadata, data references and analysis outputs</li>
+<li>Record and audit disclosure control processes</li>
+<li>Support reproducibility and governance in federated environments</li>
+</ul>
+<p><strong>Which function should I use?</strong></p>
+<table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr>
+<th>I want to…</th>
+<th>Use</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Check my account can audit before starting</td>
+<td><code><a href="reference/check_permissions.html">check_permissions()</a></code></td>
+</tr>
+<tr>
+<td>Audit a whole project in one call (people, project, data, setting, outputs)</td>
+<td><code><a href="reference/audit.html">audit()</a></code></td>
+</tr>
+<tr>
+<td>Build a crate step by step, inspecting each Safe</td>
+<td>
+<code><a href="reference/init.html">init()</a></code>, then <code><a href="reference/safe_people.html">safe_people()</a></code> … <code><a href="reference/safe_output.html">safe_output()</a></code>
+</td>
+</tr>
+<tr>
+<td>Produce a Markdown/HTML report from a crate, or from several servers</td>
+<td><code><a href="reference/report.html">report()</a></code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level2">
 <h2 id="quick-start">Quick Start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
 </h2>
+<p>The examples use OBiBa’s public demo server and its default administrator account. For real servers, use an auditor account.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># open connection</span></span>
 <span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">opalr</span><span class="fu">::</span><span class="fu"><a href="https://www.obiba.org/opalr/reference/opal.login.html" class="external-link">opal.login</a></span><span class="op">(</span></span>
@@ -131,8 +202,26 @@
 <span>  url <span class="op">=</span> <span class="st">"https://opal-demo.obiba.org"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># generate RO-Crate with Five Safes components</span></span>
-<span><span class="va">crate</span> <span class="op">&lt;-</span> <span class="va">con</span> <span class="op">|&gt;</span></span>
+<span><span class="co"># check the account has sufficient permissions to audit</span></span>
+<span><span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="reference/check_permissions.html">check_permissions</a></span><span class="op">(</span><span class="va">con</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="audit-a-project">Audit a project<a class="anchor" aria-label="anchor" href="#audit-a-project"></a>
+</h3>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># generate RO-Crate with Five Safes components</span></span>
+<span><span class="va">proj_audit</span> <span class="op">&lt;-</span> <span class="va">con</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="reference/audit.html">audit</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">"CNSIM"</span>, tables <span class="op">=</span> <span class="st">"CNSIM1"</span>, user <span class="op">=</span> <span class="st">"dsuser"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># generate report</span></span>
+<span><span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="reference/report.html">report</a></span><span class="op">(</span><span class="va">proj_audit</span>, title <span class="op">=</span> <span class="st">"DataSHIELD Five Safes report"</span><span class="op">)</span></span></code></pre></div>
+<p>If <code>user</code> is omitted, all non-administrator, non-auditor accounts are included. Use <code>logs_from</code> and <code>logs_to</code> to limit the period covered by the outputs, and <code>path</code> to store the log files next to the crate instead of inside it.</p>
+</div>
+<div class="section level3">
+<h3 id="build-the-crate-step-by-step">Build the crate step by step<a class="anchor" aria-label="anchor" href="#build-the-crate-step-by-step"></a>
+</h3>
+<p>Alternatively, it’s possible to extract only partial components from the Five Safes, by calling or skipping them as follows. <code><a href="reference/init.html">init()</a></code> records the connection and study details once, so the <code>safe_*()</code> functions need no further arguments:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">proj_crate</span> <span class="op">&lt;-</span> <span class="va">con</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># initialise RO-Crate</span></span>
 <span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="reference/init.html">init</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">"CNSIM"</span>, tables <span class="op">=</span> <span class="st">"CNSIM1"</span>, user <span class="op">=</span> <span class="st">"dsuser"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="co"># extract Five Safes components</span></span>
@@ -143,31 +232,68 @@
 <span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="reference/safe_output.html">safe_output</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># generate report</span></span>
-<span><span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="reference/report.html">report</a></span><span class="op">(</span><span class="va">crate</span>, title <span class="op">=</span> <span class="st">"DataSHIELD Five Safes report"</span><span class="op">)</span></span></code></pre></div>
-<p>Alternatively, the <code><a href="reference/audit.html">dsROCrate::audit()</a></code> function can be used to generate an audit with all the Five Safes components:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">proj_audit</span> <span class="op">&lt;-</span> <span class="fu">opalr</span><span class="fu">::</span><span class="fu"><a href="https://www.obiba.org/opalr/reference/opal.login.html" class="external-link">opal.login</a></span><span class="op">(</span></span>
-<span>  username <span class="op">=</span> <span class="st">"administrator"</span>,</span>
-<span>  password <span class="op">=</span> <span class="st">"password"</span>,</span>
-<span>  url <span class="op">=</span> <span class="st">"https://opal-demo.obiba.org"</span></span>
-<span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="reference/audit.html">audit</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">"CNSIM"</span>, tables <span class="op">=</span> <span class="st">"CNSIM1"</span>, user <span class="op">=</span> <span class="st">"dsuser"</span><span class="op">)</span></span>
+<span><span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="reference/report.html">report</a></span><span class="op">(</span><span class="va">proj_crate</span>, title <span class="op">=</span> <span class="st">"DataSHIELD Five Safes report"</span><span class="op">)</span></span></code></pre></div>
+<p>Run <code><a href="reference/safe_people.html">safe_people()</a></code> first, so the later steps can leave administrator and auditor accounts out of the permissions recorded for the data.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># close connection</span></span>
+<span><span class="fu">opalr</span><span class="fu">::</span><span class="fu"><a href="https://www.obiba.org/opalr/reference/opal.logout.html" class="external-link">opal.logout</a></span><span class="op">(</span><span class="va">con</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="several-servers">Several servers<a class="anchor" aria-label="anchor" href="#several-servers"></a>
+</h3>
+<p><code><a href="reference/audit.html">audit()</a></code> and <code><a href="reference/report.html">report()</a></code> also accept a named list of connections, e.g., for a study spanning several sites:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">study_audit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>site_a <span class="op">=</span> <span class="va">con_a</span>, site_b <span class="op">=</span> <span class="va">con_b</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="reference/audit.html">audit</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">"CNSIM"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># generate report</span></span>
-<span><span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="reference/report.html">report</a></span><span class="op">(</span><span class="va">proj_audit</span>, title <span class="op">=</span> <span class="st">"DataSHIELD Safe People - Audit Report"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">dsROCrate</span><span class="fu">::</span><span class="fu"><a href="reference/report.html">report</a></span><span class="op">(</span><span class="va">study_audit</span>, title <span class="op">=</span> <span class="st">"DataSHIELD study audit"</span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="learn-more">Learn More<a class="anchor" aria-label="anchor" href="#learn-more"></a>
 </h2>
-<p>For further details, see the following vignette:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"getting-started"</span>, package <span class="op">=</span> <span class="st">"dsROCrate"</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr>
+<th>Vignette</th>
+<th>Content</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code><a href="articles/getting-started.html">vignette("getting-started", package = "dsROCrate")</a></code></td>
+<td>Connect, check permissions, audit a project and create a report</td>
+</tr>
+<tr>
+<td><code><a href="articles/building-crates.html">vignette("building-crates", package = "dsROCrate")</a></code></td>
+<td>Build the RO-Crate one Safe at a time with <code><a href="reference/init.html">init()</a></code> and <code>safe_*()</code>
+</td>
+</tr>
+<tr>
+<td><code><a href="articles/auditing-studies.html">vignette("auditing-studies", package = "dsROCrate")</a></code></td>
+<td>Audit and report on several servers as one study</td>
+</tr>
+<tr>
+<td><code><a href="articles/audit-permissions.html">vignette("audit-permissions", package = "dsROCrate")</a></code></td>
+<td>Create an auditor account and understand the permission checks</td>
+</tr>
+<tr>
+<td><code><a href="articles/deploy-local-datashield-server-with-opal.html">vignette("deploy-local-datashield-server-with-opal", package = "dsROCrate")</a></code></td>
+<td>Run a local Opal/DataSHIELD server with Docker for testing</td>
+</tr>
+</tbody>
+</table>
+<p>Questions, bugs and feature requests: <a href="https://github.com/FederatedMethods/dsROCrate/issues" class="external-link">GitHub issues</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="identity">Identity<a class="anchor" aria-label="anchor" href="#identity"></a>
 </h2>
-<p>You are welcome to use any of the following hex codes when referencing <a href="https://github.com/FederatedMethods/dsROCrate" class="external-link">dsROCrate</a>:</p>
-<p><a href="man/figures/logo.png"><img src="reference/figures/logo.png" alt="logo" align="left" height="150" style="float:left; height:150px;"></a> <a href="man/figures/logo_white.png"><img src="reference/figures/logo_white.png" alt="logo-white" align="left" height="150" style="float:left; height:150px;"></a> <a href="man/figures/logo_black.png"><img src="reference/figures/logo_black.png" alt="logo-black" align="left" height="150" style="float:left; height:150px;"></a></p>
+<p>You are welcome to use any of the following logos when referencing <a href="https://github.com/FederatedMethods/dsROCrate" class="external-link">dsROCrate</a>:</p>
+<p>
+<a href="man/figures/logo.png"><img src="reference/figures/logo.png" alt="logo" height="150"></a> <a href="man/figures/logo_white.png"><img src="reference/figures/logo_white.png" alt="logo-white" height="150"></a> <a href="man/figures/logo_black.png"><img src="reference/figures/logo_black.png" alt="logo-black" height="150"></a>
+</p>
 </div>
 </div>
   </div>
