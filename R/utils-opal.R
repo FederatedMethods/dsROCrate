@@ -175,15 +175,15 @@ get_project_assets <- function(x, project, type = c("tables", "resources")) {
     tibble::tibble(
       asset_type = "table",
       project = project,
-      name = vapply(prj, \(x) x$name %||% "", ""),
-      description = vapply(prj, \(x) x$description %||% "", ""),
+      name = vapply(prj, \(x) x$name %||% "", character(1)),
+      description = vapply(prj, \(x) x$description %||% "", character(1)),
       created = vapply(prj, \(x) safe_time(x$timestamps$created), character(1)),
       updated = vapply(
         prj,
         \(x) safe_time(x$timestamps$lastUpdate),
         character(1)
       ),
-      url = vapply(prj, \(x) x$link %||% NA_character_, ""),
+      url = vapply(prj, \(x) x$link %||% NA_character_, character(1)),
       meta = vector("list", length(prj))
     )
   } else if (type == "resources") {
@@ -196,11 +196,15 @@ get_project_assets <- function(x, project, type = c("tables", "resources")) {
     tibble::tibble(
       asset_type = "resource",
       project = project,
-      name = vapply(res, \(x) x$name %||% "", ""),
-      description = vapply(res, \(x) x$description %||% "", ""),
+      name = vapply(res, \(x) x$name %||% "", character(1)),
+      description = vapply(res, \(x) x$description %||% "", character(1)),
       created = vapply(res, \(x) safe_time(x$created), character(1)),
       updated = vapply(res, \(x) safe_time(x$updated), character(1)),
-      url = vapply(res, function(x) x$resource$url %||% NA_character_, ""),
+      url = vapply(
+        res,
+        function(x) x$resource$url %||% NA_character_,
+        character(1)
+      ),
       meta = parse_resource_params(
         vapply(res, `[[`, "", "parameters")
       )
@@ -344,7 +348,11 @@ parse_resource_params <- function(params_json) {
 }
 
 safe_desc <- function(desc, name, type) {
-  desc %||% paste(type, name)
+  if (is.null(desc) || is.na(desc) || !nzchar(desc)) {
+    paste(type, name)
+  } else {
+    desc
+  }
 }
 
 safe_time <- function(x) {
