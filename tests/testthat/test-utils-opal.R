@@ -70,3 +70,85 @@ test_that("user_perm_entity returns NULL for unknown 'permission'", {
   expect_length(output_tbl, 1)
   expect_type(output_tbl, "list")
 })
+
+test_that("safe_desc() returns the description when there is one", {
+  expect_equal(
+    safe_desc("Baseline cohort", "CNSIM1", "table"),
+    "Baseline cohort"
+  )
+})
+
+test_that("safe_desc() falls back to '<type> <name>' for missing values", {
+  expect_equal(safe_desc(NULL, "CNSIM1", "table"), "table CNSIM1")
+  expect_equal(safe_desc(NA, "CNSIM1", "table"), "table CNSIM1")
+  expect_equal(safe_desc(NA_character_, "CNSIM1", "table"), "table CNSIM1")
+  expect_equal(safe_desc("", "CNSIM1", "table"), "table CNSIM1")
+})
+
+test_that("safe_desc() uses the asset type in the fallback", {
+  expect_equal(safe_desc("", "RSRC", "resource"), "resource RSRC")
+})
+
+test_that("safe_desc() returns a single string", {
+  res <- safe_desc("", "CNSIM1", "table")
+
+  expect_type(res, "character")
+  expect_length(res, 1)
+})
+
+test_that("get_project_assets() keeps missing table fields as empty values", {
+  local_mocked_bindings(
+    project_exists = function(x, project, ...) TRUE,
+    backend_tables = function(x, project, ...) {
+      list(
+        # no `description`, as returned by the demo server
+        list(
+          name = "CNSIM1",
+          link = "/datasource/CNSIM/table/CNSIM1",
+          timestamps = list(
+            created = "2026-10-13T04:26:14.076Z",
+            lastUpdate = "2026-10-13T14:17:32.082Z"
+          )
+        ),
+        # no `link`, but a description
+        list(
+          name = "CNSIM2",
+          description = "Second table",
+          timestamps = list(
+            created = "2026-10-13T04:26:14.076Z",
+            lastUpdate = "2026-10-13T14:17:32.082Z"
+          )
+        )
+      )
+    }
+  )
+
+  assets <- get_project_assets(fake_opal_con(), "CNSIM", "tables")
+
+  expect_equal(assets$name, c("CNSIM1", "CNSIM2"))
+  expect_equal(assets$description, c("", "Second table"))
+  expect_false(is.na(assets$url[1]))
+  expect_true(is.na(assets$url[2]))
+})
+
+test_that("tables without a description get the fallback in the entity", {
+  local_mocked_bindings(
+    project_exists = function(x, project, ...) TRUE,
+    backend_tables = function(x, project, ...) {
+      list(
+        list(name = "CNSIM1", timestamps = list()),
+        list(name = "CNSIM2", description = "Second table", timestamps = list())
+      )
+    }
+  )
+
+  assets <- get_project_assets(fake_opal_con(), "CNSIM", "tables")
+  entities <- build_asset_entities(
+    assets,
+    project_id = "#project:abc",
+    asset_id_suffix = "#dataset:"
+  )
+
+  expect_equal(entities[[1]]$description, "table CNSIM1")
+  expect_equal(entities[[2]]$description, "Second table")
+})
