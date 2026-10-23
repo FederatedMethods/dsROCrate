@@ -356,13 +356,14 @@ safe_desc <- function(desc, name, type) {
 }
 
 safe_time <- function(x) {
-  if (is.null(x) || is.na(x)) {
+  if (is.null(x) || length(x) != 1 || is.na(x)) {
     return(character(1))
   }
-  tryCatch(
+  out <- tryCatch(
     format_utc(parse_utc(x)),
-    error = function(e) character(1)
+    error = function(e) NA_character_
   )
+  if (is.na(out)) character(1) else out
 }
 
 #' @noRd
