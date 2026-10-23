@@ -897,7 +897,7 @@ report.rocrate <- function(
     "  - \\tcbuselibrary{breakable}\n",
     "  - \\renewenvironment{Shaded}{\\begin{tcolorbox}[breakable,boxrule=0pt,",
     "colback=gray!10]}{\\end{tcolorbox}}\n",
-    paste0("date: ", format(Sys.time(), '%Y-%m-%d %H:%M:%S')),
+    paste0("date: ", format(Sys.time(), '%Y-%m-%d %H:%M:%S', tz = "UTC")),
     "\n---\n",
     paste0(
       "This report contains details for ",

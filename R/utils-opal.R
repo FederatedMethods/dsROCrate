@@ -360,7 +360,7 @@ safe_time <- function(x) {
     return(character(1))
   }
   tryCatch(
-    format_utc(as.POSIXct(x)),
+    format_utc(parse_utc(x)),
     error = function(e) character(1)
   )
 }

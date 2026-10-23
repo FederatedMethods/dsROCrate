@@ -63,7 +63,7 @@ add_safe_project_entities_cr8tor <- function(rc, proj_tbl, data_tbl) {
   # local bindings
   asset <- project <- NULL
 
-  now <- format(Sys.time(), "%Y-%m-%dT%H:%M:%OS3Z", tz = "UTC")
+  now <- format(Sys.time(), "%Y-%m-%dT%H:%M:%S", tz = "UTC")
 
   for (i in seq_len(nrow(proj_tbl))) {
     project_id <- proj_tbl$project_id[i]

@@ -43,7 +43,7 @@ new_safe_symbol <- function(
   expr = NA_character_,
   depends_on = list(),
   created_by = NA_character_,
-  created_at = Sys.time(),
+  created_at = format_utc(Sys.time()),
   user = NA_character_,
   session = NA_character_,
   action = NA_character_,

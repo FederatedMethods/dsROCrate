@@ -235,7 +235,7 @@ safe_output.opal <- function(
   }
 
   log_filename <- paste0(
-    format(Sys.time(), "%Y%m%dT%H%M%S"),
+    format(Sys.time(), "%Y%m%dT%H%M%S", tz = "UTC"),
     "-dslogs-",
     user,
     ".log"
@@ -245,7 +245,7 @@ safe_output.opal <- function(
   log_entity <- rocrateR::entity(
     id = basename(log_filename),
     type = "File",
-    dateModified = Sys.time(),
+    dateModified = format_utc(Sys.time()),
     name = basename(log_filename),
     description = paste0(
       "This file contains the raw logs for the user: `",
@@ -582,7 +582,7 @@ safe_output.opal <- function(
     dplyr::select(-uuid)
 
   log_maps_filename <- paste0(
-    format(Sys.time(), "%Y%m%dT%H%M%S"),
+    format(Sys.time(), "%Y%m%dT%H%M%S", tz = "UTC"),
     "-dslogs-",
     user,
     "_mappings.csv"
@@ -592,7 +592,7 @@ safe_output.opal <- function(
   log_maps_entity <- rocrateR::entity(
     id = basename(log_maps_filename),
     type = "File",
-    dateModified = Sys.time(),
+    dateModified = format_utc(Sys.time()),
     name = basename(log_maps_filename),
     description = "This file contains mappings and evaluated functions",
     encodingFormat = "text/csv"
