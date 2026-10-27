@@ -1,3 +1,7 @@
+backend_can_audit <- function(x, ...) {
+  UseMethod("backend_can_audit")
+}
+
 backend_logs <- function(x, ...) {
   UseMethod("backend_logs")
 }
@@ -56,34 +60,6 @@ backend_user_exists <- function(x, ...) {
 
 backend_users <- function(x, ...) {
   UseMethod("backend_users")
-}
-
-#' Verify if connection was created by an administrator user
-#'
-#' @inheritParams validate_con
-#' @param ... Unused, extra arguments.
-#'
-#' @returns Boolean flag to indicate whether the given connection was created
-#'     by an administrator user.
-#' @keywords internal
-#'
-#' @noRd
-is_admin_con <- function(x, ...) {
-  UseMethod("is_admin_con")
-}
-
-#' Verify if connection was created by an auditor user
-#'
-#' @inheritParams validate_con
-#' @param ... Unused, extra arguments.
-#'
-#' @returns Boolean flag to indicate whether the given connection was created
-#'     by an auditor user.
-#' @keywords internal
-#'
-#' @noRd
-is_audit_con <- function(x, ...) {
-  UseMethod("is_audit_con")
 }
 
 #' Validate backend version

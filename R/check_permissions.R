@@ -51,20 +51,10 @@ check_permissions.ArmadilloCredentials <- function(x, ...) {
 #' @rdname check_permissions
 #' @export
 check_permissions.opal <- function(x, ..., verbose = FALSE) {
-  is_admin <- FALSE
-  is_audit <- FALSE
+  # check if the backend user has at least audit permissions
+  res <- backend_can_audit(x, role = FALSE)
 
-  is_admin <- tryCatch(
-    is_admin_con(x),
-    error = function(e) FALSE
-  )
-
-  is_audit <- tryCatch(
-    is_audit_con(x),
-    error = function(e) FALSE
-  )
-
-  if (isTRUE(is_admin) || isTRUE(is_audit)) {
+  if (isTRUE(res$ok)) {
     if (verbose) {
       message("You are ready to audit this system!")
     }

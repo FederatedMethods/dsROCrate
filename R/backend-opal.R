@@ -1,4 +1,21 @@
 #' @export
+backend_can_audit.opal <- function(x, ..., role = FALSE) {
+  res <- .try_load(backend_profile_exists(x, "default"))
+  out <- list(ok = !is.null(res$value), role = NA_character_, error = res$error)
+  # the extra probe is only needed to report the role
+  if (role && out$ok) {
+    out$role <- if (
+      is.null(.try_load(backend_user_exists(x, x$username))$error)
+    ) {
+      "administrator"
+    } else {
+      "auditor"
+    }
+  }
+  out
+}
+
+#' @export
 backend_logs.opal <- function(x, ...) {
   logs <- suppressMessages(opalr::dsadmin.log(x, ...))
   logs[["@timestamp"]] <- parse_utc(logs[["@timestamp"]])
@@ -73,41 +90,6 @@ backend_user_exists.opal <- function(x, ...) {
 #' @export
 backend_users.opal <- function(x, ...) {
   opalr::oadmin.user_profiles(x, ...)
-}
-
-#' @export
-is_admin_con.opal <- function(x, ...) {
-  # condition 1: admin users have access to `backend_user_exists`
-  cond1 <- .try_load(backend_user_exists(x, x$username))
-  # condition 2: admin users have access to `backend_profile_exists`
-  cond2 <- .try_load(backend_profile_exists(x, "default"))
-
-  # check all the conditions are met
-  result <- all(!is.null(cond1$value), !is.null(cond2$value))
-  attr(result, "error") <- list(
-    user_exists = cond1$error,
-    profile_exists = cond2$error
-  )
-  result
-}
-
-#' @export
-is_audit_con.opal <- function(x, ...) {
-  # condition 1: admin users have access to `backend_user_exists`
-  cond1 <- .try_load(backend_user_exists(x, x$username))
-  # condition 2: admin users have access to `backend_profile_exists`
-  cond2 <- .try_load(backend_profile_exists(x, "default"))
-
-  # check all the conditions are met
-  # cond1 is met when the call *errored* (no admin access, as expected of
-  # a pure auditor); cond2 is met when the call *succeeded* - the returned
-  # values don't matter either way
-  result <- all(!is.null(cond1$error), !is.null(cond2$value))
-  attr(result, "error") <- list(
-    user_exists = NULL, # an error here is expected/correct for an auditor,
-    profile_exists = cond2$error
-  )
-  result
 }
 
 #' @export
