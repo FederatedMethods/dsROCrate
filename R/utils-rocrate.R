@@ -3,7 +3,7 @@
 #' @param rocrate Object with the [rocrate][rocrateR::rocrate()] class.
 #' @param roc_path String with path to the root of the RO-Crate.
 #'
-#' @returns Update `rocrate` object.
+#' @returns Updated `rocrate` object.
 #' @keywords internal
 #' @noRd
 load_content <- function(rocrate, roc_path) {
@@ -41,5 +41,32 @@ load_content <- function(rocrate, roc_path) {
     }
   }
 
+  return(rocrate)
+}
+
+#' Set RO-Crate context/attributes
+#'
+#' @returns Updated `rocrate` object.
+#' @keywords internal
+#' @noRd
+set_crate_context <- function(
+  rocrate,
+  connection = NULL,
+  path = NULL,
+  profile = NULL,
+  project = NULL,
+  resources = NULL,
+  tables = NULL,
+  user = NULL,
+  ...
+) {
+  # attach input arguments as attributes
+  attr(rocrate, "connection") <- connection
+  attr(rocrate, "path") <- path
+  attr(rocrate, "profile") <- profile
+  attr(rocrate, "project") <- project
+  attr(rocrate, "resources") <- resources
+  attr(rocrate, "tables") <- tables
+  attr(rocrate, "user") <- user
   return(rocrate)
 }
