@@ -60,7 +60,7 @@ init.opal <- function(
   user = NULL
 ) {
   # validate backend
-  validate_backend(x, ...)
+  validate_backend(x, ..., rocrate = rocrate)
 
   # attach input arguments as attributes
   rocrate <- rocrate |>

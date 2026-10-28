@@ -103,7 +103,7 @@ safe_data.opal <- function(
   created <- lastUpdate <- name <- new_dataset_entity <- subject <- NULL
 
   # validate backend
-  validate_backend(x, ...)
+  validate_backend(x, ..., rocrate = rocrate)
 
   # match the assets to be included
   include <- match.arg(include, several.ok = TRUE)

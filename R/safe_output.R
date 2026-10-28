@@ -119,7 +119,7 @@ safe_output.opal <- function(
   logs_to_formatted <- fmt_limit(logs_to)
 
   # validate backend
-  validate_backend(x, ...)
+  validate_backend(x, ..., rocrate = rocrate)
 
   # verify if `user` is NULL, if so, retrieve information from the RO-crate
   if (is.null(user)) {

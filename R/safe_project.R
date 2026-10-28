@@ -107,7 +107,7 @@ safe_project.opal <- function(
   created <- lastUpdate <- type <- NULL
 
   # validate backend
-  validate_backend(x, ...)
+  validate_backend(x, ..., rocrate = rocrate)
 
   # enforce that `project` is a single value
   if (is.null(project)) {

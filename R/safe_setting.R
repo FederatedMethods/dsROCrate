@@ -153,7 +153,7 @@ safe_setting.opal <- function(
   Package <- NULL
 
   # validate backend
-  validate_backend(x, ...)
+  validate_backend(x, ..., rocrate = rocrate)
 
   # validate profile ----
   if (!backend_profile_exists(x, profile)) {

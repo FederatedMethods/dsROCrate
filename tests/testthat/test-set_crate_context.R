@@ -5,7 +5,8 @@ context_attrs <- c(
   "project",
   "resources",
   "tables",
-  "user"
+  "user",
+  "backend_validated"
 )
 
 test_that("set_crate_context() attaches the context as attributes", {

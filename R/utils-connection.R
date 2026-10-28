@@ -104,11 +104,16 @@ project_exists.opal <- function(x, ..., project) {
 #'
 #' @param x DataSHIELD backend connection object.
 #' @param ... Optional params.
+#' @param rocrate RO-crate object.
 #'
 #' @returns Nothing, call for its side effect.
 #' @keywords internal
 #' @noRd
-validate_backend <- function(x, ...) {
+validate_backend <- function(x, ..., rocrate = NULL) {
+  # check if the backend has been validated, status stored in `rocrate` context
+  if (backend_validated(x, ..., rocrate = rocrate)) {
+    return(invisible(TRUE))
+  }
   # validate connection object
   validate_con(x, ...)
   # validate backend version

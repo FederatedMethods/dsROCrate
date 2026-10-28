@@ -66,6 +66,10 @@ backend_users <- function(x, ...) {
   UseMethod("backend_users")
 }
 
+backend_validated <- function(x, ...) {
+  UseMethod("backend_validated")
+}
+
 #' Validate backend version
 #'
 #' @param x DataSHIELD backend connection object.

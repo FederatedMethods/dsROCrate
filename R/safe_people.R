@@ -92,7 +92,7 @@ safe_people.opal <- function(
   tables = NULL
 ) {
   # validate backend
-  validate_backend(x, ...)
+  validate_backend(x, ..., rocrate = rocrate)
 
   # attempt to retrieve project entity
   project_id <- id_hash("#project:", project)
