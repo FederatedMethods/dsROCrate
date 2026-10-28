@@ -57,8 +57,7 @@ set_crate_context <- function(
   project = NULL,
   resources = NULL,
   tables = NULL,
-  user = NULL,
-  ...
+  user = NULL
 ) {
   # attach input arguments as attributes
   attr(rocrate, "connection") <- connection

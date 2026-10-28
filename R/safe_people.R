@@ -184,7 +184,15 @@ safe_people.opal <- function(
 
   # attach input arguments as attributes
   rocrate <- rocrate |>
-    set_crate_context(x, path, profile, project, resources, tables, user)
+    set_crate_context(
+      connection = x,
+      path = path,
+      profile = profile,
+      project = project,
+      resources = resources,
+      tables = tables,
+      user = user
+    )
 
   # return RO-Crate with the new entity
   return(rocrate)
