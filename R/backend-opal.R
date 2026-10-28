@@ -23,6 +23,11 @@ backend_logs.opal <- function(x, ...) {
 }
 
 #' @export
+backend_name.opal <- function(x, ...) {
+  "OBiBa's Opal"
+}
+
+#' @export
 backend_options.opal <- function(x, ...) {
   opalr::dsadmin.get_options(x, ...)
 }

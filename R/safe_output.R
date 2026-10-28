@@ -396,7 +396,7 @@ safe_output.opal <- function(
         ),
         expr = NA_character_,
         session = ds_id,
-        backend = "OBiBa's Opal"
+        backend = backend_name(x)
       )
   }
 
@@ -486,7 +486,7 @@ safe_output.opal <- function(
         )
       ) |>
       # add column with backend
-      dplyr::mutate(backend = "OBiBa's Opal") |>
+      dplyr::mutate(backend = backend_name(x)) |>
       # subset columns
       dplyr::select(
         id,
@@ -516,7 +516,7 @@ safe_output.opal <- function(
       ds_eval = paste0("Open session: ", ds_id),
       # set `ds_function = 'DSI::datashield.login'`
       ds_function = "DSI::datashield.login",
-      backend = "OBiBa's Opal"
+      backend = backend_name(x)
     ) |>
     dplyr::select(
       id,
@@ -549,7 +549,7 @@ safe_output.opal <- function(
       asset,
       expr,
       session,
-      backend = "OBiBa's Opal"
+      backend = backend_name(x)
     )
 
   # combine the logs

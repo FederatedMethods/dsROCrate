@@ -6,6 +6,10 @@ backend_logs <- function(x, ...) {
   UseMethod("backend_logs")
 }
 
+backend_name <- function(x, ...) {
+  UseMethod("backend_name")
+}
+
 backend_options <- function(x, ...) {
   UseMethod("backend_options")
 }
