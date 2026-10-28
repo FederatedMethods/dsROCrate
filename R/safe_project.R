@@ -27,10 +27,7 @@ safe_project <- function(x, ...) {
 # @rdname safe_project
 #' @export
 safe_project.default <- function(x, ...) {
-  stop(
-    "Unknown class, please try either a file path or",
-    " an object with `rocrate` class!"
-  )
+  s3_method_not_available("safe_project", class = class(x))
 }
 
 #' @rdname safe_project

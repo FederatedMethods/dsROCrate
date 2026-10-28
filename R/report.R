@@ -12,10 +12,7 @@ report <- function(x, ...) {
 #' @rdname report
 #' @export
 report.ArmadilloCredentials <- function(x, ...) {
-  stop(
-    "The `report()` for the Armadillo backend is not currently implemented!",
-    call. = FALSE
-  )
+  s3_method_not_implemented("report", backend = "Armadillo")
 }
 
 #' @rdname report
@@ -57,10 +54,7 @@ report.character <- function(
 # @rdname report
 #' @export
 report.default <- function(x, ...) {
-  stop(
-    "Unknown class, please try either a file path or",
-    " an object with `rocrate` class!"
-  )
+  s3_method_not_available("report", class = class(x))
 }
 
 #' @rdname report

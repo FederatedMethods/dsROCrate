@@ -43,10 +43,7 @@ init <- function(x, ...) {
 #' @rdname init
 #' @export
 init.ArmadilloCredentials <- function(x, ...) {
-  stop(
-    "`init()` for the Armadillo backend is not currently implemented!",
-    call. = FALSE
-  )
+  s3_method_not_implemented("init", backend = "Armadillo")
 }
 
 #' @rdname init

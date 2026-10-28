@@ -17,7 +17,7 @@ parse_user_profiles <- function(x, ...) {
 
 #' @export
 parse_user_profiles.ArmadilloCredentials <- function(x, ..., user) {
-  message("PLACEHOLDER!")
+  s3_method_not_implemented("parse_user_profiles", backend = "Armadillo")
 }
 
 #' @export

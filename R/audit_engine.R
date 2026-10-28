@@ -35,13 +35,7 @@ audit_engine <- function(x, ...) {
 
 #' @export
 audit_engine.default <- function(x, ...) {
-  stop(
-    sprintf(
-      "No `audit_engine()` method exists for objects of class: %s.",
-      paste(class(x), collapse = ", ")
-    ),
-    call. = FALSE
-  )
+  s3_method_not_available("audit_engine", class = class(x))
 }
 
 #' @export

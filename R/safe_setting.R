@@ -36,19 +36,13 @@ safe_setting <- function(x, ...) {
 # @rdname safe_setting
 #' @export
 safe_setting.default <- function(x, ...) {
-  stop(
-    "Unknown class, please try either a file path or",
-    " an object with `rocrate` class!"
-  )
+  s3_method_not_available("safe_setting", class = class(x))
 }
 
 #' @rdname safe_setting
 #' @export
 safe_setting.ArmadilloCredentials <- function(x, ...) {
-  stop(
-    "`safe_setting()` for the Armadillo backend is not currently implemented!",
-    call. = FALSE
-  )
+  s3_method_not_implemented("safe_setting", backend = "Armadillo")
 }
 
 #' @rdname safe_setting

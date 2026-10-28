@@ -24,35 +24,20 @@ check_permissions <- function(x, ...) {
 # @rdname check_permissions
 #' @export
 check_permissions.default <- function(x, ...) {
-  stop(
-    sprintf(
-      paste0(
-        "No `check_permissions()` method exists for objects of class: %s.\n",
-        "Please provide a supported backend connection object."
-      ),
-      paste(class(x), collapse = ", ")
-    ),
-    call. = FALSE
-  )
+  s3_method_not_available("check_permissions", class = class(x))
 }
 
 #' @rdname check_permissions
 #' @export
 check_permissions.ArmadilloCredentials <- function(x, ...) {
-  stop(
-    paste0(
-      "`check_permissions()` for the Armadillo backend is ",
-      "not currently implemented!"
-    ),
-    call. = FALSE
-  )
+  s3_method_not_implemented("check_permissions", backend = "Armadillo")
 }
 
 #' @rdname check_permissions
 #' @export
 check_permissions.opal <- function(x, ..., verbose = FALSE) {
   # check if the backend user has at least audit permissions
-  res <- backend_can_audit(x, role = FALSE)
+  res <- backend_can_audit(x)
 
   if (isTRUE(res$ok)) {
     if (verbose) {
