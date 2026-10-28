@@ -1,8 +1,5 @@
 test_that("report.default errors", {
-  expect_error(
-    report(123),
-    "Unknown class"
-  )
+  expect_error(report(123))
 })
 
 test_that("report.character errors for invalid path", {

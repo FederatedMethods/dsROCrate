@@ -3,7 +3,7 @@ s3_method_not_available <- function(generic, backend = NULL, class = NULL) {
   if (!is.null(backend)) {
     msg <- sprintf("%s for the %s backend", msg, backend)
   } else if (!is.null(class)) {
-    class <- paste(class(x), collapse = ", ")
+    class <- paste(class, collapse = ", ")
     msg <- sprintf("%s for objects of class: %s", msg, class)
   }
   stop(paste0(msg, "!"), call. = FALSE)
