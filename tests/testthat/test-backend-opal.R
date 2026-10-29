@@ -151,7 +151,7 @@ test_that("a crating session validates once and reuses the context flag", {
 
   # Initialisation validates the connection before marking the crate context.
   expect_invisible(validate_backend(con, rocrate = crate))
-  crate <- set_crate_context(crate, connection = con)
+  crate <- set_crate_context(crate, connection = con, validated = TRUE)
 
   # Subsequent operations in the same session reuse the validation result.
   expect_invisible(validate_backend(con, rocrate = crate))

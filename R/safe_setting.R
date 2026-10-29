@@ -50,13 +50,13 @@ safe_setting.ArmadilloCredentials <- function(x, ...) {
 safe_setting.character <- function(
   x,
   ...,
-  connection = attr(x, "connection"),
-  path = attr(x, "path"),
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
-  tables = attr(x, "tables"),
-  resources = attr(x, "resources"),
-  user = attr(x, "user")
+  connection = NULL,
+  path = NULL,
+  profile = "default",
+  project = NULL,
+  resources = NULL,
+  tables = NULL,
+  user = NULL
 ) {
   # attempt loading the RO-Crate
   rocrate <- rocrateR::load_rocrate(x)
@@ -345,7 +345,8 @@ safe_setting.opal <- function(
       project = project,
       resources = resources,
       tables = tables,
-      user = user
+      user = user,
+      validated = TRUE
     )
 
   # return RO-Crate with the new entity
@@ -357,13 +358,13 @@ safe_setting.opal <- function(
 safe_setting.rocrate <- function(
   x,
   ...,
-  connection = attr(x, "connection"),
-  path = attr(x, "path"),
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
-  resources = attr(x, "resources"),
-  tables = attr(x, "tables"),
-  user = attr(x, "user")
+  connection = get_crate_context(x, "connection"),
+  path = get_crate_context(x, "path"),
+  profile = get_crate_context(x, "profile"),
+  project = get_crate_context(x, "project"),
+  resources = get_crate_context(x, "resources"),
+  tables = get_crate_context(x, "tables"),
+  user = get_crate_context(x, "user")
 ) {
   # check if the connection was given
   if (is.null(connection)) {
