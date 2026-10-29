@@ -57,7 +57,11 @@ audit <- function(x, ...) {
 
 #' @export
 audit.default <- function(x, ...) {
-  s3_method_not_available("audit", class = class(x))
+  s3_method_not_available(
+    "audit",
+    class = class(x),
+    hint = "Please provide a supported backend connection object."
+  )
 }
 
 #' @rdname audit

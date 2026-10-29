@@ -24,7 +24,11 @@ check_permissions <- function(x, ...) {
 # @rdname check_permissions
 #' @export
 check_permissions.default <- function(x, ...) {
-  s3_method_not_available("check_permissions", class = class(x))
+  s3_method_not_available(
+    "check_permissions",
+    class = class(x),
+    hint = "Please provide a supported backend connection object."
+  )
 }
 
 #' @rdname check_permissions

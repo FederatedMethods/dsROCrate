@@ -54,7 +54,11 @@ report.character <- function(
 # @rdname report
 #' @export
 report.default <- function(x, ...) {
-  s3_method_not_available("report", class = class(x))
+  s3_method_not_available(
+    "report",
+    class = class(x),
+    hint = "Please try either a file path or an object with `rocrate` class."
+  )
 }
 
 #' @rdname report

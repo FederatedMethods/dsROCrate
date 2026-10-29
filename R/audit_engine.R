@@ -35,7 +35,11 @@ audit_engine <- function(x, ...) {
 
 #' @export
 audit_engine.default <- function(x, ...) {
-  s3_method_not_available("audit_engine", class = class(x))
+  s3_method_not_available(
+    "audit_engine",
+    class = class(x),
+    hint = "Please provide a supported backend connection object."
+  )
 }
 
 #' @export
