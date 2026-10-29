@@ -14,6 +14,7 @@ Tools for wrapping 'DataSHIELD' analyses into RO-Crate (Research Object Crate) o
 Useful links:
 \itemize{
   \item \url{https://github.com/FederatedMethods/dsROCrate}
+  \item \url{https://federatedmethods.github.io/dsROCrate}
   \item Report bugs at \url{https://github.com/FederatedMethods/dsROCrate/issues}
 }
 

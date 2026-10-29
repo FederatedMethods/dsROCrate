@@ -22,13 +22,13 @@ safe_setting(x, ...)
 \method{safe_setting}{character}(
   x,
   ...,
-  connection = attr(x, "connection"),
-  path = attr(x, "path"),
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
-  tables = attr(x, "tables"),
-  resources = attr(x, "resources"),
-  user = attr(x, "user")
+  connection = NULL,
+  path = NULL,
+  profile = "default",
+  project = NULL,
+  resources = NULL,
+  tables = NULL,
+  user = NULL
 )
 
 \method{safe_setting}{cr8tor}(x, ..., rocrate = rocrateR::rocrate_5s())
@@ -48,13 +48,13 @@ safe_setting(x, ...)
 \method{safe_setting}{rocrate}(
   x,
   ...,
-  connection = attr(x, "connection"),
-  path = attr(x, "path"),
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
-  resources = attr(x, "resources"),
-  tables = attr(x, "tables"),
-  user = attr(x, "user")
+  connection = get_crate_context(x, "connection"),
+  path = get_crate_context(x, "path"),
+  profile = get_crate_context(x, "profile"),
+  project = get_crate_context(x, "project"),
+  resources = get_crate_context(x, "resources"),
+  tables = get_crate_context(x, "tables"),
+  user = get_crate_context(x, "user")
 )
 }
 \arguments{
@@ -78,13 +78,13 @@ the RO-Crate returned by this function.}
 
 \item{project}{String with the name of the \link[=safe_project]{Safe Project}.}
 
-\item{tables}{Vector of strings with the names of the tables/datasets, part
-of \code{project}. Optional, if not provided, all the tables/datasets
-associated to \code{project} will be included in the RO-Crate.}
-
 \item{resources}{Vector of strings with the names of the resources, part of
 \code{project}. Optional, if not provided, all the resources associated to
 \code{project} will be included in the RO-Crate.}
+
+\item{tables}{Vector of strings with the names of the tables/datasets, part
+of \code{project}. Optional, if not provided, all the tables/datasets
+associated to \code{project} will be included in the RO-Crate.}
 
 \item{user}{List (or \link[rocrateR:entity]{entity} object) with details for
 the Safe People, it must include \verb{@id} and \code{name} entries. Alternatively,

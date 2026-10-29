@@ -21,15 +21,15 @@ safe_output(x, ...)
 \method{safe_output}{character}(
   x,
   ...,
-  path = attr(x, "path"),
-  user = attr(x, "user"),
   logs_to = Sys.time(),
   logs_from = logs_to - 24 * 60^2,
-  connection = attr(x, "connection"),
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
-  resources = attr(x, "resources"),
-  tables = attr(x, "tables")
+  connection = NULL,
+  path = NULL,
+  profile = "default",
+  project = NULL,
+  resources = NULL,
+  tables = NULL,
+  user = NULL
 )
 
 \method{safe_output}{opal}(
@@ -49,15 +49,15 @@ safe_output(x, ...)
 \method{safe_output}{rocrate}(
   x,
   ...,
-  path = attr(x, "path"),
-  user = attr(x, "user"),
   logs_to = Sys.time(),
   logs_from = logs_to - 24 * 60^2,
-  connection = attr(x, "connection"),
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
-  resources = attr(x, "resources"),
-  tables = attr(x, "tables")
+  connection = get_crate_context(x, "connection"),
+  path = get_crate_context(x, "path"),
+  profile = get_crate_context(x, "profile"),
+  project = get_crate_context(x, "project"),
+  resources = get_crate_context(x, "resources"),
+  tables = get_crate_context(x, "tables"),
+  user = get_crate_context(x, "user")
 )
 }
 \arguments{
@@ -69,14 +69,6 @@ RO-Crate.}
 \item{...}{Further arguments passed on to the methods, which are documented
 as separate arguments below.}
 
-\item{path}{String with path pointing to the root of the RO-Crate. This will
-be used to store log files. If not provided, logs will be stored within
-the RO-Crate returned by this function.}
-
-\item{user}{List (or \link[rocrateR:entity]{entity} object) with details for
-the Safe People, it must include \verb{@id} and \code{name} entries. Alternatively,
-this can be a string with the \code{name} of the current user.}
-
 \item{logs_to}{Upper limit timestamp to filter out the outputs generated
 (default: \code{Sys.time()}, current system time).}
 
@@ -86,6 +78,10 @@ this can be a string with the \code{name} of the current user.}
 \item{connection}{Connection object for the 'DataSHIELD' server where the
 values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is
 set to a connection object. If so, then \code{rocrate} is required.}
+
+\item{path}{String with path pointing to the root of the RO-Crate. This will
+be used to store log files. If not provided, logs will be stored within
+the RO-Crate returned by this function.}
 
 \item{profile}{String with profile name.}
 
@@ -98,6 +94,10 @@ set to a connection object. If so, then \code{rocrate} is required.}
 \item{tables}{Vector of strings with the names of the tables/datasets, part
 of \code{project}. Optional, if not provided, all the tables/datasets
 associated to \code{project} will be included in the RO-Crate.}
+
+\item{user}{List (or \link[rocrateR:entity]{entity} object) with details for
+the Safe People, it must include \verb{@id} and \code{name} entries. Alternatively,
+this can be a string with the \code{name} of the current user.}
 
 \item{rocrate}{RO-Crate object. Optional, if \code{x} is either an RO-Crate
 object or a path to a valid RO-Crate. If so, then \code{connection} is

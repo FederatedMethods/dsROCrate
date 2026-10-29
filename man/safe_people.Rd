@@ -21,16 +21,16 @@ safe_people(x, ...)
 \method{safe_people}{character}(
   x,
   ...,
-  user = attr(x, "user"),
-  user_id_suffix = "#person:",
   set_author = TRUE,
   set_project = TRUE,
-  connection = attr(x, "connection"),
-  path = attr(x, "path"),
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
-  resources = attr(x, "resources"),
-  tables = attr(x, "tables")
+  user_id_suffix = "#person:",
+  connection = NULL,
+  path = NULL,
+  profile = "default",
+  project = NULL,
+  resources = NULL,
+  tables = NULL,
+  user = NULL
 )
 
 \method{safe_people}{opal}(
@@ -51,16 +51,16 @@ safe_people(x, ...)
 \method{safe_people}{rocrate}(
   x,
   ...,
-  user = attr(x, "user"),
-  user_id_suffix = "#person:",
   set_author = TRUE,
   set_project = TRUE,
-  connection = attr(x, "connection"),
-  path = attr(x, "path"),
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
-  resources = attr(x, "resources"),
-  tables = attr(x, "tables")
+  user_id_suffix = "#person:",
+  connection = get_crate_context(x, "connection"),
+  path = get_crate_context(x, "path"),
+  profile = get_crate_context(x, "profile"),
+  project = get_crate_context(x, "project"),
+  resources = get_crate_context(x, "resources"),
+  tables = get_crate_context(x, "tables"),
+  user = get_crate_context(x, "user")
 )
 }
 \arguments{
@@ -72,18 +72,14 @@ RO-Crate.}
 \item{...}{Further arguments passed on to the methods, which are documented
 as separate arguments below.}
 
-\item{user}{List (or \link[rocrateR:entity]{entity} object) with details for
-the Safe People, it must include \verb{@id} and \code{name} entries. Alternatively,
-this can be a string with the \code{name} of the current user.}
-
-\item{user_id_suffix}{String with ID suffix for the people/user
-entities in the RO-Crate (default: \code{"#person:"}).}
-
 \item{set_author}{Boolean flag to indicate if the current user should be
 set as the author of the RO-Crate.}
 
 \item{set_project}{Boolean flag to indicate if any \code{Project} entities found
 in \code{x} should be linked to the Safe People entity.}
+
+\item{user_id_suffix}{String with ID suffix for the people/user
+entities in the RO-Crate (default: \code{"#person:"}).}
 
 \item{connection}{Connection object for the 'DataSHIELD' server where the
 values will be extracted from (e.g., OBiBa's Opal). Optional, if \code{x} is
@@ -104,6 +100,10 @@ the RO-Crate returned by this function.}
 \item{tables}{Vector of strings with the names of the tables/datasets, part
 of \code{project}. Optional, if not provided, all the tables/datasets
 associated to \code{project} will be included in the RO-Crate.}
+
+\item{user}{List (or \link[rocrateR:entity]{entity} object) with details for
+the Safe People, it must include \verb{@id} and \code{name} entries. Alternatively,
+this can be a string with the \code{name} of the current user.}
 
 \item{rocrate}{RO-Crate object. Optional, if \code{x} is either an RO-Crate
 object or a path to a valid RO-Crate. If so, then \code{connection} is

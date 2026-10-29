@@ -33,15 +33,15 @@ safe_project(x, ...)
 \method{safe_project}{character}(
   x,
   ...,
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
   asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
-  connection = attr(x, "connection"),
-  path = attr(x, "path"),
-  resources = attr(x, "resources"),
-  tables = attr(x, "tables"),
-  user = attr(x, "user")
+  connection = NULL,
+  path = NULL,
+  profile = "default",
+  project = NULL,
+  resources = NULL,
+  tables = NULL,
+  user = NULL
 )
 
 \method{safe_project}{opal}(
@@ -61,15 +61,15 @@ safe_project(x, ...)
 \method{safe_project}{rocrate}(
   x,
   ...,
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
   asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
-  connection = attr(x, "connection"),
-  path = attr(x, "path"),
-  resources = attr(x, "resources"),
-  tables = attr(x, "tables"),
-  user = attr(x, "user")
+  connection = get_crate_context(x, "connection"),
+  path = get_crate_context(x, "path"),
+  profile = get_crate_context(x, "profile"),
+  project = get_crate_context(x, "project"),
+  resources = get_crate_context(x, "resources"),
+  tables = get_crate_context(x, "tables"),
+  user = get_crate_context(x, "user")
 )
 }
 \arguments{

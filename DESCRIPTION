@@ -57,6 +57,6 @@ Imports:
 Depends: 
     R (>= 4.1.0)
 VignetteBuilder: knitr
-URL: https://federatedmethods.github.io/dsROCrate
+URL: https://github.com/FederatedMethods/dsROCrate, https://federatedmethods.github.io/dsROCrate
 BugReports: https://github.com/FederatedMethods/dsROCrate/issues
 Config/roxygen2/version: 8.1.0

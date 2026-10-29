@@ -1,5 +1,31 @@
 # dsROCrate (development version)
 
+## Bug fixes
+
+* Restored the internal `%||%` helper, removed in 0.2.4. Base R only provides
+  `%||%` from 4.4.0, so the Opal workflow failed on R 4.1 to 4.3. Tables and
+  resources without a description get the fallback description again (it had
+  become an empty string).
+* Fixed `dateCreated`/`dateModified` of tables and resources being shifted by
+  the local UTC offset.
+* `dateModified` of the `safe_output()` entities is now a UTC string, and the
+  time stamps in the log file names use UTC.
+
+## Changes
+
+* Errors for unsupported classes and not yet implemented backends are now
+  consistent across `audit()`, `check_permissions()`, `init()`, `report()` and
+  the `safe_*()` functions.
+* `report()`: the date in the report header is now in UTC.
+
+## Internal Changes
+
+* Added `backend_can_audit()`, replacing `is_admin_con()` and `is_audit_con()`:
+  checking that a connection can audit now takes 1 request instead of 4.
+* `validate_backend()` skips the checks when the RO-Crate was already validated
+  for the same connection, so `audit()` and `init() |> safe_*()` validate once.
+* Added `backend_name()`, `set_crate_context()` and shared error helpers.
+
 # dsROCrate 0.2.4
 
 ## Bug fixes

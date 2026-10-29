@@ -21,15 +21,15 @@ safe_data(x, ...)
 \method{safe_data}{character}(
   x,
   ...,
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
-  resources = attr(x, "resources"),
-  tables = attr(x, "tables"),
   asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
-  connection = attr(x, "connection"),
-  path = attr(x, "path"),
-  user = attr(x, "user")
+  connection = NULL,
+  path = NULL,
+  profile = "default",
+  project = NULL,
+  resources = NULL,
+  tables = NULL,
+  user = NULL
 )
 
 \method{safe_data}{opal}(
@@ -50,15 +50,15 @@ safe_data(x, ...)
 \method{safe_data}{rocrate}(
   x,
   ...,
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
-  resources = attr(x, "resources"),
-  tables = attr(x, "tables"),
   asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
-  connection = attr(x, "connection"),
-  path = attr(x, "path"),
-  user = attr(x, "user")
+  connection = get_crate_context(x, "connection"),
+  path = get_crate_context(x, "path"),
+  profile = get_crate_context(x, "profile"),
+  project = get_crate_context(x, "project"),
+  resources = get_crate_context(x, "resources"),
+  tables = get_crate_context(x, "tables"),
+  user = get_crate_context(x, "user")
 )
 }
 \arguments{
@@ -69,18 +69,6 @@ RO-Crate.}
 
 \item{...}{Further arguments passed on to the methods, which are documented
 as separate arguments below.}
-
-\item{profile}{String with profile name.}
-
-\item{project}{String with the name of the \link[=safe_project]{Safe Project}.}
-
-\item{resources}{Vector of strings with the names of the resources, part of
-\code{project}. Optional, if not provided, all the resources associated to
-\code{project} will be included in the RO-Crate.}
-
-\item{tables}{Vector of strings with the names of the tables/datasets, part
-of \code{project}. Optional, if not provided, all the tables/datasets
-associated to \code{project} will be included in the RO-Crate.}
 
 \item{asset_id_suffix}{String with ID suffix for the tables/datasets
 entities in the RO-Crate (default: \code{"#asset:"}).}
@@ -95,6 +83,18 @@ set to a connection object. If so, then \code{rocrate} is required.}
 \item{path}{String with path pointing to the root of the RO-Crate. This will
 be used to store log files. If not provided, logs will be stored within
 the RO-Crate returned by this function.}
+
+\item{profile}{String with profile name.}
+
+\item{project}{String with the name of the \link[=safe_project]{Safe Project}.}
+
+\item{resources}{Vector of strings with the names of the resources, part of
+\code{project}. Optional, if not provided, all the resources associated to
+\code{project} will be included in the RO-Crate.}
+
+\item{tables}{Vector of strings with the names of the tables/datasets, part
+of \code{project}. Optional, if not provided, all the tables/datasets
+associated to \code{project} will be included in the RO-Crate.}
 
 \item{user}{List (or \link[rocrateR:entity]{entity} object) with details for
 the Safe People, it must include \verb{@id} and \code{name} entries. Alternatively,
