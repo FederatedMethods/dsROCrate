@@ -71,7 +71,8 @@ init.opal <- function(
       project = project,
       resources = resources,
       tables = tables,
-      user = user
+      user = user,
+      validated = TRUE
     )
 
   return(rocrate)
@@ -82,13 +83,13 @@ init.opal <- function(
 init.rocrate <- function(
   x,
   ...,
-  connection = attr(x, "connection"),
-  path = attr(x, "path"),
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
-  resources = attr(x, "resources"),
-  tables = attr(x, "tables"),
-  user = attr(x, "user")
+  connection = get_crate_context(x, "connection"),
+  path = get_crate_context(x, "path"),
+  profile = get_crate_context(x, "profile"),
+  project = get_crate_context(x, "project"),
+  resources = get_crate_context(x, "resources"),
+  tables = get_crate_context(x, "tables"),
+  user = get_crate_context(x, "user")
 ) {
   init(
     connection,
