@@ -66,7 +66,8 @@ get_crate_context <- function(rocrate, which = NULL) {
     "project",
     "resources",
     "tables",
-    "user"
+    "user",
+    "backend_validated"
   )
   if (is.null(which)) {
     ctx <- attrs |>
