@@ -205,10 +205,11 @@ report.list <- function(
     # extract current RO-Crate
     rocrate <- x[i][[1]]
     # check if the input object has a `path` attribute
-    if (!is.null(attr(rocrate, "path"))) {
+    roc_path <- get_crate_context(rocrate, "path")
+    if (!is.null(roc_path)) {
       # check if any of the entities with `@type = 'File'` have empty `content`
       rocrate <- rocrate |>
-        load_content(roc_path = attr(rocrate, "path"))
+        load_content(roc_path = roc_path)
     }
 
     report_contents <- .markdown_report_rocrate(
@@ -347,10 +348,11 @@ report.rocrate <- function(
   }
 
   # check if the input object has a `path` attribute
-  if (!is.null(attr(x, "path"))) {
+  roc_path <- get_crate_context(x, "path")
+  if (!is.null(roc_path)) {
     # check if any of the entities with `@type = 'File'` have empty `content`
     x <- x |>
-      load_content(roc_path = attr(x, "path"))
+      load_content(roc_path = roc_path)
   }
 
   # pre-processing ----
