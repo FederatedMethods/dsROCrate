@@ -36,13 +36,11 @@ calls_to_tbl <- function(calls, registry) {
       fx = paste0(x$package, x$namespace, x$fx),
       args = list(x$args),
       symbol = NA_character_,
-      table = x$args |>
-        purrr::map(function(x) {
-          if (!inherits(x, "safe_reference")) {
-            return(NA_character_)
-          }
-          resolve_symbol_asset(x$symbol_id, registry)
-        }),
+      table = list(
+        x$args |>
+          purrr::keep(\(arg) inherits(arg, "safe_reference")) |>
+          purrr::map_chr(\(arg) resolve_symbol_asset(arg$symbol_id, registry))
+      ),
       session = x$session,
       profile = x$profile
     )
