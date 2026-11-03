@@ -59,4 +59,4 @@ Depends:
 VignetteBuilder: knitr
 URL: https://github.com/FederatedMethods/dsROCrate, https://federatedmethods.github.io/dsROCrate
 BugReports: https://github.com/FederatedMethods/dsROCrate/issues
-Config/roxygen2/version: 8.1.0
+Config/roxygen2/version: 8.1.1

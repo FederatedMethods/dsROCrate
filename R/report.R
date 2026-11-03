@@ -895,9 +895,9 @@ report.rocrate <- function(
     "  - \\usepackage[breakable]{tcolorbox}\n",
     "  - \\usepackage{tcolorbox}\n",
     "  - \\tcbuselibrary{breakable}\n",
-    "  - \\renewenvironment{Shaded}{\\begin{tcolorbox}[breakable,boxrule=0pt,",
-    "colback=gray!10]}{\\end{tcolorbox}}\n",
-    paste0("date: ", format(Sys.time(), '%Y-%m-%d %H:%M:%S', tz = "UTC")),
+    "  - \\renewenvironment{Shaded}{\\begin{tcolorbox}[breakable, boxrule = 0pt, ",
+    "colback = gray!10]}{\\end{tcolorbox}}\n",
+    paste0("date: ", format(Sys.time(), "%Y-%m-%d %H:%M:%S", tz = "UTC")),
     "\n---\n",
     paste0(
       "This report contains details for ",
@@ -932,7 +932,7 @@ report.rocrate <- function(
     paste0(
       "\\begin{figure}[H]\n",
       "\\centering\n",
-      "\\includegraphics[height=0.75\\textheight, keepaspectratio, width=0.9\\textwidth]{",
+      "\\includegraphics[height = 0.75\\textheight, keepaspectratio, width = 0.9\\textwidth]{",
       diagram_filepath,
       "}",
       "\\caption{RO-Crate Overview}\n",

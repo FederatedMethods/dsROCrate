@@ -544,7 +544,7 @@ extract_user_groups_cr8tor <- function(bundle) {
 
   purrr::map(user_docs, function(doc) {
     username <- doc$spec$username
-    groups <- doc$spec$groups #%||% list()
+    groups <- doc$spec$groups # %||% list()
 
     if (length(groups) == 0) {
       return(NULL)
@@ -580,7 +580,7 @@ extract_user_projects_cr8tor <- function(bundle) {
 
   purrr::map(user_docs, function(doc) {
     username <- doc$spec$username
-    groups <- doc$spec$groups # %||% list()
+    groups <- doc$spec$groups
 
     if (length(groups) == 0) {
       return(NULL)
