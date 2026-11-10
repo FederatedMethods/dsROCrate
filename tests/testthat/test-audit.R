@@ -65,11 +65,11 @@ test_that("audit.opal passes project/user/log args through to audit_engine", {
   local_mocked_bindings(
     `audit_engine.opal` = function(
       x,
-      ...,
-      project = NULL,
-      user = NULL,
-      logs_from = -Inf,
-      logs_to = Inf,
+                                   ...,
+                                   project = NULL,
+                                   user = NULL,
+                                   logs_from = -Inf,
+                                   logs_to = Inf,
       path = NULL
     ) {
       captured$project <- project

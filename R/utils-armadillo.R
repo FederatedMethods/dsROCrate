@@ -10,7 +10,7 @@
 #'
 #' @examples
 #' \dontrun{
-#'   armadillo_login("https://armadillo-playground.molgenis.net/")
+#' armadillo_login("https://armadillo-playground.molgenis.net/")
 #' }
 armadillo_login <- function(server) {
   conn <- DSMolgenisArmadillo::armadillo.get_credentials(server)

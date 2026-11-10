@@ -101,27 +101,33 @@ add_lineage_relations <- function(rocrate, lineage_df, id_lookup) {
 build_asset_entities <- function(assets_tbl, project_id, asset_id_suffix) {
   purrr::pmap(
     assets_tbl,
-    function(
-      asset_type,
-      project,
-      name,
-      description,
-      created,
-      updated,
-      url,
-      meta
-    ) {
-      rocrateR::entity(
-        id = id_hash(asset_id_suffix, paste0(project, name)),
-        type = map_asset_type(asset_type, meta, url),
-        name = name,
-        description = safe_desc(description, name, asset_type),
-        url = url,
-        dateCreated = safe_time(created),
-        dateModified = safe_time(updated),
-        isPartOf = list(`@id` = project_id)
-      )
-    }
+    .build_asset_entities,
+    project_id = project_id,
+    asset_id_suffix = asset_id_suffix
+  )
+}
+
+.build_asset_entities <- function(
+  asset_type,
+  project,
+  name,
+  description,
+  created,
+  updated,
+  url,
+  meta,
+  project_id,
+  asset_id_suffix
+) {
+  rocrateR::entity(
+    id = id_hash(asset_id_suffix, paste0(project, name)),
+    type = map_asset_type(asset_type, meta, url),
+    name = name,
+    description = safe_desc(description, name, asset_type),
+    url = url,
+    dateCreated = safe_time(created),
+    dateModified = safe_time(updated),
+    isPartOf = list(`@id` = project_id)
   )
 }
 

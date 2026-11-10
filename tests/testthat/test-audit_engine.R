@@ -61,10 +61,10 @@ test_that("audit_engine.opal orchestrates the 5 Safes steps correctly", {
   local_mocked_bindings(
     `safe_people.rocrate` = function(
       x,
-      ...,
-      connection,
-      user,
-      set_author = TRUE,
+                                     ...,
+                                     connection,
+                                     user,
+                                     set_author = TRUE,
       set_project = TRUE
     ) {
       calls$safe_people <- c(calls$safe_people, user)
@@ -80,11 +80,11 @@ test_that("audit_engine.opal orchestrates the 5 Safes steps correctly", {
     },
     `safe_output.rocrate` = function(
       x,
-      ...,
-      connection,
-      user,
-      logs_from,
-      logs_to,
+                                     ...,
+                                     connection,
+                                     user,
+                                     logs_from,
+                                     logs_to,
       path = NULL
     ) {
       calls$safe_output <- c(calls$safe_output, user)
@@ -133,10 +133,10 @@ test_that("audit_engine.opal filters Safe People by the `user` argument", {
   local_mocked_bindings(
     `safe_people.rocrate` = function(
       x,
-      ...,
-      connection,
-      user,
-      set_author = TRUE,
+                                     ...,
+                                     connection,
+                                     user,
+                                     set_author = TRUE,
       set_project = TRUE
     ) {
       calls$safe_people <- c(calls$safe_people, user)

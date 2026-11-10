@@ -14,4 +14,6 @@
 ^CRAN-SUBMISSION$
 ^\.positai$
 ^\.claude$
+^sonar-fixes\.json$
+^quality\.html$
 ^\.lintr$
