@@ -18,7 +18,7 @@ SERVER <- "https://opal-demo.obiba.org"
 
 # The examples need OBiBa's public Opal demo server. If it cannot be reached
 # (e.g., when building offline), the code is shown but not run.
-demo_available <- local({
+demo <- local({
   old <- options(timeout = 5)
   on.exit(options(old))
   tryCatch(
@@ -31,7 +31,7 @@ demo_available <- local({
     warning = function(w) FALSE
   )
 })
-knitr::opts_chunk$set(eval = demo_available)
+knitr::opts_chunk$set(eval = demo)
 
 # the DataSHIELD client packages are only needed to generate some activity
 ds_clients_available <- all(
@@ -116,7 +116,7 @@ recent activity from the audited user. If you are using your own server and
 already have activity, skip this section. Here we log in as `dsuser`, assign
 a table and run two functions:
 
-```{r activity, eval = demo_available && ds_clients_available, results = "hide"}
+```{r activity, eval = demo && ds_clients_available, results = "hide"}
 # registers the OpalDriver class in the current session
 DSOpal::Opal()
 
@@ -229,7 +229,7 @@ path_to_rocrate_bag <- crate |>
 
 and its contents explored with:
 
-```{r unbag, eval = demo_available && requireNamespace("fs", quietly = TRUE)}
+```{r unbag, eval = demo && requireNamespace("fs", quietly = TRUE)}
 path_to_rocrate_bag |>
   rocrateR::unbag_rocrate(
     output = file.path(tmp_path_bag, "ROC"),

@@ -66,10 +66,10 @@ test_that("extract_safe_people.opal excludes admin and administrator users", {
   local_mocked_bindings(
     `safe_people.rocrate` = function(
       x,
-                                     ...,
-                                     connection,
-                                     user,
-                                     set_author = TRUE,
+      ...,
+      connection,
+      user,
+      set_author = TRUE,
       set_project = TRUE
     ) {
       calls$safe_people <- c(
