@@ -10,7 +10,7 @@
 \source{
 \itemize{
 \item Research Data Scotland, 2025. "What is the Five Safes framework?".
-\url{https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/}
+\url{https://www.researchdata.scot/engage-and-learn/data-explainers/}
 }
 }
 \usage{
@@ -123,6 +123,6 @@ This means any sensitive information that might lead to an individual being
 identified, such as names and addresses, is either removed or replaced with
 a random code. Researchers are not processing personal data when using data
 prepared in this way and when the other Safes are in place. Find out more
-about de-identification:
-\url{https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-data-de-identification/}
+about de-identification, 'What is data de-identification?':
+\url{https://www.researchdata.scot/engage-and-learn/data-explainers/}
 }

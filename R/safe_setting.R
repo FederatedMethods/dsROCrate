@@ -27,7 +27,7 @@
 #' @source
 #' \itemize{
 #'  \item Research Data Scotland, 2025. "What is the Five Safes framework?".
-#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/>
+#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/>
 #' }
 safe_setting <- function(x, ...) {
   UseMethod("safe_setting")
@@ -231,7 +231,7 @@ safe_setting.opal <- function(
   )
 
   # extract version of dsBase / DataSHIELD server
-  dsBase_version <- tryCatch(
+  ds_version <- tryCatch(
     pkg_tbl |>
       dplyr::filter(Package == "dsBase") |>
       (\(x) x$Version)(),
@@ -239,7 +239,7 @@ safe_setting.opal <- function(
   )
 
   software_env <- rocrateR::entity(
-    id = id_hash("#env:software_stack:", paste0(opal_version, dsBase_version)),
+    id = id_hash("#env:software_stack:", paste0(opal_version, ds_version)),
     type = "CreativeWork",
     name = "Approved Analytical Software Environment",
     description = paste(
@@ -336,8 +336,8 @@ safe_setting.opal <- function(
   # link Safe Settings with safe Projects
   rocrate <- link_safe_settings_to_projects(rocrate)
 
-  # attach input arguments as attributes
-  rocrate <- rocrate |>
+  # attach input arguments as attributes and return RO-Crate
+  rocrate |>
     set_crate_context(
       connection = x,
       path = path,
@@ -348,9 +348,6 @@ safe_setting.opal <- function(
       user = user,
       validated = TRUE
     )
-
-  # return RO-Crate with the new entity
-  return(rocrate)
 }
 
 #' @rdname safe_setting

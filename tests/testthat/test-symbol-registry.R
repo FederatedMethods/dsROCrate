@@ -17,7 +17,7 @@ test_that("register_symbol adds a symbol to an empty registry", {
   expect_equal(registry$symbols$version, 1L)
 })
 
-test_that("as.data.frame.symbol_registry does not error on a populated registry", {
+test_that("as.data.frame.symbol_registry does not error on a pop. registry", {
   # regression test: as.data.frame.symbol_registry previously used
   # `lapply(x$symbols, function(sym) ...)`, which iterates over the
   # *columns* of the underlying tibble rather than its rows, so `sym`
@@ -41,7 +41,7 @@ test_that("as.data.frame.symbol_registry does not error on a populated registry"
   expect_equal(nrow(res), 1)
 })
 
-test_that("as.data.frame.symbol_registry returns the expected, correctly-populated columns", {
+test_that("as.data.frame.symbol_registry returns the expected cols", {
   # regression test: the id column was previously populated from
   # `sym$symbol` instead of `sym$id`, and the method referenced
   # non-existent `parent`/`column` fields.
@@ -80,7 +80,7 @@ test_that("as.data.frame.symbol_registry returns the expected, correctly-populat
   expect_false(identical(res$id, res$symbol))
 })
 
-test_that("as.data.frame.symbol_registry returns an empty data frame for an empty registry", {
+test_that("as.data.frame.symbol_registry handles empty registries", {
   registry <- symbol_registry()
 
   res <- as.data.frame(registry)

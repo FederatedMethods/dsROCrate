@@ -1,4 +1,4 @@
-test_that("extract_safe_people.opal returns a valid RO-Crate with Person entities", {
+test_that("extract_safe_people.opal returns a valid RO-Crate w/ Person ents", {
   # open connection to OBiBa's Opal demo server
   opal_con <- opal_demo_con()
   # terminate connection when done with tests
@@ -38,7 +38,7 @@ test_that("extract_safe_people.opal updates an existing RO-Crate", {
   opalr::opal.logout(opal_con)
 })
 
-test_that("extract_safe_people.opal excludes admin and administrator accounts", {
+test_that("extract_safe_people.opal excludes admin and administrator users", {
   # the real OBiBa demo server doesn't set the `administrate` permission on
   # its `administrator` account, so this can't be exercised against it -
   # simulate a server where the exclusion actually has something to catch
@@ -93,7 +93,7 @@ test_that("extract_safe_people.opal excludes admin and administrator accounts", 
   expect_s3_class(roc, "rocrate")
 })
 
-test_that("extract_safe_people.opal iterates over all returned subject profiles", {
+test_that("extract_safe_people.opal iterates over all returned profiles", {
   # open connection to OBiBa's Opal demo server
   opal_con <- opal_demo_con()
   # terminate connection when done with tests
@@ -200,7 +200,7 @@ test_that("extract_safe_people.rocrate infers ids from root Dataset author", {
   expect_equal(getElement(ents[[1]], "@id"), "#author1")
 })
 
-test_that("extract_safe_people.rocrate errors when no matching Person entities found", {
+test_that("extract_safe_people.rocrate handles missing Person ents. found", {
   src <- rocrateR::rocrate_5s()
 
   # ignore warning about not finding People entities
@@ -264,7 +264,7 @@ test_that("flatten_safe_people.rocrate filters by id argument", {
   expect_equal(res$person_id, "#p2")
 })
 
-test_that("flatten_safe_people.rocrate returns empty tibble on malformed input", {
+test_that("flatten_safe_people.rocrate handles malformed input", {
   bad_obj <- list() # not a rocrate
 
   res <- flatten_safe_people.rocrate(bad_obj)

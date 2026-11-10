@@ -1,3 +1,5 @@
+#' @importFrom tibble as_tibble
+#' @export
 as_tibble.safe_symbol <- function(x, ...) {
   tibble::tibble(
     id = x$id,

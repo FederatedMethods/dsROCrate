@@ -10,7 +10,7 @@
 \source{
 \itemize{
 \item Research Data Scotland, 2025. "What is the Five Safes framework?".
-\url{https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/}
+\url{https://www.researchdata.scot/engage-and-learn/data-explainers/}
 }
 }
 \usage{

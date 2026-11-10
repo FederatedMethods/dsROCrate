@@ -18,7 +18,7 @@ test_that("safe_output fails when attempt calling with invalid connection", {
   )
 })
 
-test_that("safe_output warns when calling with RO-Crate without Safe People details", {
+test_that("safe_output warns when RO-Crate is missing Safe People details", {
   # setup
   ## open connection to OBiBa's Opal demo server
   opal_con <- opal_demo_con()
@@ -34,7 +34,7 @@ test_that("safe_output warns when calling with RO-Crate without Safe People deta
   opalr::opal.logout(opal_con)
 })
 
-test_that("safe_output warns when attempt setting multiple users as the RO-Crate authors", {
+test_that("safe_output warns when setting multiple users as the authors", {
   # setup
   ## open connection to OBiBa's Opal demo server
   opal_con <- opal_demo_con()

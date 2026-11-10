@@ -2,6 +2,7 @@
 
 S3method(as.data.frame,safe_call)
 S3method(as.data.frame,symbol_registry)
+S3method(as_tibble,safe_symbol)
 S3method(audit,ArmadilloCredentials)
 S3method(audit,character)
 S3method(audit,cr8tor)
@@ -112,4 +113,5 @@ export(safe_people)
 export(safe_project)
 export(safe_setting)
 importFrom(rocrateR,get_entity)
+importFrom(tibble,as_tibble)
 importFrom(utils,write.csv)

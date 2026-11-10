@@ -57,7 +57,7 @@ test_that("set_crate_context() removes the attributes that are set to NULL", {
   expect_null(attr(res, "tables"))
 })
 
-test_that("set_crate_context() preserves attributes that are not part of the context", {
+test_that("set_crate_context() preserves all attributes, not part of context", {
   crate <- structure(list(), class = "rocrate", custom = "keep me")
 
   res <- set_crate_context(crate, user = "dsuser")

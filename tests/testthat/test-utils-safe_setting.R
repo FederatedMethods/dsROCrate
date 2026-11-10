@@ -42,7 +42,7 @@ test_that("flatten_safe_setting.default returns empty tibble", {
 })
 
 # -------------------------------------------------------------------------
-# extract_safe_setting.rocrate()
+# extract_safe_setting.rocrate
 # -------------------------------------------------------------------------
 test_that("extract_safe_setting.rocrate errors when no matching entities", {
   rocrate <- rocrateR::rocrate_5s()
@@ -56,7 +56,7 @@ test_that("extract_safe_setting.rocrate errors when no matching entities", {
   )
 })
 
-test_that("extract_safe_setting.rocrate extracts PropertyValue and SoftwareApplication", {
+test_that("extract_safe_setting.rocrate extracts target entities", {
   # create an RO-Crate with setting entities
   software_ent <- rocrateR::entity(
     id = "#software-1",
@@ -220,7 +220,7 @@ test_that("extract_safe_setting.rocrate validates rocrate input", {
 })
 
 # -------------------------------------------------------------------------
-# flatten_safe_setting.rocrate()
+# flatten_safe_setting.rocrate
 # -------------------------------------------------------------------------
 test_that("flatten_safe_setting.rocrate returns tibble with correct columns", {
   # create an RO-Crate with setting entities
@@ -374,7 +374,7 @@ test_that("extract_safe_setting.opal calls safe_setting and returns rocrate", {
 # -------------------------------------------------------------------------
 # optional TRUE Opal demo integration (matches your demo server workflow)
 # -------------------------------------------------------------------------
-test_that("extract_safe_setting.opal works with Opal demo server (if available)", {
+test_that("extract_safe_setting.opal works with Opal demo server (if avail.)", {
   con <- try(opal_demo_con(), silent = TRUE)
   skip_if(inherits(con, "try-error"), "Opal demo server not available")
 

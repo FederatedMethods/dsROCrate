@@ -421,7 +421,10 @@ user_perm_entity <- function(
   if (permission == "view") {
     comb_id <- paste0(comb_id, "-dict-summary-read")
     type <- "ReadAction"
-    description <- "User may view table dictionary and summary statistics only; access to individual values is restricted."
+    description <- paste(
+      "User may view table dictionary and summary",
+      "statistics only; access to individual values is restricted."
+    )
   } else if (permission == "view-values") {
     comb_id <- paste0(comb_id, "-read-all")
     type <- "ReadAction"
@@ -431,7 +434,10 @@ user_perm_entity <- function(
     type <- c("WriteAction", "ReadAction")
     description <- c(
       "User may edit the table dictionary but cannot view individual values.",
-      "User may view summary statistics only; access to individual values is restricted."
+      paste(
+        "User may view summary statistics only; access to individual",
+        "values is restricted."
+      )
     )
   } else if (permission == "edit-values") {
     comb_id <- paste0(comb_id, c("-write-dict", "-read-all"))
@@ -443,7 +449,10 @@ user_perm_entity <- function(
   } else if (permission == "administrate") {
     comb_id <- paste0(comb_id, "-admin-table")
     type <- "ControlAction"
-    description <- "User has full administrative rights: view/edit dictionary and view/edit individual values."
+    description <- paste(
+      "User has full administrative rights: view/edit",
+      "dictionary and view/edit individual values."
+    )
   } else {
     return(NULL)
   }
@@ -458,11 +467,5 @@ user_perm_entity <- function(
     description = description
   )
 
-  # seq_len(nrow(permission_entities_tbl)) |>
-  #   lapply(function(i) {
-  #     rocrateR::entity(permission_entities_tbl$`id`[i],
-  #                      type = permission_entities_tbl$type[i])
-  #   })
   purrr::pmap(permission_entities_tbl, rocrateR::entity)
-  # rocrateR::entity(as.list(permission_entities_tbl))
 }

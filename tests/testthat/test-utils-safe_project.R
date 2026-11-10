@@ -21,9 +21,8 @@ test_that("flatten_safe_project dispatches default method", {
 })
 
 # -------------------------------------------------------------------------
-# extract_safe_project.rocrate()
+# extract_safe_project.rocrate
 # -------------------------------------------------------------------------
-
 test_that("extract_safe_project.rocrate errors when no project entities", {
   rocrate <- rocrateR::rocrate_5s()
 
@@ -36,7 +35,7 @@ test_that("extract_safe_project.rocrate errors when no project entities", {
   )
 })
 
-test_that("extract_safe_project.rocrate returns rocrate with project entities", {
+test_that("extract_safe_project.rocrate returns rocrate with project ents.", {
   # create an RO-Crate with Project entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
@@ -181,9 +180,8 @@ test_that("extract_safe_project.rocrate adds linked dataset entities", {
 })
 
 # -------------------------------------------------------------------------
-# flatten_safe_project.rocrate()
+# flatten_safe_project.rocrate
 # -------------------------------------------------------------------------
-
 test_that("flatten_safe_project.rocrate returns tibble", {
   # create an RO-Crate with a Project and two Dataset entities
   rocrate <- rocrateR::rocrate_5s() |>

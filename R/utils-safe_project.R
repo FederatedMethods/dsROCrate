@@ -34,7 +34,7 @@ extract_safe_project.opal <- function(
   }
 
   # return RO-Crate with Safe Project details
-  return(rocrate)
+  rocrate
 }
 
 #' @export
@@ -93,7 +93,7 @@ extract_safe_project.rocrate <- function(
   })
 
   # return RO-Crate with the Safe Data details
-  return(rocrate)
+  rocrate
 }
 
 #' Flatten object with Safe Project details
@@ -114,7 +114,7 @@ flatten_safe_project <- function(x, ...) {
 
 #' @export
 flatten_safe_project.default <- function(x, ...) {
-  return(tibble::tibble())
+  tibble::tibble()
 }
 
 #' @export
@@ -146,12 +146,12 @@ flatten_safe_project.rocrate <- function(x, ..., y = x) {
 
             return(proj_assets_tbl)
           }
-          return(tibble::tibble(
+          tibble::tibble(
             project_id = project_id,
             project = project,
             asset_id = NA,
             asset = NA
-          ))
+          )
         }) |>
         dplyr::bind_rows()
     },

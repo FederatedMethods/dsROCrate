@@ -21,7 +21,7 @@ test_that("armadillo_login returns invisible connection object", {
   expect_equal(result, mock_conn)
 })
 
-test_that("armadillo_login calls armadillo.get_credentials with correct server", {
+test_that("armadillo_login calls `get_credentials` with correct server", {
   skip_if_not_installed("MolgenisArmadillo")
 
   called_server <- NULL
@@ -43,8 +43,7 @@ test_that("armadillo_login calls armadillo.get_credentials with correct server",
 # -------------------------------------------------------------------------
 # Side-effect tests: namespace global assignments
 # -------------------------------------------------------------------------
-
-test_that("armadillo_login assigns armadillo_url in MolgenisArmadillo namespace", {
+test_that("armadillo_login assigns armadillo_url in the correct namespace", {
   skip_if_not_installed("MolgenisArmadillo")
 
   pkgenv <- get_pkgenv()

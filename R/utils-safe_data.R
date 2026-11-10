@@ -86,7 +86,7 @@ flatten_safe_data <- function(x, ...) {
 
 #' @export
 flatten_safe_data.default <- function(x, ...) {
-  return(tibble::tibble())
+  tibble::tibble()
 }
 
 #' @export
@@ -97,7 +97,7 @@ flatten_safe_data.rocrate <- function(
   asset_id_suffix = "#asset:"
 ) {
   # local bindings
-  asset_id <- person_id <- NULL
+  asset_id <- NULL
 
   tryCatch(
     {

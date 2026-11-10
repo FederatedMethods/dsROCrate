@@ -18,7 +18,7 @@
 #' @source
 #' \itemize{
 #'  \item Research Data Scotland, 2025. "What is the Five Safes framework?".
-#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/>
+#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/>
 #' }
 safe_project <- function(x, ...) {
   UseMethod("safe_project")
@@ -104,7 +104,7 @@ safe_project.opal <- function(
   user = NULL
 ) {
   # declare local bindings
-  created <- lastUpdate <- type <- NULL
+  type <- NULL
 
   # validate backend
   validate_backend(x, ..., rocrate = rocrate)
@@ -197,8 +197,8 @@ safe_project.opal <- function(
     }
   }
 
-  # attach input arguments as attributes
-  rocrate <- rocrate |>
+  # attach input arguments as attributes and return RO-Crate
+  rocrate |>
     set_crate_context(
       connection = x,
       path = path,
@@ -209,9 +209,6 @@ safe_project.opal <- function(
       user = user,
       validated = TRUE
     )
-
-  # return RO-Crate with the new entity
-  return(rocrate)
 }
 
 #' @rdname safe_project

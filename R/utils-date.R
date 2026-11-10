@@ -22,13 +22,12 @@ parse_utc <- function(x) {
 
   # offset in seconds (no offset or "Z" means UTC)
   digits <- gsub("[^0-9]", "", offset)
+  dig_2 <- as.numeric(substr(digits, 1, 2))
+  dig_3 <- as.numeric(substr(digits, 3, 4)) * 60
   offset_secs <- ifelse(
     offset == "Z",
     0,
-    ifelse(startsWith(offset, "-"), -1, 1) *
-      (as.numeric(substr(digits, 1, 2)) *
-        3600 +
-        as.numeric(substr(digits, 3, 4)) * 60)
+    ifelse(startsWith(offset, "-"), -1, 1) * (dig_2 * 3600 + dig_3)
   )
 
   as.POSIXct(datetime, format = "%Y-%m-%dT%H:%M:%OS", tz = "UTC") - offset_secs

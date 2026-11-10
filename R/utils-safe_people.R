@@ -29,7 +29,7 @@ extract_safe_people.opal <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {
   }
 
   # return RO-Crate with Safe Project details
-  return(rocrate)
+  rocrate
 }
 
 #' @export
@@ -77,18 +77,10 @@ extract_safe_people.rocrate <- function(
     )
   }
 
-  # add entities to the RO-Crate
-  rocrate <- rocrate |>
-    rocrateR::add_entity(entities_lst_v2, overwrite = TRUE, verbose = FALSE)
-  # # link new user entity @id to the root (./) author property
-  # rocrateR::add_entity_value(
-  #   id = "./",
-  #   key = "author",
-  #   value = list(`@id` = getElement(entities_lst_v2, "@id"))
-  # )
-
+  # add entities to the RO-Crate &
   # return RO-Crate with the Safe People details
-  return(rocrate)
+  rocrate |>
+    rocrateR::add_entity(entities_lst_v2, overwrite = TRUE, verbose = FALSE)
 }
 
 #' Filter Safe People (excluding admin/auditor accounts)
@@ -168,7 +160,7 @@ flatten_safe_people <- function(x, ...) {
 
 #' @export
 flatten_safe_people.default <- function(x, ...) {
-  return(tibble::tibble())
+  tibble::tibble()
 }
 
 #' @export

@@ -38,7 +38,7 @@ test_that("flatten_safe_output default returns empty tibble", {
 })
 
 # -------------------------------------------------------------------------
-# extract_safe_output.rocrate()
+# extract_safe_output.rocrate
 # -------------------------------------------------------------------------
 test_that("extract_safe_output.rocrate errors when no File entities", {
   # create basic RO-Crate
@@ -185,7 +185,7 @@ test_that("extract_safe_output.rocrate filters by both id and user", {
   expect_equal(getElement(files[[1]], "@id"), "outputs/user1/report.csv")
 })
 
-test_that("extract_safe_output.rocrate errors when filters remove all entities", {
+test_that("extract_safe_output.rocrate works when filters remove everything", {
   # create an RO-Crate with File entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
@@ -252,7 +252,7 @@ test_that("extract_safe_output.rocrate validates rocrate input", {
 })
 
 # -------------------------------------------------------------------------
-# flatten_safe_output.rocrate()
+# flatten_safe_output.rocrate
 # -------------------------------------------------------------------------
 test_that("flatten_safe_output.rocrate returns tibble with correct columns", {
   # create an RO-Crate with File entities
@@ -388,10 +388,9 @@ test_that("extract_safe_output.opal calls safe_output and returns rocrate", {
 })
 
 # -------------------------------------------------------------------------
-# Optional TRUE Opal demo integration (dsROCrate audit realism)
+# Optional TRUE Opal demo integration  -dsROCrate audit realism-
 # -------------------------------------------------------------------------
-
-test_that("extract_safe_output.opal works with Opal demo server (if available)", {
+test_that("extract_safe_output.opal works with Opal demo server (if avail.)", {
   con <- try(opal_demo_con(), silent = TRUE)
   skip_if(inherits(con, "try-error"), "Opal demo server not available")
 

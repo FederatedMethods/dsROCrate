@@ -217,7 +217,7 @@ test_that("safe_time() returns an empty string for missing or invalid input", {
   expect_identical(safe_time(c("2026-10-13T04:26:14Z", "x")), "")
 })
 
-test_that("safe_time() is idempotent (it is applied twice to asset timestamps)", {
+test_that("safe_time() handles to be applied twice to asset timestamps", {
   for (tz in test_zones) {
     withr::with_timezone(tz, {
       once <- safe_time("2026-10-13T04:26:14.076Z")

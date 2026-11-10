@@ -1,0 +1,7 @@
+linters: linters_with_defaults(
+  object_name_linter = lintr::object_name_linter(
+      styles = c("snake_case", "camelCase", "dotted.case"),
+      regexes = c("^[A-Z][[:alnum:]_]*$", "^@timestamp$", "%||%")
+    ))
+encoding: "UTF-8"
+exclusions: list("inst/R.ignore")

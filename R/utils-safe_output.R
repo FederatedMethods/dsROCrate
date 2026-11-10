@@ -73,8 +73,9 @@ extract_safe_output.opal <- function(
   logs_from = logs_to - 24 * 60^2,
   rocrate = rocrateR::rocrate_5s()
 ) {
-  # extract all the Safe Outputs for the current Opal connection
-  rocrate <- safe_output(
+  # extract all the Safe Outputs for the current Opal connection &
+  # return RO-Crate with Safe Output details
+  safe_output(
     x,
     path = path,
     user = user,
@@ -82,9 +83,6 @@ extract_safe_output.opal <- function(
     logs_from = logs_from,
     rocrate = rocrate
   )
-
-  # return RO-Crate with Safe Output details
-  return(rocrate)
 }
 
 #' @export
@@ -127,14 +125,12 @@ extract_safe_output.rocrate <- function(
     )
   }
 
-  # add entities to the RO-Crate
+  # add entities to the RO-Crate &
+  # return RO-Crate with the Safe Output details
   suppressWarnings({
-    rocrate <- rocrate |>
+    rocrate |>
       rocrateR::add_entity(entities_lst, verbose = FALSE)
   })
-
-  # return RO-Crate with the Safe Output details
-  return(rocrate)
 }
 
 #' Flatten object with Safe Output details
@@ -153,7 +149,7 @@ flatten_safe_output <- function(x, ...) {
 
 #' @export
 flatten_safe_output.default <- function(x, ...) {
-  return(tibble::tibble())
+  tibble::tibble()
 }
 
 #' @export
@@ -162,7 +158,7 @@ flatten_safe_output.rocrate <- function(x, ..., id = NULL) {
     {
       # extract entities
       entities_tbl <- .get_entity(x, type = "File") |>
-        # extract @id, name, description, encodingFormat  and content for each entity
+        # extract @id, name, description, encodingFormat & content for each ent.
         lapply(function(ent) {
           tibble::tibble(
             id = getElement(ent, "@id"),

@@ -11,8 +11,8 @@
 #' identified, such as names and addresses, is either removed or replaced with
 #' a random code. Researchers are not processing personal data when using data
 #' prepared in this way and when the other Safes are in place. Find out more
-#' about de-identification:
-#' <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-data-de-identification/>
+#' about de-identification, 'What is data de-identification?':
+#' <https://www.researchdata.scot/engage-and-learn/data-explainers/>
 #'
 #' @param x This can be a connection to a 'DataSHIELD' server (e.g., object with
 #'     the `opal` or `ArmadilloCredentials` classes), an RO-Crate
@@ -32,7 +32,7 @@
 #' @source
 #' \itemize{
 #'  \item Research Data Scotland, 2025. "What is the Five Safes framework?".
-#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/>
+#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/>
 #' }
 safe_data <- function(x, ...) {
   UseMethod("safe_data")
@@ -99,8 +99,8 @@ safe_data.opal <- function(
   path = NULL,
   user = NULL
 ) {
-  # declare local bindings
-  created <- lastUpdate <- name <- new_dataset_entity <- subject <- NULL
+  # local bindings
+  name <- NULL
 
   # validate backend
   validate_backend(x, ..., rocrate = rocrate)
@@ -197,8 +197,8 @@ safe_data.opal <- function(
     overwrite = TRUE
   )
 
-  # attach input arguments as attributes
-  rocrate <- rocrate |>
+  # attach input arguments as attributes and return RO-Crate
+  rocrate |>
     set_crate_context(
       connection = x,
       path = path,
@@ -209,9 +209,6 @@ safe_data.opal <- function(
       user = user,
       validated = TRUE
     )
-
-  # return RO-Crate with the new entity
-  return(rocrate)
 }
 
 #' @rdname safe_data

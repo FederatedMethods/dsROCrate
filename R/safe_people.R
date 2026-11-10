@@ -22,7 +22,7 @@
 #' @source
 #' \itemize{
 #'  \item Research Data Scotland, 2025. "What is the Five Safes framework?".
-#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/>
+#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/>
 #' }
 safe_people <- function(x, ...) {
   UseMethod("safe_people")
@@ -176,8 +176,8 @@ safe_people.opal <- function(
       )
   }
 
-  # attach input arguments as attributes
-  rocrate <- rocrate |>
+  # attach input arguments as attributes and return RO-Crate
+  rocrate |>
     set_crate_context(
       connection = x,
       path = path,
@@ -188,9 +188,6 @@ safe_people.opal <- function(
       user = user,
       validated = TRUE
     )
-
-  # return RO-Crate with the new entity
-  return(rocrate)
 }
 
 #' @rdname safe_people

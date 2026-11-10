@@ -11,7 +11,7 @@
 #'
 #' @return Updated RO-Crate
 #' @noRd
-add_safe_people_entities_cr8tor <- function(rc, people_tbl, membership_tbl) {
+add_safe_people_ents_cr8tor <- function(rc, people_tbl, membership_tbl) {
   # local bindings
   project <- username <- NULL
 
@@ -59,7 +59,7 @@ add_safe_people_entities_cr8tor <- function(rc, people_tbl, membership_tbl) {
 #'
 #' @return Updated RO-Crate
 #' @noRd
-add_safe_project_entities_cr8tor <- function(rc, proj_tbl, data_tbl) {
+add_safe_project_ents_cr8tor <- function(rc, proj_tbl, data_tbl) {
   # local bindings
   asset <- project <- NULL
 
@@ -196,7 +196,7 @@ add_permission_entities_cr8tor <- function(rc, perm_expanded_tbl) {
 #'
 #' @return Updated RO-Crate
 #' @noRd
-add_safe_setting_entities_cr8tor <- function(rc, tbl) {
+add_safe_setting_ents_cr8tor <- function(rc, tbl) {
   for (i in seq_len(nrow(tbl))) {
     nm <- names(tbl)[i]
 
@@ -221,7 +221,7 @@ add_safe_setting_entities_cr8tor <- function(rc, tbl) {
 #'
 #' @return Updated RO-Crate
 #' @noRd
-add_safe_output_entities_cr8tor <- function(rc, tbl) {
+add_safe_output_ents_cr8tor <- function(rc, tbl) {
   rc |>
     rocrateR::add_entity(
       rocrateR::entity(
@@ -263,7 +263,7 @@ as_rocrate_audit <- function(audit) {
   # ---- Safe People ----
   rc <- rc |>
     add_group_entities_cr8tor(audit$groups) |>
-    add_safe_people_entities_cr8tor(
+    add_safe_people_ents_cr8tor(
       audit$safe_people$users,
       audit$user_projects
     ) |>
@@ -271,7 +271,7 @@ as_rocrate_audit <- function(audit) {
 
   # ---- Safe Projects ----
   rc <- rc |>
-    add_safe_project_entities_cr8tor(
+    add_safe_project_ents_cr8tor(
       audit$safe_projects,
       audit$safe_data$assets
     )
@@ -283,7 +283,7 @@ as_rocrate_audit <- function(audit) {
   # ---- Permissions ----
   rc <- rc |>
     add_permission_entities_cr8tor(
-      expand_group_permissions_to_users(
+      expand_group_perms_to_users(
         perm_tbl = audit$permissions |>
           dplyr::left_join(
             audit$safe_projects,
@@ -297,11 +297,11 @@ as_rocrate_audit <- function(audit) {
 
   # ---- Safe Settings ----
   rc <- rc |>
-    add_safe_setting_entities_cr8tor(audit$safe_settings)
+    add_safe_setting_ents_cr8tor(audit$safe_settings)
 
   # ---- Safe Outputs ----
   rc <- rc |>
-    add_safe_output_entities_cr8tor(audit$safe_outputs)
+    add_safe_output_ents_cr8tor(audit$safe_outputs)
 
   rc
 }
@@ -345,7 +345,7 @@ dedupe_effective_permissions <- function(perm_tbl) {
 #'
 #' @return Tibble with username, project, asset, permission
 #' @noRd
-expand_group_permissions_to_users <- function(
+expand_group_perms_to_users <- function(
   perm_tbl,
   membership_tbl,
   data_tbl
@@ -450,8 +450,7 @@ extract_safe_data_cr8tor <- function(bundle) {
   }
 
   ing_yaml <- yaml::yaml.load(paste(ing$content[[1]], collapse = "\n"))
-  # extract groups and projects
-  group_tbl <- extract_groups_cr8tor(bundle)
+  # extract projects
   proj_tbl <- extract_safe_projects_cr8tor(bundle)
 
   assets <- ing_yaml$datasets |>
@@ -763,7 +762,7 @@ find_bagit_root <- function(path) {
     }
   }
 
-  return(NULL)
+  NULL
 }
 
 #' Link people entities to the RO-Crate root

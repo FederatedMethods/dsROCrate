@@ -46,7 +46,7 @@ parse_user_profiles.opal <- function(x, ..., user) {
           })
       )
   }
-  return(user_prof_tbl)
+  user_prof_tbl
 }
 
 #' Verify if project exists
@@ -74,9 +74,9 @@ project_exists.ArmadilloCredentials <-
   ) {
     if (!(project %in% MolgenisArmadillo::armadillo.list_projects())) {
       stop(
-        sprintf(
-          "The `project = '%s'` was not found in the given Armadillo connection!",
-          project
+        paste0(
+          sprintf("The `project = '%s'`", project),
+          "was not found in the given Armadillo connection!"
         ),
         call. = FALSE
       )

@@ -75,7 +75,7 @@ init.opal <- function(
       validated = TRUE
     )
 
-  return(rocrate)
+  rocrate
 }
 
 #' @rdname init

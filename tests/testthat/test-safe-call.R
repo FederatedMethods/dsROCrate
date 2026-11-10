@@ -39,7 +39,7 @@ test_that("as.data.frame.safe_call returns the expected columns", {
   expect_equal(res$args[[1]], x$args)
 })
 
-test_that("as.data.frame.safe_call keeps a stable 'args' column regardless of arity", {
+test_that("as.data.frame.safe_call keeps a stable 'args' column regardless", {
   # regression test: `args = x$args` inside data.frame() lets R recurse into
   # the named list and expand/rename it, so a single-argument call collapses
   # the "args" column into a column named after that argument (e.g. "x" for
@@ -72,7 +72,7 @@ test_that("as.data.frame.safe_call keeps a stable 'args' column regardless of ar
   expect_true("args" %in% names(as.data.frame(two_arg)))
 })
 
-test_that("as.data.frame.safe_call is not shadowed by a conflicting definition", {
+test_that("as.data.frame.safe_call is not shadowed by a conflicting def.", {
   # regression test: safe-call.R and safe-call-utils.R previously both
   # defined `as.data.frame.safe_call()` with different (incompatible) sets
   # of columns; whichever file was sourced last silently won. This checks

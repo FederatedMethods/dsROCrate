@@ -41,7 +41,7 @@ load_content <- function(rocrate, roc_path) {
     }
   }
 
-  return(rocrate)
+  rocrate
 }
 
 #' Get RO-Crate context/attributes
@@ -127,5 +127,5 @@ set_crate_context <- function(
   attr(rocrate, "user") <- user
   # only trusted when the caller validated the backend connection
   attr(rocrate, "backend_validated") <- isTRUE(validated)
-  return(rocrate)
+  rocrate
 }

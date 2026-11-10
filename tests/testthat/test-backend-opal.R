@@ -27,7 +27,7 @@ test_that("validate_backend() validates an unvalidated crate", {
   expect_identical(calls$permissions, 1L)
 })
 
-test_that("validate_backend() skips checks for a crate validated with the same connection", {
+test_that("validated crates skip checks with the same connection", {
   con <- fake_opal_con()
   crate <- structure(list(), class = "rocrate")
   attr(crate, "connection") <- con
@@ -48,7 +48,7 @@ test_that("validate_backend() skips checks for a crate validated with the same c
   expect_invisible(validate_backend(con, rocrate = crate))
 })
 
-test_that("validate_backend() revalidates a crate when the connection differs", {
+test_that("a crate is validated when the connection differs", {
   original_con <- fake_opal_con(username = "original")
   new_con <- fake_opal_con(username = "different")
   crate <- structure(list(), class = "rocrate")
@@ -108,7 +108,7 @@ test_that("validate_backend() does not continue after a validation failure", {
   expect_identical(calls$permissions, 0L)
 })
 
-test_that("backend_validated.opal() requires a true flag and an identical connection", {
+test_that("crate validation requires a TRUE flag and an identical connection", {
   con <- fake_opal_con()
   other_con <- fake_opal_con(username = "other")
   crate <- structure(list(), class = "rocrate")

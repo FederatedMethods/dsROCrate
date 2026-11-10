@@ -25,7 +25,7 @@
 #' @source
 #' \itemize{
 #'  \item Research Data Scotland, 2025. "What is the Five Safes framework?".
-#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/>
+#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/>
 #' }
 safe_output <- function(x, ...) {
   UseMethod("safe_output")
@@ -94,9 +94,9 @@ safe_output.opal <- function(
 ) {
   # local bindings
   `@timestamp` <- backend <- logger_name <- safe_people_id <- username <- NULL
-  ds_action <- ds_eval <- ds_id <- ds_function <- ds_symbol <- ds_table <- NULL
-  asset <- action <- is_placeholder <- kind <- symbol_id <- timestamp <- NULL
-  ds_profile <- expr <- fx <- log_id <- r_cmd <- session <- symbol <- NULL
+  ds_action <- ds_eval <- ds_id <- ds_function <- ds_symbol <- NULL
+  asset <- action <- kind <- symbol_id <- timestamp <- NULL
+  ds_profile <- expr <- fx <- r_cmd <- session <- symbol <- NULL
   column <- created_at <- created_by <- id <- uuid <- NULL
 
   if (is.null(profile)) {
@@ -305,11 +305,11 @@ safe_output.opal <- function(
           symbol = ds_symbol,
           kind = ifelse(
             is_expr,
-            'expression',
+            "expression",
             ifelse(
               is_resource,
-              'resource',
-              ifelse(is_table, 'table', NA_character_)
+              "resource",
+              ifelse(is_table, "table", NA_character_)
             )
           ),
           asset = ifelse(
@@ -320,11 +320,11 @@ safe_output.opal <- function(
           expr = ifelse(is_expr, ds_eval, NA_character_),
           created_by = ifelse(
             is_expr,
-            'DSI::datashield.assign.expr',
+            "DSI::datashield.assign.expr",
             ifelse(
               is_resource,
-              'DSI::datashield.assign.resource',
-              ifelse(is_table, 'DSI::datashield.assign.table', NA_character_)
+              "DSI::datashield.assign.resource",
+              ifelse(is_table, "DSI::datashield.assign.table", NA_character_)
             )
           ),
           created_at = userlogs_assign_tbl$`@timestamp`[[i]],
@@ -408,7 +408,6 @@ safe_output.opal <- function(
   # parse aggregate function calls into list of safe_call objects
   calls_lst <- userlogs_tbl |>
     dplyr::filter((ds_action %in% c("AGGREGATE"))) |>
-    # dplyr::filter(!is.na(ds_eval)) |>
     purrr::pmap(function(ds_eval, ...) {
       safe_call(ds_eval, ...) |>
         enrich_call(registry = registry)
@@ -500,7 +499,6 @@ safe_output.opal <- function(
         kind,
         asset,
         expr,
-        # table = ds_table,
         session,
         backend
       )
@@ -512,9 +510,9 @@ safe_output.opal <- function(
     dplyr::mutate(
       # format timestamp
       timestamp = format_utc(`@timestamp`),
-      # attach session ID, `ds_id`, if `ds_action == 'OPEN'`
+      # attach session ID, `ds_id`, if `ds_action == "OPEN"`
       ds_eval = paste0("Open session: ", ds_id),
-      # set `ds_function = 'DSI::datashield.login'`
+      # set `ds_function = "DSI::datashield.login"`
       ds_function = "DSI::datashield.login",
       backend = backend_name(x)
     ) |>
@@ -562,11 +560,11 @@ safe_output.opal <- function(
     dplyr::distinct() |>
     dplyr::arrange(as.numeric(id), timestamp) |>
     # regenerate unique operation IDs
-    (\(.) {
+    (\(x) {
       dplyr::left_join(
-        .,
+        x,
         tibble::tibble(
-          id = unique(.$id),
+          id = unique(x$id),
           uuid = uuid::UUIDgenerate(n = length(id))
         ),
         by = "id"
@@ -639,8 +637,8 @@ safe_output.opal <- function(
       overwrite = TRUE
     )
 
-  # attach input arguments as attributes
-  rocrate <- rocrate |>
+  # attach input arguments as attributes and return RO-Crate
+  rocrate |>
     set_crate_context(
       connection = x,
       path = path,
@@ -651,9 +649,6 @@ safe_output.opal <- function(
       user = user,
       validated = TRUE
     )
-
-  # return RO-Crate with the new entity
-  return(rocrate)
 }
 
 #' @rdname safe_output
