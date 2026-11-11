@@ -3,8 +3,14 @@
 mock_project_backend <- function(.env = parent.frame()) {
   calls <- new.env(parent = emptyenv())
   for (name in c(
-    "validate", "exists", "project", "project_perms", "tables", "resources",
-    "table_perms", "resource_perms"
+    "validate",
+    "exists",
+    "project",
+    "project_perms",
+    "tables",
+    "resources",
+    "table_perms",
+    "resource_perms"
   )) {
     calls[[name]] <- 0L
   }
