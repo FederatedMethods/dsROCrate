@@ -338,3 +338,55 @@ test_that("assets without timestamps get empty dates, not NA", {
   expect_identical(entities[[1]]$dateCreated, "")
   expect_identical(entities[[1]]$dateModified, "")
 })
+
+test_that("get_project_assets() verifies the project by default", {
+  n_exists <- 0L
+  local_mocked_bindings(
+    project_exists = function(x, ...) {
+      n_exists <<- n_exists + 1L
+      invisible(TRUE)
+    },
+    backend_tables = function(x, project, ...) list(list(name = "T1")),
+    backend_resources = function(x, project, ...) list()
+  )
+
+  get_project_assets(fake_opal_con(), "P1", "tables")
+  expect_equal(n_exists, 1L)
+
+  get_project_assets(fake_opal_con(), "P1", "resources")
+  expect_equal(n_exists, 2L)
+})
+
+test_that("get_project_assets(check = FALSE) skips the project check", {
+  n_exists <- 0L
+  local_mocked_bindings(
+    project_exists = function(x, ...) {
+      n_exists <<- n_exists + 1L
+      invisible(TRUE)
+    },
+    backend_tables = function(x, project, ...) list(list(name = "T1")),
+    backend_resources = function(x, project, ...) list()
+  )
+
+  tbls <- get_project_assets(fake_opal_con(), "P1", "tables", check = FALSE)
+  res <- get_project_assets(fake_opal_con(), "P1", "resources", check = FALSE)
+
+  expect_equal(n_exists, 0L)
+  expect_equal(tbls$name, "T1")
+  expect_null(res)
+})
+
+test_that("get_project_assets() errors for unknown projects if checked", {
+  local_mocked_bindings(
+    project_exists = function(x, ...) stop("project not found", call. = FALSE),
+    backend_tables = function(x, project, ...) list(list(name = "T1"))
+  )
+
+  expect_error(
+    get_project_assets(fake_opal_con(), "P1", "tables"),
+    "project not found"
+  )
+  expect_no_error(
+    get_project_assets(fake_opal_con(), "P1", "tables", check = FALSE)
+  )
+})

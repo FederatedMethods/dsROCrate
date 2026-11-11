@@ -62,8 +62,9 @@ init.opal <- function(
   # validate backend
   validate_backend(x, ..., rocrate = rocrate)
 
-  # attach input arguments as attributes
+  # attach input arguments as attributes (and discard any shared requests)
   rocrate <- rocrate |>
+    reset_project_context() |>
     set_crate_context(
       connection = x,
       path = path,

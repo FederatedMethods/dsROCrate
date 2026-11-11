@@ -162,14 +162,24 @@ get_asset_permissions <- function(x, project, asset_type, name) {
 #' @param x Connection to DataSHIELD server (e.g., OBiBa's Opal server).
 #' @param project String with project name.
 #' @param type Type of assets to extract, either `tables` or `resources`.
+#' @param check Boolean flag to indicate if the existence of `project` should be
+#'     verified (default: `TRUE`). Set to `FALSE` when the caller has already
+#'     verified it, to avoid repeating the request.
 #'
 #' @returns Tibble with project assets details.
 #' @noRd
-get_project_assets <- function(x, project, type = c("tables", "resources")) {
+get_project_assets <- function(
+  x,
+  project,
+  type = c("tables", "resources"),
+  check = TRUE
+) {
   type <- match.arg(type)
 
   # verify if project exists
-  project_exists(x, project = project)
+  if (check) {
+    project_exists(x, project = project)
+  }
 
   if (type == "tables") {
     prj <- backend_tables(x, project, df = FALSE)

@@ -116,8 +116,11 @@ safe_project.opal <- function(
     stop("`project` must be a single value!", call. = FALSE)
   }
 
+  # get the context for `project`, to share requests with the other safe_*()
+  context <- get_project_context(x, project, rocrate)
+
   # check if the given `project` exists
-  project_exists(x, project = project)
+  project_context_exists(context)
 
   # create project @id
   project_id <- id_hash(project_id_suffix, project)
@@ -177,8 +180,8 @@ safe_project.opal <- function(
 
   # link existing asset entities ----
   # extract assets for the given project
-  project_tbl_assets <- get_project_assets(x, project, "tables")
-  project_res_assets <- get_project_assets(x, project, "resources")
+  project_tbl_assets <- project_context_assets(context, "tables")
+  project_res_assets <- project_context_assets(context, "resources")
   # combine assets
   proj_assets_tbl <- dplyr::bind_rows(project_tbl_assets, project_res_assets)
 
@@ -199,6 +202,7 @@ safe_project.opal <- function(
 
   # attach input arguments as attributes and return RO-Crate
   rocrate |>
+    set_project_context(context) |>
     set_crate_context(
       connection = x,
       path = path,
