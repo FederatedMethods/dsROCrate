@@ -296,22 +296,3 @@ test_that("flatten_safe_project.rocrate returns empty tibble on error", {
 
   expect_s3_class(out, "tbl_df")
 })
-
-# -------------------------------------------------------------------------
-# extract_safe_project.opal() (INTEGRATION - demo server)
-# -------------------------------------------------------------------------
-
-test_that("extract_safe_project.opal works with demo Opal server", {
-  # Skip if demo server is unreachable
-  con <- try(opal_demo_con(), silent = TRUE)
-  skip_if(inherits(con, "try-error"), "Opal demo server not available")
-
-  rocrate <- extract_safe_project(con)
-
-  expect_s3_class(rocrate, "rocrate")
-
-  projects <- rocrateR::get_entity(rocrate, type = "Project")
-
-  # CNSIM project should exist on demo server
-  expect_true(length(projects) >= 1)
-})

@@ -64,28 +64,6 @@ extract_safe_output <- function(x, ...) {
 }
 
 #' @export
-extract_safe_output.opal <- function(
-  x,
-  ...,
-  path = NULL,
-  user = NULL,
-  logs_to = Sys.time(),
-  logs_from = logs_to - 24 * 60^2,
-  rocrate = rocrateR::rocrate_5s()
-) {
-  # extract all the Safe Outputs for the current Opal connection &
-  # return RO-Crate with Safe Output details
-  safe_output(
-    x,
-    path = path,
-    user = user,
-    logs_to = logs_to,
-    logs_from = logs_from,
-    rocrate = rocrate
-  )
-}
-
-#' @export
 extract_safe_output.rocrate <- function(
   x,
   ...,

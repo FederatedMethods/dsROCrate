@@ -13,24 +13,6 @@ extract_safe_data <- function(x, ...) {
 }
 
 #' @export
-extract_safe_data.opal <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {
-  # extract list with all projects
-  ds <- backend_projects(x)
-
-  # extract project names and ignore NAs
-  projects <- ds$name[!is.na(ds$name) & !is.null(ds$name)]
-
-  # create RO-Crate with Safe Data details for the projects found on the server
-  purrr::reduce(
-    projects,
-    \(crate, p) {
-      safe_data(crate, connection = x, project = p)
-    },
-    .init = rocrate
-  )
-}
-
-#' @export
 extract_safe_data.rocrate <- function(
   x,
   ...,

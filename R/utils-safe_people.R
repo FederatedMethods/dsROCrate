@@ -13,26 +13,6 @@ extract_safe_people <- function(x, ...) {
 }
 
 #' @export
-extract_safe_people.opal <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {
-  # extract non-admin and non-auditor users
-  opal_users <- filter_safe_people(x)
-
-  # cycle through the data source (x) and extract project details
-  for (i in seq_len(nrow(opal_users))) {
-    username <- opal_users[i, "name"]
-    if (!is.na(username) && !is.null(username)) {
-      suppressWarnings({
-        rocrate <- rocrate |>
-          safe_people(user = username, connection = x, set_author = FALSE)
-      })
-    }
-  }
-
-  # return RO-Crate with Safe Project details
-  rocrate
-}
-
-#' @export
 extract_safe_people.rocrate <- function(
   x,
   ...,
