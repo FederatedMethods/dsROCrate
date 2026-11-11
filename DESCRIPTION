@@ -30,6 +30,7 @@ Suggests:
     dsBaseClient,
     DSI,
     DSOpal,
+    DSMolgenisArmadillo,
     fs,
     knitr,
     MolgenisArmadillo,
@@ -42,7 +43,6 @@ Roxygen: list(markdown = TRUE)
 Imports: 
     digest,
     dplyr,
-    DSMolgenisArmadillo,
     jsonlite,
     opalr (>= 3.6.1),
     purrr,

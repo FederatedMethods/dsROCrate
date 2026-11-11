@@ -72,6 +72,8 @@ project_exists.ArmadilloCredentials <-
     ...,
     project
   ) {
+    .require_armadillo("MolgenisArmadillo")
+
     if (!(project %in% MolgenisArmadillo::armadillo.list_projects())) {
       stop(
         paste0(

@@ -45,6 +45,8 @@ safe_project.ArmadilloCredentials <- function(
   tables = NULL,
   user = NULL
 ) {
+  .require_armadillo("MolgenisArmadillo")
+
   # check if the given `project` exists
   project_exists(x, project = project)
 
