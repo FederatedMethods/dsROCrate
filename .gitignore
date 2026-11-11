@@ -42,3 +42,6 @@ inst/R.ignore
 cran-comments.md
 CRAN-SUBMISSION
 .positai
+docs
+sonar-fixes.json
+quality.html

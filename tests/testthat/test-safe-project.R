@@ -1,7 +1,7 @@
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
 # - - - - - - - - - - - - - - - - - ERRORS - - - - - - - - - - - - - - - - - #
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
-test_that("safe_project fails when attempt calling function with invalid class", {
+test_that("safe_project fails when calling function with invalid class", {
   expect_error(
     dsROCrate::safe_project(
       structure(list(), class = "InvalidClass"),

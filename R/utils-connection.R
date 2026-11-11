@@ -17,7 +17,7 @@ parse_user_profiles <- function(x, ...) {
 
 #' @export
 parse_user_profiles.ArmadilloCredentials <- function(x, ..., user) {
-  message("PLACEHOLDER!")
+  s3_method_not_implemented("parse_user_profiles", backend = "Armadillo")
 }
 
 #' @export
@@ -46,7 +46,7 @@ parse_user_profiles.opal <- function(x, ..., user) {
           })
       )
   }
-  return(user_prof_tbl)
+  user_prof_tbl
 }
 
 #' Verify if project exists
@@ -72,11 +72,13 @@ project_exists.ArmadilloCredentials <-
     ...,
     project
   ) {
+    .require_armadillo("MolgenisArmadillo")
+
     if (!(project %in% MolgenisArmadillo::armadillo.list_projects())) {
       stop(
-        sprintf(
-          "The `project = '%s'` was not found in the given Armadillo connection!",
-          project
+        paste0(
+          sprintf("The `project = '%s'`", project),
+          "was not found in the given Armadillo connection!"
         ),
         call. = FALSE
       )
@@ -104,11 +106,16 @@ project_exists.opal <- function(x, ..., project) {
 #'
 #' @param x DataSHIELD backend connection object.
 #' @param ... Optional params.
+#' @param rocrate RO-crate object.
 #'
 #' @returns Nothing, call for its side effect.
 #' @keywords internal
 #' @noRd
-validate_backend <- function(x, ...) {
+validate_backend <- function(x, ..., rocrate = NULL) {
+  # check if the backend has been validated, status stored in `rocrate` context
+  if (backend_validated(x, ..., rocrate = rocrate)) {
+    return(invisible(TRUE))
+  }
   # validate connection object
   validate_con(x, ...)
   # validate backend version

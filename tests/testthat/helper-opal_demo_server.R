@@ -6,8 +6,8 @@
 #' @returns Connection object to OBiBa's Opal demo server with extra attributes.
 opal_demo_con <- function(admin = TRUE) {
   # Skip tests if offline or on CRAN
-  skip_on_cran()
-  skip_if_offline()
+  testthat::skip_on_cran()
+  testthat::skip_if_offline()
 
   ## Opal server access
   USERNAME <- "administrator"
@@ -47,5 +47,5 @@ opal_demo_con <- function(admin = TRUE) {
   attr(opal_con, "PROJECT") <- PROJECT
   attr(opal_con, "TABLES") <- TABLES
 
-  return(opal_con)
+  opal_con
 }

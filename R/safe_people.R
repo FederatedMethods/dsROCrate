@@ -22,7 +22,7 @@
 #' @source
 #' \itemize{
 #'  \item Research Data Scotland, 2025. "What is the Five Safes framework?".
-#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/>
+#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/>
 #' }
 safe_people <- function(x, ...) {
   UseMethod("safe_people")
@@ -31,19 +31,13 @@ safe_people <- function(x, ...) {
 # @rdname safe_people
 #' @export
 safe_people.default <- function(x, ...) {
-  stop(
-    "Unknown class, please try either a file path or",
-    " an object with `rocrate` class!"
-  )
+  s3_method_not_available("safe_people", class = class(x))
 }
 
 #' @rdname safe_people
 #' @export
 safe_people.ArmadilloCredentials <- function(x, ...) {
-  stop(
-    "`safe_people()` for the Armadillo backend is not currently implemented!",
-    call. = FALSE
-  )
+  s3_method_not_implemented("safe_people", backend = "Armadillo")
 }
 
 #' @rdname safe_people
@@ -51,16 +45,16 @@ safe_people.ArmadilloCredentials <- function(x, ...) {
 safe_people.character <- function(
   x,
   ...,
-  user = attr(x, "user"),
-  user_id_suffix = "#person:",
   set_author = TRUE,
   set_project = TRUE,
-  connection = attr(x, "connection"),
-  path = attr(x, "path"),
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
-  resources = attr(x, "resources"),
-  tables = attr(x, "tables")
+  user_id_suffix = "#person:",
+  connection = NULL,
+  path = NULL,
+  profile = "default",
+  project = NULL,
+  resources = NULL,
+  tables = NULL,
+  user = NULL
 ) {
   # attempt loading the RO-Crate
   rocrate <- rocrateR::load_rocrate(x)
@@ -98,7 +92,7 @@ safe_people.opal <- function(
   tables = NULL
 ) {
   # validate backend
-  validate_backend(x, ...)
+  validate_backend(x, ..., rocrate = rocrate)
 
   # attempt to retrieve project entity
   project_id <- id_hash("#project:", project)
@@ -182,17 +176,18 @@ safe_people.opal <- function(
       )
   }
 
-  # attach input arguments as attributes
-  attr(rocrate, "connection") <- x
-  attr(rocrate, "path") <- path
-  attr(rocrate, "profile") <- profile
-  attr(rocrate, "project") <- project
-  attr(rocrate, "resources") <- resources
-  attr(rocrate, "tables") <- tables
-  attr(rocrate, "user") <- user
-
-  # return RO-Crate with the new entity
-  return(rocrate)
+  # attach input arguments as attributes and return RO-Crate
+  rocrate |>
+    set_crate_context(
+      connection = x,
+      path = path,
+      profile = profile,
+      project = project,
+      resources = resources,
+      tables = tables,
+      user = user,
+      validated = TRUE
+    )
 }
 
 #' @rdname safe_people
@@ -200,16 +195,16 @@ safe_people.opal <- function(
 safe_people.rocrate <- function(
   x,
   ...,
-  user = attr(x, "user"),
-  user_id_suffix = "#person:",
   set_author = TRUE,
   set_project = TRUE,
-  connection = attr(x, "connection"),
-  path = attr(x, "path"),
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
-  resources = attr(x, "resources"),
-  tables = attr(x, "tables")
+  user_id_suffix = "#person:",
+  connection = get_crate_context(x, "connection"),
+  path = get_crate_context(x, "path"),
+  profile = get_crate_context(x, "profile"),
+  project = get_crate_context(x, "project"),
+  resources = get_crate_context(x, "resources"),
+  tables = get_crate_context(x, "tables"),
+  user = get_crate_context(x, "user")
 ) {
   # check if the connection was given
   if (is.null(connection)) {

@@ -35,26 +35,6 @@ test_that("project_exists() dispatches to opal method", {
   opalr::opal.logout(opal_con)
 })
 
-# test_that("project_exists() works for armadillo objects", {
-#   skip_if_not_installed("MolgenisArmadillo")
-#
-#   arm <- methods::new("ArmadilloCredentials")
-#
-#   local_mocked_bindings(
-#     armadillo.list_projects = function() c("proj1", "proj2"),
-#     .package = "MolgenisArmadillo"
-#   )
-#
-#   expect_silent(
-#     project_exists(arm, project = "proj1")
-#   )
-#
-#   expect_error(
-#     project_exists(arm, project = "missing"),
-#     "was not found in the given Armadillo connection!"
-#   )
-# })
-
 test_that("parse_user_profiles() dispatches to opal method", {
   opal_con <- structure(list(), class = "opal")
 
@@ -71,7 +51,7 @@ test_that("parse_user_profiles() dispatches to opal method", {
   expect_equal(res$principal, "user1")
 })
 
-test_that("parse_user_profiles.opal() returns empty tibble when no matching users", {
+test_that("parse_user_profiles.opal() handles no matching users", {
   opal_con <- structure(list(), class = "opal")
 
   local_mocked_bindings(

@@ -181,7 +181,7 @@ test_that("audit_engine.opal errors if the `user` filter matches nobody", {
   )
 })
 
-test_that("audit_engine.opal aborts if Safe People details cannot be obtained", {
+test_that("audit_engine.opal aborts if Safe People dets cannot be obtained", {
   # simulates e.g. a permissions-lookup failure on the server:
   # `filter_safe_people()` falls back to an empty table internally, and
   # since an audit is not meaningful without Safe People details,

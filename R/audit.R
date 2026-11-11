@@ -57,22 +57,17 @@ audit <- function(x, ...) {
 
 #' @export
 audit.default <- function(x, ...) {
-  stop(
-    sprintf(
-      "No `audit()` method exists for objects of class: %s.",
-      paste(class(x), collapse = ", ")
-    ),
-    call. = FALSE
+  s3_method_not_available(
+    "audit",
+    class = class(x),
+    hint = "Please provide a supported backend connection object."
   )
 }
 
 #' @rdname audit
 #' @export
 audit.ArmadilloCredentials <- function(x, ..., intent = NULL) {
-  stop(
-    "The `audit()` for the Armadillo backend is not currently implemented!",
-    call. = FALSE
-  )
+  s3_method_not_implemented("audit", backend = "Armadillo")
 }
 
 #' @rdname audit

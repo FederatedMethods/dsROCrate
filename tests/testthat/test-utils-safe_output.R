@@ -38,7 +38,7 @@ test_that("flatten_safe_output default returns empty tibble", {
 })
 
 # -------------------------------------------------------------------------
-# extract_safe_output.rocrate()
+# extract_safe_output.rocrate
 # -------------------------------------------------------------------------
 test_that("extract_safe_output.rocrate errors when no File entities", {
   # create basic RO-Crate
@@ -185,7 +185,7 @@ test_that("extract_safe_output.rocrate filters by both id and user", {
   expect_equal(getElement(files[[1]], "@id"), "outputs/user1/report.csv")
 })
 
-test_that("extract_safe_output.rocrate errors when filters remove all entities", {
+test_that("extract_safe_output.rocrate works when filters remove everything", {
   # create an RO-Crate with File entities
   rocrate <- rocrateR::rocrate_5s() |>
     rocrateR::add_entity(
@@ -252,7 +252,7 @@ test_that("extract_safe_output.rocrate validates rocrate input", {
 })
 
 # -------------------------------------------------------------------------
-# flatten_safe_output.rocrate()
+# flatten_safe_output.rocrate
 # -------------------------------------------------------------------------
 test_that("flatten_safe_output.rocrate returns tibble with correct columns", {
   # create an RO-Crate with File entities
@@ -355,50 +355,4 @@ test_that("flatten_safe_output.rocrate returns empty tibble on error", {
 
   expect_s3_class(out, "tbl_df")
   expect_equal(nrow(out), 0)
-})
-
-# -------------------------------------------------------------------------
-# extract_safe_output.opal() (Integration style with safe mocking)
-# -------------------------------------------------------------------------
-test_that("extract_safe_output.opal calls safe_output and returns rocrate", {
-  # dummy opal-like object
-  opal_con <- structure(list(), class = "opal")
-
-  # Mock safe_output to avoid real server dependency
-  mock_safe_output <- function(x, ..., rocrate) {
-    file <- rocrateR::entity(
-      id = "outputs/mock/user/file.txt",
-      type = "File",
-      name = "file.txt"
-    )
-    rocrateR::add_entity(rocrate, file)
-  }
-
-  with_mocked_bindings(
-    safe_output = mock_safe_output,
-    {
-      out <- extract_safe_output.opal(opal_con)
-    }
-  )
-
-  expect_s3_class(out, "rocrate")
-
-  files <- .get_entity(out, type = "File")
-  expect_true(length(files) >= 1)
-})
-
-# -------------------------------------------------------------------------
-# Optional TRUE Opal demo integration (dsROCrate audit realism)
-# -------------------------------------------------------------------------
-
-test_that("extract_safe_output.opal works with Opal demo server (if available)", {
-  con <- try(opal_demo_con(), silent = TRUE)
-  skip_if(inherits(con, "try-error"), "Opal demo server not available")
-
-  # ignore warning about missing `path` to write outputs
-  suppressWarnings(
-    rocrate <- extract_safe_output(con, user = attr(con, "PEOPLE"))
-  )
-
-  expect_s3_class(rocrate, "rocrate")
 })

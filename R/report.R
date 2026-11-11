@@ -12,10 +12,7 @@ report <- function(x, ...) {
 #' @rdname report
 #' @export
 report.ArmadilloCredentials <- function(x, ...) {
-  stop(
-    "The `report()` for the Armadillo backend is not currently implemented!",
-    call. = FALSE
-  )
+  s3_method_not_implemented("report", backend = "Armadillo")
 }
 
 #' @rdname report
@@ -57,9 +54,10 @@ report.character <- function(
 # @rdname report
 #' @export
 report.default <- function(x, ...) {
-  stop(
-    "Unknown class, please try either a file path or",
-    " an object with `rocrate` class!"
+  s3_method_not_available(
+    "report",
+    class = class(x),
+    hint = "Please try either a file path or an object with `rocrate` class."
   )
 }
 
@@ -80,7 +78,7 @@ report.list <- function(
   max_line_length = 200
 ) {
   # local bindings
-  asset <- id <- name <- permission <- project <- server <- user <- NULL
+  asset <- name <- permission <- project <- server <- user <- NULL
 
   # validate that all the objects in the list, `x`, are valid RO-Crates
   sapply(x, rocrateR::is_rocrate)
@@ -118,8 +116,7 @@ report.list <- function(
   ## overview table ----
   overview_data_all <- tibble::tibble()
   ## combine aggregated data to generate new overview table
-  safe_project_data_all <- safe_project_all #|>
-  # dplyr::rename(asset = asset_name)
+  safe_project_data_all <- safe_project_all
 
   # if data permissions were found, then combine with project-data details and
   # generate new overview table
@@ -177,11 +174,6 @@ report.list <- function(
   report_contents <- c(
     .markdown_report_header(title, overview_data_all, overview_lst$diag_path),
     tidy_overview_tbl |>
-      # # tidy up duplicated values in `project` and `asset`
-      # dplyr::mutate(
-      #   Project = unfill_vec(Project),
-      #   Data = unfill_vec(Data)
-      # ) |>
       dplyr::distinct() |>
       knitr::kable() |>
       paste0(collapse = "\n")
@@ -207,10 +199,11 @@ report.list <- function(
     # extract current RO-Crate
     rocrate <- x[i][[1]]
     # check if the input object has a `path` attribute
-    if (!is.null(attr(rocrate, "path"))) {
+    roc_path <- get_crate_context(rocrate, "path")
+    if (!is.null(roc_path)) {
       # check if any of the entities with `@type = 'File'` have empty `content`
       rocrate <- rocrate |>
-        load_content(roc_path = attr(rocrate, "path"))
+        load_content(roc_path = roc_path)
     }
 
     report_contents <- .markdown_report_rocrate(
@@ -319,9 +312,8 @@ report.rocrate <- function(
   max_line_length = 200
 ) {
   # local bindings ----
-  actionStatus <- asset <- asset_id <- description <- fx <- NULL
-  encodingFormat <- id <- name <- permission <- perm_id <- project <- NULL
-  table_name <- timestamp <- type <- person_id <- user <- NULL
+  asset <- asset_id <- fx <- encodingFormat <- name <- permission <- NULL
+  perm_id <- project <- timestamp <- person_id <- user <- NULL
 
   # validate RO-Crate ----
   rocrateR::is_rocrate(x)
@@ -349,10 +341,11 @@ report.rocrate <- function(
   }
 
   # check if the input object has a `path` attribute
-  if (!is.null(attr(x, "path"))) {
+  roc_path <- get_crate_context(x, "path")
+  if (!is.null(roc_path)) {
     # check if any of the entities with `@type = 'File'` have empty `content`
     x <- x |>
-      load_content(roc_path = attr(x, "path"))
+      load_content(roc_path = roc_path)
   }
 
   # pre-processing ----
@@ -475,10 +468,7 @@ report.rocrate <- function(
       # combine with Safe Data details
       dplyr::left_join(safe_data_tbl, by = "asset_id") |>
       # combine with Safe Project details
-      dplyr::left_join(safe_project_tbl, by = c("asset_id", "asset")) #|>
-    # # drop unused columns
-    # dplyr::select(-id, -person_id, -asset_id, -type) |>
-    # dplyr::rename(asset = asset_name)
+      dplyr::left_join(safe_project_tbl, by = c("asset_id", "asset"))
   } else {
     overview_tbl <- flatten_safe_people(safe_people_rocrate) |>
       purrr::pmap(function(person_id, name, ...) {
@@ -542,11 +532,6 @@ report.rocrate <- function(
   report_contents <- c(
     .markdown_report_header(title, overview_tbl, overview_lst$diag_path),
     tidy_overview_tbl |>
-      # # tidy up duplicated values in `project` and `asset`
-      # dplyr::mutate(
-      #   Project = unfill_vec(Project),
-      #   Data = unfill_vec(Data)
-      # ) |>
       dplyr::distinct() |>
       knitr::kable() |>
       paste0(collapse = "\n")
@@ -640,7 +625,6 @@ report.rocrate <- function(
       x |>
         # extract each component per server
         purrr::map(component) |>
-        # lapply(getElement, name = component) |>
         # filter out NULL elements
         purrr::keep(\(x) !is.null(x)) |>
         # attach the server name as a new column
@@ -672,7 +656,7 @@ report.rocrate <- function(
   diag_height
 ) {
   # local bindings
-  fx <- name <- permission <- project <- asset <- NULL
+  fx <- permission <- NULL
 
   ## initialise `vars` and `labelvar`
   vars <- c("project", "asset")
@@ -728,35 +712,13 @@ report.rocrate <- function(
       vsplitwidth = 1,
       folder = dirname(filepath),
       title = diag_title,
-      # imageFileOnly = render,
       pngknit = render,
-      # pxheight = min(80 * nrow(overview_tbl), 500),
-      # pxwidth = 200 * nrow(overview_tbl),
       prune = list(fx = "")
     )
 
   ## if `render = TRUE`, then render diagram as PNG
   diagram_filepath <- NULL
-  ### estimate number of nodes
-  dot <- diagram_lst$x$diagram
-  nodes <- dot |>
-    gregexpr(pattern = "Node_[A-Za-z0-9_]+", perl = TRUE) |>
-    (\(.) regmatches(dot, .))() |>
-    unlist() |>
-    unique()
-  num_nodes <- length(nodes)
-  ### scale width/height based on nodes
-  scale_factor <- 0.5 # inches per node
-  if (is.null(diag_width)) {
-    width <- max(12, num_nodes * scale_factor)
-  } else {
-    width <- diag_width
-  }
-  if (is.null(diag_height)) {
-    height <- max(6, num_nodes * scale_factor)
-  } else {
-    height <- diag_height
-  }
+
   if (render) {
     diagram_filepath <- diagram_lst |>
       vtree::grVizToImageFile(
@@ -765,11 +727,7 @@ report.rocrate <- function(
       )
   }
 
-  # # find path to latest PNG generated with `vtree`
-  # diagram_filepath <- list.files(dirname(filepath), "^vtree")
-  # diagram_filepath <- diagram_filepath[length(diagram_filepath)]
-
-  return(list(diag_lst = diagram_lst, diag_path = diagram_filepath))
+  list(diag_lst = diagram_lst, diag_path = diagram_filepath)
 }
 
 #' Create tidy version of the overview table
@@ -844,11 +802,9 @@ report.rocrate <- function(
     }
   }
 
-  tidy_overview_tbl <- tidy_overview_tbl |>
+  tidy_overview_tbl |>
     dplyr::select(dplyr::all_of(varslab)) |>
     dplyr::distinct()
-
-  return(tidy_overview_tbl)
 }
 
 
@@ -868,7 +824,7 @@ report.rocrate <- function(
   ))
   unique_project_vct <- unique(getElement(overview_tbl, "project"))
   unique_servers_vct <- unique(getElement(overview_tbl, "server"))
-  ## initialise markdown header (see https://rmarkdown.rstudio.com/lesson-9.html)
+  ## init. markdown header (see https://rmarkdown.rstudio.com/lesson-9.html)
   paste0(
     "---\n",
     paste0("title: ", title),
@@ -895,9 +851,9 @@ report.rocrate <- function(
     "  - \\usepackage[breakable]{tcolorbox}\n",
     "  - \\usepackage{tcolorbox}\n",
     "  - \\tcbuselibrary{breakable}\n",
-    "  - \\renewenvironment{Shaded}{\\begin{tcolorbox}[breakable,boxrule=0pt,",
-    "colback=gray!10]}{\\end{tcolorbox}}\n",
-    paste0("date: ", format(Sys.time(), '%Y-%m-%d %H:%M:%S')),
+    "  - \\renewenvironment{Shaded}{\\begin{tcolorbox}[breakable, ",
+    "boxrule = 0pt, colback = gray!10]}{\\end{tcolorbox}}\n",
+    paste0("date: ", format(Sys.time(), "%Y-%m-%d %H:%M:%S", tz = "UTC")),
     "\n---\n",
     paste0(
       "This report contains details for ",
@@ -926,13 +882,13 @@ report.rocrate <- function(
     ),
     "## Overview\n\n",
     "<div style=\"margin:0;\">\n",
-    # "::: {style=\"text-align: center;\"}\n",
     "<!-- PDF-only -->\n",
     "```{=latex}\n",
     paste0(
       "\\begin{figure}[H]\n",
       "\\centering\n",
-      "\\includegraphics[height=0.75\\textheight, keepaspectratio, width=0.9\\textwidth]{",
+      "\\includegraphics[height = 0.75\\textheight, keepaspectratio, ",
+      "width = 0.9\\textwidth]{",
       diagram_filepath,
       "}",
       "\\caption{RO-Crate Overview}\n",
@@ -1043,7 +999,7 @@ report.rocrate <- function(
     )
   }
 
-  return(report_contents)
+  report_contents
 }
 
 #' Embed RO-Crate in Markdown report
@@ -1084,7 +1040,7 @@ report.rocrate <- function(
           substr(x, nchar(x) - 10, nchar(x))
         ))
       }
-      return(x)
+      x
     })
   report_contents <- c(
     report_contents,

@@ -1,0 +1,39 @@
+url: https://federatedmethods.github.io/dsROCrate/  # confirm once Pages is enabled
+
+template:
+  bootstrap: 5
+
+reference:
+  - title: Audit a DataSHIELD server
+    desc: Check an account, audit a project in one call, and create the report.
+    contents:
+      - check_permissions
+      - audit
+      - report
+  - title: Build the RO-Crate step by step
+    desc: Initialise the crate, then add the Five Safes, in this order.
+    contents:
+      - init
+      - safe_people
+      - safe_project
+      - safe_data
+      - safe_setting
+      - safe_output
+  - title: Backends
+    desc: Support for MOLGENIS Armadillo is in development.
+    contents:
+      - armadillo_login
+
+articles:
+  - title: Start here
+    navbar: ~
+    contents:
+      - getting-started
+      - audit-permissions
+  - title: Go further
+    contents:
+      - building-crates
+      - auditing-studies
+  - title: Set up a test server
+    contents:
+      - deploy-local-datashield-server-with-opal

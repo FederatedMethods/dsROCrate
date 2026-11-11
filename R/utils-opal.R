@@ -101,27 +101,33 @@ add_lineage_relations <- function(rocrate, lineage_df, id_lookup) {
 build_asset_entities <- function(assets_tbl, project_id, asset_id_suffix) {
   purrr::pmap(
     assets_tbl,
-    function(
-      asset_type,
-      project,
-      name,
-      description,
-      created,
-      updated,
-      url,
-      meta
-    ) {
-      rocrateR::entity(
-        id = id_hash(asset_id_suffix, paste0(project, name)),
-        type = map_asset_type(asset_type, meta, url),
-        name = name,
-        description = safe_desc(description, name, asset_type),
-        url = url,
-        dateCreated = safe_time(created),
-        dateModified = safe_time(updated),
-        isPartOf = list(`@id` = project_id)
-      )
-    }
+    .build_asset_entities,
+    project_id = project_id,
+    asset_id_suffix = asset_id_suffix
+  )
+}
+
+.build_asset_entities <- function(
+  asset_type,
+  project,
+  name,
+  description,
+  created,
+  updated,
+  url,
+  meta,
+  project_id,
+  asset_id_suffix
+) {
+  rocrateR::entity(
+    id = id_hash(asset_id_suffix, paste0(project, name)),
+    type = map_asset_type(asset_type, meta, url),
+    name = name,
+    description = safe_desc(description, name, asset_type),
+    url = url,
+    dateCreated = safe_time(created),
+    dateModified = safe_time(updated),
+    isPartOf = list(`@id` = project_id)
   )
 }
 
@@ -156,14 +162,24 @@ get_asset_permissions <- function(x, project, asset_type, name) {
 #' @param x Connection to DataSHIELD server (e.g., OBiBa's Opal server).
 #' @param project String with project name.
 #' @param type Type of assets to extract, either `tables` or `resources`.
+#' @param check Boolean flag to indicate if the existence of `project` should be
+#'     verified (default: `TRUE`). Set to `FALSE` when the caller has already
+#'     verified it, to avoid repeating the request.
 #'
 #' @returns Tibble with project assets details.
 #' @noRd
-get_project_assets <- function(x, project, type = c("tables", "resources")) {
+get_project_assets <- function(
+  x,
+  project,
+  type = c("tables", "resources"),
+  check = TRUE
+) {
   type <- match.arg(type)
 
   # verify if project exists
-  project_exists(x, project = project)
+  if (check) {
+    project_exists(x, project = project)
+  }
 
   if (type == "tables") {
     prj <- backend_tables(x, project, df = FALSE)
@@ -175,15 +191,15 @@ get_project_assets <- function(x, project, type = c("tables", "resources")) {
     tibble::tibble(
       asset_type = "table",
       project = project,
-      name = vapply(prj, \(x) x$name %||% "", ""),
-      description = vapply(prj, \(x) x$description %||% "", ""),
+      name = vapply(prj, \(x) x$name %||% "", character(1)),
+      description = vapply(prj, \(x) x$description %||% "", character(1)),
       created = vapply(prj, \(x) safe_time(x$timestamps$created), character(1)),
       updated = vapply(
         prj,
         \(x) safe_time(x$timestamps$lastUpdate),
         character(1)
       ),
-      url = vapply(prj, \(x) x$link %||% NA_character_, ""),
+      url = vapply(prj, \(x) x$link %||% NA_character_, character(1)),
       meta = vector("list", length(prj))
     )
   } else if (type == "resources") {
@@ -196,11 +212,15 @@ get_project_assets <- function(x, project, type = c("tables", "resources")) {
     tibble::tibble(
       asset_type = "resource",
       project = project,
-      name = vapply(res, \(x) x$name %||% "", ""),
-      description = vapply(res, \(x) x$description %||% "", ""),
+      name = vapply(res, \(x) x$name %||% "", character(1)),
+      description = vapply(res, \(x) x$description %||% "", character(1)),
       created = vapply(res, \(x) safe_time(x$created), character(1)),
       updated = vapply(res, \(x) safe_time(x$updated), character(1)),
-      url = vapply(res, function(x) x$resource$url %||% NA_character_, ""),
+      url = vapply(
+        res,
+        function(x) x$resource$url %||% NA_character_,
+        character(1)
+      ),
       meta = parse_resource_params(
         vapply(res, `[[`, "", "parameters")
       )
@@ -344,17 +364,22 @@ parse_resource_params <- function(params_json) {
 }
 
 safe_desc <- function(desc, name, type) {
-  desc %||% paste(type, name)
+  if (is.null(desc) || is.na(desc) || !nzchar(desc)) {
+    paste(type, name)
+  } else {
+    desc
+  }
 }
 
 safe_time <- function(x) {
-  if (is.null(x) || is.na(x)) {
+  if (is.null(x) || length(x) != 1 || is.na(x)) {
     return(character(1))
   }
-  tryCatch(
-    format_utc(as.POSIXct(x)),
-    error = function(e) character(1)
+  out <- tryCatch(
+    format_utc(parse_utc(x)),
+    error = function(e) NA_character_
   )
+  if (is.na(out)) character(1) else out
 }
 
 #' @noRd
@@ -412,7 +437,10 @@ user_perm_entity <- function(
   if (permission == "view") {
     comb_id <- paste0(comb_id, "-dict-summary-read")
     type <- "ReadAction"
-    description <- "User may view table dictionary and summary statistics only; access to individual values is restricted."
+    description <- paste(
+      "User may view table dictionary and summary",
+      "statistics only; access to individual values is restricted."
+    )
   } else if (permission == "view-values") {
     comb_id <- paste0(comb_id, "-read-all")
     type <- "ReadAction"
@@ -422,7 +450,10 @@ user_perm_entity <- function(
     type <- c("WriteAction", "ReadAction")
     description <- c(
       "User may edit the table dictionary but cannot view individual values.",
-      "User may view summary statistics only; access to individual values is restricted."
+      paste(
+        "User may view summary statistics only; access to individual",
+        "values is restricted."
+      )
     )
   } else if (permission == "edit-values") {
     comb_id <- paste0(comb_id, c("-write-dict", "-read-all"))
@@ -434,7 +465,10 @@ user_perm_entity <- function(
   } else if (permission == "administrate") {
     comb_id <- paste0(comb_id, "-admin-table")
     type <- "ControlAction"
-    description <- "User has full administrative rights: view/edit dictionary and view/edit individual values."
+    description <- paste(
+      "User has full administrative rights: view/edit",
+      "dictionary and view/edit individual values."
+    )
   } else {
     return(NULL)
   }
@@ -449,11 +483,5 @@ user_perm_entity <- function(
     description = description
   )
 
-  # seq_len(nrow(permission_entities_tbl)) |>
-  #   lapply(function(i) {
-  #     rocrateR::entity(permission_entities_tbl$`id`[i],
-  #                      type = permission_entities_tbl$type[i])
-  #   })
   purrr::pmap(permission_entities_tbl, rocrateR::entity)
-  # rocrateR::entity(as.list(permission_entities_tbl))
 }

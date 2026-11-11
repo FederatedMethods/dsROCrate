@@ -1,7 +1,7 @@
 #' Extract Safe Setting entity(ies)
 #'
 #' @inheritParams safe_data
-#' @param rocrate (Optional) RO-Crate object to update with Safe Setting details.
+#' @param rocrate (Optional) RO-Crate to be updated with Safe Setting details.
 #' @param id (Optional) Vector with `@id` strings for Safe Setting entity(ies).
 #'
 #' @returns RO-Crate with Safe Setting entity(ies).
@@ -9,19 +9,6 @@
 #' @noRd
 extract_safe_setting <- function(x, ...) {
   UseMethod("extract_safe_setting")
-}
-
-#' @export
-extract_safe_setting.opal <- function(
-  x,
-  ...,
-  rocrate = rocrateR::rocrate_5s()
-) {
-  # extract all the Safe Settings for the current Opal connection
-  rocrate <- safe_setting(x, rocrate = rocrate)
-
-  # return RO-Crate with Safe Setting details
-  return(rocrate)
 }
 
 #' @export
@@ -47,11 +34,7 @@ extract_safe_setting.rocrate <- function(
     purrr::map("hasPart") |>
     purrr::list_c() |>
     purrr::map(`[[`, "@id") |>
-    # purrr::map(~ purrr::map(.x, "@id")) |>
     purrr::list_c()
-  # ss_root_ids <- ss_root[[1]]$hasPart |>
-  #   purrr::map(`[[`, "@id") |>
-  #   purrr::list_c()
 
   # extract sub-entities linked to entities directly linked to the root entity
   if (length(part_ids) == 0) {
@@ -117,7 +100,7 @@ flatten_safe_setting <- function(x, ...) {
 
 #' @export
 flatten_safe_setting.default <- function(x, ...) {
-  return(tibble::tibble())
+  tibble::tibble()
 }
 
 #' @export

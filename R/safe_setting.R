@@ -27,7 +27,7 @@
 #' @source
 #' \itemize{
 #'  \item Research Data Scotland, 2025. "What is the Five Safes framework?".
-#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/>
+#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/>
 #' }
 safe_setting <- function(x, ...) {
   UseMethod("safe_setting")
@@ -36,19 +36,13 @@ safe_setting <- function(x, ...) {
 # @rdname safe_setting
 #' @export
 safe_setting.default <- function(x, ...) {
-  stop(
-    "Unknown class, please try either a file path or",
-    " an object with `rocrate` class!"
-  )
+  s3_method_not_available("safe_setting", class = class(x))
 }
 
 #' @rdname safe_setting
 #' @export
 safe_setting.ArmadilloCredentials <- function(x, ...) {
-  stop(
-    "`safe_setting()` for the Armadillo backend is not currently implemented!",
-    call. = FALSE
-  )
+  s3_method_not_implemented("safe_setting", backend = "Armadillo")
 }
 
 #' @rdname safe_setting
@@ -56,13 +50,13 @@ safe_setting.ArmadilloCredentials <- function(x, ...) {
 safe_setting.character <- function(
   x,
   ...,
-  connection = attr(x, "connection"),
-  path = attr(x, "path"),
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
-  tables = attr(x, "tables"),
-  resources = attr(x, "resources"),
-  user = attr(x, "user")
+  connection = NULL,
+  path = NULL,
+  profile = "default",
+  project = NULL,
+  resources = NULL,
+  tables = NULL,
+  user = NULL
 ) {
   # attempt loading the RO-Crate
   rocrate <- rocrateR::load_rocrate(x)
@@ -159,7 +153,7 @@ safe_setting.opal <- function(
   Package <- NULL
 
   # validate backend
-  validate_backend(x, ...)
+  validate_backend(x, ..., rocrate = rocrate)
 
   # validate profile ----
   if (!backend_profile_exists(x, profile)) {
@@ -237,7 +231,7 @@ safe_setting.opal <- function(
   )
 
   # extract version of dsBase / DataSHIELD server
-  dsBase_version <- tryCatch(
+  ds_version <- tryCatch(
     pkg_tbl |>
       dplyr::filter(Package == "dsBase") |>
       (\(x) x$Version)(),
@@ -245,7 +239,7 @@ safe_setting.opal <- function(
   )
 
   software_env <- rocrateR::entity(
-    id = id_hash("#env:software_stack:", paste0(opal_version, dsBase_version)),
+    id = id_hash("#env:software_stack:", paste0(opal_version, ds_version)),
     type = "CreativeWork",
     name = "Approved Analytical Software Environment",
     description = paste(
@@ -342,17 +336,18 @@ safe_setting.opal <- function(
   # link Safe Settings with safe Projects
   rocrate <- link_safe_settings_to_projects(rocrate)
 
-  # attach input arguments as attributes
-  attr(rocrate, "connection") <- x
-  attr(rocrate, "path") <- path
-  attr(rocrate, "profile") <- profile
-  attr(rocrate, "project") <- project
-  attr(rocrate, "resources") <- resources
-  attr(rocrate, "tables") <- tables
-  attr(rocrate, "user") <- user
-
-  # return RO-Crate with the new entity
-  return(rocrate)
+  # attach input arguments as attributes and return RO-Crate
+  rocrate |>
+    set_crate_context(
+      connection = x,
+      path = path,
+      profile = profile,
+      project = project,
+      resources = resources,
+      tables = tables,
+      user = user,
+      validated = TRUE
+    )
 }
 
 #' @rdname safe_setting
@@ -360,13 +355,13 @@ safe_setting.opal <- function(
 safe_setting.rocrate <- function(
   x,
   ...,
-  connection = attr(x, "connection"),
-  path = attr(x, "path"),
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
-  resources = attr(x, "resources"),
-  tables = attr(x, "tables"),
-  user = attr(x, "user")
+  connection = get_crate_context(x, "connection"),
+  path = get_crate_context(x, "path"),
+  profile = get_crate_context(x, "profile"),
+  project = get_crate_context(x, "project"),
+  resources = get_crate_context(x, "resources"),
+  tables = get_crate_context(x, "tables"),
+  user = get_crate_context(x, "user")
 ) {
   # check if the connection was given
   if (is.null(connection)) {

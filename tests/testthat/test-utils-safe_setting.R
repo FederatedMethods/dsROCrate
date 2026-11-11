@@ -42,7 +42,7 @@ test_that("flatten_safe_setting.default returns empty tibble", {
 })
 
 # -------------------------------------------------------------------------
-# extract_safe_setting.rocrate()
+# extract_safe_setting.rocrate
 # -------------------------------------------------------------------------
 test_that("extract_safe_setting.rocrate errors when no matching entities", {
   rocrate <- rocrateR::rocrate_5s()
@@ -56,7 +56,7 @@ test_that("extract_safe_setting.rocrate errors when no matching entities", {
   )
 })
 
-test_that("extract_safe_setting.rocrate extracts PropertyValue and SoftwareApplication", {
+test_that("extract_safe_setting.rocrate extracts target entities", {
   # create an RO-Crate with setting entities
   software_ent <- rocrateR::entity(
     id = "#software-1",
@@ -220,7 +220,7 @@ test_that("extract_safe_setting.rocrate validates rocrate input", {
 })
 
 # -------------------------------------------------------------------------
-# flatten_safe_setting.rocrate()
+# flatten_safe_setting.rocrate
 # -------------------------------------------------------------------------
 test_that("flatten_safe_setting.rocrate returns tibble with correct columns", {
   # create an RO-Crate with setting entities
@@ -338,47 +338,4 @@ test_that("flatten_safe_setting.rocrate returns empty tibble on error", {
 
   expect_s3_class(out, "tbl_df")
   expect_equal(nrow(out), 0)
-})
-
-# -------------------------------------------------------------------------
-# extract_safe_setting.opal() (unit + integration strategy)
-# -------------------------------------------------------------------------
-test_that("extract_safe_setting.opal calls safe_setting and returns rocrate", {
-  # dummy opal-like object (S3 dispatch target)
-  opal_con <- structure(list(), class = "opal")
-
-  # mock safe_setting to avoid real server dependency
-  mock_safe_setting <- function(x, rocrate) {
-    setting <- rocrateR::entity(
-      id = "#mock-setting",
-      type = "PropertyValue",
-      name = "mock.option",
-      value = "TRUE"
-    )
-    rocrateR::add_entity(rocrate, setting)
-  }
-
-  with_mocked_bindings(
-    safe_setting = mock_safe_setting,
-    {
-      out <- extract_safe_setting.opal(opal_con)
-    }
-  )
-
-  expect_s3_class(out, "rocrate")
-
-  pv <- .get_entity(out, type = "PropertyValue")
-  expect_true(length(pv) >= 1)
-})
-
-# -------------------------------------------------------------------------
-# optional TRUE Opal demo integration (matches your demo server workflow)
-# -------------------------------------------------------------------------
-test_that("extract_safe_setting.opal works with Opal demo server (if available)", {
-  con <- try(opal_demo_con(), silent = TRUE)
-  skip_if(inherits(con, "try-error"), "Opal demo server not available")
-
-  rocrate <- extract_safe_setting(con)
-
-  expect_s3_class(rocrate, "rocrate")
 })

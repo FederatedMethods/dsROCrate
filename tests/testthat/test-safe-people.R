@@ -1,7 +1,7 @@
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
 # - - - - - - - - - - - - - - - - - ERRORS - - - - - - - - - - - - - - - - - #
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -#
-test_that("safe_people fails when attempt calling function with invalid class", {
+test_that("safe_people fails when calling function with invalid class", {
   expect_error(
     dsROCrate::safe_people(structure(list(), class = "InvalidClass"))
   )

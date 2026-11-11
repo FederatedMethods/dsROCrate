@@ -11,8 +11,8 @@
 #' identified, such as names and addresses, is either removed or replaced with
 #' a random code. Researchers are not processing personal data when using data
 #' prepared in this way and when the other Safes are in place. Find out more
-#' about de-identification:
-#' <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-data-de-identification/>
+#' about de-identification, 'What is data de-identification?':
+#' <https://www.researchdata.scot/engage-and-learn/data-explainers/>
 #'
 #' @param x This can be a connection to a 'DataSHIELD' server (e.g., object with
 #'     the `opal` or `ArmadilloCredentials` classes), an RO-Crate
@@ -32,7 +32,7 @@
 #' @source
 #' \itemize{
 #'  \item Research Data Scotland, 2025. "What is the Five Safes framework?".
-#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/>
+#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/>
 #' }
 safe_data <- function(x, ...) {
   UseMethod("safe_data")
@@ -41,19 +41,13 @@ safe_data <- function(x, ...) {
 # @rdname safe_data
 #' @export
 safe_data.default <- function(x, ...) {
-  stop(
-    "Unknown class, please try either a file path or",
-    " an object with `rocrate` class!"
-  )
+  s3_method_not_available("safe_data", class = class(x))
 }
 
 #' @rdname safe_data
 #' @export
 safe_data.ArmadilloCredentials <- function(x, ...) {
-  stop(
-    "`safe_data()` for the Armadillo backend is not currently implemented!",
-    call. = FALSE
-  )
+  s3_method_not_implemented("safe_data", backend = "Armadillo")
 }
 
 #' @rdname safe_data
@@ -61,15 +55,15 @@ safe_data.ArmadilloCredentials <- function(x, ...) {
 safe_data.character <- function(
   x,
   ...,
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
-  resources = attr(x, "resources"),
-  tables = attr(x, "tables"),
   asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
-  connection = attr(x, "connection"),
-  path = attr(x, "path"),
-  user = attr(x, "user")
+  connection = NULL,
+  path = NULL,
+  profile = "default",
+  project = NULL,
+  resources = NULL,
+  tables = NULL,
+  user = NULL
 ) {
   # attempt loading the RO-Crate
   rocrate <- rocrateR::load_rocrate(x)
@@ -105,11 +99,11 @@ safe_data.opal <- function(
   path = NULL,
   user = NULL
 ) {
-  # declare local bindings
-  created <- lastUpdate <- name <- new_dataset_entity <- subject <- NULL
+  # local bindings
+  name <- NULL
 
   # validate backend
-  validate_backend(x, ...)
+  validate_backend(x, ..., rocrate = rocrate)
 
   # match the assets to be included
   include <- match.arg(include, several.ok = TRUE)
@@ -121,6 +115,12 @@ safe_data.opal <- function(
     stop("`project` must be a single value!", call. = FALSE)
   }
 
+  # get the context for `project`, to share requests with the other safe_*()
+  context <- get_project_context(x, project, rocrate)
+
+  # check if the given `project` exists
+  project_context_exists(context)
+
   project_id <- id_hash(project_id_suffix, project)
 
   # extract assets for the given project
@@ -128,7 +128,7 @@ safe_data.opal <- function(
 
   # ---- tables ----
   if ("tables" %in% include) {
-    tbl_assets <- get_project_assets(x, project, "tables")
+    tbl_assets <- project_context_assets(context, "tables")
     if (!is.null(tbl_assets)) {
       if (!is.null(tables)) {
         tbl_assets <- dplyr::filter(tbl_assets, name %in% tables)
@@ -139,7 +139,7 @@ safe_data.opal <- function(
 
   # ---- resources ----
   if ("resources" %in% include) {
-    res_assets <- get_project_assets(x, project, "resources")
+    res_assets <- project_context_assets(context, "resources")
     if (!is.null(res_assets)) {
       if (!is.null(resources)) {
         res_assets <- dplyr::filter(res_assets, name %in% resources)
@@ -203,17 +203,19 @@ safe_data.opal <- function(
     overwrite = TRUE
   )
 
-  # attach input arguments as attributes
-  attr(rocrate, "connection") <- x
-  attr(rocrate, "path") <- path
-  attr(rocrate, "profile") <- profile
-  attr(rocrate, "project") <- project
-  attr(rocrate, "resources") <- resources
-  attr(rocrate, "tables") <- tables
-  attr(rocrate, "user") <- user
-
-  # return RO-Crate with the new entity
-  return(rocrate)
+  # attach input arguments as attributes and return RO-Crate
+  rocrate |>
+    set_project_context(context) |>
+    set_crate_context(
+      connection = x,
+      path = path,
+      profile = profile,
+      project = project,
+      resources = resources,
+      tables = tables,
+      user = user,
+      validated = TRUE
+    )
 }
 
 #' @rdname safe_data
@@ -221,15 +223,15 @@ safe_data.opal <- function(
 safe_data.rocrate <- function(
   x,
   ...,
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
-  resources = attr(x, "resources"),
-  tables = attr(x, "tables"),
   asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
-  connection = attr(x, "connection"),
-  path = attr(x, "path"),
-  user = attr(x, "user")
+  connection = get_crate_context(x, "connection"),
+  path = get_crate_context(x, "path"),
+  profile = get_crate_context(x, "profile"),
+  project = get_crate_context(x, "project"),
+  resources = get_crate_context(x, "resources"),
+  tables = get_crate_context(x, "tables"),
+  user = get_crate_context(x, "user")
 ) {
   # check if the connection was given
   if (is.null(connection)) {

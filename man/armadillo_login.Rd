@@ -18,6 +18,6 @@ Login to a MOLGENIS' Armadillo server. Wrapper for the function
 }
 \examples{
 \dontrun{
-  armadillo_login("https://armadillo-playground.molgenis.net/")
+armadillo_login("https://armadillo-playground.molgenis.net/")
 }
 }

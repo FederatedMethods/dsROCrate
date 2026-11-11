@@ -13,26 +13,6 @@ extract_safe_people <- function(x, ...) {
 }
 
 #' @export
-extract_safe_people.opal <- function(x, ..., rocrate = rocrateR::rocrate_5s()) {
-  # extract non-admin and non-auditor users
-  opal_users <- filter_safe_people(x)
-
-  # cycle through the data source (x) and extract project details
-  for (i in seq_len(nrow(opal_users))) {
-    username <- opal_users[i, "name"]
-    if (!is.na(username) && !is.null(username)) {
-      suppressWarnings({
-        rocrate <- rocrate |>
-          safe_people(user = username, connection = x, set_author = FALSE)
-      })
-    }
-  }
-
-  # return RO-Crate with Safe Project details
-  return(rocrate)
-}
-
-#' @export
 extract_safe_people.rocrate <- function(
   x,
   ...,
@@ -77,18 +57,10 @@ extract_safe_people.rocrate <- function(
     )
   }
 
-  # add entities to the RO-Crate
-  rocrate <- rocrate |>
-    rocrateR::add_entity(entities_lst_v2, overwrite = TRUE, verbose = FALSE)
-  # # link new user entity @id to the root (./) author property
-  # rocrateR::add_entity_value(
-  #   id = "./",
-  #   key = "author",
-  #   value = list(`@id` = getElement(entities_lst_v2, "@id"))
-  # )
-
+  # add entities to the RO-Crate &
   # return RO-Crate with the Safe People details
-  return(rocrate)
+  rocrate |>
+    rocrateR::add_entity(entities_lst_v2, overwrite = TRUE, verbose = FALSE)
 }
 
 #' Filter Safe People (excluding admin/auditor accounts)
@@ -168,7 +140,7 @@ flatten_safe_people <- function(x, ...) {
 
 #' @export
 flatten_safe_people.default <- function(x, ...) {
-  return(tibble::tibble())
+  tibble::tibble()
 }
 
 #' @export

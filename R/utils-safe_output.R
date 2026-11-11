@@ -36,13 +36,11 @@ calls_to_tbl <- function(calls, registry) {
       fx = paste0(x$package, x$namespace, x$fx),
       args = list(x$args),
       symbol = NA_character_,
-      table = x$args |>
-        purrr::map(function(x) {
-          if (!inherits(x, "safe_reference")) {
-            return(NA_character_)
-          }
-          resolve_symbol_asset(x$symbol_id, registry)
-        }),
+      table = list(
+        x$args |>
+          purrr::keep(\(arg) inherits(arg, "safe_reference")) |>
+          purrr::map_chr(\(arg) resolve_symbol_asset(arg$symbol_id, registry))
+      ),
       session = x$session,
       profile = x$profile
     )
@@ -63,30 +61,6 @@ calls_to_tbl <- function(calls, registry) {
 #' @noRd
 extract_safe_output <- function(x, ...) {
   UseMethod("extract_safe_output")
-}
-
-#' @export
-extract_safe_output.opal <- function(
-  x,
-  ...,
-  path = NULL,
-  user = NULL,
-  logs_to = Sys.time(),
-  logs_from = logs_to - 24 * 60^2,
-  rocrate = rocrateR::rocrate_5s()
-) {
-  # extract all the Safe Outputs for the current Opal connection
-  rocrate <- safe_output(
-    x,
-    path = path,
-    user = user,
-    logs_to = logs_to,
-    logs_from = logs_from,
-    rocrate = rocrate
-  )
-
-  # return RO-Crate with Safe Output details
-  return(rocrate)
 }
 
 #' @export
@@ -129,14 +103,12 @@ extract_safe_output.rocrate <- function(
     )
   }
 
-  # add entities to the RO-Crate
+  # add entities to the RO-Crate &
+  # return RO-Crate with the Safe Output details
   suppressWarnings({
-    rocrate <- rocrate |>
+    rocrate |>
       rocrateR::add_entity(entities_lst, verbose = FALSE)
   })
-
-  # return RO-Crate with the Safe Output details
-  return(rocrate)
 }
 
 #' Flatten object with Safe Output details
@@ -155,7 +127,7 @@ flatten_safe_output <- function(x, ...) {
 
 #' @export
 flatten_safe_output.default <- function(x, ...) {
-  return(tibble::tibble())
+  tibble::tibble()
 }
 
 #' @export
@@ -164,7 +136,7 @@ flatten_safe_output.rocrate <- function(x, ..., id = NULL) {
     {
       # extract entities
       entities_tbl <- .get_entity(x, type = "File") |>
-        # extract @id, name, description, encodingFormat  and content for each entity
+        # extract @id, name, description, encodingFormat & content for each ent.
         lapply(function(ent) {
           tibble::tibble(
             id = getElement(ent, "@id"),

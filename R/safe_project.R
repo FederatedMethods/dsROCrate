@@ -18,7 +18,7 @@
 #' @source
 #' \itemize{
 #'  \item Research Data Scotland, 2025. "What is the Five Safes framework?".
-#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/what-is-the-five-safes-framework/>
+#'  <https://www.researchdata.scot/engage-and-learn/data-explainers/>
 #' }
 safe_project <- function(x, ...) {
   UseMethod("safe_project")
@@ -27,10 +27,7 @@ safe_project <- function(x, ...) {
 # @rdname safe_project
 #' @export
 safe_project.default <- function(x, ...) {
-  stop(
-    "Unknown class, please try either a file path or",
-    " an object with `rocrate` class!"
-  )
+  s3_method_not_available("safe_project", class = class(x))
 }
 
 #' @rdname safe_project
@@ -48,6 +45,8 @@ safe_project.ArmadilloCredentials <- function(
   tables = NULL,
   user = NULL
 ) {
+  .require_armadillo("MolgenisArmadillo")
+
   # check if the given `project` exists
   project_exists(x, project = project)
 
@@ -63,15 +62,15 @@ safe_project.ArmadilloCredentials <- function(
 safe_project.character <- function(
   x,
   ...,
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
   asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
-  connection = attr(x, "connection"),
-  path = attr(x, "path"),
-  resources = attr(x, "resources"),
-  tables = attr(x, "tables"),
-  user = attr(x, "user")
+  connection = NULL,
+  path = NULL,
+  profile = "default",
+  project = NULL,
+  resources = NULL,
+  tables = NULL,
+  user = NULL
 ) {
   # attempt loading the RO-Crate
   rocrate <- rocrateR::load_rocrate(x)
@@ -107,10 +106,10 @@ safe_project.opal <- function(
   user = NULL
 ) {
   # declare local bindings
-  created <- lastUpdate <- type <- NULL
+  type <- NULL
 
   # validate backend
-  validate_backend(x, ...)
+  validate_backend(x, ..., rocrate = rocrate)
 
   # enforce that `project` is a single value
   if (is.null(project)) {
@@ -119,8 +118,11 @@ safe_project.opal <- function(
     stop("`project` must be a single value!", call. = FALSE)
   }
 
+  # get the context for `project`, to share requests with the other safe_*()
+  context <- get_project_context(x, project, rocrate)
+
   # check if the given `project` exists
-  project_exists(x, project = project)
+  project_context_exists(context)
 
   # create project @id
   project_id <- id_hash(project_id_suffix, project)
@@ -180,8 +182,8 @@ safe_project.opal <- function(
 
   # link existing asset entities ----
   # extract assets for the given project
-  project_tbl_assets <- get_project_assets(x, project, "tables")
-  project_res_assets <- get_project_assets(x, project, "resources")
+  project_tbl_assets <- project_context_assets(context, "tables")
+  project_res_assets <- project_context_assets(context, "resources")
   # combine assets
   proj_assets_tbl <- dplyr::bind_rows(project_tbl_assets, project_res_assets)
 
@@ -200,17 +202,19 @@ safe_project.opal <- function(
     }
   }
 
-  # attach input arguments as attributes
-  attr(rocrate, "connection") <- x
-  attr(rocrate, "path") <- path
-  attr(rocrate, "profile") <- profile
-  attr(rocrate, "project") <- project
-  attr(rocrate, "resources") <- resources
-  attr(rocrate, "tables") <- tables
-  attr(rocrate, "user") <- user
-
-  # return RO-Crate with the new entity
-  return(rocrate)
+  # attach input arguments as attributes and return RO-Crate
+  rocrate |>
+    set_project_context(context) |>
+    set_crate_context(
+      connection = x,
+      path = path,
+      profile = profile,
+      project = project,
+      resources = resources,
+      tables = tables,
+      user = user,
+      validated = TRUE
+    )
 }
 
 #' @rdname safe_project
@@ -218,15 +222,15 @@ safe_project.opal <- function(
 safe_project.rocrate <- function(
   x,
   ...,
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
   asset_id_suffix = "#asset:",
   project_id_suffix = "#project:",
-  connection = attr(x, "connection"),
-  path = attr(x, "path"),
-  resources = attr(x, "resources"),
-  tables = attr(x, "tables"),
-  user = attr(x, "user")
+  connection = get_crate_context(x, "connection"),
+  path = get_crate_context(x, "path"),
+  profile = get_crate_context(x, "profile"),
+  project = get_crate_context(x, "project"),
+  resources = get_crate_context(x, "resources"),
+  tables = get_crate_context(x, "tables"),
+  user = get_crate_context(x, "user")
 ) {
   # check if the connection was given
   if (is.null(connection)) {

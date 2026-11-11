@@ -1,8 +1,5 @@
 test_that("report.default errors", {
-  expect_error(
-    report(123),
-    "Unknown class"
-  )
+  expect_error(report(123))
 })
 
 test_that("report.character errors for invalid path", {
@@ -292,7 +289,7 @@ test_that("report works end-to-end with real dsROCrate audit outputs", {
 
   out_file <- file.path(tmp_dir, "report.md")
 
-  # ignore warnings about missing permission entities (e.g., @type = 'ControlAction')
+  # ignore warnings about missing permission entities
   suppressWarnings(
     result <- report(
       roc,
@@ -338,7 +335,7 @@ test_that("report.character loads crate from disk", {
 
   out_file <- file.path(tmp_dir, "report.md")
 
-  # ignore warnings about missing permission entities (e.g., @type = 'ControlAction')
+  # ignore warnings about missing permission entities
   suppressWarnings(
     result <- report(
       path_to_rocrate_bag,
@@ -377,7 +374,7 @@ test_that("report.list aggregates outputs from a study audit", {
 
   out_file <- file.path(tmp_dir, "report.md")
 
-  # ignore warnings about missing permission entities (e.g., @type = 'ControlAction')
+  # ignore warnings about missing permission entities
   suppressWarnings(
     result <- report(
       roc,

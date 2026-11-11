@@ -43,10 +43,7 @@ init <- function(x, ...) {
 #' @rdname init
 #' @export
 init.ArmadilloCredentials <- function(x, ...) {
-  stop(
-    "`init()` for the Armadillo backend is not currently implemented!",
-    call. = FALSE
-  )
+  s3_method_not_implemented("init", backend = "Armadillo")
 }
 
 #' @rdname init
@@ -63,18 +60,23 @@ init.opal <- function(
   user = NULL
 ) {
   # validate backend
-  validate_backend(x, ...)
+  validate_backend(x, ..., rocrate = rocrate)
 
-  # attach input arguments as attributes
-  attr(rocrate, "connection") <- x
-  attr(rocrate, "path") <- path
-  attr(rocrate, "profile") <- profile
-  attr(rocrate, "project") <- project
-  attr(rocrate, "resources") <- resources
-  attr(rocrate, "tables") <- tables
-  attr(rocrate, "user") <- user
+  # attach input arguments as attributes (and discard any shared requests)
+  rocrate <- rocrate |>
+    reset_project_context() |>
+    set_crate_context(
+      connection = x,
+      path = path,
+      profile = profile,
+      project = project,
+      resources = resources,
+      tables = tables,
+      user = user,
+      validated = TRUE
+    )
 
-  return(rocrate)
+  rocrate
 }
 
 #' @rdname init
@@ -82,13 +84,13 @@ init.opal <- function(
 init.rocrate <- function(
   x,
   ...,
-  connection = attr(x, "connection"),
-  path = attr(x, "path"),
-  profile = attr(x, "profile"),
-  project = attr(x, "project"),
-  resources = attr(x, "resources"),
-  tables = attr(x, "tables"),
-  user = attr(x, "user")
+  connection = get_crate_context(x, "connection"),
+  path = get_crate_context(x, "path"),
+  profile = get_crate_context(x, "profile"),
+  project = get_crate_context(x, "project"),
+  resources = get_crate_context(x, "resources"),
+  tables = get_crate_context(x, "tables"),
+  user = get_crate_context(x, "user")
 ) {
   init(
     connection,
